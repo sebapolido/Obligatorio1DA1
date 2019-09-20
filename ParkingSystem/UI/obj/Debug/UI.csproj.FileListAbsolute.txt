@@ -1,0 +1,17 @@
+C:\Users\Bettina\source\repos\ParkingSystem\UI\bin\Debug\UI.exe.config
+C:\Users\Bettina\source\repos\ParkingSystem\UI\bin\Debug\UI.exe
+C:\Users\Bettina\source\repos\ParkingSystem\UI\bin\Debug\UI.pdb
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.csprojAssemblyReference.cache
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.AccountRegister.resources
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.AddBalance.resources
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.CheckPurchase.resources
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.ProcessPurchase.resources
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.Properties.Resources.resources
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.csproj.GenerateResource.cache
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.exe
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.pdb
+C:\Users\Bettina\source\repos\ParkingSystem\UI\bin\Debug\ParkingSystem.dll
+C:\Users\Bettina\source\repos\ParkingSystem\UI\bin\Debug\ParkingSystem.pdb
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.csproj.CopyComplete
+C:\Users\Bettina\source\repos\ParkingSystem\UI\obj\Debug\UI.PrincipalForm.resources
