@@ -423,6 +423,18 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void ValidateFormatOfEnrollmentLettersInNumbersAndNumbersInLettersWhitoutSpace()
+        {
+            Assert.AreEqual(false, system.ValidateFormatOfEnrollment("323FGKR"));
+        }
+
+        [TestMethod]
+        public void ValidateFormatOfEnrollmentLettersInNumbersAndNumbersInLettersWhitSpace()
+        {
+            Assert.AreEqual(false, system.ValidateFormatOfEnrollment("323 FGKR"));
+        }
+
+        [TestMethod]
         public void ValidateFormatOfEnrollmentLessLettersWithoutSpace()
         {
             Assert.AreEqual(false, system.ValidateFormatOfEnrollment("GJ2342"));
@@ -505,5 +517,106 @@ namespace UnitTestProject1
         {
             Assert.AreEqual(true, system.ValidateFormatOfEnrollment("GJG 3422"));
         }
+
+        [TestMethod]
+        public void ValidateRepeatEnrollmentEmpty()
+        {
+            Enrollment enrollment = new Enrollment("SBN", 4849);
+            system.AddEnrollment(enrollment);
+            Assert.AreEqual(false, system.ValidateRepeatEnrollment("", 0));
+            system.GetEnrollments().Clear();
+        }
+
+        [TestMethod]
+        public void ValidateRepeatEnrollmentEmptyList()
+        {
+            Assert.AreEqual(false, system.ValidateRepeatEnrollment("SBN", 4230));
+        }
+
+        [TestMethod]
+        public void ValidateRepeatEnrollmentNumbers()
+        {
+            Enrollment enrollment = new Enrollment("SBN", 4849);
+            system.AddEnrollment(enrollment);
+            Assert.AreEqual(false, system.ValidateRepeatEnrollment("SBM", 4849));
+            system.GetEnrollments().Clear();
+        }
+
+        [TestMethod]
+        public void ValidateRepeatEnrollmentLetters()
+        {
+            Enrollment enrollment = new Enrollment("SBN" , 4849);
+            system.AddEnrollment(enrollment);
+            Assert.AreEqual(false, system.ValidateRepeatEnrollment("SBN", 4848));
+            system.GetEnrollments().Clear();
+        }
+
+        [TestMethod]
+        public void ValidateRepeatEnrollmentNotRepeated()
+        {
+            Enrollment enrollment = new Enrollment("SBN", 4849);
+            system.AddEnrollment(enrollment);
+            Assert.AreEqual(false, system.ValidateRepeatEnrollment("SBM", 4848));
+            system.GetEnrollments().Clear();
+        }
+
+        [TestMethod]
+        public void ValidateRepeatEnrollmentRepeated()
+        {
+            Enrollment enrollment = new Enrollment("SBN", 4849);
+            system.AddEnrollment(enrollment);
+            Assert.AreEqual(true, system.ValidateRepeatEnrollment("SBN", 4849));
+            system.GetEnrollments().Clear();
+        }
+
+        [TestMethod]
+        public void ValidateHourEmpty()
+        {
+            DateTime date = new DateTime();
+            Assert.AreEqual(false, system.ValidateValidHour(date));
+        }
+
+        [TestMethod]
+        public void ValidateHourLessThanTen()
+        {
+            DateTime date = new DateTime();
+            date.AddHours(9);
+            Assert.AreEqual(false, system.ValidateValidHour(date));
+        }
+
+        [TestMethod]
+        public void ValidateHourMoreThanSixteen()
+        {
+            DateTime date = new DateTime();
+            date.AddHours(21);
+            Assert.AreEqual(false, system.ValidateValidHour(date));
+        }
+
+        [TestMethod]
+        public void ValidateHourTen()
+        {
+            DateTime date = new DateTime();
+            date.AddHours(10);
+            Assert.AreEqual(true, system.ValidateValidHour(date));
+        }
+
+        [TestMethod]
+        public void ValidateHourSixteen()
+        {
+            DateTime date = new DateTime();
+            date.AddHours(18);
+            Assert.AreEqual(false, system.ValidateValidHour(date));
+        }
+
+        [TestMethod]
+        public void ValidateHourInTheMiddle()
+        {
+            DateTime date = new DateTime();
+            date.AddHours(14);
+            Assert.AreEqual(true, system.ValidateValidHour(date));
+        }
+
+
+
     }
 }

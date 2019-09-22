@@ -103,29 +103,15 @@ namespace ParkingSystem
 
         public bool ValidateFormatOfEnrollment(string text)
         {
-            if (text.Length > 7)
+            if (text.Length > 6)
             {
                 string[] line = text.Split(' ');
-                if (line[0].Length == 3 && line.Length > 0 && line[1].Length == 4 || line[0].Length == 7 && line.Length == 0)
-                {
-                    if (line[1].Length == 4)
-                    {
-                        text = text.Replace(" ", "");
-                    }
-                }
-                else
-                {
-
-                }
-            }
-            return true;
-                /*if ((text.ElementAt(3).Equals(' ') && text.ElementAt(8).Equals(' ')) ||
-                    (!text.Substring(0, 6).Contains(' ') && text.ElementAt(7).Equals(' ')))
+                if (line[0].Length == 3 && line.Length > 1 && line[1].Length == 4 || line[0].Length == 7 && line.Length == 1)
                 {
                     text = text.Replace(" ", "");
                     string lettersOfEnrollment = text.Substring(0, 3).ToUpper();
                     string numbersOfEnrollment = text.Substring(3, 4);
-                    
+
                     if (!Int32.TryParse(lettersOfEnrollment, out int balance))
                     {
                         if (Int32.TryParse(numbersOfEnrollment, out balance))
@@ -140,7 +126,7 @@ namespace ParkingSystem
                     return false;
             }
             else
-                return false;*/
+                return false;
         }
 
         public bool ValidateRepeatEnrollment(string letters, int numbers)
@@ -161,32 +147,58 @@ namespace ParkingSystem
                 return true;
         }
 
-        public int ValidateMinutes(string restOfMessage, string hour, string minutes, string time)
+        public bool ValidateMinutes(string restOfMessage)
         {
-            bool final = false;
-            int resultReturn = 0;
-            for (int i = 0; i < restOfMessage.Length && !final; i++)
+            string[] line = restOfMessage.Split(' ');
+            if (line.Length >= 2 && line.Length <= 3)
             {
-                if (restOfMessage[i].Equals(':'))
+                string time = line[1];
+                string hour = "";
+                string minutes = "";
+                if (line.Length == 3)
                 {
-                    if (restOfMessage.Length == i + 3)
+                    string[] SecondLine = line[2].Split(':');
+                    if (SecondLine.Length == 2)
                     {
-                        hour = "" + restOfMessage[i - 2] + restOfMessage[i - 1];
-                        minutes = "" + restOfMessage[i + 1] + restOfMessage[i + 2];
-                        final = true;
+                        hour = SecondLine[0];
+                        minutes = SecondLine[1];
+                        if (Int32.TryParse(hour, out int balance) &&
+                            Int32.TryParse(minutes, out balance) &&
+                            Int32.TryParse(time, out balance))
+                            return true;
+                        else
+                            return false;
                     }
+                    else if (Int32.TryParse(time, out int balance))
+                        return true;
                     else
-                    {
-                        resultReturn++;
-                    }
+                        return false;
                 }
-                time = time + restOfMessage[i];
+                else
+                    return true;
             }
-            if (final)
+            else
+                return false;
+        }
+
+        public bool ValidateValidHour(DateTime date)
+        {
+            if (date.Hour >= 10 && date.Hour < 18)
+                return true;
+            else
+                return false;
+        }
+
+        public bool ValidateBalanceAccount(int timeOfParking, Account account)
+        {
+            
+            if (account.balance >= timeOfParking)
             {
-                time = time.Substring(0, time.Length - 3);
+
             }
-            return resultReturn;
+            else { }
+
+            return true;    
         }
     }
 }

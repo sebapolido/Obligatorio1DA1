@@ -100,37 +100,56 @@ namespace UI
         {
             if (txtMessage.Text.Length > 8 && txtMessage.Text.Length < 20)
             {
-                string text = txtMessage.Text.Substring(0, 8);
-                if (system.ValidateFormatOfEnrollment(text))
-                   ValidateMinutes(txtMessage.Text.Substring(7), account);
+                string[] line = txtMessage.Text.Split(' ');
+                if (line[0].Length == 3 && line.Length > 1 && line[1].Length == 4)
+                {
+                    if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
+                        ValidateMinutes(txtMessage.Text.Substring(8), account);
+                    else
+                        SetMessage("El formato de la matricula no es valido.");
+                }
                 else
-                   SetMessage("El formato de la matricula no es valido.");      
+                    if (line[0].Length == 7) {
+                        if (system.ValidateFormatOfEnrollment(line[0]))
+                            ValidateMinutes(txtMessage.Text.Substring(7), account);
+                        else
+                            SetMessage("El formato de la matricula no es valido.");
+                    }else
+                        SetMessage("El formato de la matricula no es valido.");
             }
-
             else
                 SetMessage("Debe ingresar un mensaje.");
         }
 
         private void ValidateMinutes(String restOfMessage, Account account)
         {
-            string hour = "";
-            string minutes = "";
-            string time = "";
-            if (system.ValidateMinutes(restOfMessage, hour, minutes, time) == 0)
+            string[] line = restOfMessage.Split(' ');
+            if (line.Length >= 2 && line.Length<=3)
             {
-                ValidateTime(time, hour, minutes, account);
-            }
-            else
+                string hour = "";
+                string minutes = "";
+                if (line.Length == 3 && line[2].Contains(':'))
+                {
+                    hour = line[2].Split(':')[0];
+                    minutes = line[2].Split(':')[1];
+                }
+                string time = line[1];
+                if (system.ValidateMinutes(restOfMessage))
+                {
+                    ValidateTime(time, hour, minutes, account);
+                }
+                else
+                    SetMessage("El formato del mensaje no es correcto.");
+
+            }else
                 SetMessage("El formato del mensaje no es correcto.");
-            
-           
         }
 
         private void ValidateTime(string time, string hour, string minutes, Account account)
         {
             if (hour.Equals("") && minutes.Equals("")){
                 if (IsConvertStringToNumber(time))
-                    validateTimeMultipleOf30(time, account);
+                    ValidateTimeMultipleOf30(time, account);
                 else
                     SetMessage("El formato del tiempo no es valido.");
             }
@@ -138,29 +157,21 @@ namespace UI
             {
                 if (IsConvertStringToNumber(time, hour, minutes))
                 {
-
+                    
                 }
                 else
                     SetMessage("El formato de la hora es valido.");
-            }
-           /* if ((int)time % 30 == 0)
-            {
-
-            }*/
-            
+            }           
         }
 
-        private void validateTimeMultipleOf30(string time, Account account)
+        private void ValidateTimeMultipleOf30(string time, Account account)
         {            
             Int32.TryParse(time, out int timeOfParking);
             if(timeOfParking % 30 == 0)
             {
-                if (account.balance >= timeOfParking)
-                {
-
-                }
-                else
-                    SetMessage("El saldo de la cuenta es insuficiente.");
+                DateTime date = DateTime.Now;
+                if (system.ValidateValidHour(date))
+                system.ValidateBalanceAccount(timeOfParking, account);
             }
             else
                 SetMessage("La cantidad de minutos debe ser múltiplo de 30.");
@@ -168,8 +179,7 @@ namespace UI
 
         private bool IsConvertStringToNumber(string time)
         {
-            int isNumeric = 0;
-            if (Int32.TryParse(time, out isNumeric))
+            if (Int32.TryParse(time, out int isNumeric))
                 return true;
             else
                 return false;
