@@ -579,44 +579,179 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateHourLessThanTen()
         {
-            DateTime date = new DateTime();
-            date.AddHours(9);
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 
+                DateTime.Now.Day, 9, 0, 0);
             Assert.AreEqual(false, system.ValidateValidHour(date));
         }
 
         [TestMethod]
         public void ValidateHourMoreThanSixteen()
         {
-            DateTime date = new DateTime();
-            date.AddHours(21);
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                DateTime.Now.Day, 21, 0, 0);
             Assert.AreEqual(false, system.ValidateValidHour(date));
         }
 
         [TestMethod]
         public void ValidateHourTen()
         {
-            DateTime date = new DateTime();
-            date.AddHours(10);
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                 DateTime.Now.Day, 10, 0, 0);
             Assert.AreEqual(true, system.ValidateValidHour(date));
         }
 
         [TestMethod]
         public void ValidateHourSixteen()
         {
-            DateTime date = new DateTime();
-            date.AddHours(18);
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                DateTime.Now.Day, 18, 0, 0);
             Assert.AreEqual(false, system.ValidateValidHour(date));
         }
 
         [TestMethod]
         public void ValidateHourInTheMiddle()
         {
-            DateTime date = new DateTime();
-            date.AddHours(14);
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                DateTime.Now.Day, 14, 0, 0);
             Assert.AreEqual(true, system.ValidateValidHour(date));
         }
 
+        [TestMethod]
+        public void ValidateTimeOfPurchaseZero()
+        {
+           Assert.AreEqual(false, system.ValideTimeOfPurchase(0));
+        }
 
+        [TestMethod]
+        public void ValidateTimeOfPurchaseNegativeNumber()
+        {
+            Assert.AreEqual(false, system.ValideTimeOfPurchase(-23));
+        }
 
+        [TestMethod]
+        public void ValidateTimeOfPurchaseNotMultipleOfThirty()
+        {
+            Assert.AreEqual(false, system.ValideTimeOfPurchase(23));
+        }
+
+        [TestMethod]
+        public void ValidateTimeOfPurchaseMultipleOfThirty()
+        {
+            Assert.AreEqual(true, system.ValideTimeOfPurchase(60));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberEmpty()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeStringToNumber(""));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberWithOneLetter()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeStringToNumber("t"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberWithOneNumber()
+        {
+            Assert.AreEqual(true, system.IsConvertTimeStringToNumber("1"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberWithDecimalNumber()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeStringToNumber("2,4"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberWithLetters()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeStringToNumber("test"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberWithNumbers()
+        {
+            Assert.AreEqual(true, system.IsConvertTimeStringToNumber("232"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberWithLettersAndNumbers()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeStringToNumber("t2e3s4t"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberAllEmpty()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("","",""));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberTimeEmpty()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("", "2", "3"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberHourEmpty()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("30", "", "30"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberMinutesEmpty()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("60", "10", ""));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberAllLetters()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("sad", "test", "hello"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberTimeLetters()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("test", "23", "11"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberHourLetters()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("30", "test", "11"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberMinutesLetters()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("23", "23", "ew"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberAllNumbers()
+        {
+            Assert.AreEqual(true, system.IsConvertTimeHourAndMinutesStringToNumber("23", "23", "11"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberTimeLettersAndNumbers()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("s3a2d", "23", "11"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberHourLettersAndNumbers()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("23", "23a", "11"));
+        }
+
+        [TestMethod]
+        public void ValidateStringToNumberMinutesLettersAndNumbers()
+        {
+            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("23", "23", "aa11s"));
+        }
     }
 }

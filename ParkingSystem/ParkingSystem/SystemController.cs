@@ -189,16 +189,43 @@ namespace ParkingSystem
                 return false;
         }
 
+        public bool ValideTimeOfPurchase(int timeOfPurchase)
+        {
+            if (timeOfPurchase > 0)
+            {
+                if (timeOfPurchase % 30 == 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
         public bool ValidateBalanceAccount(int timeOfParking, Account account)
         {
             
-            if (account.balance >= timeOfParking)
-            {
-
-            }
-            else { }
+            
 
             return true;    
+        }
+
+        public bool IsConvertTimeStringToNumber(string time)
+        {
+            if (Int32.TryParse(time, out int isTimeNumeric))
+                return true;
+            else
+                return false;
+        }
+
+        public bool IsConvertTimeHourAndMinutesStringToNumber(string time, string hour, string minutes)
+        {
+            if (Int32.TryParse(time, out int isTimeNumeric) && 
+                Int32.TryParse(hour, out int isHourNumeric) && 
+                Int32.TryParse(minutes, out int isMinutesNumeric))
+                return true;
+            else
+                return false;
         }
     }
 }

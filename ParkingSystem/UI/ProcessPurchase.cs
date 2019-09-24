@@ -104,14 +104,14 @@ namespace UI
                 if (line[0].Length == 3 && line.Length > 1 && line[1].Length == 4)
                 {
                     if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
-                        ValidateMinutes(txtMessage.Text.Substring(8), account);
+                        ValidateEmptyTime(txtMessage.Text.Substring(8), account);
                     else
                         SetMessage("El formato de la matricula no es valido.");
                 }
                 else
                     if (line[0].Length == 7) {
                         if (system.ValidateFormatOfEnrollment(line[0]))
-                            ValidateMinutes(txtMessage.Text.Substring(7), account);
+                            ValidateEmptyTime(txtMessage.Text.Substring(7), account);
                         else
                             SetMessage("El formato de la matricula no es valido.");
                     }else
@@ -121,7 +121,7 @@ namespace UI
                 SetMessage("Debe ingresar un mensaje.");
         }
 
-        private void ValidateMinutes(String restOfMessage, Account account)
+        private void ValidateEmptyTime(String restOfMessage, Account account)
         {
             string[] line = restOfMessage.Split(' ');
             if (line.Length >= 2 && line.Length<=3)
@@ -149,7 +149,11 @@ namespace UI
         {
             if (hour.Equals("") && minutes.Equals("")){
                 if (IsConvertStringToNumber(time))
-                    ValidateTimeMultipleOf30(time, account);
+                {
+                    int timeOfPurchase = Int32.Parse(time);
+                    ValidateTimeMultipleOf30(timeOfPurchase, DateTime.Now.Hour,
+                        DateTime.Now.Hour, account);
+                }
                 else
                     SetMessage("El formato del tiempo no es valido.");
             }
@@ -157,41 +161,47 @@ namespace UI
             {
                 if (IsConvertStringToNumber(time, hour, minutes))
                 {
-                    
+                    int timeOfPurchase = Int32.Parse(time);
+                    int hourOfPurchase = Int32.Parse(hour);
+                    int minsOfPurchase = Int32.Parse(minutes);
+                    ValidateTimeMultipleOf30(timeOfPurchase, hourOfPurchase, minsOfPurchase, account);
                 }
                 else
                     SetMessage("El formato de la hora es valido.");
             }           
         }
 
-        private void ValidateTimeMultipleOf30(string time, Account account)
-        {            
-            Int32.TryParse(time, out int timeOfParking);
-            if(timeOfParking % 30 == 0)
+        private void ValidateTimeMultipleOf30(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase, Account account)
+        {   
+            if(system.ValideTimeOfPurchase(timeOfPurchase))
             {
-                DateTime date = DateTime.Now;
-                if (system.ValidateValidHour(date))
-                system.ValidateBalanceAccount(timeOfParking, account);
+                ValidateDate(timeOfPurchase, hourOfPurchase, minsOfPurchase, account);
             }
             else
                 SetMessage("La cantidad de minutos debe ser múltiplo de 30.");
         }
 
+        private void ValidateDate(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase, Account account)
+        {
+            DateTime dateTime = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, hourOfPurchase,
+                        minsOfPurchase, 0);
+            if (system.ValidateValidHour(dateTime))
+            {
+
+            }
+            else
+                SetMessage("El formato de la hora no es correcto");
+        }
+
         private bool IsConvertStringToNumber(string time)
         {
-            if (Int32.TryParse(time, out int isNumeric))
-                return true;
-            else
-                return false;
+            return system.IsConvertTimeStringToNumber(time);
         }
 
         private bool IsConvertStringToNumber(string time, string hour, string minutes)
         {
-            int isNumeric = 0;
-            if (Int32.TryParse(time, out isNumeric) && Int32.TryParse(hour, out isNumeric) && Int32.TryParse(minutes, out isNumeric))
-                return true;
-            else
-                return false;
+            return system.IsConvertTimeHourAndMinutesStringToNumber(time, hour, minutes);
         }
 
         public void SetMessage(string textToShow)
