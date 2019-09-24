@@ -42,7 +42,7 @@ namespace UI
             {
                 string text = txtNumberPhone.Text;
                 text = text.Replace(" ", "");
-                if (system.ValidateLengthNumber(text))
+                if (system.ValidateLengthNumber(ref text))
                     ValidateNumberFormat(text);
                 else
                     SetMessage("El número no coincide con el formato.");

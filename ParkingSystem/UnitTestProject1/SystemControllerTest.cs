@@ -269,55 +269,64 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateLengthNumberEmpty()
         {
-            Assert.AreEqual(false, system.ValidateLengthNumber(""));
+            string input = "";
+            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberLetters()
         {
-            Assert.AreEqual(false, system.ValidateLengthNumber("ASDFGHJKL"));
+            string input = "ASDFGHJKL";
+            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberLessThanEight()
         {
-            Assert.AreEqual(false, system.ValidateLengthNumber("09934"));
+            string input = "09934";
+            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberGreaterTanNine()
         {
-            Assert.AreEqual(false, system.ValidateLengthNumber("09935543223"));
+            string input = "09923132234";
+            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberNotFirstZeroInALengthOfNine()
         {
-            Assert.AreEqual(false, system.ValidateLengthNumber("299366931"));
+            string input = "299366931";
+            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberNotSecondNineInALengthOfNine()
         {
-            Assert.AreEqual(false, system.ValidateLengthNumber("029366931"));
+            string input = "029366931";
+            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberNotFirstNineInALengthOfEight()
         {
-            Assert.AreEqual(false, system.ValidateLengthNumber("29366931"));
+            string input = "29366931";
+            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateCorrectLengthNumberWithLengthOfNine()
         {
-            Assert.AreEqual(true, system.ValidateLengthNumber("099366931"));
+            string input = "099366931";
+            Assert.AreEqual(true, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateCorrectLengthNumberWithLengthOfEigth()
         {
-            Assert.AreEqual(true, system.ValidateLengthNumber("99366931"));
+            string input = "099366931";
+            Assert.AreEqual(true, system.ValidateLengthNumber(ref input));
         }
 
         [TestMethod]
@@ -643,115 +652,123 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateStringToNumberEmpty()
         {
-            Assert.AreEqual(false, system.IsConvertTimeStringToNumber(""));
+            Assert.AreEqual(false, system.IsConvertStringToNumber(""));
         }
 
         [TestMethod]
         public void ValidateStringToNumberWithOneLetter()
         {
-            Assert.AreEqual(false, system.IsConvertTimeStringToNumber("t"));
+            Assert.AreEqual(false, system.IsConvertStringToNumber("t"));
         }
 
         [TestMethod]
         public void ValidateStringToNumberWithOneNumber()
         {
-            Assert.AreEqual(true, system.IsConvertTimeStringToNumber("1"));
+            Assert.AreEqual(true, system.IsConvertStringToNumber("1"));
         }
 
         [TestMethod]
         public void ValidateStringToNumberWithDecimalNumber()
         {
-            Assert.AreEqual(false, system.IsConvertTimeStringToNumber("2,4"));
+            Assert.AreEqual(false, system.IsConvertStringToNumber("2,4"));
         }
 
         [TestMethod]
         public void ValidateStringToNumberWithLetters()
         {
-            Assert.AreEqual(false, system.IsConvertTimeStringToNumber("test"));
+            Assert.AreEqual(false, system.IsConvertStringToNumber("test"));
         }
 
         [TestMethod]
         public void ValidateStringToNumberWithNumbers()
         {
-            Assert.AreEqual(true, system.IsConvertTimeStringToNumber("232"));
+            Assert.AreEqual(true, system.IsConvertStringToNumber("232"));
         }
 
         [TestMethod]
         public void ValidateStringToNumberWithLettersAndNumbers()
         {
-            Assert.AreEqual(false, system.IsConvertTimeStringToNumber("t2e3s4t"));
+            Assert.AreEqual(false, system.IsConvertStringToNumber("t2e3s4t"));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberAllEmpty()
+        public void ValidateCalculateFinalTimeOfPurchaseEmpty()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("","",""));
+            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(0,0,0));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberTimeEmpty()
+        public void ValidateCalculateFinalTimeOfPurchaseTimeEmpty()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("", "2", "3"));
+            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(0, 10, 30));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberHourEmpty()
+        public void ValidateCalculateFinalTimeOfPurchaseHourEmpty()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("30", "", "30"));
+            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(30, 0, 30));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberMinutesEmpty()
+        public void ValidateCalculateFinalTimeOfPurchaseMinutesEmpty()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("60", "10", ""));
+            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(30, 20, 0));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberAllLetters()
+        public void ValidateCalculateFinalTimeOfPurchaseLessThanTen()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("sad", "test", "hello"));
+            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(30, 9, 30));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberTimeLetters()
+        public void ValidateCalculateFinalTimeOfPurchaseMoreThanSixteen()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("test", "23", "11"));
+            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(30, 19, 30));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberHourLetters()
+        public void ValidateCalculateFinalTimeOfPurchaseMinutesMoreOfSixty()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("30", "test", "11"));
+            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(30, 10, 70));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberMinutesLetters()
+        public void ValidateCalculateFinalTimeOfPurchaseTheTimeCompleteWithMinutes()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("23", "23", "ew"));
+            Assert.AreEqual(60, system.CalculateFinalTimeOfPurchase(60, 12, 40));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberAllNumbers()
+        public void ValidateCalculateFinalTimeOfPurchaseTheTimeIncompleteForOnlyMinutes()
         {
-            Assert.AreEqual(true, system.IsConvertTimeHourAndMinutesStringToNumber("23", "23", "11"));
+            Assert.AreEqual(20, system.CalculateFinalTimeOfPurchase(60, 17, 40));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberTimeLettersAndNumbers()
+        public void ValidateCalculateFinalTimeOfPurchaseTheTimeIncompleteForOnlyMinutesAndOneHour()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("s3a2d", "23", "11"));
+            Assert.AreEqual(80, system.CalculateFinalTimeOfPurchase(90, 16, 40));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberHourLettersAndNumbers()
+        public void ValidateCalculateFinalTimeOfPurchaseTheTimeCompleteForMinutesAndOneHour()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("23", "23a", "11"));
+            Assert.AreEqual(60, system.CalculateFinalTimeOfPurchase(60, 16, 40));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberMinutesLettersAndNumbers()
+        public void ValidateCalculateFinalTimeOfPurchaseTheTimeIncompleteForALotOfHours()
         {
-            Assert.AreEqual(false, system.IsConvertTimeHourAndMinutesStringToNumber("23", "23", "aa11s"));
+            Assert.AreEqual(330, system.CalculateFinalTimeOfPurchase(3000, 12, 30));
         }
+
+        [TestMethod]
+        public void ValidateCalculateFinalTimeOfPurchaseTheTimeCompleteForALotOfHours()
+        {
+            Assert.AreEqual(300, system.CalculateFinalTimeOfPurchase(300, 12, 30));
+        }
+
+
     }
 }

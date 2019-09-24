@@ -26,6 +26,7 @@ namespace UI
             this.SecundaryPanel.Visible = false;
             this.principalPanel.Visible = true;
             lblAnswer.Visible = false;
+            system = new SystemController();
         }
 
         private void label1_Click(object sender, EventArgs e)

@@ -46,7 +46,34 @@ namespace UI
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
+            if (txtEnrollment.Text.Length > 0 && txtEnrollment.Text.Length < 8)
+            {
+                string[] line = txtEnrollment.Text.Split(' ');
+                if (line[0].Length == 3 && line.Length == 2 && line[1].Length == 4)
+                {
+                    if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
+                        ValidateDate();
+                    else
+                        SetMessage("El formato de la matricula no es valido.");
+                }
+                else
+                    if (line[0].Length == 7)
+                    {
+                    if (system.ValidateFormatOfEnrollment(line[0]))
+                        ValidateDate();
+                    else
+                        SetMessage("El formato de la matricula no es valido.");
+                    }
+                    else
+                        SetMessage("El formato de la matricula no es valido.");
+            }
+            else
+                SetMessage("Debe ingresar una matricula.");
+        }
 
+        private void ValidateDate()
+        {
+            
         }
 
         private void txtBalanceToAdd_TextChanged(object sender, EventArgs e)

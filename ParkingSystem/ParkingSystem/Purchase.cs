@@ -17,5 +17,11 @@ namespace ParkingSystem
             enrollmentOfPurchase = null;
             timeOfPurchase = 0;
         }
+
+        public Purchase(Enrollment enrollment, int time)
+        {
+            enrollmentOfPurchase = enrollment;
+            timeOfPurchase = time;
+        }
     }
 }

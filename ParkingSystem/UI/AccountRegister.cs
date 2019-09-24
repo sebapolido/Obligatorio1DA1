@@ -45,33 +45,13 @@ namespace UI
             {
                 string text = txtNumberPhone.Text;
                 text = text.Replace(" ", "");
-                if (system.ValidateLengthNumber(text))
+                if (system.ValidateLengthNumber(ref text))
                     ValidateNumberFormat(text);
                 else
                     SetMessage("El número no coincide con el formato.");
             }
         }
-
-       /* private void ValidateLengthNumber()
-        {
-            string text = txtNumberPhone.Text;
-            text = text.Replace(" ", "");
-            bool isEquals = false;
-            if (text.Length == 9 && text[0].Equals('0') && text[1].Equals('9'))
-            {
-                ValidateNumberFormat(text, isEquals);
-            }
-            else if (text.Length == 8 && text[0].Equals('9'))
-            {
-                text = text.Insert(0, "0");
-                ValidateNumberFormat(text, isEquals);
-            }
-            else
-            {
-                SetMessage("El número no coincide con el formato.");
-            }
-        }*/
-
+        
         private void ValidateNumberFormat(string text)
         {
             if (system.ValidateIsNumeric(text))

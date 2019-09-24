@@ -68,7 +68,7 @@ namespace UI
             {
                 string text = txtNumberPhone.Text;
                 text = text.Replace(" ", "");
-                if (system.ValidateLengthNumber(text))
+                if (system.ValidateLengthNumber(ref text))
                 {
                     ValidateNumberFormat(text);
                 }
@@ -175,7 +175,10 @@ namespace UI
         {   
             if(system.ValideTimeOfPurchase(timeOfPurchase))
             {
-                ValidateDate(timeOfPurchase, hourOfPurchase, minsOfPurchase, account);
+                if(minsOfPurchase >= 0 && minsOfPurchase < 60) 
+                    ValidateDate(timeOfPurchase, hourOfPurchase, minsOfPurchase, account);
+                else
+                    SetMessage("El formato de la hora no es correcto");
             }
             else
                 SetMessage("La cantidad de minutos debe ser múltiplo de 30.");
@@ -188,20 +191,45 @@ namespace UI
                         minsOfPurchase, 0);
             if (system.ValidateValidHour(dateTime))
             {
-
+                int finalTimeOfPurchase = system.CalculateFinalTimeOfPurchase(timeOfPurchase, hourOfPurchase, minsOfPurchase);
+                CheckBalanceAccount(finalTimeOfPurchase, account);
             }
             else
                 SetMessage("El formato de la hora no es correcto");
         }
 
+        private void CheckBalanceAccount(int finalTimeOfPurchase, Account account)
+        {
+            if (finalTimeOfPurchase * 1 < account.balance) //ARREGLARRRR
+            {
+                account.balance -= finalTimeOfPurchase *  1;
+                string aEnrollment = txtMessage.Text.Replace(" " , "");
+                Enrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
+                Int32.Parse(aEnrollment.Substring(3,4)));
+                system.AddEnrollment(enrollment);
+                AddPurchase(finalTimeOfPurchase, enrollment);
+            }
+            else
+                SetMessage("El saldo de la cuenta es insuficiente.");
+        }
+
+        private void AddPurchase(int finalTimeOfPurchase, Enrollment enrollment)
+        {
+            Purchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase);
+            system.AddPurchase(newPurchase);
+            lblAnswer.ForeColor = Color.Green;
+            SetMessage("Compra realizada correctamente.");
+        }
+
         private bool IsConvertStringToNumber(string time)
         {
-            return system.IsConvertTimeStringToNumber(time);
+            return system.IsConvertStringToNumber(time);
         }
 
         private bool IsConvertStringToNumber(string time, string hour, string minutes)
         {
-            return system.IsConvertTimeHourAndMinutesStringToNumber(time, hour, minutes);
+            return system.IsConvertStringToNumber(time) && system.IsConvertStringToNumber(hour)
+                && system.IsConvertStringToNumber(minutes);
         }
 
         public void SetMessage(string textToShow)

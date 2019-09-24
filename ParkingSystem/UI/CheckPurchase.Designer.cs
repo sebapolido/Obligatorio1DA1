@@ -36,7 +36,7 @@
             this.lblEnrollment = new System.Windows.Forms.Label();
             this.lblAnswer = new System.Windows.Forms.Label();
             this.lblCheckPurchase = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.lblDateTime = new System.Windows.Forms.DateTimePicker();
             this.timerOfAnswer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -112,12 +112,12 @@
             this.lblCheckPurchase.Text = "Consultar compra";
             this.lblCheckPurchase.Click += new System.EventHandler(this.lblWelcome_Click);
             // 
-            // dateTimePicker1
+            // lblDateTime
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(190, 177);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(134, 20);
-            this.dateTimePicker1.TabIndex = 20;
+            this.lblDateTime.Location = new System.Drawing.Point(190, 177);
+            this.lblDateTime.Name = "lblDateTime";
+            this.lblDateTime.Size = new System.Drawing.Size(134, 20);
+            this.lblDateTime.TabIndex = 20;
             // 
             // timerOfAnswer
             // 
@@ -129,7 +129,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.lblDateTime);
             this.Controls.Add(this.lblCheckPurchase);
             this.Controls.Add(this.lblAnswer);
             this.Controls.Add(this.lblDate);
@@ -152,7 +152,7 @@
         private System.Windows.Forms.Label lblEnrollment;
         private System.Windows.Forms.Label lblAnswer;
         private System.Windows.Forms.Label lblCheckPurchase;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker lblDateTime;
         private System.Windows.Forms.Timer timerOfAnswer;
     }
 }

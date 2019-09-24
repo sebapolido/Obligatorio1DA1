@@ -18,7 +18,8 @@ namespace ParkingSystem
 
         public void AddAccount(Account account)
         {
-            if (account.balance >= 0 && ValidateLengthNumber(account.mobile) &&
+            string text = account.mobile;
+            if (account.balance >= 0 && ValidateLengthNumber(ref text) &&
                 ValidateIsNumeric(account.mobile) && !ValidateRepeatNumber(account.mobile))
                 accountsList.Add(account);
         }
@@ -51,7 +52,7 @@ namespace ParkingSystem
             return purchaseList;
         }   
 
-        public bool ValidateLengthNumber(string text)
+        public bool ValidateLengthNumber(ref string text)
         {
             if (text.Length == 9 && text[0].Equals('0') && text[1].Equals('9'))
                 return true;
@@ -183,7 +184,7 @@ namespace ParkingSystem
 
         public bool ValidateValidHour(DateTime date)
         {
-            if (date.Hour >= 10 && date.Hour < 18)
+            if (date.Hour >= 10 && date.Hour < 18 && date.Minute >= 0 && date.Minute <60)
                 return true;
             else
                 return false;
@@ -210,7 +211,7 @@ namespace ParkingSystem
             return true;    
         }
 
-        public bool IsConvertTimeStringToNumber(string time)
+        public bool IsConvertStringToNumber(string time)
         {
             if (Int32.TryParse(time, out int isTimeNumeric))
                 return true;
@@ -218,14 +219,20 @@ namespace ParkingSystem
                 return false;
         }
 
-        public bool IsConvertTimeHourAndMinutesStringToNumber(string time, string hour, string minutes)
+        public int CalculateFinalTimeOfPurchase(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase)
         {
-            if (Int32.TryParse(time, out int isTimeNumeric) && 
-                Int32.TryParse(hour, out int isHourNumeric) && 
-                Int32.TryParse(minutes, out int isMinutesNumeric))
-                return true;
+            if (hourOfPurchase >= 10 && hourOfPurchase < 18 && minsOfPurchase >= 0 && minsOfPurchase < 60){
+                int finalTimeOfPurchase = 0;
+                finalTimeOfPurchase = 60 - minsOfPurchase;
+                for(int i = hourOfPurchase; i < 17; i++)
+                    finalTimeOfPurchase += 60;
+                if (timeOfPurchase > finalTimeOfPurchase)
+                    return finalTimeOfPurchase;
+                else
+                    return timeOfPurchase;
+            }
             else
-                return false;
+                return 0;
         }
     }
 }
