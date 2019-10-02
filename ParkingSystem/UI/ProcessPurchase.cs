@@ -14,9 +14,9 @@ namespace UI
     public partial class ProcessPurchase : UserControl
     {
         Panel panel;
-        SystemController system;
+        ISystemController system;
 
-        public ProcessPurchase(Panel principalPanel, SystemController systemController)
+        public ProcessPurchase(Panel principalPanel, ISystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
@@ -96,7 +96,7 @@ namespace UI
             }
         }
 
-        private void ValidateMessage(Account account)
+        private void ValidateMessage(IAccount account)
         {
             if (txtMessage.Text.Length > 8 && txtMessage.Text.Length < 20)
             {
@@ -106,22 +106,22 @@ namespace UI
                     if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
                         ValidateEmptyTime(txtMessage.Text.Substring(8), account);
                     else
-                        SetMessage("El formato de la matricula no es valido.");
+                        SetMessage("El formato de la matrícula no es valido.");
                 }
                 else
                     if (line[0].Length == 7) {
                         if (system.ValidateFormatOfEnrollment(line[0]))
                             ValidateEmptyTime(txtMessage.Text.Substring(7), account);
                         else
-                            SetMessage("El formato de la matricula no es valido.");
+                            SetMessage("El formato de la matrícula no es valido.");
                     }else
-                        SetMessage("El formato de la matricula no es valido.");
+                        SetMessage("El formato de la matrícula no es valido.");
             }
             else
                 SetMessage("Debe ingresar un mensaje.");
         }
 
-        private void ValidateEmptyTime(String restOfMessage, Account account)
+        private void ValidateEmptyTime(String restOfMessage, IAccount account)
         {
             string[] line = restOfMessage.Split(' ');
             if (line.Length >= 2 && line.Length<=3)
@@ -145,14 +145,14 @@ namespace UI
                 SetMessage("El formato del mensaje no es correcto.");
         }
 
-        private void ValidateTime(string time, string hour, string minutes, Account account)
+        private void ValidateTime(string time, string hour, string minutes, IAccount account)
         {
             if (hour.Equals("") && minutes.Equals("")){
                 if (IsConvertStringToNumber(time))
                 {
                     int timeOfPurchase = Int32.Parse(time);
                     ValidateTimeMultipleOf30(timeOfPurchase, DateTime.Now.Hour,
-                        DateTime.Now.Hour, account);
+                        DateTime.Now.Minute, account);
                 }
                 else
                     SetMessage("El formato del tiempo no es valido.");
@@ -171,7 +171,7 @@ namespace UI
             }           
         }
 
-        private void ValidateTimeMultipleOf30(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase, Account account)
+        private void ValidateTimeMultipleOf30(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase, IAccount account)
         {   
             if(system.ValideTimeOfPurchase(timeOfPurchase))
             {
@@ -184,7 +184,7 @@ namespace UI
                 SetMessage("La cantidad de minutos debe ser múltiplo de 30.");
         }
 
-        private void ValidateDate(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase, Account account)
+        private void ValidateDate(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase, IAccount account)
         {
             DateTime dateTime = new DateTime(DateTime.Now.Year,
                         DateTime.Now.Month, DateTime.Now.Day, hourOfPurchase,
@@ -192,33 +192,38 @@ namespace UI
             if (system.ValidateValidHour(dateTime))
             {
                 int finalTimeOfPurchase = system.CalculateFinalTimeOfPurchase(timeOfPurchase, hourOfPurchase, minsOfPurchase);
-                CheckBalanceAccount(finalTimeOfPurchase, account);
+                CheckBalanceAccount(finalTimeOfPurchase, account, dateTime);
             }
             else
                 SetMessage("El formato de la hora no es correcto");
         }
 
-        private void CheckBalanceAccount(int finalTimeOfPurchase, Account account)
+        private void CheckBalanceAccount(int finalTimeOfPurchase, IAccount account, DateTime dateTime)
         {
-            if (finalTimeOfPurchase * 1 < account.balance) //ARREGLARRRR
+            if (finalTimeOfPurchase                 * 1 < account.balance) //ARREGLARRRR
             {
                 account.balance -= finalTimeOfPurchase *  1;
                 string aEnrollment = txtMessage.Text.Replace(" " , "");
-                Enrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
+                IEnrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
                 Int32.Parse(aEnrollment.Substring(3,4)));
                 system.AddEnrollment(enrollment);
-                AddPurchase(finalTimeOfPurchase, enrollment);
+                AddPurchase(finalTimeOfPurchase, enrollment, dateTime);
             }
             else
                 SetMessage("El saldo de la cuenta es insuficiente.");
         }
 
-        private void AddPurchase(int finalTimeOfPurchase, Enrollment enrollment)
+        private void AddPurchase(int finalTimeOfPurchase, IEnrollment enrollment, DateTime dateTime)
         {
-            Purchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase);
-            system.AddPurchase(newPurchase);
-            lblAnswer.ForeColor = Color.Green;
-            SetMessage("Compra realizada correctamente.");
+            if (!system.ArePurchaseOnThatDate(dateTime, enrollment))
+            {
+                IPurchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase, dateTime);
+                system.AddPurchase(newPurchase);
+                lblAnswer.ForeColor = Color.Green;
+                SetMessage("Compra realizada correctamente.");
+            }
+            else
+                SetMessage("Ya hay una compra activa en ese horario.");
         }
 
         private bool IsConvertStringToNumber(string time)

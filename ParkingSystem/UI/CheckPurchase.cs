@@ -14,13 +14,24 @@ namespace UI
     public partial class CheckPurchase : UserControl
     {
         Panel panel;
-        SystemController system;
+        ISystemController system;
 
-        public CheckPurchase(Panel principalPanel, SystemController systemController)
+        public CheckPurchase(Panel principalPanel, ISystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
             system = systemController;
+            AgregateItemsToComboBoxs();
+        }
+
+        private void AgregateItemsToComboBoxs()
+        {
+            if (cboHour.Items.Count == 0)
+                for (int i = 10; i < 18; i++)
+                    cboHour.Items.Add(i);
+            if (cboMinutes.Items.Count == 0)
+                for (int i = 0; i < 60; i++)
+                    cboMinutes.Items.Add(i);
         }
 
         private void lblNumberPhone_Click(object sender, EventArgs e)
@@ -46,34 +57,80 @@ namespace UI
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            if (txtEnrollment.Text.Length > 0 && txtEnrollment.Text.Length < 8)
+            lblAnswer.ForeColor = Color.Red;
+            ValidateFormatEnrollment();
+        }
+
+        private void ValidateFormatEnrollment()
+        {
+            if (txtEnrollment.Text.Length > 0 && txtEnrollment.Text.Length < 9)
             {
                 string[] line = txtEnrollment.Text.Split(' ');
                 if (line[0].Length == 3 && line.Length == 2 && line[1].Length == 4)
                 {
                     if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
-                        ValidateDate();
+                        ValidateRepeatEnrollment(line[0], line[1]);
                     else
-                        SetMessage("El formato de la matricula no es valido.");
+                        SetMessage("El formato de la matrícula no es valido.");
                 }
                 else
                     if (line[0].Length == 7)
-                    {
+                {
                     if (system.ValidateFormatOfEnrollment(line[0]))
-                        ValidateDate();
+                        ValidateRepeatEnrollment(line[0].Substring(0,3), line[0].Substring(3));
                     else
-                        SetMessage("El formato de la matricula no es valido.");
-                    }
-                    else
-                        SetMessage("El formato de la matricula no es valido.");
+                        SetMessage("El formato de la matrícula no es valido.");
+                }
+                else
+                    SetMessage("El formato de la matrícula no es valido.");
             }
             else
-                SetMessage("Debe ingresar una matricula.");
+                SetMessage("Debe ingresar una matrícula.");
         }
 
-        private void ValidateDate()
+        private void ValidateRepeatEnrollment(string letters, string numbers)
         {
-            
+            if (Int32.TryParse(numbers, out int balance))
+                if (system.ValidateRepeatEnrollment(letters, int.Parse(numbers)))
+                {
+                    IEnrollment enrollment = system.getAnEnrollment(letters, int.Parse(numbers));
+                    ValidateDate(enrollment);
+                }
+                else
+                    SetMessage("No hay ninguna compra con esa matrícula.");
+            else
+                SetMessage("El formato de la matrícula no es valido.");
+        }
+
+        private void ValidateDate(IEnrollment enrollment)
+        {
+            if (cboHour.Text != null)
+            {
+                if (cboMinutes.Text != null)
+                {
+                    int hour = int.Parse(cboHour.Text);
+                    int minutes = int.Parse(cboMinutes.Text);
+                    DateTime date = new DateTime(lblDateTime.Value.Year, lblDateTime.Value.Month,
+                        lblDateTime.Value.Day, hour, minutes, 0);
+                    ArePurchasesOnThatDate(date, enrollment);
+                }
+                else
+                    SetMessage("Debe ingresar un minuto.");
+            }
+            else
+                SetMessage("Debe ingresar una hora.");
+        }
+
+        private void ArePurchasesOnThatDate(DateTime date, IEnrollment enrollment)
+        {
+            if (system.ArePurchaseOnThatDate(date, enrollment))
+            {
+                lblAnswer.ForeColor = Color.Green;
+                SetMessage("Existe una compra activa para esa matrícula en ese horario.");
+            }
+            else
+                SetMessage("No hay ninguna compra con esa matrícula en ese horario.");
+
         }
 
         private void txtBalanceToAdd_TextChanged(object sender, EventArgs e)
@@ -97,6 +154,16 @@ namespace UI
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CheckPurchase_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

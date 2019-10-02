@@ -38,7 +38,6 @@
             this.btnAccountRegister = new System.Windows.Forms.Button();
             this.SecundaryPanel = new System.Windows.Forms.Panel();
             this.timerOfAnswer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.principalPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +55,6 @@
             // 
             // principalPanel
             // 
-            this.principalPanel.Controls.Add(this.button1);
             this.principalPanel.Controls.Add(this.lblAnswer);
             this.principalPanel.Controls.Add(this.btnProcessPurchase);
             this.principalPanel.Controls.Add(this.btnCheckPurchase);
@@ -135,16 +133,6 @@
             this.timerOfAnswer.Interval = 5000;
             this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfError_Tick);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(309, 127);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
-            // 
             // PrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,7 +163,6 @@
         private System.Windows.Forms.Panel SecundaryPanel;
         private System.Windows.Forms.Label lblAnswer;
         private System.Windows.Forms.Timer timerOfAnswer;
-        private System.Windows.Forms.Button button1;
     }
 }
 

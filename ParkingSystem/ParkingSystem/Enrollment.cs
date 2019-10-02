@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ParkingSystem
 {
-    [Serializable]
-    public class Enrollment
+    public class Enrollment:IEnrollment
     {
         public string lettersOfEnrollment { get; set; }
         public int numbersOfEnrollment { get; set; }
@@ -23,5 +22,12 @@ namespace ParkingSystem
             lettersOfEnrollment = newLetter;
             numbersOfEnrollment = newNumbers;
         }
+
+        public override bool Equals(Object obj)
+        {
+            IEnrollment enrollment = (Enrollment)obj;
+            return numbersOfEnrollment == enrollment.numbersOfEnrollment && lettersOfEnrollment.Equals(enrollment.lettersOfEnrollment);
+        }
+
     }
 }

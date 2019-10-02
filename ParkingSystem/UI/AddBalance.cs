@@ -14,9 +14,9 @@ namespace UI
     public partial class AddBalance : UserControl
     {
         Panel panel;
-        SystemController system;
+        ISystemController system;
 
-        public AddBalance(Panel principalPanel, SystemController systemController)
+        public AddBalance(Panel principalPanel, ISystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
@@ -70,7 +70,7 @@ namespace UI
             }
         }
 
-        private void ValidateBalance(Account account)
+        private void ValidateBalance(IAccount account)
         {
             if (txtBalanceToAdd.Text.Length > 0)
             {
@@ -87,7 +87,7 @@ namespace UI
                 SetMessage("Debe ingresar un saldo.");
         }
 
-        private void AddBalanceToAccount(Account account, int balanceToAdd)
+        private void AddBalanceToAccount(IAccount account, int balanceToAdd)
         {
             account.AddBalance(balanceToAdd);
             lblAnswer.ForeColor = Color.Green;

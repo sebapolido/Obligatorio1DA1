@@ -63,35 +63,35 @@ namespace UnitTestProject1
         [TestMethod]
         public void CreateEmptyAccountBalance()
         {
-            Account account = new Account();
+            IAccount account = new Account();
             Assert.AreEqual(0, account.balance);
         }
 
         [TestMethod]
         public void CreateEmptyAccountMobile()
         {
-            Account account = new Account();
+            IAccount account = new Account();
             Assert.AreEqual("", account.mobile);
         }
 
         [TestMethod]
         public void CreateAccountBalance()
         {
-            Account account = new Account(0, "099366931");
+            IAccount account = new Account(0, "099366931");
             Assert.AreEqual(0, account.balance);
         }
 
         [TestMethod]
         public void CreateAccountMobile()
         {
-            Account account = new Account(0, "099366931");
+            IAccount account = new Account(0, "099366931");
             Assert.AreEqual("099366931", account.mobile);
         }
 
         [TestMethod]
         public void AddInvalidBalanceTest()
         {
-            Account account = new Account(0,"099366931");
+            IAccount account = new Account(0,"099366931");
             account.AddBalance(-25);
             Assert.AreEqual(0, account.balance);
         }
@@ -99,7 +99,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddValidBalanceWithBalanceInZeroTest()
         {
-            Account account = new Account(0, "099366931");
+            IAccount account = new Account(0, "099366931");
             account.AddBalance(25);
             Assert.AreEqual(25, account.balance);
         }
@@ -107,7 +107,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddValidBalanceWithBalanceTest()
         {
-            Account account = new Account(25, "099366931");
+            IAccount account = new Account(25, "099366931");
             account.AddBalance(22);
             Assert.AreEqual(47, account.balance);
         }

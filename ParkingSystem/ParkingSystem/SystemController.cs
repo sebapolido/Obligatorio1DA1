@@ -8,15 +8,14 @@ using System.Xml.Serialization;
 
 namespace ParkingSystem
 {
-    [Serializable]
-    public class SystemController
+    public class SystemController:ISystemController
     {
-        private static List<Account> accountsList = new List<Account>();
-        private static List<Enrollment> enrollmentsList = new List<Enrollment>();
-        private static List<Purchase> purchaseList = new List<Purchase>();
+        private static List<IAccount> accountsList = new List<IAccount>();
+        private static List<IEnrollment> enrollmentsList = new List<IEnrollment>();
+        private static List<IPurchase> purchaseList = new List<IPurchase>();
 
 
-        public void AddAccount(Account account)
+        public void AddAccount(IAccount account)
         {
             string text = account.mobile;
             if (account.balance >= 0 && ValidateLengthNumber(ref text) &&
@@ -24,30 +23,30 @@ namespace ParkingSystem
                 accountsList.Add(account);
         }
 
-        public List<Account> GetAccounts()
+        public List<IAccount> GetAccounts()
         {
             return accountsList;
         }
 
-        public void AddEnrollment(Enrollment enrollment)
+        public void AddEnrollment(IEnrollment enrollment)
         {
             if(ValidateFormatOfEnrollment(enrollment.lettersOfEnrollment + enrollment.numbersOfEnrollment)
                 && !ValidateRepeatEnrollment(enrollment.lettersOfEnrollment, enrollment.numbersOfEnrollment))
                 enrollmentsList.Add(enrollment);
         }
 
-        public List<Enrollment> GetEnrollments()
+        public List<IEnrollment> GetEnrollments()
         {
             return enrollmentsList;
         }
 
 
-        public void AddPurchase(Purchase purchase)
+        public void AddPurchase(IPurchase purchase)
         {
             purchaseList.Add(purchase);
         }
 
-        public List<Purchase> GetPurchase()
+        public List<IPurchase> GetPurchases()
         {
             return purchaseList;
         }   
@@ -90,7 +89,7 @@ namespace ParkingSystem
                 return true;
         }
 
-        public Account getAnAccount(string text)
+        public IAccount getAnAccount(string text)
         {
             for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
             {
@@ -102,6 +101,20 @@ namespace ParkingSystem
             return null;
         }
 
+        public IEnrollment getAnEnrollment(string letters, int numbers)
+        {
+            bool isEquals = false;
+            for (int i = 0; i < this.GetEnrollments().ToArray().Length && !isEquals; i++)
+            {
+                if (letters.ToUpper().Equals(this.GetEnrollments().ToArray().ElementAt(i).lettersOfEnrollment.ToUpper())
+                    && numbers == this.GetEnrollments().ToArray().ElementAt(i).numbersOfEnrollment)
+                {
+                    isEquals = true;
+                    return this.GetEnrollments().ToArray().ElementAt(i);
+                }
+            }
+            return null;
+        }
         public bool ValidateFormatOfEnrollment(string text)
         {
             if (text.Length > 6)
@@ -203,14 +216,6 @@ namespace ParkingSystem
                 return false;
         }
 
-        public bool ValidateBalanceAccount(int timeOfParking, Account account)
-        {
-            
-            
-
-            return true;    
-        }
-
         public bool IsConvertStringToNumber(string time)
         {
             if (Int32.TryParse(time, out int isTimeNumeric))
@@ -234,5 +239,31 @@ namespace ParkingSystem
             else
                 return 0;
         }
+
+        public bool ArePurchaseOnThatDate(DateTime date, IEnrollment enrollment)
+        {
+            for(int i = 0; i<this.GetPurchases().ToArray().Length; i++)
+            {
+                IEnrollment enrollmentOfPurchase = this.GetPurchases().ToArray().ElementAt(i).enrollmentOfPurchase;
+                if (CheckDateWithTimeOfPurchase(date, this.GetPurchases().ToArray().ElementAt(i)) &&
+                    enrollmentOfPurchase.Equals(enrollment))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool CheckDateWithTimeOfPurchase(DateTime date, IPurchase purchase)
+        {
+            DateTime dateWithTime = purchase.dateOfPurchase;
+            dateWithTime = dateWithTime.AddMinutes(purchase.timeOfPurchase);
+            if (date >= purchase.dateOfPurchase &&
+                date <= dateWithTime)
+                return true;
+            else
+                return false;
+        }
     }
 }
+

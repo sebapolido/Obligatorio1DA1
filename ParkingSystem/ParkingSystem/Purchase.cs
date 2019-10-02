@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ParkingSystem
 {
-    [Serializable]
-    public class Purchase
+    public class Purchase:IPurchase
     {
-        public Enrollment enrollmentOfPurchase { get; set;}
+        public IEnrollment enrollmentOfPurchase { get; set;}
         public int timeOfPurchase { get; set; }
+        public DateTime dateOfPurchase { get; set; }
 
         public Purchase()
         {
@@ -18,10 +18,12 @@ namespace ParkingSystem
             timeOfPurchase = 0;
         }
 
-        public Purchase(Enrollment enrollment, int time)
+        public Purchase(IEnrollment enrollment, int time, DateTime dateTime)
         {
             enrollmentOfPurchase = enrollment;
             timeOfPurchase = time;
+            dateOfPurchase = dateTime;
         }
+        
     }
 }

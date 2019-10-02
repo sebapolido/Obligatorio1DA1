@@ -38,13 +38,17 @@
             this.lblCheckPurchase = new System.Windows.Forms.Label();
             this.lblDateTime = new System.Windows.Forms.DateTimePicker();
             this.timerOfAnswer = new System.Windows.Forms.Timer(this.components);
+            this.lblHour = new System.Windows.Forms.Label();
+            this.cboHour = new System.Windows.Forms.ComboBox();
+            this.cboMinutes = new System.Windows.Forms.ComboBox();
+            this.lblMinutes = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblDate
             // 
             this.lblDate.AutoSize = true;
             this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.Location = new System.Drawing.Point(57, 182);
+            this.lblDate.Location = new System.Drawing.Point(57, 147);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(97, 15);
             this.lblDate.TabIndex = 14;
@@ -53,16 +57,16 @@
             // 
             // txtEnrollment
             // 
-            this.txtEnrollment.Location = new System.Drawing.Point(190, 137);
+            this.txtEnrollment.Location = new System.Drawing.Point(190, 108);
             this.txtEnrollment.Name = "txtEnrollment";
-            this.txtEnrollment.Size = new System.Drawing.Size(134, 20);
+            this.txtEnrollment.Size = new System.Drawing.Size(149, 20);
             this.txtEnrollment.TabIndex = 13;
             this.txtEnrollment.TextChanged += new System.EventHandler(this.txtNumberPhone_TextChanged);
             // 
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(40, 238);
+            this.btnCancel.Location = new System.Drawing.Point(40, 245);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(136, 45);
             this.btnCancel.TabIndex = 12;
@@ -73,7 +77,7 @@
             // btnConsult
             // 
             this.btnConsult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsult.Location = new System.Drawing.Point(203, 238);
+            this.btnConsult.Location = new System.Drawing.Point(203, 245);
             this.btnConsult.Name = "btnConsult";
             this.btnConsult.Size = new System.Drawing.Size(136, 45);
             this.btnConsult.TabIndex = 11;
@@ -85,7 +89,7 @@
             // 
             this.lblEnrollment.AutoSize = true;
             this.lblEnrollment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEnrollment.Location = new System.Drawing.Point(57, 138);
+            this.lblEnrollment.Location = new System.Drawing.Point(57, 113);
             this.lblEnrollment.Name = "lblEnrollment";
             this.lblEnrollment.Size = new System.Drawing.Size(118, 15);
             this.lblEnrollment.TabIndex = 10;
@@ -114,9 +118,9 @@
             // 
             // lblDateTime
             // 
-            this.lblDateTime.Location = new System.Drawing.Point(190, 177);
+            this.lblDateTime.Location = new System.Drawing.Point(190, 143);
             this.lblDateTime.Name = "lblDateTime";
-            this.lblDateTime.Size = new System.Drawing.Size(134, 20);
+            this.lblDateTime.Size = new System.Drawing.Size(149, 20);
             this.lblDateTime.TabIndex = 20;
             // 
             // timerOfAnswer
@@ -124,11 +128,54 @@
             this.timerOfAnswer.Interval = 5000;
             this.timerOfAnswer.Tick += new System.EventHandler(this.timerOfAnswer_Tick);
             // 
+            // lblHour
+            // 
+            this.lblHour.AutoSize = true;
+            this.lblHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHour.Location = new System.Drawing.Point(57, 180);
+            this.lblHour.Name = "lblHour";
+            this.lblHour.Size = new System.Drawing.Size(92, 15);
+            this.lblHour.TabIndex = 21;
+            this.lblHour.Text = "Ingrese la hora:";
+            this.lblHour.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // cboHour
+            // 
+            this.cboHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboHour.FormattingEnabled = true;
+            this.cboHour.Location = new System.Drawing.Point(190, 174);
+            this.cboHour.Name = "cboHour";
+            this.cboHour.Size = new System.Drawing.Size(36, 21);
+            this.cboHour.TabIndex = 22;
+            // 
+            // cboMinutes
+            // 
+            this.cboMinutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMinutes.FormattingEnabled = true;
+            this.cboMinutes.Location = new System.Drawing.Point(190, 205);
+            this.cboMinutes.Name = "cboMinutes";
+            this.cboMinutes.Size = new System.Drawing.Size(36, 21);
+            this.cboMinutes.TabIndex = 24;
+            // 
+            // lblMinutes
+            // 
+            this.lblMinutes.AutoSize = true;
+            this.lblMinutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMinutes.Location = new System.Drawing.Point(57, 211);
+            this.lblMinutes.Name = "lblMinutes";
+            this.lblMinutes.Size = new System.Drawing.Size(117, 15);
+            this.lblMinutes.TabIndex = 23;
+            this.lblMinutes.Text = "Ingrese los minutos:";
+            // 
             // CheckPurchase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
+            this.Controls.Add(this.cboMinutes);
+            this.Controls.Add(this.lblMinutes);
+            this.Controls.Add(this.cboHour);
+            this.Controls.Add(this.lblHour);
             this.Controls.Add(this.lblDateTime);
             this.Controls.Add(this.lblCheckPurchase);
             this.Controls.Add(this.lblAnswer);
@@ -139,6 +186,7 @@
             this.Controls.Add(this.lblEnrollment);
             this.Name = "CheckPurchase";
             this.Size = new System.Drawing.Size(383, 509);
+            this.Load += new System.EventHandler(this.CheckPurchase_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,5 +202,9 @@
         private System.Windows.Forms.Label lblCheckPurchase;
         private System.Windows.Forms.DateTimePicker lblDateTime;
         private System.Windows.Forms.Timer timerOfAnswer;
+        private System.Windows.Forms.Label lblHour;
+        private System.Windows.Forms.ComboBox cboHour;
+        private System.Windows.Forms.ComboBox cboMinutes;
+        private System.Windows.Forms.Label lblMinutes;
     }
 }

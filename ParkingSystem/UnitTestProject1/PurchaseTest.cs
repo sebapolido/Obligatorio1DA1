@@ -62,15 +62,36 @@ namespace UnitTestProject1
         [TestMethod]
         public void CreateEmptyPurchaseTimeOfPurchase()
         {
-            Purchase purchase = new Purchase();
+            IPurchase purchase = new Purchase();
             Assert.AreEqual(0, purchase.timeOfPurchase);
         }
 
         [TestMethod]
         public void CreateEmptyPurchaseEnrollment()
         {
-            Purchase purchase = new Purchase();
+            IPurchase purchase = new Purchase();
             Assert.AreEqual(null, purchase.enrollmentOfPurchase);
+        }
+
+        public void CreatePurchaseEnrollment()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4848);
+            IPurchase purchase = new Purchase(enrollment, 30, DateTime.Now);
+            Assert.AreEqual(enrollment, purchase.enrollmentOfPurchase);
+        }
+
+        public void CreatePurchaseTime()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4848);
+            IPurchase purchase = new Purchase(enrollment, 30, DateTime.Now);
+            Assert.AreEqual(30, purchase.enrollmentOfPurchase);
+        }
+
+        public void CreatePurchaseDate()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4848);
+            IPurchase purchase = new Purchase(enrollment, 30, DateTime.Now);
+            Assert.AreEqual(DateTime.Now, purchase.enrollmentOfPurchase);
         }
     }
 }

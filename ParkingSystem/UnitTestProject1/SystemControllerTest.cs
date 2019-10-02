@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ParkingSystem;
 
@@ -146,7 +147,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentLettersLess()
         {
-            Enrollment enrollment = new Enrollment("AA" , 2323);
+            Enrollment enrollment = new Enrollment("AA", 2323);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -154,7 +155,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentLettersMore()
         {
-            Enrollment enrollment = new Enrollment("AAAA" , 2345);
+            Enrollment enrollment = new Enrollment("AAAA", 2345);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -162,7 +163,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentNumbersLess()
         {
-            Enrollment enrollment = new Enrollment("AAA" , 232);
+            Enrollment enrollment = new Enrollment("AAA", 232);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -170,7 +171,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentNumbersMore()
         {
-            Enrollment enrollment = new Enrollment("AAA" , 23424);
+            Enrollment enrollment = new Enrollment("AAA", 23424);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -414,6 +415,54 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void ValidateGrabAnEnrollmentWithListEmpty()
+        {
+            Assert.AreEqual(null, system.getAnEnrollment("sbn", 4040));
+        }
+
+        [TestMethod]
+        public void ValidateGrabAnEnrollmentOutsideOfTheList()
+        {
+            system.AddEnrollment(new Enrollment("sbn", 3924));
+            Assert.AreEqual(null, system.getAnEnrollment("sad", 4334));
+        }
+
+        [TestMethod]
+        public void ValidateGrabAnEnrollmentWhitTheSameLetters()
+        {
+            system.AddEnrollment(new Enrollment("sbn", 3924));
+            Assert.AreEqual(null, system.getAnEnrollment("sbn", 3922));
+        }
+
+        [TestMethod]
+        public void ValidateGrabAnEnrollmentWhitTheSameNumbers()
+        {
+            system.AddEnrollment(new Enrollment("sbn", 3924));
+            Assert.AreEqual(null, system.getAnEnrollment("sbv", 3924));
+        }
+
+        [TestMethod]
+        public void ValidateGrabAnEnrollmentInTheListOfEnrollment()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            system.AddEnrollment(enrollment);
+            Assert.AreEqual(enrollment, system.getAnEnrollment("sbn", 4849));
+            system.GetEnrollments().Clear();
+        }
+
+        [TestMethod]
+        public void ValidateGrabAnEnrollmentInTheListOfManyEnrollments()
+        {
+            system.AddEnrollment(new Enrollment("sbn", 3020));
+            system.AddEnrollment(new Enrollment("sbf", 2688));
+            system.AddEnrollment(new Enrollment("sdf", 2340));
+            IEnrollment enrollment = new Enrollment("fds", 1232);
+            system.AddEnrollment(enrollment);
+            Assert.AreEqual(enrollment, system.getAnEnrollment("fds", 1232));
+            system.GetEnrollments().Clear();
+        }
+
+        [TestMethod]
         public void ValidateFormatOfEnrollmentEmpty()
         {
             Assert.AreEqual(false, system.ValidateFormatOfEnrollment(""));
@@ -554,7 +603,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateRepeatEnrollmentLetters()
         {
-            Enrollment enrollment = new Enrollment("SBN" , 4849);
+            Enrollment enrollment = new Enrollment("SBN", 4849);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(false, system.ValidateRepeatEnrollment("SBN", 4848));
             system.GetEnrollments().Clear();
@@ -588,7 +637,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateHourLessThanTen()
         {
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 9, 0, 0);
             Assert.AreEqual(false, system.ValidateValidHour(date));
         }
@@ -628,7 +677,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateTimeOfPurchaseZero()
         {
-           Assert.AreEqual(false, system.ValideTimeOfPurchase(0));
+            Assert.AreEqual(false, system.ValideTimeOfPurchase(0));
         }
 
         [TestMethod]
@@ -694,7 +743,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseEmpty()
         {
-            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(0,0,0));
+            Assert.AreEqual(0, system.CalculateFinalTimeOfPurchase(0, 0, 0));
         }
 
         [TestMethod]
@@ -769,6 +818,159 @@ namespace UnitTestProject1
             Assert.AreEqual(300, system.CalculateFinalTimeOfPurchase(300, 12, 30));
         }
 
+        [TestMethod]
+        public void ValidatePurchaseInTheDateNotPurchases()
+        {
+            Assert.AreEqual(false, system.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbm" , 3030)));
+        }
 
+        [TestMethod]
+        public void ValidatePurchaseInTheDateNotPurchasesInThatDateInMinutes()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateTimeOfPurchase = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                DateTime.Now.Day, DateTime.Now.Hour, 10, DateTime.Now.Second);
+            system.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+
+            DateTime dateTimeOfQuery = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                DateTime.Now.Day, DateTime.Now.Hour, 45, DateTime.Now.Second);
+
+            Assert.AreEqual(false, system.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
+        }
+
+        [TestMethod]
+        public void ValidatePurchaseInTheDateNotPurchasesInThatDateInHours()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateTimeOfPurchase = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                DateTime.Now.Day, 14, DateTime.Now.Minute, DateTime.Now.Second);
+            system.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+
+            DateTime dateTimeOfQuery = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                DateTime.Now.Day, 15, DateTime.Now.Minute, DateTime.Now.Second);
+
+            Assert.AreEqual(false, system.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
+        }
+
+        [TestMethod]
+        public void ValidatePurchaseInTheDateNotPurchasesInThatDateInDay()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateTimeOfPurchase = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                23, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            system.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+
+            DateTime dateTimeOfQuery = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                22, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            Assert.AreEqual(false, system.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
+        }
+
+        [TestMethod]
+        public void ValidatePurchaseInTheDateNotPurchasesInThatDateInMonth()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateTimeOfPurchase = new DateTime(DateTime.Now.Year, 11,
+                DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            system.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+
+            DateTime dateTimeOfQuery = new DateTime(DateTime.Now.Year, 5,
+                DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            Assert.AreEqual(false, system.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
+        }
+
+        [TestMethod]
+        public void ValidatePurchaseInTheDateNotPurchasesInThatDateInYear()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateTimeOfPurchase = new DateTime(2019, DateTime.Now.Month,
+                DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            system.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+
+            DateTime dateTimeOfQuery = new DateTime(2018, DateTime.Now.Month,
+                DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+            Assert.AreEqual(false, system.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
+        }
+
+        [TestMethod]
+        public void ValidatePurchaseInTheDateNotPurchasesInThatEnrollmentInLetters()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateTimeOfPurchase = DateTime.Now;
+            system.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            Assert.AreEqual(false, system.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbm", 4849)));
+        }
+
+        [TestMethod]
+        public void ValidatePurchaseInTheDateNotPurchasesInThatEnrollmentInNumbers()
+        {
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateTimeOfPurchase = DateTime.Now;
+            system.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            Assert.AreEqual(false, system.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbn",4848)));
+        }
+
+        [TestMethod]
+        public void ValidatePurchaseInTheDateOnePurchase()
+        {
+            system.GetPurchases().Clear();
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            system.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
+            Assert.AreEqual(true, system.ArePurchaseOnThatDate(DateTime.Now, enrollment));
+        }
+   
+        [TestMethod]
+        public void ValidatePurchaseInTheDateMoreOfOnePurchase()
+        {
+            system.GetPurchases().Clear();
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+
+            system.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
+            system.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
+            system.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
+            system.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
+            
+            Assert.AreEqual(true, system.ArePurchaseOnThatDate(DateTime.Now, enrollment));
+        }
+
+        [TestMethod]
+        public void ValidateCheckDateTheSameDate()
+        {
+            system.GetPurchases().Clear();
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            Assert.AreEqual(true, system.CheckDateWithTimeOfPurchase(DateTime.Now, new Purchase(enrollment, 30, DateTime.Now)));
+        }
+
+        [TestMethod]
+        public void ValidateCheckDateDateInTime()
+        {
+            system.GetPurchases().Clear();
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateCheck = DateTime.Now;
+            dateCheck = dateCheck.AddMinutes(15);
+            Assert.AreEqual(true, system.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));
+        }
+
+        [TestMethod]
+        public void ValidateCheckDateDateInALimitTime()
+        {
+            system.GetPurchases().Clear();
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateCheck = DateTime.Now;
+            dateCheck = dateCheck.AddMinutes(30);
+            Assert.AreEqual(true, system.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));
+        }
+
+        [TestMethod]
+        public void ValidateCheckDateDateOutOfBounds()
+        {
+            system.GetPurchases().Clear();
+            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            DateTime dateCheck = DateTime.Now;
+            dateCheck = dateCheck.AddMinutes(40);
+            Assert.AreEqual(false, system.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));
+        }
     }
 }

@@ -15,9 +15,9 @@ namespace UI
 
     {
         Panel panel;
-        SystemController system;
-
-        public AccountRegister(Panel principalPanel, SystemController systemController)
+        ISystemController system;
+        
+        public AccountRegister(Panel principalPanel, ISystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
@@ -77,7 +77,8 @@ namespace UI
 
         private void AddAccount(string text)
         {
-            system.AddAccount(new Account(0, text));
+            IAccount newAccount = new Account(0, text);
+            system.AddAccount(newAccount);
             lblAnswer.ForeColor = Color.Green;
             SetMessage("La cuenta ha sido registrada correctamente.");
             txtNumberPhone.Clear();

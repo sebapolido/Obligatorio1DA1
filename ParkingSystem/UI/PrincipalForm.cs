@@ -18,7 +18,7 @@ namespace UI
     public partial class PrincipalForm : Form
     {
 
-        SystemController system;
+        ISystemController system;
 
         public PrincipalForm()
         {
@@ -48,18 +48,24 @@ namespace UI
                 this.SecundaryPanel.Controls.Add(new AddBalance(principalPanel, system));
             }
             else
-                IfNotAreAccount();
+                SetMessage("Primero debe haber al menos una cuenta regitrada.");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             if (system.GetAccounts().ToArray().Length > 0)
             {
-                ChangeStatus();
-                this.SecundaryPanel.Controls.Add(new ProcessPurchase(principalPanel, system));
+                if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18 && DateTime.Now.Minute >= 0 &&
+                DateTime.Now.Minute < 60)
+                {
+                    ChangeStatus();
+                    this.SecundaryPanel.Controls.Add(new ProcessPurchase(principalPanel, system));
+                }
+                else
+                    SetMessage("Esta función solo está disponible de 10 a 18 horas.");
             }
             else
-                IfNotAreAccount();
+                SetMessage("Primero debe haber al menos una cuenta regitrada.");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -70,7 +76,7 @@ namespace UI
                 this.SecundaryPanel.Controls.Add(new CheckPurchase(principalPanel, system));
             }
             else
-                IfNotAreAccount();
+                SetMessage("Primero debe haber al menos una cuenta regitrada.");
         }
 
         private void ChangeStatus()
@@ -79,13 +85,7 @@ namespace UI
             this.SecundaryPanel.Visible = true;
             lblAnswer.Visible = false;
         }
-
-        private void IfNotAreAccount()
-        {
-            lblAnswer.Visible = true;
-            timerOfAnswer.Start();
-        }
-
+        
         private void PrincipalForm_Load(object sender, EventArgs e)
         {
         
@@ -101,12 +101,11 @@ namespace UI
             timerOfAnswer.Enabled = false;
         }
 
-        private void button1_Click_2(object sender, EventArgs e)
+        public void SetMessage(string textToShow)
         {
-            Account account = new Account();
-            account.balance = 25;
-            account.mobile = "99366931";
-            system.AddAccount(account);
-         }
+            lblAnswer.Visible = true;
+            lblAnswer.Text = textToShow;
+            timerOfAnswer.Start();
+        }
     }
 }
