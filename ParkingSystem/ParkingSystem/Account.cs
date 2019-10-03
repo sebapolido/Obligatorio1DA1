@@ -13,7 +13,7 @@ namespace ParkingSystem
         public string mobile { get; set; }
 
         
-        public Account(int newBalance, String newMobile)
+        public Account(int newBalance, string newMobile)
         {
             balance = newBalance;
             mobile = newMobile;

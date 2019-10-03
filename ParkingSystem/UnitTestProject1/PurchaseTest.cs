@@ -59,38 +59,51 @@ namespace UnitTestProject1
         //
         #endregion
 
+        IPurchase purchase;
+        IPurchase purchaseEmpty;
+        IEnrollment enrollment;
+
+        [TestCleanup]
+        public void testClean()
+        {
+            purchase = null;
+            purchaseEmpty = null;
+            enrollment = null;
+
+        }
+
+        [TestInitialize]
+        public void testInit()
+        {
+            enrollment = new Enrollment("sbn", 4848);
+            purchaseEmpty = new Purchase();
+            purchase = new Purchase(enrollment, 30, DateTime.Now);
+        }
+
         [TestMethod]
         public void CreateEmptyPurchaseTimeOfPurchase()
         {
-            IPurchase purchase = new Purchase();
-            Assert.AreEqual(0, purchase.timeOfPurchase);
+            Assert.AreEqual(0, purchaseEmpty.timeOfPurchase);
         }
 
         [TestMethod]
         public void CreateEmptyPurchaseEnrollment()
         {
-            IPurchase purchase = new Purchase();
-            Assert.AreEqual(null, purchase.enrollmentOfPurchase);
+            Assert.AreEqual(null, purchaseEmpty.enrollmentOfPurchase);
         }
 
         public void CreatePurchaseEnrollment()
         {
-            IEnrollment enrollment = new Enrollment("sbn", 4848);
-            IPurchase purchase = new Purchase(enrollment, 30, DateTime.Now);
             Assert.AreEqual(enrollment, purchase.enrollmentOfPurchase);
         }
 
         public void CreatePurchaseTime()
         {
-            IEnrollment enrollment = new Enrollment("sbn", 4848);
-            IPurchase purchase = new Purchase(enrollment, 30, DateTime.Now);
             Assert.AreEqual(30, purchase.enrollmentOfPurchase);
         }
 
         public void CreatePurchaseDate()
         {
-            IEnrollment enrollment = new Enrollment("sbn", 4848);
-            IPurchase purchase = new Purchase(enrollment, 30, DateTime.Now);
             Assert.AreEqual(DateTime.Now, purchase.enrollmentOfPurchase);
         }
     }

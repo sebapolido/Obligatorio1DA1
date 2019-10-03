@@ -8,12 +8,29 @@ namespace UnitTestProject1
     [TestClass]
     public class SystemControllerTest
     {
-        SystemController system = new SystemController();
+        SystemController system;
+
+
+        [TestCleanup]
+        public void testClean()
+        {
+            system.GetAccounts().Clear();
+            system.GetEnrollments().Clear();
+            system.GetPurchases().Clear();
+            system = null;
+            
+        }
+
+        [TestInitialize]
+        public void testInit()
+        {
+           system = new SystemController();
+        }
 
         [TestMethod]
         public void AddAccountEmpty()
         {
-            Account account = new Account();
+            IAccount account = new Account();
             system.AddAccount(account);
             Assert.AreEqual(0, system.GetAccounts().ToArray().Length);
         }
@@ -21,7 +38,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddAccountMobileEmpty()
         {
-            Account account = new Account();
+            IAccount account = new Account();
             account.balance = 50;
             system.AddAccount(account);
             Assert.AreEqual(0, system.GetAccounts().ToArray().Length);
@@ -30,7 +47,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddAccountWithErrorInBalance()
         {
-            Account account = new Account(-25, "099366931");
+            IAccount account = new Account(-25, "099366931");
             system.AddAccount(account);
             Assert.AreEqual(0, system.GetAccounts().ToArray().Length);
         }
@@ -38,7 +55,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddAccountWithErrorInNumberMoreLength()
         {
-            Account account = new Account(25, "099366931343");
+            IAccount account = new Account(25, "099366931343");
             system.AddAccount(account);
             Assert.AreEqual(0, system.GetAccounts().ToArray().Length);
         }
@@ -46,7 +63,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddAccountWithErrorInNumberLessLength()
         {
-            Account account = new Account(25, "09936");
+            IAccount account = new Account(25, "09936");
             system.AddAccount(account);
             Assert.AreEqual(0, system.GetAccounts().ToArray().Length);
         }
@@ -54,7 +71,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddAccountWithErrorInNumberFormat()
         {
-            Account account = new Account(25, "09ed1343");
+            IAccount account = new Account(25, "09ed1343");
             system.AddAccount(account);
             Assert.AreEqual(0, system.GetAccounts().ToArray().Length);
         }
@@ -62,41 +79,37 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddAccountBalanceEmpty()
         {
-            Account account = new Account();
+            IAccount account = new Account();
             account.mobile = "099366931";
             system.AddAccount(account);
             Assert.AreEqual(1, system.GetAccounts().ToArray().Length);
-            system.GetAccounts().Clear();
         }
 
         [TestMethod]
         public void AddValidAccount()
         {
-            Account account = new Account(25, "099366931");
+            IAccount account = new Account(25, "099366931");
             system.AddAccount(account);
             Assert.AreEqual(1, system.GetAccounts().ToArray().Length);
-            system.GetAccounts().Clear();
         }
 
         [TestMethod]
         public void AddValidAccountTwoTimes()
         {
-            Account account = new Account(25, "099366931");
+            IAccount account = new Account(25, "099366931");
             system.AddAccount(account);
             system.AddAccount(account);
             Assert.AreEqual(1, system.GetAccounts().ToArray().Length);
-            system.GetAccounts().Clear();
         }
 
         [TestMethod]
         public void AddValidAccountWhitZeroAndWithoutZero()
         {
-            Account validAccount = new Account(25, "099366931");
+            IAccount validAccount = new Account(25, "099366931");
             system.AddAccount(validAccount);
-            Account invalidAccount = new Account(25, "  99366931");
+            IAccount invalidAccount = new Account(25, "  99366931");
             system.AddAccount(invalidAccount);
             Assert.AreEqual(1, system.GetAccounts().ToArray().Length);
-            system.GetAccounts().Clear();
         }
 
         [TestMethod]
@@ -108,20 +121,19 @@ namespace UnitTestProject1
         [TestMethod]
         public void getListOfAccountsWithAccounts()
         {
-            Account accountOne = new Account(25, "099366931");
-            Account accountTwo = new Account(225, "099366932");
-            Account accountThree = new Account(254, "099366933");
+            IAccount accountOne = new Account(25, "099366931");
+            IAccount accountTwo = new Account(225, "099366932");
+            IAccount accountThree = new Account(254, "099366933");
             system.AddAccount(accountOne);
             system.AddAccount(accountTwo);
             system.AddAccount(accountThree);
             Assert.AreEqual(3, system.GetAccounts().ToArray().Length);
-            system.GetAccounts().Clear();
         }
 
         [TestMethod]
         public void AddEnrollmentEmpty()
         {
-            Enrollment enrollment = new Enrollment();
+            IEnrollment enrollment = new Enrollment();
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -129,7 +141,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentWithLetttersEmpty()
         {
-            Enrollment enrollment = new Enrollment();
+            IEnrollment enrollment = new Enrollment();
             enrollment.numbersOfEnrollment = 2344;
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
@@ -138,7 +150,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentWithNumbersEmpty()
         {
-            Enrollment enrollment = new Enrollment();
+            IEnrollment enrollment = new Enrollment();
             enrollment.lettersOfEnrollment = "AAA";
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
@@ -147,7 +159,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentLettersLess()
         {
-            Enrollment enrollment = new Enrollment("AA", 2323);
+            IEnrollment enrollment = new Enrollment("AA", 2323);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -155,7 +167,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentLettersMore()
         {
-            Enrollment enrollment = new Enrollment("AAAA", 2345);
+            IEnrollment enrollment = new Enrollment("AAAA", 2345);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -163,7 +175,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentNumbersLess()
         {
-            Enrollment enrollment = new Enrollment("AAA", 232);
+            IEnrollment enrollment = new Enrollment("AAA", 232);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -171,7 +183,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddEnrollmentNumbersMore()
         {
-            Enrollment enrollment = new Enrollment("AAA", 23424);
+            IEnrollment enrollment = new Enrollment("AAA", 23424);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -179,71 +191,65 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddValidEnrollment()
         {
-            Enrollment enrollment = new Enrollment("AAA", 2324);
+            IEnrollment enrollment = new Enrollment("AAA", 2324);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(1, system.GetEnrollments().ToArray().Length);
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
         public void AddTwoEqualsNumbersEnrollment()
         {
-            Enrollment enrollmentOne = new Enrollment("AAA", 2344);
-            Enrollment enrollmentTwo = new Enrollment("BBB", 2344);
+            IEnrollment enrollmentOne = new Enrollment("AAA", 2344);
+            IEnrollment enrollmentTwo = new Enrollment("BBB", 2344);
             system.AddEnrollment(enrollmentOne);
             system.AddEnrollment(enrollmentTwo);
             Assert.AreEqual(2, system.GetEnrollments().ToArray().Length);
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
         public void AddTwoEqualsLettersEnrollment()
         {
-            Enrollment enrollmentOne = new Enrollment("AAA", 2344);
-            Enrollment enrollmentTwo = new Enrollment("AAA", 2345);
+            IEnrollment enrollmentOne = new Enrollment("AAA", 2344);
+            IEnrollment enrollmentTwo = new Enrollment("AAA", 2345);
             system.AddEnrollment(enrollmentOne);
             system.AddEnrollment(enrollmentTwo);
             Assert.AreEqual(2, system.GetEnrollments().ToArray().Length);
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
         public void AddTwoEqualsEnrollment()
         {
-            Enrollment enrollmentOne = new Enrollment("AAA", 2344);
-            Enrollment enrollmentTwo = new Enrollment("AAA", 2344);
+            IEnrollment enrollmentOne = new Enrollment("AAA", 2344);
+            IEnrollment enrollmentTwo = new Enrollment("AAA", 2344);
             system.AddEnrollment(enrollmentOne);
             system.AddEnrollment(enrollmentTwo);
             Assert.AreEqual(1, system.GetEnrollments().ToArray().Length);
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
         public void AddTwoEqualsLettersInUpperAndLowerCase()
         {
-            Enrollment enrollmentOne = new Enrollment("aaa", 2344);
-            Enrollment enrollmentTwo = new Enrollment("AAA", 2344);
+            IEnrollment enrollmentOne = new Enrollment("aaa", 2344);
+            IEnrollment enrollmentTwo = new Enrollment("AAA", 2344);
             system.AddEnrollment(enrollmentOne);
             system.AddEnrollment(enrollmentTwo);
             Assert.AreEqual(1, system.GetEnrollments().ToArray().Length);
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
         public void AddTwoEqualsLettersInUpperAndLowerCaseTwo()
         {
-            Enrollment enrollmentOne = new Enrollment("AbC", 2344);
-            Enrollment enrollmentTwo = new Enrollment("aBc", 2344);
+            IEnrollment enrollmentOne = new Enrollment("AbC", 2344);
+            IEnrollment enrollmentTwo = new Enrollment("aBc", 2344);
             system.AddEnrollment(enrollmentOne);
             system.AddEnrollment(enrollmentTwo);
             Assert.AreEqual(1, system.GetEnrollments().ToArray().Length);
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
         public void AddEnrollmentNumbersInLetters()
         {
-            Enrollment enrollment = new Enrollment("232", 23424);
+            IEnrollment enrollment = new Enrollment("232", 23424);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(0, system.GetEnrollments().ToArray().Length);
         }
@@ -257,14 +263,13 @@ namespace UnitTestProject1
         [TestMethod]
         public void getListOfEnrollmentsWithEnrollments()
         {
-            Enrollment enrollmentOne = new Enrollment("ABC", 2931);
-            Enrollment enrollmentTwo = new Enrollment("RRE", 6932);
-            Enrollment enrollmentThree = new Enrollment("RWQ", 6936);
+            IEnrollment enrollmentOne = new Enrollment("ABC", 2931);
+            IEnrollment enrollmentTwo = new Enrollment("RRE", 6932);
+            IEnrollment enrollmentThree = new Enrollment("RWQ", 6936);
             system.AddEnrollment(enrollmentOne);
             system.AddEnrollment(enrollmentTwo);
             system.AddEnrollment(enrollmentThree);
             Assert.AreEqual(3, system.GetEnrollments().ToArray().Length);
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
@@ -377,7 +382,6 @@ namespace UnitTestProject1
         {
             system.AddAccount(new Account(0, "099366931"));
             Assert.AreEqual(true, system.ValidateRepeatNumber("099366931"));
-            system.GetAccounts().Clear();
         }
 
         [TestMethod]
@@ -396,10 +400,9 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateGrabAnAccountInTheListOfAnAccount()
         {
-            Account account = new Account(0, "099366931");
+            IAccount account = new Account(0, "099366931");
             system.AddAccount(account);
             Assert.AreEqual(account, system.getAnAccount("099366931"));
-            system.GetAccounts().Clear();
         }
 
         [TestMethod]
@@ -408,10 +411,9 @@ namespace UnitTestProject1
             system.AddAccount(new Account(0, "092345678"));
             system.AddAccount(new Account(0, "095345688"));
             system.AddAccount(new Account(0, "092340478"));
-            Account account = new Account(0, "099366931");
+            IAccount account = new Account(0, "099366931");
             system.AddAccount(account);
             Assert.AreEqual(account, system.getAnAccount("099366931"));
-            system.GetAccounts().Clear();
         }
 
         [TestMethod]
@@ -447,7 +449,6 @@ namespace UnitTestProject1
             IEnrollment enrollment = new Enrollment("sbn", 4849);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(enrollment, system.getAnEnrollment("sbn", 4849));
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
@@ -459,7 +460,6 @@ namespace UnitTestProject1
             IEnrollment enrollment = new Enrollment("fds", 1232);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(enrollment, system.getAnEnrollment("fds", 1232));
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
@@ -579,10 +579,9 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateRepeatEnrollmentEmpty()
         {
-            Enrollment enrollment = new Enrollment("SBN", 4849);
+            IEnrollment enrollment = new Enrollment("SBN", 4849);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(false, system.ValidateRepeatEnrollment("", 0));
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
@@ -594,19 +593,17 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateRepeatEnrollmentNumbers()
         {
-            Enrollment enrollment = new Enrollment("SBN", 4849);
+            IEnrollment enrollment = new Enrollment("SBN", 4849);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(false, system.ValidateRepeatEnrollment("SBM", 4849));
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
         public void ValidateRepeatEnrollmentLetters()
         {
-            Enrollment enrollment = new Enrollment("SBN", 4849);
+            IEnrollment enrollment = new Enrollment("SBN", 4849);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(false, system.ValidateRepeatEnrollment("SBN", 4848));
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
@@ -615,16 +612,14 @@ namespace UnitTestProject1
             Enrollment enrollment = new Enrollment("SBN", 4849);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(false, system.ValidateRepeatEnrollment("SBM", 4848));
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
         public void ValidateRepeatEnrollmentRepeated()
         {
-            Enrollment enrollment = new Enrollment("SBN", 4849);
+            IEnrollment enrollment = new Enrollment("SBN", 4849);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(true, system.ValidateRepeatEnrollment("SBN", 4849));
-            system.GetEnrollments().Clear();
         }
 
         [TestMethod]
@@ -915,7 +910,6 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidatePurchaseInTheDateOnePurchase()
         {
-            system.GetPurchases().Clear();
             IEnrollment enrollment = new Enrollment("sbn", 4849);
             system.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
             Assert.AreEqual(true, system.ArePurchaseOnThatDate(DateTime.Now, enrollment));
@@ -924,7 +918,6 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidatePurchaseInTheDateMoreOfOnePurchase()
         {
-            system.GetPurchases().Clear();
             IEnrollment enrollment = new Enrollment("sbn", 4849);
 
             system.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
@@ -938,7 +931,6 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCheckDateTheSameDate()
         {
-            system.GetPurchases().Clear();
             IEnrollment enrollment = new Enrollment("sbn", 4849);
             Assert.AreEqual(true, system.CheckDateWithTimeOfPurchase(DateTime.Now, new Purchase(enrollment, 30, DateTime.Now)));
         }
@@ -946,7 +938,6 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCheckDateDateInTime()
         {
-            system.GetPurchases().Clear();
             IEnrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(15);
@@ -956,7 +947,6 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCheckDateDateInALimitTime()
         {
-            system.GetPurchases().Clear();
             IEnrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(30);
@@ -966,7 +956,6 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCheckDateDateOutOfBounds()
         {
-            system.GetPurchases().Clear();
             IEnrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(40);

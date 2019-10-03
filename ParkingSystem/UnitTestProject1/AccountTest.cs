@@ -59,39 +59,51 @@ namespace UnitTestProject1
         //
         #endregion
 
+        IAccount account;
+        IAccount accountEmpty;
+
+        [TestCleanup]
+        public void testClean()
+        {
+            account = null;
+            accountEmpty = null;
+
+        }
+
+        [TestInitialize]
+        public void testInit()
+        {
+            accountEmpty = new Account();
+            account = new Account(0, "099366931");
+        }
 
         [TestMethod]
         public void CreateEmptyAccountBalance()
         {
-            IAccount account = new Account();
-            Assert.AreEqual(0, account.balance);
+            Assert.AreEqual(0, accountEmpty.balance);
         }
 
         [TestMethod]
         public void CreateEmptyAccountMobile()
         {
-            IAccount account = new Account();
-            Assert.AreEqual("", account.mobile);
+            Assert.AreEqual("", accountEmpty.mobile);
         }
 
         [TestMethod]
         public void CreateAccountBalance()
         {
-            IAccount account = new Account(0, "099366931");
             Assert.AreEqual(0, account.balance);
         }
 
         [TestMethod]
         public void CreateAccountMobile()
         {
-            IAccount account = new Account(0, "099366931");
             Assert.AreEqual("099366931", account.mobile);
         }
 
         [TestMethod]
         public void AddInvalidBalanceTest()
         {
-            IAccount account = new Account(0,"099366931");
             account.AddBalance(-25);
             Assert.AreEqual(0, account.balance);
         }
@@ -99,7 +111,6 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddValidBalanceWithBalanceInZeroTest()
         {
-            IAccount account = new Account(0, "099366931");
             account.AddBalance(25);
             Assert.AreEqual(25, account.balance);
         }
@@ -107,8 +118,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void AddValidBalanceWithBalanceTest()
         {
-            IAccount account = new Account(25, "099366931");
             account.AddBalance(22);
+            account.AddBalance(25);
             Assert.AreEqual(47, account.balance);
         }
     }
