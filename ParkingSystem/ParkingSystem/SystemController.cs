@@ -18,7 +18,7 @@ namespace ParkingSystem
         public void AddAccount(IAccount account)
         {
             string text = account.mobile;
-            if (account.balance >= 0 && ValidateLengthNumber(ref text) &&
+            if (account.balance >= 0 && ValidateFormatNumber(ref text) &&
                 ValidateIsNumeric(account.mobile) && !ValidateRepeatNumber(account.mobile))
                 accountsList.Add(account);
         }
@@ -51,25 +51,32 @@ namespace ParkingSystem
             return purchaseList;
         }   
 
-        public bool ValidateLengthNumber(ref string text)
+        public bool ValidateFormatNumber(ref string textOfPhone)
         {
-            if (text.Length == 9 && text[0].Equals('0') && text[1].Equals('9'))
+            if (IsFormatOfLengthOfNine(textOfPhone))
                 return true;
-            else if (text.Length == 8 && text[0].Equals('9'))
+            else if (IsFormatOfLengthOfEigth(textOfPhone))
             {
-                text = text.Insert(0, "0");
+                textOfPhone = textOfPhone.Insert(0, "0");
                 return true;
             }
             else
                 return false;
         }
 
+        public bool IsFormatOfLengthOfNine(string text)
+        {
+            return text.Length == 9 && text[0].Equals('0') && text[1].Equals('9');
+        }
+
+        public bool IsFormatOfLengthOfEigth(string text)
+        {
+            return text.Length == 8 && text[0].Equals('9');
+        }
+
         public bool ValidateIsNumeric(string text)
         {
-            if (Int32.TryParse(text, out int isNumeric))
-                return true;
-            else
-                return false;
+            return (Int32.TryParse(text, out int isNumeric));
         }
 
         public bool ValidateRepeatNumber(string text)
@@ -89,7 +96,7 @@ namespace ParkingSystem
                 return true;
         }
 
-        public IAccount getAnAccount(string text)
+        public IAccount GetAnAccount(string text)
         {
             for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
             {
@@ -101,7 +108,7 @@ namespace ParkingSystem
             return null;
         }
 
-        public IEnrollment getAnEnrollment(string letters, int numbers)
+        public IEnrollment GetAnEnrollment(string letters, int numbers)
         {
             bool isEquals = false;
             for (int i = 0; i < this.GetEnrollments().ToArray().Length && !isEquals; i++)

@@ -122,5 +122,43 @@ namespace UnitTestProject1
             account.AddBalance(25);
             Assert.AreEqual(47, account.balance);
         }
+
+        [TestMethod]
+        public void SubstractInvalidBalanceTest()
+        {
+            account.SubstractBalance(-25);
+            Assert.AreEqual(0, account.balance);
+        }
+
+        [TestMethod]
+        public void SubstractBalanceWithBalanceInZeroTest()
+        {
+            account.SubstractBalance(25);
+            Assert.AreEqual(0, account.balance);
+        }
+
+        [TestMethod]
+        public void SubstractBalanceMoreThanTheAccountBalance()
+        {
+            account.AddBalance(20);
+            account.SubstractBalance(25);
+            Assert.AreEqual(20, account.balance);
+        }
+
+        [TestMethod]
+        public void SubstracTheSameBalanceInTheAccount()
+        {
+            account.AddBalance(22);
+            account.SubstractBalance(22);
+            Assert.AreEqual(0, account.balance);
+        }
+
+        [TestMethod]
+        public void SubstracBalanceInTheAccount()
+        {
+            account.AddBalance(22);
+            account.SubstractBalance(12);
+            Assert.AreEqual(10, account.balance);
+        }
     }
 }

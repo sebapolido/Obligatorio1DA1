@@ -66,52 +66,57 @@ namespace UI
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
-                string text = txtNumberPhone.Text;
-                text = text.Replace(" ", "");
-                if (system.ValidateLengthNumber(ref text))
-                {
-                    ValidateNumberFormat(text);
-                }
-                else
-                    SetMessage("El número no coincide con el formato.");
+                string textOfPhone = txtNumberPhone.Text;
+                textOfPhone = textOfPhone.Replace(" ", "");
+                ValidateFormatNumber(textOfPhone);
             }
         }
-        
-        private void ValidateNumberFormat(string text)
+
+        private void ValidateFormatNumber(string textOfPhone)
         {
-            if (system.ValidateIsNumeric(text))
-                ValidateRepeatNumber(text);
+            if (system.ValidateFormatNumber(ref textOfPhone))
+            {
+                ValidateIsNumeric(textOfPhone);
+            }
+            else
+                SetMessage("El número no coincide con el formato.");
+        }
+
+        private void ValidateIsNumeric(string textOfPhone)
+        {
+            if (system.ValidateIsNumeric(textOfPhone))
+                ValidateRepeatNumber(textOfPhone);
             else
                 SetMessage("El número que ingresó no es númerico.");
         }
 
-        private void ValidateRepeatNumber(string text)
+        private void ValidateRepeatNumber(string textOfPhone)
         {
             if (system.GetAccounts().ToArray().Length > 0)
             {
-                if (system.ValidateRepeatNumber(text))
-                    ValidateMessage(system.getAnAccount(text));
+                if (system.ValidateRepeatNumber(textOfPhone))
+                    ValidateMessage();
                 else
                     SetMessage("El número que ingresó no está registrado.");
             }
         }
 
-        private void ValidateMessage(IAccount account)
+        private void ValidateMessage()
         {
-            if (txtMessage.Text.Length > 8 && txtMessage.Text.Length < 20)
+            if (IsLengthOfMessageCorrect())
             {
-                string[] line = txtMessage.Text.Split(' ');
-                if (line[0].Length == 3 && line.Length > 1 && line[1].Length == 4)
+                string[] lineOfMessage = txtMessage.Text.Split(' ');
+                if (IsCorrectSeparationOfMessage(lineOfMessage))
                 {
-                    if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
-                        ValidateEmptyTime(txtMessage.Text.Substring(8), account);
+                    if (system.ValidateFormatOfEnrollment(lineOfMessage[0] + lineOfMessage[1]))
+                        ValidateEmptyTime(txtMessage.Text.Substring(8));
                     else
                         SetMessage("El formato de la matrícula no es valido.");
                 }
                 else
-                    if (line[0].Length == 7) {
-                        if (system.ValidateFormatOfEnrollment(line[0]))
-                            ValidateEmptyTime(txtMessage.Text.Substring(7), account);
+                    if (lineOfMessage[0].Length == 7) {
+                        if (system.ValidateFormatOfEnrollment(lineOfMessage[0]))
+                            ValidateEmptyTime(txtMessage.Text.Substring(7));
                         else
                             SetMessage("El formato de la matrícula no es valido.");
                     }else
@@ -121,22 +126,32 @@ namespace UI
                 SetMessage("Debe ingresar un mensaje.");
         }
 
-        private void ValidateEmptyTime(String restOfMessage, IAccount account)
+        private bool IsCorrectSeparationOfMessage(string[] lineOfMessage)
         {
-            string[] line = restOfMessage.Split(' ');
-            if (line.Length >= 2 && line.Length<=3)
+            return lineOfMessage[0].Length == 3 && lineOfMessage.Length > 1 && lineOfMessage[1].Length == 4;
+        }
+
+        private bool IsLengthOfMessageCorrect()
+        {
+            return txtMessage.Text.Length > 8 && txtMessage.Text.Length < 20;
+        }
+
+        private void ValidateEmptyTime(string restOfMessage)
+        {
+            string[] lineOfRestOfMessage = restOfMessage.Split(' ');
+            if (IsCorrectSeparationOfRestOfMessage(lineOfRestOfMessage))
             {
                 string hour = "";
                 string minutes = "";
-                if (line.Length == 3 && line[2].Contains(':'))
+                if (WroteTimeAndMinute(lineOfRestOfMessage))
                 {
-                    hour = line[2].Split(':')[0];
-                    minutes = line[2].Split(':')[1];
+                    hour = lineOfRestOfMessage[2].Split(':')[0];
+                    minutes = lineOfRestOfMessage[2].Split(':')[1];
                 }
-                string time = line[1];
+                string time = lineOfRestOfMessage[1];
                 if (system.ValidateMinutes(restOfMessage))
                 {
-                    ValidateTime(time, hour, minutes, account);
+                    ValidateTime(time, hour, minutes);
                 }
                 else
                     SetMessage("El formato del mensaje no es correcto.");
@@ -145,38 +160,52 @@ namespace UI
                 SetMessage("El formato del mensaje no es correcto.");
         }
 
-        private void ValidateTime(string time, string hour, string minutes, IAccount account)
+        private bool WroteTimeAndMinute(string[] line)
         {
-            if (hour.Equals("") && minutes.Equals("")){
+            return line.Length == 3 && line[2].Contains(':');
+        }
+
+        public bool IsCorrectSeparationOfRestOfMessage(string [] line)
+        {
+            return line.Length >= 2 && line.Length <= 3;
+        }
+
+        private void ValidateTime(string time, string hour, string minutes)
+        {
+            if (Entrytime(hour, minutes)){
                 if (IsConvertStringToNumber(time))
-                {
-                    int timeOfPurchase = Int32.Parse(time);
-                    ValidateTimeMultipleOf30(timeOfPurchase, DateTime.Now.Hour,
-                        DateTime.Now.Minute, account);
-                }
+                    AssignTime(time, "" + DateTime.Now.Hour,"" + DateTime.Now.Minute);
                 else
                     SetMessage("El formato del tiempo no es valido.");
             }
             else
             {
                 if (IsConvertStringToNumber(time, hour, minutes))
-                {
-                    int timeOfPurchase = Int32.Parse(time);
-                    int hourOfPurchase = Int32.Parse(hour);
-                    int minsOfPurchase = Int32.Parse(minutes);
-                    ValidateTimeMultipleOf30(timeOfPurchase, hourOfPurchase, minsOfPurchase, account);
-                }
+                    AssignTime(time, hour, minutes);
                 else
                     SetMessage("El formato de la hora es valido.");
             }           
         }
 
-        private void ValidateTimeMultipleOf30(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase, IAccount account)
+        private void AssignTime(string time, string hour, string minutes)
+        {
+            int timeOfPurchase = Int32.Parse(time);
+            int hourOfPurchase = Int32.Parse(hour);
+            int minsOfPurchase = Int32.Parse(minutes);
+            ValidateTimeMultipleOf30(timeOfPurchase, hourOfPurchase, minsOfPurchase);
+        }
+
+        private bool Entrytime(string hour, string minutes)
+        {
+            return hour.Equals("") && minutes.Equals("");
+        }
+
+        private void ValidateTimeMultipleOf30(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase)
         {   
             if(system.ValideTimeOfPurchase(timeOfPurchase))
             {
                 if(minsOfPurchase >= 0 && minsOfPurchase < 60) 
-                    ValidateDate(timeOfPurchase, hourOfPurchase, minsOfPurchase, account);
+                    ValidateDate(timeOfPurchase, hourOfPurchase, minsOfPurchase);
                 else
                     SetMessage("El formato de la hora no es correcto");
             }
@@ -184,7 +213,7 @@ namespace UI
                 SetMessage("La cantidad de minutos debe ser múltiplo de 30.");
         }
 
-        private void ValidateDate(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase, IAccount account)
+        private void ValidateDate(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase)
         {
             DateTime dateTime = new DateTime(DateTime.Now.Year,
                         DateTime.Now.Month, DateTime.Now.Day, hourOfPurchase,
@@ -192,25 +221,39 @@ namespace UI
             if (system.ValidateValidHour(dateTime))
             {
                 int finalTimeOfPurchase = system.CalculateFinalTimeOfPurchase(timeOfPurchase, hourOfPurchase, minsOfPurchase);
-                CheckBalanceAccount(finalTimeOfPurchase, account, dateTime);
+                CheckBalanceAccount(finalTimeOfPurchase, dateTime);
             }
             else
                 SetMessage("El formato de la hora no es correcto");
         }
 
-        private void CheckBalanceAccount(int finalTimeOfPurchase, IAccount account, DateTime dateTime)
+        private void CheckBalanceAccount(int finalTimeOfPurchase, DateTime dateTime)
         {
-            if (finalTimeOfPurchase                 * 1 < account.balance) //ARREGLARRRR
+            IAccount account = system.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
+            int costForMinut = 1;
+            int finalCostOfPurchase = finalTimeOfPurchase * costForMinut;
+            if (finalCostOfPurchase < account.balance) //ARREGLARRRR
             {
-                account.balance -= finalTimeOfPurchase *  1;
-                string aEnrollment = txtMessage.Text.Replace(" " , "");
-                IEnrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
-                Int32.Parse(aEnrollment.Substring(3,4)));
-                system.AddEnrollment(enrollment);
-                AddPurchase(finalTimeOfPurchase, enrollment, dateTime);
+                SubtractBalance(account, finalCostOfPurchase);
+                AddEnrollment(finalTimeOfPurchase, dateTime);
             }
             else
                 SetMessage("El saldo de la cuenta es insuficiente.");
+        }
+
+        private void SubtractBalance(IAccount account, int finalCostOfPurchase)
+        {
+            account.SubstractBalance(finalCostOfPurchase);
+        }
+
+
+        private void AddEnrollment(int finalTimeOfPurchase, DateTime dateTime)
+        {
+            string aEnrollment = txtMessage.Text.Replace(" ", "");
+            IEnrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
+            Int32.Parse(aEnrollment.Substring(3, 4)));
+            system.AddEnrollment(enrollment);
+            AddPurchase(finalTimeOfPurchase, enrollment, dateTime);
         }
 
         private void AddPurchase(int finalTimeOfPurchase, IEnrollment enrollment, DateTime dateTime)

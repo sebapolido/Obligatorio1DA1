@@ -14,11 +14,13 @@ namespace ParkingSystem
         List<IEnrollment> GetEnrollments();
         void AddPurchase(IPurchase purchase);
         List<IPurchase> GetPurchases();
-        bool ValidateLengthNumber(ref string text);
+        bool ValidateFormatNumber(ref string textOfPhone);
+        bool IsFormatOfLengthOfNine(string text);
+        bool IsFormatOfLengthOfEigth(string text);
         bool ValidateIsNumeric(string text);
         bool ValidateRepeatNumber(string text);
-        IAccount getAnAccount(string text);
-        IEnrollment getAnEnrollment(string letters, int numbers);
+        IAccount GetAnAccount(string text);
+        IEnrollment GetAnEnrollment(string letters, int numbers);
         bool ValidateFormatOfEnrollment(string text);
         bool ValidateRepeatEnrollment(string letters, int numbers);
         bool ValidateMinutes(string restOfMessage);

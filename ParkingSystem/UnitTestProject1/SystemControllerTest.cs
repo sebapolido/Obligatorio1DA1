@@ -273,66 +273,143 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void ValidateFormatNumberOfLengthOfNineEmpty()
+        {
+            string input = "";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfNine(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfNineLessThanNine()
+        {
+            string input = "09324";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfNine(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfNineMoreThanNine()
+        {
+            string input = "09323434344";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfNine(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfNineBadFirstNumber()
+        {
+            string input = "199366931";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfNine(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfNineBadSecondNumber()
+        {
+            string input = "019366931";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfNine(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfNineGoodNumber()
+        {
+            string input = "099366931";
+            Assert.AreEqual(true, system.IsFormatOfLengthOfNine(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfEigthEmpty()
+        {
+            string input = "";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfEigth(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfEigthLessThanEigth()
+        {
+            string input = "9324";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfEigth(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfEigthMoreThanEigth()
+        {
+            string input = "9323434344";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfEigth(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfEigthBadFirstNumber()
+        {
+            string input = "89366931";
+            Assert.AreEqual(false, system.IsFormatOfLengthOfEigth(input));
+        }
+
+        [TestMethod]
+        public void ValidateFormatNumberOfLengthOfEigthGoodNumber()
+        {
+            string input = "99366931";
+            Assert.AreEqual(true, system.IsFormatOfLengthOfEigth(input));
+        }
+
+        [TestMethod]
         public void ValidateLengthNumberEmpty()
         {
             string input = "";
-            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(false, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberLetters()
         {
             string input = "ASDFGHJKL";
-            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(false, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberLessThanEight()
         {
             string input = "09934";
-            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(false, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberGreaterTanNine()
         {
             string input = "09923132234";
-            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(false, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberNotFirstZeroInALengthOfNine()
         {
             string input = "299366931";
-            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(false, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberNotSecondNineInALengthOfNine()
         {
             string input = "029366931";
-            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(false, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberNotFirstNineInALengthOfEight()
         {
             string input = "29366931";
-            Assert.AreEqual(false, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(false, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateCorrectLengthNumberWithLengthOfNine()
         {
             string input = "099366931";
-            Assert.AreEqual(true, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(true, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
         public void ValidateCorrectLengthNumberWithLengthOfEigth()
         {
             string input = "099366931";
-            Assert.AreEqual(true, system.ValidateLengthNumber(ref input));
+            Assert.AreEqual(true, system.ValidateFormatNumber(ref input));
         }
 
         [TestMethod]
@@ -387,14 +464,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateGrabAnAccountWithListEmpty()
         {
-            Assert.AreEqual(null, system.getAnAccount("099366931"));
+            Assert.AreEqual(null, system.GetAnAccount("099366931"));
         }
 
         [TestMethod]
         public void ValidateGrabAnAccountOutsideOfTheList()
         {
             system.AddAccount(new Account(0, "098993924"));
-            Assert.AreEqual(null, system.getAnAccount("099366931"));
+            Assert.AreEqual(null, system.GetAnAccount("099366931"));
         }
 
         [TestMethod]
@@ -402,7 +479,7 @@ namespace UnitTestProject1
         {
             IAccount account = new Account(0, "099366931");
             system.AddAccount(account);
-            Assert.AreEqual(account, system.getAnAccount("099366931"));
+            Assert.AreEqual(account, system.GetAnAccount("099366931"));
         }
 
         [TestMethod]
@@ -413,34 +490,34 @@ namespace UnitTestProject1
             system.AddAccount(new Account(0, "092340478"));
             IAccount account = new Account(0, "099366931");
             system.AddAccount(account);
-            Assert.AreEqual(account, system.getAnAccount("099366931"));
+            Assert.AreEqual(account, system.GetAnAccount("099366931"));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentWithListEmpty()
         {
-            Assert.AreEqual(null, system.getAnEnrollment("sbn", 4040));
+            Assert.AreEqual(null, system.GetAnEnrollment("sbn", 4040));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentOutsideOfTheList()
         {
             system.AddEnrollment(new Enrollment("sbn", 3924));
-            Assert.AreEqual(null, system.getAnEnrollment("sad", 4334));
+            Assert.AreEqual(null, system.GetAnEnrollment("sad", 4334));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentWhitTheSameLetters()
         {
             system.AddEnrollment(new Enrollment("sbn", 3924));
-            Assert.AreEqual(null, system.getAnEnrollment("sbn", 3922));
+            Assert.AreEqual(null, system.GetAnEnrollment("sbn", 3922));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentWhitTheSameNumbers()
         {
             system.AddEnrollment(new Enrollment("sbn", 3924));
-            Assert.AreEqual(null, system.getAnEnrollment("sbv", 3924));
+            Assert.AreEqual(null, system.GetAnEnrollment("sbv", 3924));
         }
 
         [TestMethod]
@@ -448,7 +525,7 @@ namespace UnitTestProject1
         {
             IEnrollment enrollment = new Enrollment("sbn", 4849);
             system.AddEnrollment(enrollment);
-            Assert.AreEqual(enrollment, system.getAnEnrollment("sbn", 4849));
+            Assert.AreEqual(enrollment, system.GetAnEnrollment("sbn", 4849));
         }
 
         [TestMethod]
@@ -459,7 +536,7 @@ namespace UnitTestProject1
             system.AddEnrollment(new Enrollment("sdf", 2340));
             IEnrollment enrollment = new Enrollment("fds", 1232);
             system.AddEnrollment(enrollment);
-            Assert.AreEqual(enrollment, system.getAnEnrollment("fds", 1232));
+            Assert.AreEqual(enrollment, system.GetAnEnrollment("fds", 1232));
         }
 
         [TestMethod]

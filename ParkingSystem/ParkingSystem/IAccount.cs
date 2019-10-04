@@ -11,6 +11,7 @@ namespace ParkingSystem
         int balance { get; set; }
         string mobile { get; set; }
 
-        void AddBalance(int newBalance);
+        void AddBalance(int balanceToAdd);
+        void SubstractBalance(int balanceToSubstract);
     }
 }

@@ -93,7 +93,7 @@ namespace UI
             if (Int32.TryParse(numbers, out int balance))
                 if (system.ValidateRepeatEnrollment(letters, int.Parse(numbers)))
                 {
-                    IEnrollment enrollment = system.getAnEnrollment(letters, int.Parse(numbers));
+                    IEnrollment enrollment = system.GetAnEnrollment(letters, int.Parse(numbers));
                     ValidateDate(enrollment);
                 }
                 else

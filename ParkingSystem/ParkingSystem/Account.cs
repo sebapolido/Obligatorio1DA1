@@ -25,11 +25,16 @@ namespace ParkingSystem
             this.mobile = "";
         }
 
-        public void AddBalance(int newBalance)
+        public void AddBalance(int balanceToAdd)
         {
-            if(newBalance > 0)
-                balance += newBalance;
+            if(balanceToAdd > 0)
+                balance += balanceToAdd;
         }
 
+        public void SubstractBalance(int balanceToSubstract)
+        {
+            if(balanceToSubstract > 0 && this.balance >= balanceToSubstract)
+                balance -= balanceToSubstract;
+        }
     }
 }

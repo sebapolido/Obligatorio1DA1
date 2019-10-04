@@ -36,48 +36,47 @@ namespace UI
         private void btnAccept_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
+            ValidateEmpty();
+        }
+
+        public void ValidateEmpty()
+        {
             if (txtNumberPhone.Text.Length == 0)
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
-                string text = txtNumberPhone.Text;
-                text = text.Replace(" ", "");
-                if (system.ValidateLengthNumber(ref text))
-                    ValidateNumberFormat(text);
-                else
-                    SetMessage("El número no coincide con el formato.");
+                string textOfPhone = txtNumberPhone.Text;
+                textOfPhone = textOfPhone.Replace(" ", "");
+                ValidateNumberFormat(textOfPhone);
             }
         }
 
-        private void ValidateNumberFormat(string text)
+        private void ValidateNumberFormat(string textOfPhone)
         {
-            if (system.ValidateIsNumeric(text))
-                ValidateRepeatNumber(text);
+            if (system.ValidateIsNumeric(textOfPhone))
+                if (system.ValidateFormatNumber(ref textOfPhone))
+                    ValidateRepeatNumber(textOfPhone);
+                else
+                    SetMessage("El número no coincide con el formato.");
             else
                 SetMessage("El número que ingresó no es númerico.");
         }
 
-        private void ValidateRepeatNumber(string text)
+        private void ValidateRepeatNumber(string textOfPhone)
         {
-            if (system.GetAccounts().ToArray().Length > 0)
-            {
-                if (system.ValidateRepeatNumber(text))
-                {
-                    ValidateBalance(system.getAnAccount(text));
-                }
-                else
-                    SetMessage("El número que ingresó no está registrado.");
-            }
+            if (system.ValidateRepeatNumber(textOfPhone))
+                ValidateBalance(textOfPhone);
+            else
+                SetMessage("El número que ingresó no está registrado.");
         }
 
-        private void ValidateBalance(IAccount account)
+        private void ValidateBalance(string textOfPhone)
         {
             if (txtBalanceToAdd.Text.Length > 0)
             {
-                int balance = 0;
-                if (Int32.TryParse(txtBalanceToAdd.Text, out balance))
+                if (Int32.TryParse(txtBalanceToAdd.Text, out int balance))
                     if (balance > 0)
-                        AddBalanceToAccount(account, balance);
+                        AddBalanceToAccount(textOfPhone, balance);
                     else
                         SetMessage("Debe ingresar un saldo valido.");
                 else
@@ -87,9 +86,15 @@ namespace UI
                 SetMessage("Debe ingresar un saldo.");
         }
 
-        private void AddBalanceToAccount(IAccount account, int balanceToAdd)
+        private void AddBalanceToAccount(string textOfPhone, int balanceToAdd)
         {
+            IAccount account = system.GetAnAccount(textOfPhone);
             account.AddBalance(balanceToAdd);
+            MessageAccountAdded();
+        }
+
+        private void MessageAccountAdded()
+        {
             lblAnswer.ForeColor = Color.Green;
             SetMessage("Saldo de la cuenta actualizado.");
             txtBalanceToAdd.Clear();

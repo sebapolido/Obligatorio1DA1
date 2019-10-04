@@ -39,50 +39,55 @@ namespace UI
         private void btnAccept_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
+            ValidateEmpty();
+        }
+
+        private void ValidateEmpty()
+        {
             if (txtNumberPhone.Text.Length == 0)
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
-                string text = txtNumberPhone.Text;
-                text = text.Replace(" ", "");
-                if (system.ValidateLengthNumber(ref text))
-                    ValidateNumberFormat(text);
-                else
-                    SetMessage("El número no coincide con el formato.");
+                string textOfPhone = txtNumberPhone.Text;
+                textOfPhone = textOfPhone.Replace(" ", "");
+                ValidateNumberFormat(textOfPhone);
             }
         }
-        
-        private void ValidateNumberFormat(string text)
+
+        private void ValidateNumberFormat(string textOfPhone)
         {
-            if (system.ValidateIsNumeric(text))
-                ValidateRepeatNumber(text);
+            if (system.ValidateIsNumeric(textOfPhone))
+                if (system.ValidateFormatNumber(ref textOfPhone))
+                    ValidateRepeatNumber(textOfPhone);
+                else
+                    SetMessage("El número no coincide con el formato.");
             else
                 SetMessage("El número que ingresó no es númerico.");
         }
 
-        private void ValidateRepeatNumber(string text)
+        private void ValidateRepeatNumber(string textOfPhone)
         {
             if (system.GetAccounts().ToArray().Length > 0)
-            {
-                if (!system.ValidateRepeatNumber(text))
-                {
-                    AddAccount(text);
-                }
+                if (!system.ValidateRepeatNumber(textOfPhone))
+                    AddAccount(textOfPhone);
                 else
                     SetMessage("El número que ingresó ya está registrado.");
-            }
             else
-                AddAccount(text);
+                AddAccount(textOfPhone);
         }
 
-        private void AddAccount(string text)
+        private void AddAccount(string textOfPhone)
         {
-            IAccount newAccount = new Account(0, text);
+            IAccount newAccount = new Account(0, textOfPhone);
             system.AddAccount(newAccount);
+            MessageAccountAdded();
+        }
+
+        private void MessageAccountAdded()
+        {
             lblAnswer.ForeColor = Color.Green;
             SetMessage("La cuenta ha sido registrada correctamente.");
             txtNumberPhone.Clear();
-
         }
 
         public void SetMessage(string textToShow)
