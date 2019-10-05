@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.txtNumberPhone = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
-            this.btnAccept = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.lblNumberPhone = new System.Windows.Forms.Label();
             this.txtBalanceToAdd = new System.Windows.Forms.TextBox();
             this.lblBalanceToAdd = new System.Windows.Forms.Label();
@@ -58,16 +58,16 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnAccept
+            // btnAdd
             // 
-            this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAccept.Location = new System.Drawing.Point(200, 238);
-            this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(136, 45);
-            this.btnAccept.TabIndex = 5;
-            this.btnAccept.Text = "Aceptar";
-            this.btnAccept.UseVisualStyleBackColor = true;
-            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
+            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd.Location = new System.Drawing.Point(200, 238);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(136, 45);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.Text = "Agregar";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // lblNumberPhone
             // 
@@ -134,7 +134,7 @@
             this.Controls.Add(this.lblBalanceToAdd);
             this.Controls.Add(this.txtNumberPhone);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.btnAccept);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lblNumberPhone);
             this.Name = "AddBalance";
             this.Size = new System.Drawing.Size(383, 363);
@@ -147,7 +147,7 @@
 
         private System.Windows.Forms.TextBox txtNumberPhone;
         private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.Button btnAccept;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label lblNumberPhone;
         private System.Windows.Forms.TextBox txtBalanceToAdd;
         private System.Windows.Forms.Label lblBalanceToAdd;

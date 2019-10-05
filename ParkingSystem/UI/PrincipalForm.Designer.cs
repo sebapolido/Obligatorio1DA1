@@ -86,7 +86,7 @@
             this.btnProcessPurchase.TabIndex = 4;
             this.btnProcessPurchase.Text = "Procesar compra";
             this.btnProcessPurchase.UseVisualStyleBackColor = true;
-            this.btnProcessPurchase.Click += new System.EventHandler(this.button3_Click);
+            this.btnProcessPurchase.Click += new System.EventHandler(this.btnProcessPurchase_Click);
             // 
             // btnCheckPurchase
             // 
@@ -97,7 +97,7 @@
             this.btnCheckPurchase.TabIndex = 3;
             this.btnCheckPurchase.Text = "Consultar compra";
             this.btnCheckPurchase.UseVisualStyleBackColor = true;
-            this.btnCheckPurchase.Click += new System.EventHandler(this.button2_Click);
+            this.btnCheckPurchase.Click += new System.EventHandler(this.btnCheckPurchase_Click);
             // 
             // btnAddBalance
             // 
@@ -108,7 +108,7 @@
             this.btnAddBalance.TabIndex = 2;
             this.btnAddBalance.Text = "Agregar saldo";
             this.btnAddBalance.UseVisualStyleBackColor = true;
-            this.btnAddBalance.Click += new System.EventHandler(this.button1_Click_1);
+            this.btnAddBalance.Click += new System.EventHandler(this.btnAddBalance_Click);
             // 
             // btnAccountRegister
             // 
@@ -119,7 +119,7 @@
             this.btnAccountRegister.TabIndex = 1;
             this.btnAccountRegister.Text = "Registrar cuenta";
             this.btnAccountRegister.UseVisualStyleBackColor = true;
-            this.btnAccountRegister.Click += new System.EventHandler(this.button1_Click);
+            this.btnAccountRegister.Click += new System.EventHandler(this.btnAccountRegister_Click);
             // 
             // SecundaryPanel
             // 

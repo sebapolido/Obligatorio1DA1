@@ -83,7 +83,7 @@
             this.btnConsult.TabIndex = 11;
             this.btnConsult.Text = "Consultar";
             this.btnConsult.UseVisualStyleBackColor = true;
-            this.btnConsult.Click += new System.EventHandler(this.btnAccept_Click);
+            this.btnConsult.Click += new System.EventHandler(this.btnConsult_Click);
             // 
             // lblEnrollment
             // 
@@ -99,9 +99,10 @@
             // lblAnswer
             // 
             this.lblAnswer.AutoSize = true;
+            this.lblAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer.Location = new System.Drawing.Point(37, 322);
             this.lblAnswer.Name = "lblAnswer";
-            this.lblAnswer.Size = new System.Drawing.Size(0, 13);
+            this.lblAnswer.Size = new System.Drawing.Size(0, 18);
             this.lblAnswer.TabIndex = 17;
             // 
             // lblCheckPurchase

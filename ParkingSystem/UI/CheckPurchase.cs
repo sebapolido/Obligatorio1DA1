@@ -55,7 +55,7 @@ namespace UI
             panel.Visible = true;
         }
 
-        private void btnAccept_Click(object sender, EventArgs e)
+        private void btnConsult_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
             ValidateFormatEnrollment();
@@ -66,31 +66,39 @@ namespace UI
             if (txtEnrollment.Text.Length > 0 && txtEnrollment.Text.Length < 9)
             {
                 string[] line = txtEnrollment.Text.Split(' ');
-                if (line[0].Length == 3 && line.Length == 2 && line[1].Length == 4)
-                {
-                    if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
-                        ValidateRepeatEnrollment(line[0], line[1]);
-                    else
-                        SetMessage("El formato de la matrícula no es valido.");
-                }
-                else
-                    if (line[0].Length == 7)
-                {
-                    if (system.ValidateFormatOfEnrollment(line[0]))
-                        ValidateRepeatEnrollment(line[0].Substring(0,3), line[0].Substring(3));
-                    else
-                        SetMessage("El formato de la matrícula no es valido.");
-                }
-                else
-                    SetMessage("El formato de la matrícula no es valido.");
+                ValidateFormatOfEnrollmentWithSpace(line);
             }
             else
                 SetMessage("Debe ingresar una matrícula.");
         }
 
+        private void ValidateFormatOfEnrollmentWithSpace(string[] line)
+        {
+            if (line.Length == 2 && system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line))
+            {
+                if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
+                    ValidateRepeatEnrollment(line[0], line[1]);
+                else
+                    SetMessage("El formato de la matrícula no es valido.");
+            }
+            else
+                ValidateFormatOfEnrollmentWithOutSpace(line);
+        }
+
+        private void ValidateFormatOfEnrollmentWithOutSpace(string[] line)
+        {
+            if (system.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line))
+                if (system.ValidateFormatOfEnrollment(line[0]))
+                    ValidateRepeatEnrollment(line[0].Substring(0, 3), line[0].Substring(3));
+                else
+                    SetMessage("El formato de la matrícula no es valido.");
+            else
+                SetMessage("El formato de la matrícula no es valido.");
+        }
+
         private void ValidateRepeatEnrollment(string letters, string numbers)
         {
-            if (Int32.TryParse(numbers, out int balance))
+            if (system.ValidateIsNumeric(numbers))
                 if (system.ValidateRepeatEnrollment(letters, int.Parse(numbers)))
                 {
                     IEnrollment enrollment = system.GetAnEnrollment(letters, int.Parse(numbers));
@@ -125,12 +133,17 @@ namespace UI
         {
             if (system.ArePurchaseOnThatDate(date, enrollment))
             {
-                lblAnswer.ForeColor = Color.Green;
-                SetMessage("Existe una compra activa para esa matrícula en ese horario.");
+                MessageCorrectCheck();
             }
             else
                 SetMessage("No hay ninguna compra con esa matrícula en ese horario.");
 
+        }
+
+        public void MessageCorrectCheck()
+        {
+            lblAnswer.ForeColor = Color.Green;
+            SetMessage("Existe una compra activa para esa matrícula en ese horario.");
         }
 
         private void txtBalanceToAdd_TextChanged(object sender, EventArgs e)

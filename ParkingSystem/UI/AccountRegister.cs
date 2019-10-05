@@ -44,7 +44,7 @@ namespace UI
 
         private void ValidateEmpty()
         {
-            if (txtNumberPhone.Text.Length == 0)
+            if(system.IsEmptyTextOfPhone(txtNumberPhone.Text.Length))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {

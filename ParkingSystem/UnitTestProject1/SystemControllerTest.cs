@@ -413,15 +413,39 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void ValidateIsNumeric()
+        public void ValidateIsNumericEmpty()
         {
-            Assert.AreEqual(true, system.ValidateIsNumeric("099366931"));
+            Assert.AreEqual(false, system.ValidateIsNumeric(""));
         }
 
         [TestMethod]
-        public void ValidateIsNumericWithLetters()
+        public void ValidateIsNumericWithOneLetter()
         {
-            Assert.AreEqual(false, system.ValidateIsNumeric("09vd66931"));
+            Assert.AreEqual(false, system.ValidateIsNumeric("t"));
+        }
+
+        [TestMethod]
+        public void ValidateIsNumericWithOneNumber()
+        {
+            Assert.AreEqual(true, system.ValidateIsNumeric("1"));
+        }
+
+        [TestMethod]
+        public void ValidateIsNumericWithDecimalNumber()
+        {
+            Assert.AreEqual(false, system.ValidateIsNumeric("2,4"));
+        }
+
+        [TestMethod]
+        public void ValidateIsNumericWithLettersAndNumbers()
+        {
+            Assert.AreEqual(false, system.ValidateIsNumeric("t2e3s4t"));
+        }
+
+        [TestMethod]
+        public void ValidatePhoneIsNumeric()
+        {
+            Assert.AreEqual(true, system.ValidateIsNumeric("099366931"));
         }
 
         [TestMethod]
@@ -537,6 +561,169 @@ namespace UnitTestProject1
             IEnrollment enrollment = new Enrollment("fds", 1232);
             system.AddEnrollment(enrollment);
             Assert.AreEqual(enrollment, system.GetAnEnrollment("fds", 1232));
+        }
+
+        [TestMethod]
+        public void ValidateLengthOfEnrollmentIncorrectLessTanEigth()
+        {
+            Assert.AreEqual(false, system.IsLengthOfMessageCorrect(7));
+        }
+
+        [TestMethod]
+        public void ValidateLengthOfEnrollmentIncorrectMoreTanTwenty()
+        {
+            Assert.AreEqual(false, system.IsLengthOfMessageCorrect(23));
+        }
+
+        [TestMethod]
+        public void ValidateLengthOfEnrollmentCorrect()
+        {
+            Assert.AreEqual(true, system.IsLengthOfMessageCorrect(15));
+        }
+
+        [TestMethod]
+        public void ValidateLengthOfEnrollmentMinimumLimitCorrect()
+        {
+            Assert.AreEqual(true, system.IsLengthOfMessageCorrect(9));
+        }
+
+        [TestMethod]
+        public void ValidateLengthOfEnrollmentMaximumLimitCorrect()
+        {
+            Assert.AreEqual(true, system.IsLengthOfMessageCorrect(19));
+        }
+        
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithSpaceLineZeroLessThanThree()
+        {
+            string[] line = new string[] { "SV", "2343", "60" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithSpaceLineZeroMoreThanThree()
+        {
+            string[] line = new string[] { "SDSV", "2343", "60" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithSpaceLineOneLessThanFour()
+        {
+            string[] line = new string[] { "SDV", "243"};
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithSpaceLineOneMoreThanFour()
+        {
+            string[] line = new string[] { "SDV", "24323" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithSpaceOnlyLetters()
+        {
+            string[] line = new string[] { "SDV" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithSpaceOnlyNumbers()
+        {
+            string[] line = new string[] { "2433" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithSpaceLineCorrectLine()
+        {
+            string[] line = new string[] { "SDV", "2433" };
+            Assert.AreEqual(true, system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithOutSpaceIncorrectLineLessLetters()
+        {
+            string[] line = new string[] { "SD2433" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithOutSpaceIncorrectLineLessNumbers()
+        {
+            string[] line = new string[] { "SDD433" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithOutSpaceIncorrectLineMoreLetters()
+        {
+            string[] line = new string[] { "SDDS2433" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithOutSpaceIncorrectLineMoreNumbers()
+        {
+            string[] line = new string[] { "SDD22433" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateSeparationOfEnrollmentMessageWithOutSpaceCorrectLine()
+        {
+            string[] line = new string[] { "SDS2433" };
+            Assert.AreEqual(true, system.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line));
+        }
+
+        [TestMethod]
+        public void ValidateWroteTimeNotWroteTime()
+        {
+            string[] line = new string[] { " " , "60" };
+            Assert.AreEqual(false, system.WroteTime(line));
+        }
+
+        [TestMethod]
+        public void ValidateWroteTimeInvalidWroteTime()
+        {
+            string[] line = new string[] { " ", "60" , "1021:213321" };
+            Assert.AreEqual(false, system.WroteTime(line));
+        }
+
+        [TestMethod]
+        public void ValidateWroteTimeValidWroteTime()
+        {
+            string[] line = new string[] { " ", "60", "11:21" };
+            Assert.AreEqual(true, system.WroteTime(line));
+        }
+
+        [TestMethod]
+        public void ValidateIsCorrectSeparationOfRestOfMessageOnlySpace()
+        {
+            string[] line = new string[] { " " };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfRestOfMessage(line));
+        }
+
+        [TestMethod]
+        public void ValidateIsCorrectSeparationOfRestOfMessageMoreLength()
+        {
+            string[] line = new string[] { " ", "test" , "60", "1021:213321" };
+            Assert.AreEqual(false, system.IsCorrectSeparationOfRestOfMessage(line));
+        }
+
+        [TestMethod]
+        public void ValidateIsCorrectSeparationOfRestOfMessageValidFormat()
+        {
+            string[] line = new string[] { " ", "60" };
+            Assert.AreEqual(true, system.IsCorrectSeparationOfRestOfMessage(line));
+        }
+
+        [TestMethod]
+        public void ValidateIsCorrectSeparationOfRestOfMessage()
+        {
+            string[] line = new string[] { " ", "60", "11:21" };
+            Assert.AreEqual(true, system.IsCorrectSeparationOfRestOfMessage(line));
         }
 
         [TestMethod]
@@ -707,7 +894,7 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void ValidateHourLessThanTen()
+        public void ValidateTimeHourLessThanTen()
         {
             DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 9, 0, 0);
@@ -715,19 +902,11 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void ValidateHourMoreThanSixteen()
+        public void ValidateTimeHourMoreThanSixteen()
         {
             DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 21, 0, 0);
             Assert.AreEqual(false, system.ValidateValidHour(date));
-        }
-
-        [TestMethod]
-        public void ValidateHourTen()
-        {
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
-                 DateTime.Now.Day, 10, 0, 0);
-            Assert.AreEqual(true, system.ValidateValidHour(date));
         }
 
         [TestMethod]
@@ -736,14 +915,6 @@ namespace UnitTestProject1
             DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 18, 0, 0);
             Assert.AreEqual(false, system.ValidateValidHour(date));
-        }
-
-        [TestMethod]
-        public void ValidateHourInTheMiddle()
-        {
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
-                DateTime.Now.Day, 14, 0, 0);
-            Assert.AreEqual(true, system.ValidateValidHour(date));
         }
 
         [TestMethod]
@@ -771,47 +942,17 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void ValidateStringToNumberEmpty()
+        public void ValidateIsEmptyTextOfPhoneEmpty()
         {
-            Assert.AreEqual(false, system.IsConvertStringToNumber(""));
+            Assert.AreEqual(true, system.IsEmptyTextOfPhone(0));
         }
 
         [TestMethod]
-        public void ValidateStringToNumberWithOneLetter()
+        public void ValidateIsEmptyTextOfPhoneNotEmpty()
         {
-            Assert.AreEqual(false, system.IsConvertStringToNumber("t"));
+            Assert.AreEqual(false, system.IsEmptyTextOfPhone(23));
         }
-
-        [TestMethod]
-        public void ValidateStringToNumberWithOneNumber()
-        {
-            Assert.AreEqual(true, system.IsConvertStringToNumber("1"));
-        }
-
-        [TestMethod]
-        public void ValidateStringToNumberWithDecimalNumber()
-        {
-            Assert.AreEqual(false, system.IsConvertStringToNumber("2,4"));
-        }
-
-        [TestMethod]
-        public void ValidateStringToNumberWithLetters()
-        {
-            Assert.AreEqual(false, system.IsConvertStringToNumber("test"));
-        }
-
-        [TestMethod]
-        public void ValidateStringToNumberWithNumbers()
-        {
-            Assert.AreEqual(true, system.IsConvertStringToNumber("232"));
-        }
-
-        [TestMethod]
-        public void ValidateStringToNumberWithLettersAndNumbers()
-        {
-            Assert.AreEqual(false, system.IsConvertStringToNumber("t2e3s4t"));
-        }
-
+       
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseEmpty()
         {

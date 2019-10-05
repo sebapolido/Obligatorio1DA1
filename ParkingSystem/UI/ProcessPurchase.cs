@@ -62,7 +62,7 @@ namespace UI
         private void ValidateEmptyNumber()
         {
             lblAnswer.ForeColor = Color.Red;
-            if (txtNumberPhone.Text.Length == 0)
+            if (system.IsEmptyTextOfPhone(txtNumberPhone.Text.Length))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -92,21 +92,18 @@ namespace UI
 
         private void ValidateRepeatNumber(string textOfPhone)
         {
-            if (system.GetAccounts().ToArray().Length > 0)
-            {
-                if (system.ValidateRepeatNumber(textOfPhone))
-                    ValidateMessage();
-                else
-                    SetMessage("El número que ingresó no está registrado.");
-            }
+           if (system.ValidateRepeatNumber(textOfPhone))
+                ValidateMessage();
+           else
+                SetMessage("El número que ingresó no está registrado.");
         }
 
         private void ValidateMessage()
         {
-            if (IsLengthOfMessageCorrect())
+            if (system.IsLengthOfMessageCorrect(txtMessage.Text.Length))
             {
                 string[] lineOfMessage = txtMessage.Text.Split(' ');
-                if (IsCorrectSeparationOfMessage(lineOfMessage))
+                if (system.IsCorrectSeparationOfEnrollmentMessageWithSpace(lineOfMessage))
                 {
                     if (system.ValidateFormatOfEnrollment(lineOfMessage[0] + lineOfMessage[1]))
                         ValidateEmptyTime(txtMessage.Text.Substring(8));
@@ -114,7 +111,7 @@ namespace UI
                         SetMessage("El formato de la matrícula no es valido.");
                 }
                 else
-                    if (lineOfMessage[0].Length == 7) {
+                    if (system.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(lineOfMessage)) {
                         if (system.ValidateFormatOfEnrollment(lineOfMessage[0]))
                             ValidateEmptyTime(txtMessage.Text.Substring(7));
                         else
@@ -126,24 +123,14 @@ namespace UI
                 SetMessage("Debe ingresar un mensaje.");
         }
 
-        private bool IsCorrectSeparationOfMessage(string[] lineOfMessage)
-        {
-            return lineOfMessage[0].Length == 3 && lineOfMessage.Length > 1 && lineOfMessage[1].Length == 4;
-        }
-
-        private bool IsLengthOfMessageCorrect()
-        {
-            return txtMessage.Text.Length > 8 && txtMessage.Text.Length < 20;
-        }
-
         private void ValidateEmptyTime(string restOfMessage)
         {
             string[] lineOfRestOfMessage = restOfMessage.Split(' ');
-            if (IsCorrectSeparationOfRestOfMessage(lineOfRestOfMessage))
+            if (system.IsCorrectSeparationOfRestOfMessage(lineOfRestOfMessage))
             {
                 string hour = "";
                 string minutes = "";
-                if (WroteTimeAndMinute(lineOfRestOfMessage))
+                if (system.WroteTime(lineOfRestOfMessage))
                 {
                     hour = lineOfRestOfMessage[2].Split(':')[0];
                     minutes = lineOfRestOfMessage[2].Split(':')[1];
@@ -160,27 +147,17 @@ namespace UI
                 SetMessage("El formato del mensaje no es correcto.");
         }
 
-        private bool WroteTimeAndMinute(string[] line)
-        {
-            return line.Length == 3 && line[2].Contains(':');
-        }
-
-        public bool IsCorrectSeparationOfRestOfMessage(string [] line)
-        {
-            return line.Length >= 2 && line.Length <= 3;
-        }
-
         private void ValidateTime(string time, string hour, string minutes)
         {
             if (Entrytime(hour, minutes)){
-                if (IsConvertStringToNumber(time))
+                if (system.ValidateIsNumeric(time))
                     AssignTime(time, "" + DateTime.Now.Hour,"" + DateTime.Now.Minute);
                 else
                     SetMessage("El formato del tiempo no es valido.");
             }
             else
             {
-                if (IsConvertStringToNumber(time, hour, minutes))
+                if (system.ValidateIsNumeric(time) && system.ValidateIsNumeric(hour) && system.ValidateIsNumeric(minutes))
                     AssignTime(time, hour, minutes);
                 else
                     SetMessage("El formato de la hora es valido.");
@@ -224,7 +201,7 @@ namespace UI
                 CheckBalanceAccount(finalTimeOfPurchase, dateTime);
             }
             else
-                SetMessage("El formato de la hora no es correcto");
+                SetMessage("La hora es incorrecta o previa a la hora actual.");
         }
 
         private void CheckBalanceAccount(int finalTimeOfPurchase, DateTime dateTime)
@@ -262,24 +239,25 @@ namespace UI
             {
                 IPurchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase, dateTime);
                 system.AddPurchase(newPurchase);
-                lblAnswer.ForeColor = Color.Green;
-                SetMessage("Compra realizada correctamente.");
+                MessagePurchaseAdded();
             }
             else
                 SetMessage("Ya hay una compra activa en ese horario.");
         }
 
-        private bool IsConvertStringToNumber(string time)
+        private void MessagePurchaseAdded()
         {
-            return system.IsConvertStringToNumber(time);
+            lblAnswer.ForeColor = Color.Green;
+            SetMessage("Compra realizada correctamente.");
+            RestartInputData();
         }
 
-        private bool IsConvertStringToNumber(string time, string hour, string minutes)
+        private void RestartInputData()
         {
-            return system.IsConvertStringToNumber(time) && system.IsConvertStringToNumber(hour)
-                && system.IsConvertStringToNumber(minutes);
+            txtNumberPhone.Clear();
+            txtMessage.Clear();
         }
-
+        
         public void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;

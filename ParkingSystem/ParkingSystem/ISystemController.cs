@@ -26,9 +26,14 @@ namespace ParkingSystem
         bool ValidateMinutes(string restOfMessage);
         bool ValidateValidHour(DateTime date);
         bool ValideTimeOfPurchase(int timeOfPurchase);
-        bool IsConvertStringToNumber(string time);
+        bool IsEmptyTextOfPhone(int length);
         int CalculateFinalTimeOfPurchase(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase);
         bool ArePurchaseOnThatDate(DateTime date, IEnrollment enrollment);
         bool CheckDateWithTimeOfPurchase(DateTime date, IPurchase purchase);
+        bool IsLengthOfMessageCorrect(int length);
+        bool IsCorrectSeparationOfEnrollmentMessageWithSpace(string[] lineOfMessage);
+        bool IsCorrectSeparationOfEnrollmentMessageWithOutSpace(string[] lineOfMessage);
+        bool IsCorrectSeparationOfRestOfMessage(string[] lineOfRestOfMessage);
+        bool WroteTime(string[] lineOfRestOfMessage);
     }
 }

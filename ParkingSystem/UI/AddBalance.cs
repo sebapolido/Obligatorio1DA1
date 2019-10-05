@@ -33,7 +33,7 @@ namespace UI
 
         }
 
-        private void btnAccept_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
             ValidateEmpty();
@@ -41,7 +41,7 @@ namespace UI
 
         public void ValidateEmpty()
         {
-            if (txtNumberPhone.Text.Length == 0)
+            if (system.IsEmptyTextOfPhone(txtNumberPhone.Text.Length))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -73,7 +73,6 @@ namespace UI
         private void ValidateBalance(string textOfPhone)
         {
             if (txtBalanceToAdd.Text.Length > 0)
-            {
                 if (Int32.TryParse(txtBalanceToAdd.Text, out int balance))
                     if (balance > 0)
                         AddBalanceToAccount(textOfPhone, balance);
@@ -81,7 +80,6 @@ namespace UI
                         SetMessage("Debe ingresar un saldo valido.");
                 else
                     SetMessage("Debe ingresar un saldo númerico.");
-            }
             else
                 SetMessage("Debe ingresar un saldo.");
         }
@@ -90,10 +88,10 @@ namespace UI
         {
             IAccount account = system.GetAnAccount(textOfPhone);
             account.AddBalance(balanceToAdd);
-            MessageAccountAdded();
+            MessageBalanceAdded();
         }
 
-        private void MessageAccountAdded()
+        private void MessageBalanceAdded()
         {
             lblAnswer.ForeColor = Color.Green;
             SetMessage("Saldo de la cuenta actualizado.");

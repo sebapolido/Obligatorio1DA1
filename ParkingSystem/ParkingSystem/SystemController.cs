@@ -51,6 +51,11 @@ namespace ParkingSystem
             return purchaseList;
         }   
 
+        public bool IsEmptyTextOfPhone(int lengthOfTextPhone)
+        {
+            return lengthOfTextPhone == 0;
+        }
+
         public bool ValidateFormatNumber(ref string textOfPhone)
         {
             if (IsFormatOfLengthOfNine(textOfPhone))
@@ -122,26 +127,46 @@ namespace ParkingSystem
             }
             return null;
         }
+
+        public bool IsLengthOfMessageCorrect(int length)
+        {
+            return length > 8 && length < 20;
+        }
+
+        public bool IsCorrectSeparationOfEnrollmentMessageWithSpace(string[] lineOfMessage)
+        {
+            return lineOfMessage[0].Length == 3 && lineOfMessage.Length > 1 && lineOfMessage[1].Length == 4;
+        }
+
+        public bool IsCorrectSeparationOfEnrollmentMessageWithOutSpace(string[] lineOfMessage)
+        {
+            return lineOfMessage[0].Length == 7;
+        }
+
+        public bool WroteTime(string[] line)
+        {
+            return line.Length == 3 && line[2].Contains(':') && line[2].Length == 5;
+        }
+
+        public bool IsCorrectSeparationOfRestOfMessage(string[] line)
+        {
+            return line.Length >= 2 && line.Length <= 3;
+        }
+
         public bool ValidateFormatOfEnrollment(string text)
         {
             if (text.Length > 6)
             {
                 string[] line = text.Split(' ');
-                if (line[0].Length == 3 && line.Length > 1 && line[1].Length == 4 || line[0].Length == 7 && line.Length == 1)
+                if (IsCorrectSeparationOfEnrollmentMessageWithSpace(line) || IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line))
                 {
                     text = text.Replace(" ", "");
                     string lettersOfEnrollment = text.Substring(0, 3).ToUpper();
                     string numbersOfEnrollment = text.Substring(3, 4);
-
-                    if (!Int32.TryParse(lettersOfEnrollment, out int balance))
-                    {
-                        if (Int32.TryParse(numbersOfEnrollment, out balance))
+                    if (!ValidateIsNumeric(lettersOfEnrollment) && ValidateIsNumeric(numbersOfEnrollment))
                             return true;
                         else
                             return false;
-                    }
-                    else
-                        return false;
                 }
                 else
                     return false;
@@ -152,20 +177,14 @@ namespace ParkingSystem
 
         public bool ValidateRepeatEnrollment(string letters, int numbers)
         {
-            bool isEquals = false;
-            for (int i = 0; i < this.GetEnrollments().ToArray().Length && !isEquals; i++)
+            for (int i = 0; i < this.GetEnrollments().ToArray().Length; i++)
             {
-                if (letters.ToUpper().Equals(this.GetEnrollments().ToArray().ElementAt(i).lettersOfEnrollment.ToUpper())
-                    && numbers == this.GetEnrollments().ToArray().ElementAt(i).numbersOfEnrollment)
-                {
-                    isEquals = true;
+                string lettersOfEnrollment = this.GetEnrollments().ToArray().ElementAt(i).lettersOfEnrollment.ToUpper();
+                int numbersOfEnrollment = this.GetEnrollments().ToArray().ElementAt(i).numbersOfEnrollment;
+                if (letters.ToUpper().Equals(lettersOfEnrollment) && numbers == numbersOfEnrollment)
                     return true;
-                }
             }
-            if (!isEquals)
-                return false;
-            else
-                return true;
+            return false;
         }
 
         public bool ValidateMinutes(string restOfMessage)
@@ -183,14 +202,12 @@ namespace ParkingSystem
                     {
                         hour = SecondLine[0];
                         minutes = SecondLine[1];
-                        if (Int32.TryParse(hour, out int balance) &&
-                            Int32.TryParse(minutes, out balance) &&
-                            Int32.TryParse(time, out balance))
+                        if (ValidateIsNumeric(hour) && ValidateIsNumeric(minutes) && ValidateIsNumeric(time))
                             return true;
                         else
                             return false;
                     }
-                    else if (Int32.TryParse(time, out int balance))
+                    else if (ValidateIsNumeric(time))
                         return true;
                     else
                         return false;
@@ -204,10 +221,18 @@ namespace ParkingSystem
 
         public bool ValidateValidHour(DateTime date)
         {
-            if (date.Hour >= 10 && date.Hour < 18 && date.Minute >= 0 && date.Minute <60)
-                return true;
+            return date.Hour >= 10 && date.Hour < 18 && date.Minute >= 0 && date.Minute < 60 && ValidateTimeThatHasPassed(date);
+        }
+
+        private bool ValidateTimeThatHasPassed(DateTime date)
+        {
+            if (date.Hour == DateTime.Now.Hour)
+                return date.Minute >= DateTime.Now.Minute;
             else
-                return false;
+                if (date.Hour > DateTime.Now.Hour)
+                    return true;
+                else
+                    return false;
         }
 
         public bool ValideTimeOfPurchase(int timeOfPurchase)
@@ -219,14 +244,6 @@ namespace ParkingSystem
                 else
                     return false;
             }
-            else
-                return false;
-        }
-
-        public bool IsConvertStringToNumber(string time)
-        {
-            if (Int32.TryParse(time, out int isTimeNumeric))
-                return true;
             else
                 return false;
         }
@@ -254,9 +271,7 @@ namespace ParkingSystem
                 IEnrollment enrollmentOfPurchase = this.GetPurchases().ToArray().ElementAt(i).enrollmentOfPurchase;
                 if (CheckDateWithTimeOfPurchase(date, this.GetPurchases().ToArray().ElementAt(i)) &&
                     enrollmentOfPurchase.Equals(enrollment))
-                {
                     return true;
-                }
             }
             return false;
         }
