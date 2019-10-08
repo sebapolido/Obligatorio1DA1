@@ -15,12 +15,14 @@ namespace UI
     {
         Panel panel;
         ISystemController system;
-
+        ValidatorOfEnrollment validatorOfEnrollment;
+        
         public CheckPurchase(Panel principalPanel, ISystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
             system = systemController;
+            validatorOfEnrollment = new ValidatorOfEnrollment();
             AgregateItemsToComboBoxs();
         }
 
@@ -74,9 +76,9 @@ namespace UI
 
         private void ValidateFormatOfEnrollmentWithSpace(string[] line)
         {
-            if (line.Length == 2 && system.IsCorrectSeparationOfEnrollmentMessageWithSpace(line))
+            if (line.Length == 2 && validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(line))
             {
-                if (system.ValidateFormatOfEnrollment(line[0] + line[1]))
+                if (validatorOfEnrollment.ValidateFormatOfEnrollment(line[0] + line[1]))
                     ValidateRepeatEnrollment(line[0], line[1]);
                 else
                     SetMessage("El formato de la matrícula no es valido.");
@@ -87,8 +89,8 @@ namespace UI
 
         private void ValidateFormatOfEnrollmentWithOutSpace(string[] line)
         {
-            if (system.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line))
-                if (system.ValidateFormatOfEnrollment(line[0]))
+            if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line))
+                if (validatorOfEnrollment.ValidateFormatOfEnrollment(line[0]))
                     ValidateRepeatEnrollment(line[0].Substring(0, 3), line[0].Substring(3));
                 else
                     SetMessage("El formato de la matrícula no es valido.");
@@ -98,8 +100,8 @@ namespace UI
 
         private void ValidateRepeatEnrollment(string letters, string numbers)
         {
-            if (system.ValidateIsNumeric(numbers))
-                if (system.ValidateRepeatEnrollment(letters, int.Parse(numbers)))
+            if (validatorOfEnrollment.ValidateIsNumeric(numbers))
+                if (system.IsRepeatedEnrollment(letters, int.Parse(numbers)))
                 {
                     IEnrollment enrollment = system.GetAnEnrollment(letters, int.Parse(numbers));
                     ValidateDate(enrollment);

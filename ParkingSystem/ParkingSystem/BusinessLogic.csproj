@@ -50,6 +50,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchase.cs" />
     <Compile Include="SystemController.cs" />
+    <Compile Include="Validator.cs" />
+    <Compile Include="ValidatorOfDate.cs" />
+    <Compile Include="ValidatorOfEnrollment.cs" />
+    <Compile Include="ValidatorOfMessage.cs" />
+    <Compile Include="ValidatorOfPhone.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

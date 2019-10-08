@@ -15,12 +15,14 @@ namespace UI
     {
         Panel panel;
         ISystemController system;
+        ValidatorOfPhone validatorOfPhone;
 
         public AddBalance(Panel principalPanel, ISystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
             system = systemController;
+            validatorOfPhone = new ValidatorOfPhone();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -41,7 +43,7 @@ namespace UI
 
         public void ValidateEmpty()
         {
-            if (system.IsEmptyTextOfPhone(txtNumberPhone.Text.Length))
+            if (validatorOfPhone.IsEmptyTextOfPhone(txtNumberPhone.Text.Length))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -53,8 +55,8 @@ namespace UI
 
         private void ValidateNumberFormat(string textOfPhone)
         {
-            if (system.ValidateIsNumeric(textOfPhone))
-                if (system.ValidateFormatNumber(ref textOfPhone))
+            if (validatorOfPhone.ValidateIsNumeric(textOfPhone))
+                if (validatorOfPhone.ValidateFormatNumber(ref textOfPhone))
                     ValidateRepeatNumber(textOfPhone);
                 else
                     SetMessage("El número no coincide con el formato.");
@@ -64,7 +66,7 @@ namespace UI
 
         private void ValidateRepeatNumber(string textOfPhone)
         {
-            if (system.ValidateRepeatNumber(textOfPhone))
+            if (system.IsRepeatedNumber(textOfPhone))
                 ValidateBalance(textOfPhone);
             else
                 SetMessage("El número que ingresó no está registrado.");
