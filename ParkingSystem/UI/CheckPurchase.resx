@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAGTSURBVEhL7VRBK0RRFH7NWIid0tM03XPue/dJTdla2Iwd
+        K8p/sCFZ21hYIDt2kpVS9poNJUtigSWlhFJTWInG+O59Z/QwTeNlxXz1Nfd897zvvnfuOeO18M+htfZl
+        +YF6WipEROOG+ERCB0M0GRHvSJgaWZgvw7waMR9aIZfLdRjSm04jveuy0sB+Pkz2rRFYKuTzXUE+iAzz
+        qWjVkPmAmXu+0uaKTX2ESg2GxLcwqRjFc5AyMBtD/Fgzb4IP4IYxpjt2FeANZ1DfV2yWYToMKYvfJcRv
+        8uBPeR8SDcXmRGtWtG+PEhGkDOJSIjkt71zZgiDoRXAei3od9WzH5Q7g4OtEciqiWVbcV/T7fifab0s2
+        jvtwiq0j1nu15JS8dAfUECmehvgCllHDEUhZXPgC4uRdXOHOFhtwGznPkvsUOydguwkbN2AFZZq1Gh4a
+        RWw7pKk5MEoVkIvuoyORPiMxDxcieW4eiM6aHTRUYB75qxJ+R9ErtoWkpyR0sBMdKj0hYUPYGfq1/616
+        sN0oyxb+NjzvHd2MzoyJ3bTuAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnConsult.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABYAAAAYCAYAAAD+vg1LAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAD8SURBVEhL1dQ/D8FAGAbwi8lgNvkIdmG2CJOw9ROIhMFg
+        lEjsBokBsRqsEp9BbAaDQSQkTEYTnrfXXvRy6uSuCU/ya99r0me4/mGK5KDMR61UIMvH8Ixgx0et7GHI
+        x2DSkjkcpGthjjCTrhH2iIh7GEPJs4TTy/qTMyxe1lMQxS0avJjucRuUxUWo8VErdSjw0c3bYtP8efEF
+        tpZQlyheAb0mNqxBFP/MHsehATF3FYxRMf396L4JyOXGb0UTVOXK4ircvkD3kj74URbT766jaQB3uEIG
+        /BhtRRI2IJdSjIrzQB+CXEoxfngJ7ywnUNyFlCU9EMVRYI59zHkCEqW6BrQDCD4AAAAASUVORK5CYII=
+</value>
+  </data>
   <metadata name="timerOfAnswer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

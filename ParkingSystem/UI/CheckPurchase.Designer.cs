@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheckPurchase));
             this.lblDate = new System.Windows.Forms.Label();
             this.txtEnrollment = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -66,6 +67,8 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancel.Location = new System.Drawing.Point(40, 245);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(136, 45);
@@ -77,6 +80,8 @@
             // btnConsult
             // 
             this.btnConsult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsult.Image = ((System.Drawing.Image)(resources.GetObject("btnConsult.Image")));
+            this.btnConsult.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnConsult.Location = new System.Drawing.Point(203, 245);
             this.btnConsult.Name = "btnConsult";
             this.btnConsult.Size = new System.Drawing.Size(136, 45);
@@ -186,7 +191,7 @@
             this.Controls.Add(this.btnConsult);
             this.Controls.Add(this.lblEnrollment);
             this.Name = "CheckPurchase";
-            this.Size = new System.Drawing.Size(383, 509);
+            this.Size = new System.Drawing.Size(383, 473);
             this.Load += new System.EventHandler(this.CheckPurchase_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -59,9 +59,9 @@ namespace UnitTestProject1
         //
         #endregion
 
-        IPurchase purchase;
-        IPurchase purchaseEmpty;
-        IEnrollment enrollment;
+        Purchase purchase;
+        Purchase purchaseEmpty;
+        Enrollment enrollment;
 
         [TestCleanup]
         public void testClean()

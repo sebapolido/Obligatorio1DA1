@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ParkingSystem
 {
-    public class Enrollment:IEnrollment
+    public class Enrollment
     {
         public string lettersOfEnrollment { get; set; }
         public int numbersOfEnrollment { get; set; }
@@ -25,7 +25,7 @@ namespace ParkingSystem
 
         public override bool Equals(Object obj)
         {
-            IEnrollment enrollment = (Enrollment)obj;
+            Enrollment enrollment = (Enrollment)obj;
             return numbersOfEnrollment == enrollment.numbersOfEnrollment && lettersOfEnrollment.Equals(enrollment.lettersOfEnrollment);
         }
 

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ParkingSystem
 {
-    public class Purchase:IPurchase
+    public class Purchase
     {
-        public IEnrollment enrollmentOfPurchase { get; set;}
+        public Enrollment enrollmentOfPurchase { get; set;}
         public int timeOfPurchase { get; set; }
         public DateTime dateOfPurchase { get; set; }
 
@@ -18,7 +18,7 @@ namespace ParkingSystem
             timeOfPurchase = 0;
         }
 
-        public Purchase(IEnrollment enrollment, int time, DateTime dateTime)
+        public Purchase(Enrollment enrollment, int time, DateTime dateTime)
         {
             enrollmentOfPurchase = enrollment;
             timeOfPurchase = time;

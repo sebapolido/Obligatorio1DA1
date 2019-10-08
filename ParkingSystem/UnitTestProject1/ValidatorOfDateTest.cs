@@ -57,14 +57,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCheckDateTheSameDate()
         {
-            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            Enrollment enrollment = new Enrollment("sbn", 4849);
             Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(DateTime.Now, new Purchase(enrollment, 30, DateTime.Now)));
         }
 
         [TestMethod]
         public void ValidateCheckDateDateInTime()
         {
-            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(15);
             Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));
@@ -73,7 +73,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCheckDateDateInALimitTime()
         {
-            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(30);
             Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));
@@ -82,7 +82,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCheckDateDateOutOfBounds()
         {
-            IEnrollment enrollment = new Enrollment("sbn", 4849);
+            Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(40);
             Assert.AreEqual(false, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));

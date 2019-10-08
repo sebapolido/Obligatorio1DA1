@@ -59,8 +59,8 @@ namespace UnitTestProject1
         //
         #endregion
 
-        IAccount account;
-        IAccount accountEmpty;
+        Account account;
+        Account accountEmpty;
 
         [TestCleanup]
         public void testClean()

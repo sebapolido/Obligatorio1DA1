@@ -32,3 +32,4 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Debug\UI.exe
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Debug\UI.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Debug\UI.Settings.resources

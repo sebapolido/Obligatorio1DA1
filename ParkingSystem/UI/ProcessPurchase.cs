@@ -14,13 +14,14 @@ namespace UI
     public partial class ProcessPurchase : UserControl
     {
         Panel panel;
-        ISystemController system;
+        SystemController system;
         ValidatorOfEnrollment validatorOfEnrollment;
         ValidatorOfPhone validatorOfPhone;
         ValidatorOfMessage validatorOfMessage;
         ValidatorOfDate validatorOfDate;
+        int costForMinutes;
 
-        public ProcessPurchase(Panel principalPanel, ISystemController systemController)
+        public ProcessPurchase(Panel principalPanel, SystemController systemController, int actualCostForMinutes)
         {
             InitializeComponent();
             panel = principalPanel;
@@ -29,6 +30,7 @@ namespace UI
             validatorOfPhone = new ValidatorOfPhone();
             validatorOfMessage = new ValidatorOfMessage();
             validatorOfDate = new ValidatorOfDate();
+            costForMinutes = actualCostForMinutes;
             this.txtMessage.Leave += new System.EventHandler(this.txtMessage_Leave);
             this.txtMessage.Enter += new System.EventHandler(this.txtMessage_Enter);
         }
@@ -215,10 +217,9 @@ namespace UI
 
         private void CheckBalanceAccount(int finalTimeOfPurchase, DateTime dateTime)
         {
-            IAccount account = system.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
-            int costForMinut = 1;
-            int finalCostOfPurchase = finalTimeOfPurchase * costForMinut;
-            if (finalCostOfPurchase < account.balance) //ARREGLARRRR
+            Account account = system.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
+            int finalCostOfPurchase = finalTimeOfPurchase * costForMinutes;
+            if (finalCostOfPurchase < account.balance)
             {
                 SubtractBalance(account, finalCostOfPurchase);
                 AddEnrollment(finalTimeOfPurchase, dateTime);
@@ -227,26 +228,25 @@ namespace UI
                 SetMessage("El saldo de la cuenta es insuficiente.");
         }
 
-        private void SubtractBalance(IAccount account, int finalCostOfPurchase)
+        private void SubtractBalance(Account account, int finalCostOfPurchase)
         {
             account.SubstractBalance(finalCostOfPurchase);
         }
 
-
         private void AddEnrollment(int finalTimeOfPurchase, DateTime dateTime)
         {
             string aEnrollment = txtMessage.Text.Replace(" ", "");
-            IEnrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
+            Enrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
             Int32.Parse(aEnrollment.Substring(3, 4)));
             system.AddEnrollment(enrollment);
             AddPurchase(finalTimeOfPurchase, enrollment, dateTime);
         }
 
-        private void AddPurchase(int finalTimeOfPurchase, IEnrollment enrollment, DateTime dateTime)
+        private void AddPurchase(int finalTimeOfPurchase, Enrollment enrollment, DateTime dateTime)
         {
             if (!system.ArePurchaseOnThatDate(dateTime, enrollment))
             {
-                IPurchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase, dateTime);
+                Purchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase, dateTime);
                 system.AddPurchase(newPurchase);
                 MessagePurchaseAdded();
             }

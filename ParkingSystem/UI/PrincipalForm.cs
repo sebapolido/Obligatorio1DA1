@@ -18,7 +18,9 @@ namespace UI
     public partial class PrincipalForm : Form
     {
 
-        ISystemController system;
+        SystemController system;
+        int costForMinutes = 1;
+        Settings settings;
 
         public PrincipalForm()
         {
@@ -27,6 +29,7 @@ namespace UI
             this.principalPanel.Visible = true;
             lblAnswer.Visible = false;
             system = new SystemController();
+            settings = new Settings(principalPanel, system, costForMinutes);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -73,8 +76,9 @@ namespace UI
                 if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18 && DateTime.Now.Minute >= 0 &&
                 DateTime.Now.Minute < 60)
                 {
+                    costForMinutes = settings.costForMinutes;
                     ChangeStatus();
-                    AddToPanel(new ProcessPurchase(principalPanel, system));
+                    AddToPanel(new ProcessPurchase(principalPanel, system, costForMinutes));
                 }
                 else
                     SetMessage("Esta función solo está disponible de 10 a 18 horas.");
@@ -102,6 +106,7 @@ namespace UI
 
         private void AddToPanel(System.Windows.Forms.Control newControl)
         {
+            this.SecundaryPanel.Controls.Clear();
             this.SecundaryPanel.Controls.Add(newControl);
         }
 
@@ -132,6 +137,15 @@ namespace UI
             lblAnswer.Visible = true;
             lblAnswer.Text = textToShow;
             timerOfAnswer.Start();
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            costForMinutes = settings.costForMinutes;
+            ChangeStatus();
+            Settings newSettings = new Settings(principalPanel, system, costForMinutes);
+            AddToPanel(newSettings);
+            settings = newSettings;
         }
     }
 }

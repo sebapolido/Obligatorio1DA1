@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ParkingSystem
 {
-    public class Account:IAccount
+    public class Account
     {
         public int balance { get; set; }
 

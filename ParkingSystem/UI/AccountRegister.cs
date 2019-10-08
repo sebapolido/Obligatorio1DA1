@@ -15,10 +15,10 @@ namespace UI
 
     {
         Panel panel;
-        ISystemController system;
+        SystemController system;
         ValidatorOfPhone validatorOfPhone;
         
-        public AccountRegister(Panel principalPanel, ISystemController systemController)
+        public AccountRegister(Panel principalPanel, SystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
@@ -80,7 +80,7 @@ namespace UI
 
         private void AddAccount(string textOfPhone)
         {
-            IAccount newAccount = new Account(0, textOfPhone);
+            Account newAccount = new Account(0, textOfPhone);
             system.AddAccount(newAccount);
             MessageAccountAdded();
         }

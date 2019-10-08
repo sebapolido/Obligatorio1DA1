@@ -14,10 +14,10 @@ namespace UI
     public partial class AddBalance : UserControl
     {
         Panel panel;
-        ISystemController system;
+        SystemController system;
         ValidatorOfPhone validatorOfPhone;
 
-        public AddBalance(Panel principalPanel, ISystemController systemController)
+        public AddBalance(Panel principalPanel, SystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
@@ -88,7 +88,7 @@ namespace UI
 
         private void AddBalanceToAccount(string textOfPhone, int balanceToAdd)
         {
-            IAccount account = system.GetAnAccount(textOfPhone);
+            Account account = system.GetAnAccount(textOfPhone);
             account.AddBalance(balanceToAdd);
             MessageBalanceAdded();
         }

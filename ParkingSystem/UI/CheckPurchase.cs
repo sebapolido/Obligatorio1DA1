@@ -14,10 +14,10 @@ namespace UI
     public partial class CheckPurchase : UserControl
     {
         Panel panel;
-        ISystemController system;
+        SystemController system;
         ValidatorOfEnrollment validatorOfEnrollment;
         
-        public CheckPurchase(Panel principalPanel, ISystemController systemController)
+        public CheckPurchase(Panel principalPanel, SystemController systemController)
         {
             InitializeComponent();
             panel = principalPanel;
@@ -103,7 +103,7 @@ namespace UI
             if (validatorOfEnrollment.ValidateIsNumeric(numbers))
                 if (system.IsRepeatedEnrollment(letters, int.Parse(numbers)))
                 {
-                    IEnrollment enrollment = system.GetAnEnrollment(letters, int.Parse(numbers));
+                    Enrollment enrollment = system.GetAnEnrollment(letters, int.Parse(numbers));
                     ValidateDate(enrollment);
                 }
                 else
@@ -112,7 +112,7 @@ namespace UI
                 SetMessage("El formato de la matrícula no es valido.");
         }
 
-        private void ValidateDate(IEnrollment enrollment)
+        private void ValidateDate(Enrollment enrollment)
         {
             if (cboHour.Text != null)
             {
@@ -131,12 +131,10 @@ namespace UI
                 SetMessage("Debe ingresar una hora.");
         }
 
-        private void ArePurchasesOnThatDate(DateTime date, IEnrollment enrollment)
+        private void ArePurchasesOnThatDate(DateTime date, Enrollment enrollment)
         {
             if (system.ArePurchaseOnThatDate(date, enrollment))
-            {
                 MessageCorrectCheck();
-            }
             else
                 SetMessage("No hay ninguna compra con esa matrícula en ese horario.");
 

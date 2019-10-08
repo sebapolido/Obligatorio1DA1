@@ -60,8 +60,8 @@ namespace UnitTestProject1
         #endregion
 
 
-        IEnrollment enrollment;
-        IEnrollment enrollmentEmpty;
+        Enrollment enrollment;
+        Enrollment enrollmentEmpty;
 
         [TestCleanup]
         public void testClean()

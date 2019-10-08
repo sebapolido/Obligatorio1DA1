@@ -24,7 +24,7 @@ namespace ParkingSystem
                 return false;
         }
 
-        public bool CheckDateWithTimeOfPurchase(DateTime date, IPurchase purchase)
+        public bool CheckDateWithTimeOfPurchase(DateTime date, Purchase purchase)
         {
             DateTime dateWithTime = purchase.dateOfPurchase;
             dateWithTime = dateWithTime.AddMinutes(purchase.timeOfPurchase);

@@ -8,13 +8,13 @@ using System.Xml.Serialization;
 
 namespace ParkingSystem
 {
-    public class SystemController:ISystemController
+    public class SystemController
     {
-        private static List<IAccount> accountsList = new List<IAccount>();
-        private static List<IEnrollment> enrollmentsList = new List<IEnrollment>();
-        private static List<IPurchase> purchaseList = new List<IPurchase>();
+        private static List<Account> accountsList = new List<Account>();
+        private static List<Enrollment> enrollmentsList = new List<Enrollment>();
+        private static List<Purchase> purchaseList = new List<Purchase>();
 
-        public void AddAccount(IAccount account)
+        public void AddAccount(Account account)
         {
             ValidatorOfPhone validator = new ValidatorOfPhone();
             string text = account.mobile;
@@ -23,12 +23,12 @@ namespace ParkingSystem
                 accountsList.Add(account);
         }
 
-        public List<IAccount> GetAccounts()
+        public List<Account> GetAccounts()
         {
             return accountsList;
         }
 
-        public void AddEnrollment(IEnrollment enrollment)
+        public void AddEnrollment(Enrollment enrollment)
         {
             ValidatorOfEnrollment validator = new ValidatorOfEnrollment();
             if(validator.ValidateFormatOfEnrollment(enrollment.lettersOfEnrollment + enrollment.numbersOfEnrollment)
@@ -36,18 +36,18 @@ namespace ParkingSystem
                 enrollmentsList.Add(enrollment);
         }
 
-        public List<IEnrollment> GetEnrollments()
+        public List<Enrollment> GetEnrollments()
         {
             return enrollmentsList;
         }
 
 
-        public void AddPurchase(IPurchase purchase)
+        public void AddPurchase(Purchase purchase)
         {
             purchaseList.Add(purchase);
         }
 
-        public List<IPurchase> GetPurchases()
+        public List<Purchase> GetPurchases()
         {
             return purchaseList;
         }   
@@ -69,7 +69,7 @@ namespace ParkingSystem
                 return true;
         }
 
-        public IAccount GetAnAccount(string text)
+        public Account GetAnAccount(string text)
         {
             for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
             {
@@ -81,7 +81,7 @@ namespace ParkingSystem
             return null;
         }
 
-        public IEnrollment GetAnEnrollment(string letters, int numbers)
+        public Enrollment GetAnEnrollment(string letters, int numbers)
         {
             bool isEquals = false;
             for (int i = 0; i < this.GetEnrollments().ToArray().Length && !isEquals; i++)
@@ -110,12 +110,12 @@ namespace ParkingSystem
 
        
 
-        public bool ArePurchaseOnThatDate(DateTime date, IEnrollment enrollment)
+        public bool ArePurchaseOnThatDate(DateTime date, Enrollment enrollment)
         {
             ValidatorOfDate validator = new ValidatorOfDate();
             for(int i = 0; i<this.GetPurchases().ToArray().Length; i++)
             {
-                IEnrollment enrollmentOfPurchase = this.GetPurchases().ToArray().ElementAt(i).enrollmentOfPurchase;
+                Enrollment enrollmentOfPurchase = this.GetPurchases().ToArray().ElementAt(i).enrollmentOfPurchase;
                 if (validator.CheckDateWithTimeOfPurchase(date, this.GetPurchases().ToArray().ElementAt(i)) &&
                     enrollmentOfPurchase.Equals(enrollment))
                     return true;
