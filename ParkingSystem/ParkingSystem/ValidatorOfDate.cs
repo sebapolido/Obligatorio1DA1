@@ -13,15 +13,12 @@ namespace ParkingSystem
             return date.Hour >= 10 && date.Hour < 18 && date.Minute >= 0 && date.Minute < 60 && ValidateTimeThatHasPassed(date);
         }
 
-        private bool ValidateTimeThatHasPassed(DateTime date)
+        public bool ValidateTimeThatHasPassed(DateTime date)
         {
             if (date.Hour == DateTime.Now.Hour)
                 return date.Minute >= DateTime.Now.Minute;
             else
-                if (date.Hour > DateTime.Now.Hour)
-                return true;
-            else
-                return false;
+                return date.Hour > DateTime.Now.Hour;
         }
 
         public bool CheckDateWithTimeOfPurchase(DateTime date, Purchase purchase)

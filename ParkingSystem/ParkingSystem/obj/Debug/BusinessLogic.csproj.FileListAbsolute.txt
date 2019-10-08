@@ -6,7 +6,7 @@ C:\Users\Bettina\source\repos\ParkingSystem\ParkingSystem\obj\Debug\ParkingSyste
 C:\Users\Bettina\source\repos\ParkingSystem\ParkingSystem\obj\Debug\BusinessLogic.csprojAssemblyReference.cache
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\bin\Debug\ParkingSystem.dll
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\bin\Debug\ParkingSystem.pdb
-C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Debug\BusinessLogic.csprojAssemblyReference.cache
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Debug\BusinessLogic.csproj.CoreCompileInputs.cache
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Debug\ParkingSystem.dll
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Debug\ParkingSystem.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Debug\BusinessLogic.csprojAssemblyReference.cache

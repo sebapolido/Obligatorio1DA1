@@ -53,6 +53,36 @@ namespace UnitTestProject1
             Assert.AreEqual(false, validator.ValidateValidHour(date));
         }
 
+        [TestMethod]
+        public void ValidateDateTimeNow()
+        {
+            DateTime date = DateTime.Now;
+            Assert.AreEqual(true, validator.ValidateTimeThatHasPassed(date));
+        }
+
+        [TestMethod]
+        public void ValidateDateTimeNowMoreMinutes()
+        {
+            DateTime date = DateTime.Now;
+            date.AddMinutes(10);
+            Assert.AreEqual(true, validator.ValidateTimeThatHasPassed(date));
+        }
+
+        [TestMethod]
+        public void ValidateDateTimeNowMoreHours()
+        {
+            DateTime date = DateTime.Now;
+            date.AddHours(1);
+            Assert.AreEqual(true, validator.ValidateTimeThatHasPassed(date));
+        }
+
+        [TestMethod]
+        public void ValidateDateTimeNowLessHours()
+        {
+            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month
+                , DateTime.Now.Day, DateTime.Now.Hour - 1, DateTime.Now.Minute, DateTime.Now.Second);
+            Assert.AreEqual(false, validator.ValidateTimeThatHasPassed(date));
+        }
 
         [TestMethod]
         public void ValidateCheckDateTheSameDate()

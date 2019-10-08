@@ -26,31 +26,30 @@ namespace ParkingSystem
         
         public bool ValidateMinutes(string restOfMessage)
         {
-            string[] line = restOfMessage.Split(' ');
-            if (line.Length >= 2 && line.Length <= 3)
+            string[] lineOfMessage = restOfMessage.Split(' ');
+            if (lineOfMessage.Length >= 2 && lineOfMessage.Length <= 3)
             {
-                string time = line[1];
+                string time = lineOfMessage[1];
                 string hour = "";
                 string minutes = "";
-                if (line.Length == 3)
+                if (lineOfMessage.Length == 3)
                 {
-                    string[] SecondLine = line[2].Split(':');
-                    if (SecondLine.Length == 2)
+                    string[] lineOfHours = lineOfMessage[2].Split(':');
+                    if (lineOfHours.Length == 2)
                     {
-                        hour = SecondLine[0];
-                        minutes = SecondLine[1];
-                        if (ValidateIsNumeric(hour) && ValidateIsNumeric(minutes) && ValidateIsNumeric(time))
+                        hour = lineOfHours[0];
+                        minutes = lineOfHours[1];
+                        if (hour.Length == 2 && minutes.Length == 2
+                            && ValidateIsNumeric(hour) && ValidateIsNumeric(minutes) && ValidateIsNumeric(time))
                             return true;
                         else
                             return false;
                     }
-                    else if (ValidateIsNumeric(time))
-                        return true;
                     else
                         return false;
                 }
                 else
-                    return true;
+                    return ValidateIsNumeric(time);
             }
             else
                 return false;

@@ -54,19 +54,14 @@ namespace ParkingSystem
         
         public bool IsRepeatedNumber(string text)
         {
-            bool isEquals = false;
-            for (int i = 0; i < this.GetAccounts().ToArray().Length && !isEquals; i++)
+            for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
             {
                 if (text.Equals(this.GetAccounts().ToArray().ElementAt(i).mobile))
                 {
-                    isEquals = true;
                     return true;
                 }
             }
-            if (!isEquals)
-                return false;
-            else
-                return true;
+            return false;
         }
 
         public Account GetAnAccount(string text)
@@ -107,8 +102,6 @@ namespace ParkingSystem
             }
             return false;
         }
-
-       
 
         public bool ArePurchaseOnThatDate(DateTime date, Enrollment enrollment)
         {

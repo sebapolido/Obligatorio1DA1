@@ -12,56 +12,14 @@ namespace UnitTestProject1
     [TestClass]
     public class PurchaseTest
     {
-        public PurchaseTest()
-        {
-            //
-            // TODO: Agregar aquí la lógica del constructor
-            //
-        }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Obtiene o establece el contexto de las pruebas que proporciona
-        ///información y funcionalidad para la serie de pruebas actual.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Atributos de prueba adicionales
-        //
-        // Puede usar los siguientes atributos adicionales conforme escribe las pruebas:
-        //
-        // Use ClassInitialize para ejecutar el código antes de ejecutar la primera prueba en la clase
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Usar TestInitialize para ejecutar el código antes de ejecutar cada prueba 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup para ejecutar el código una vez ejecutadas todas las pruebas
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
-
         Purchase purchase;
         Purchase purchaseEmpty;
         Enrollment enrollment;
+        public PurchaseTest()
+        {
+
+        }
+
 
         [TestCleanup]
         public void testClean()
@@ -77,7 +35,8 @@ namespace UnitTestProject1
         {
             enrollment = new Enrollment("sbn", 4848);
             purchaseEmpty = new Purchase();
-            purchase = new Purchase(enrollment, 30, DateTime.Now);
+            DateTime date = new DateTime(2019,10,8,15,10,0);
+            purchase = new Purchase(enrollment, 30, date);
         }
 
         [TestMethod]
@@ -92,19 +51,23 @@ namespace UnitTestProject1
             Assert.AreEqual(null, purchaseEmpty.enrollmentOfPurchase);
         }
 
+        [TestMethod]
         public void CreatePurchaseEnrollment()
         {
             Assert.AreEqual(enrollment, purchase.enrollmentOfPurchase);
         }
 
+        [TestMethod]
         public void CreatePurchaseTime()
         {
-            Assert.AreEqual(30, purchase.enrollmentOfPurchase);
+            Assert.AreEqual(30, purchase.timeOfPurchase);
         }
 
+        [TestMethod]
         public void CreatePurchaseDate()
         {
-            Assert.AreEqual(DateTime.Now, purchase.enrollmentOfPurchase);
+            DateTime date = new DateTime(2019, 10, 8, 15, 10, 0);
+            Assert.AreEqual(date, purchase.dateOfPurchase);
         }
     }
 }

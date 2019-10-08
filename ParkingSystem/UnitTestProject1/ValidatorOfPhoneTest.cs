@@ -34,8 +34,6 @@ namespace UnitTestProject1
             Assert.AreEqual(false, validator.IsEmptyTextOfPhone(23));
         }
 
-
-
         [TestMethod]
         public void ValidateLengthNumberEmpty()
         {
@@ -95,7 +93,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCorrectLengthNumberWithLengthOfEigth()
         {
-            string input = "099366931";
+            string input = "99366931";
             Assert.AreEqual(true, validator.ValidateFormatNumber(ref input));
         }
 

@@ -104,6 +104,76 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void ValidateMinutesEmpty()
+        {
+            string line =  " " ;
+            Assert.AreEqual(false, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWhitMoreInput()
+        {
+            string line = " 60 10:30 50 43 d";
+            Assert.AreEqual(false, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWhitBadFormatInHour()
+        {
+            string line = " 60 2132:30";
+            Assert.AreEqual(false, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWhitOnlyTime()
+        {
+            string line = " 60";
+            Assert.AreEqual(true, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWhitValidTimeHourAndMinutes()
+        {
+            string line = " 60 12:30";
+            Assert.AreEqual(true, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWithBadFormatInMinutes()
+        {
+            string line = " 60 12:3032";
+            Assert.AreEqual(false, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWithStringInTime()
+        {
+            string line = " ads 12:32";
+            Assert.AreEqual(false, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWithBadFormatInHours()
+        {
+            string line = " 60 12:30:32";
+            Assert.AreEqual(false, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWithStringInHour()
+        {
+            string line = " 60 ab:32";
+            Assert.AreEqual(false, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
+        public void ValidateMinutesWithStringInMinutes()
+        {
+            string line = " 60 12:sf";
+            Assert.AreEqual(false, validator.ValidateMinutes(line));
+        }
+
+        [TestMethod]
         public void ValidateTimeOfPurchaseZero()
         {
             Assert.AreEqual(false, validator.ValideTimeOfPurchase(0));
