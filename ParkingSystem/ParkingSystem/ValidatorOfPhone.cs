@@ -9,11 +9,6 @@ namespace ParkingSystem
     public class  ValidatorOfPhone:Validator
     {
 
-        public bool IsEmptyTextOfPhone(int lengthOfTextPhone)
-        {
-            return lengthOfTextPhone == 0;
-        }
-
         public bool ValidateFormatNumber(ref string textOfPhone)
         {
             if (IsFormatOfLengthOfNine(textOfPhone))

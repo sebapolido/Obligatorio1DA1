@@ -31,7 +31,7 @@ namespace UI
             validatorOfMessage = new ValidatorOfMessage();
             validatorOfDate = new ValidatorOfDate();
             costForMinutes = actualCostForMinutes;
-            this.txtMessage.Leave += new System.EventHandler(this.txtMessage_Leave);
+           // this.txtMessage.Leave += new System.EventHandler(this.txtMessage_Leave);
             this.txtMessage.Enter += new System.EventHandler(this.txtMessage_Enter);
         }
 
@@ -72,7 +72,7 @@ namespace UI
         private void ValidateEmptyNumber()
         {
             lblAnswer.ForeColor = Color.Red;
-            if (validatorOfPhone.IsEmptyTextOfPhone(txtNumberPhone.Text.Length))
+            if (validatorOfPhone.IsEmpty(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -103,34 +103,53 @@ namespace UI
         private void ValidateRepeatNumber(string textOfPhone)
         {
            if (system.IsRepeatedNumber(textOfPhone))
-                ValidateMessage();
+                ValidateEmptyMessage();
            else
                 SetMessage("El número que ingresó no está registrado.");
+        }
+
+        private void ValidateEmptyMessage()
+        {
+            if (!validatorOfMessage.IsEmpty(txtMessage.Text))
+                ValidateMessage();
+            else
+                SetMessage("Debe ingresar un mensaje.");
         }
 
         private void ValidateMessage()
         {
             if (validatorOfMessage.IsLengthOfMessageCorrect(txtMessage.Text.Length))
-            {
-                string[] lineOfMessage = txtMessage.Text.Split(' ');
-                if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(lineOfMessage))
-                {
-                    if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0] + lineOfMessage[1]))
-                        ValidateEmptyTime(txtMessage.Text.Substring(8));
-                    else
-                        SetMessage("El formato de la matrícula no es valido.");
-                }
-                else
-                    if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(lineOfMessage)) {
-                        if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0]))
-                            ValidateEmptyTime(txtMessage.Text.Substring(7));
-                        else
-                            SetMessage("El formato de la matrícula no es valido.");
-                    }else
-                        SetMessage("El formato de la matrícula no es valido.");
-            }
+                ValidateEnrollment();
             else
-                SetMessage("Debe ingresar un mensaje.");
+                SetMessage("El formato del mensaje no es correcto.");
+        }
+
+        private void ValidateEnrollment()
+        {
+            string[] lineOfMessage = txtMessage.Text.Split(' ');
+            if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(lineOfMessage))
+                ValidateEnrollmentWithSpace(lineOfMessage);
+            else
+                ValidateEnrollmentWithoutSpace(lineOfMessage);
+        }
+
+        private void ValidateEnrollmentWithSpace(string [] lineOfMessage)
+        {
+            if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0] + lineOfMessage[1]))
+                ValidateEmptyTime(txtMessage.Text.Substring(8));
+            else
+                SetMessage("El formato de la matrícula no es valido.");
+        }
+
+        private void ValidateEnrollmentWithoutSpace(string [] lineOfMessage)
+        {
+            if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(lineOfMessage))
+                if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0]))
+                    ValidateEmptyTime(txtMessage.Text.Substring(7));
+                else
+                    SetMessage("El formato de la matrícula no es valido.");
+            else
+                SetMessage("El formato de la matrícula no es valido.");
         }
 
         private void ValidateEmptyTime(string restOfMessage)
@@ -147,9 +166,7 @@ namespace UI
                 }
                 string time = lineOfRestOfMessage[1];
                 if (validatorOfMessage.ValidateMinutes(restOfMessage))
-                {
                     ValidateTime(time, hour, minutes);
-                }
                 else
                     SetMessage("El formato del mensaje no es correcto.");
 
@@ -279,15 +296,7 @@ namespace UI
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
         }
-
-        private void txtMessage_Leave(object sender, EventArgs e)
-        {
-            if (txtMessage.Text.Length == 0)
-            {
-                txtMessage.Text = "Ej: ABC 1234 60 11:00";
-                txtMessage.ForeColor = SystemColors.ControlDark;
-            }
-        }
+        
 
         private void txtMessage_Enter(object sender, EventArgs e)
         {

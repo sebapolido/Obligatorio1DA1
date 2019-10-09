@@ -43,7 +43,7 @@ namespace UI
 
         public void ValidateEmpty()
         {
-            if (validatorOfPhone.IsEmptyTextOfPhone(txtNumberPhone.Text.Length))
+            if (validatorOfPhone.IsEmpty(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
