@@ -59,7 +59,7 @@
             this.btnBack.TabIndex = 6;
             this.btnBack.Text = "Atrás";
             this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnBack.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnAdd
             // 
@@ -72,7 +72,7 @@
             this.btnAdd.TabIndex = 5;
             this.btnAdd.Text = "Agregar";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // lblNumberPhone
             // 
@@ -90,7 +90,6 @@
             this.txtBalanceToAdd.Name = "txtBalanceToAdd";
             this.txtBalanceToAdd.Size = new System.Drawing.Size(134, 20);
             this.txtBalanceToAdd.TabIndex = 9;
-            this.txtBalanceToAdd.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // lblBalanceToAdd
             // 
@@ -101,7 +100,6 @@
             this.lblBalanceToAdd.Size = new System.Drawing.Size(153, 15);
             this.lblBalanceToAdd.TabIndex = 8;
             this.lblBalanceToAdd.Text = "Ingrese el saldo a agregar:";
-            this.lblBalanceToAdd.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblAnswer
             // 
@@ -126,7 +124,7 @@
             // timerOfAnswer
             // 
             this.timerOfAnswer.Interval = 5000;
-            this.timerOfAnswer.Tick += new System.EventHandler(this.timerOfAnswer_Tick);
+            this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfAnswer_Tick);
             // 
             // AddBalance
             // 

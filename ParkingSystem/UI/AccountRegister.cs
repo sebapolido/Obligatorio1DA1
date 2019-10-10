@@ -14,9 +14,9 @@ namespace UI
     public partial class AccountRegister : UserControl
 
     {
-        Panel panel;
-        SystemController system;
-        ValidatorOfPhone validatorOfPhone;
+        private Panel panel;
+        private SystemController system;
+        private ValidatorOfPhone validatorOfPhone;
         
         public AccountRegister(Panel principalPanel, SystemController systemController)
         {
@@ -24,21 +24,16 @@ namespace UI
             panel = principalPanel;
             system = systemController;
             validatorOfPhone = new ValidatorOfPhone();
-        }
+        }     
 
-        private void AccountRegister_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             panel.Visible = true;
 
         }
 
-        private void btnAccept_Click(object sender, EventArgs e)
+        private void BtnAccept_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
             ValidateEmpty();
@@ -92,14 +87,14 @@ namespace UI
             txtNumberPhone.Clear();
         }
 
-        public void SetMessage(string textToShow)
+        private void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;
             lblAnswer.Text = textToShow;
             timerOfAnswer.Start();
         }
 
-        private void timerOfError_Tick(object sender, EventArgs e)
+        private void TimerOfError_Tick(object sender, EventArgs e)
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;

@@ -36,28 +36,13 @@ namespace UI
                     cboMinutes.Items.Add(i);
         }
 
-        private void lblNumberPhone_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblBalanceToAdd_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtNumberPhone_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             panel.Visible = true;
         }
 
-        private void btnConsult_Click(object sender, EventArgs e)
+        private void BtnConsult_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
             ValidateFormatEnrollment();
@@ -140,43 +125,23 @@ namespace UI
 
         }
 
-        public void MessageCorrectCheck()
+        private void MessageCorrectCheck()
         {
             lblAnswer.ForeColor = Color.Green;
             SetMessage("Existe una compra activa para esa matrícula en ese horario.");
         }
 
-        private void txtBalanceToAdd_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblWelcome_Click(object sender, EventArgs e)
-        {
-
-        }
-        
-        public void SetMessage(string textToShow)
+        private void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;
             lblAnswer.Text = textToShow;
             timerOfAnswer.Start();
         }
 
-        private void timerOfAnswer_Tick(object sender, EventArgs e)
+        private void TimerOfAnswer_Tick(object sender, EventArgs e)
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CheckPurchase_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -54,7 +54,6 @@
             this.lblDate.Size = new System.Drawing.Size(97, 15);
             this.lblDate.TabIndex = 14;
             this.lblDate.Text = "Ingrese la fecha:";
-            this.lblDate.Click += new System.EventHandler(this.lblBalanceToAdd_Click);
             // 
             // txtEnrollment
             // 
@@ -62,7 +61,6 @@
             this.txtEnrollment.Name = "txtEnrollment";
             this.txtEnrollment.Size = new System.Drawing.Size(149, 20);
             this.txtEnrollment.TabIndex = 13;
-            this.txtEnrollment.TextChanged += new System.EventHandler(this.txtNumberPhone_TextChanged);
             // 
             // btnCancel
             // 
@@ -75,7 +73,7 @@
             this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnConsult
             // 
@@ -88,7 +86,7 @@
             this.btnConsult.TabIndex = 11;
             this.btnConsult.Text = "Consultar";
             this.btnConsult.UseVisualStyleBackColor = true;
-            this.btnConsult.Click += new System.EventHandler(this.btnConsult_Click);
+            this.btnConsult.Click += new System.EventHandler(this.BtnConsult_Click);
             // 
             // lblEnrollment
             // 
@@ -99,7 +97,6 @@
             this.lblEnrollment.Size = new System.Drawing.Size(118, 15);
             this.lblEnrollment.TabIndex = 10;
             this.lblEnrollment.Text = "Ingrese la matrícula:";
-            this.lblEnrollment.Click += new System.EventHandler(this.lblNumberPhone_Click);
             // 
             // lblAnswer
             // 
@@ -120,7 +117,6 @@
             this.lblCheckPurchase.Size = new System.Drawing.Size(344, 35);
             this.lblCheckPurchase.TabIndex = 19;
             this.lblCheckPurchase.Text = "Consultar compra";
-            this.lblCheckPurchase.Click += new System.EventHandler(this.lblWelcome_Click);
             // 
             // lblDateTime
             // 
@@ -132,7 +128,7 @@
             // timerOfAnswer
             // 
             this.timerOfAnswer.Interval = 5000;
-            this.timerOfAnswer.Tick += new System.EventHandler(this.timerOfAnswer_Tick);
+            this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfAnswer_Tick);
             // 
             // lblHour
             // 
@@ -143,7 +139,6 @@
             this.lblHour.Size = new System.Drawing.Size(92, 15);
             this.lblHour.TabIndex = 21;
             this.lblHour.Text = "Ingrese la hora:";
-            this.lblHour.Click += new System.EventHandler(this.label1_Click);
             // 
             // cboHour
             // 
@@ -192,7 +187,6 @@
             this.Controls.Add(this.lblEnrollment);
             this.Name = "CheckPurchase";
             this.Size = new System.Drawing.Size(383, 473);
-            this.Load += new System.EventHandler(this.CheckPurchase_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

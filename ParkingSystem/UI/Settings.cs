@@ -14,9 +14,9 @@ namespace UI
     public partial class Settings : UserControl
 
     {
-        Panel panel;
-        SystemController system;
-        Validator validator;
+        private Panel panel;
+        private SystemController system;
+        private Validator validator;
         public int costForMinutes { get; set; }
 
         public Settings(Panel principalPanel, SystemController systemController, int actualCostForMinutes)
@@ -32,15 +32,9 @@ namespace UI
         private void SetActualCostForMinute()
         {
             lblActualCostForMinutes.Text = "El costo por minuto actual es de: " + costForMinutes;
-            
         }
 
-        private void lblNumberPhone_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCostForMinutes_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCostForMinutes_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar))
                 e.Handled = false;
@@ -50,10 +44,9 @@ namespace UI
                 e.Handled = false;
             else
                 e.Handled = true;
-                    
         }
 
-        private void btnAccept_Click(object sender, EventArgs e)
+        private void BtnAccept_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
             ValidateCorrectNumber();
@@ -72,7 +65,7 @@ namespace UI
                 SetMessage("Debe ingresar un número.");
         }
 
-        public int CostForMinutes()
+        private int CostForMinutes()
         {
             if (txtCostForMinutes.Text.Length == 0)
                 return 1;
@@ -87,13 +80,13 @@ namespace UI
             timerOfAnswer.Start();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             panel.Visible = true;
         }
 
-        private void timerOfAnswer_Tick_1(object sender, EventArgs e)
+        private void TimerOfAnswer_Tick(object sender, EventArgs e)
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;

@@ -13,9 +13,9 @@ namespace UI
 {
     public partial class AddBalance : UserControl
     {
-        Panel panel;
-        SystemController system;
-        ValidatorOfPhone validatorOfPhone;
+        private Panel panel;
+        private SystemController system;
+        private ValidatorOfPhone validatorOfPhone;
 
         public AddBalance(Panel principalPanel, SystemController systemController)
         {
@@ -25,23 +25,13 @@ namespace UI
             validatorOfPhone = new ValidatorOfPhone();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
             ValidateEmpty();
         }
 
-        public void ValidateEmpty()
+        private void ValidateEmpty()
         {
             if (validatorOfPhone.IsEmpty(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
@@ -101,20 +91,20 @@ namespace UI
             txtNumberPhone.Clear();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             panel.Visible = true;
         }
 
-        public void SetMessage(string textToShow)
+        private void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;
             lblAnswer.Text = textToShow;
             timerOfAnswer.Start();
         }
 
-        private void timerOfAnswer_Tick(object sender, EventArgs e)
+        private void TimerOfAnswer_Tick(object sender, EventArgs e)
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;

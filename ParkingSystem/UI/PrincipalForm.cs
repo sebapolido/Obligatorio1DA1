@@ -18,9 +18,9 @@ namespace UI
     public partial class PrincipalForm : Form
     {
 
-        SystemController system;
-        int costForMinutes = 1;
-        Settings settings;
+        private SystemController system;
+        private int costForMinutes = 1;
+        private Settings settings;
 
         public PrincipalForm()
         {
@@ -32,12 +32,7 @@ namespace UI
             settings = new Settings(principalPanel, system, costForMinutes);
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAccountRegister_Click(object sender, EventArgs e)
+        private void BtnAccountRegister_Click(object sender, EventArgs e)
         {
             StartRegisteringAccount();
         }
@@ -48,7 +43,7 @@ namespace UI
             AddToPanel(new AccountRegister(principalPanel, system));
         }
 
-        private void btnAddBalance_Click(object sender, EventArgs e)
+        private void BtnAddBalance_Click(object sender, EventArgs e)
         {
             StartAddingBalance();
         }
@@ -64,7 +59,7 @@ namespace UI
                 SetMessage("Primero debe haber al menos una cuenta regitrada.");
         }
 
-        private void btnProcessPurchase_Click(object sender, EventArgs e)
+        private void BtnProcessPurchase_Click(object sender, EventArgs e)
         {
             StartProcessingPurchase();
         }
@@ -88,7 +83,7 @@ namespace UI
 
         }
 
-        private void btnCheckPurchase_Click(object sender, EventArgs e)
+        private void BtnCheckPurchase_Click(object sender, EventArgs e)
         {
             StartCheckingPurchase();
         }
@@ -112,34 +107,25 @@ namespace UI
 
         private void ChangeStatus()
         {
-            this.principalPanel.Visible = false;
-            this.SecundaryPanel.Visible = true;
+            principalPanel.Visible = false;
+            SecundaryPanel.Visible = true;
             lblAnswer.Visible = false;
         }
-        
-        private void PrincipalForm_Load(object sender, EventArgs e)
-        {
-        
-        }
 
-        private void PrincipalForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-        }
-
-        private void TimerOfError_Tick(object sender, EventArgs e)
+        private void TimerOfAnswer_Tick(object sender, EventArgs e)
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
         }
 
-        public void SetMessage(string textToShow)
+        private void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;
             lblAnswer.Text = textToShow;
             timerOfAnswer.Start();
         }
 
-        private void btnSettings_Click(object sender, EventArgs e)
+        private void BtnSettings_Click(object sender, EventArgs e)
         {
             costForMinutes = settings.costForMinutes;
             ChangeStatus();

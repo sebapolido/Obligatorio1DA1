@@ -53,7 +53,6 @@
             this.lblWelcome.Size = new System.Drawing.Size(300, 51);
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Bienvenido";
-            this.lblWelcome.Click += new System.EventHandler(this.label1_Click);
             // 
             // principalPanel
             // 
@@ -91,7 +90,7 @@
             this.btnProcessPurchase.TabIndex = 4;
             this.btnProcessPurchase.Text = "  Procesar compra";
             this.btnProcessPurchase.UseVisualStyleBackColor = true;
-            this.btnProcessPurchase.Click += new System.EventHandler(this.btnProcessPurchase_Click);
+            this.btnProcessPurchase.Click += new System.EventHandler(this.BtnProcessPurchase_Click);
             // 
             // btnCheckPurchase
             // 
@@ -104,7 +103,7 @@
             this.btnCheckPurchase.TabIndex = 3;
             this.btnCheckPurchase.Text = "  Consultar compra";
             this.btnCheckPurchase.UseVisualStyleBackColor = true;
-            this.btnCheckPurchase.Click += new System.EventHandler(this.btnCheckPurchase_Click);
+            this.btnCheckPurchase.Click += new System.EventHandler(this.BtnCheckPurchase_Click);
             // 
             // btnAddBalance
             // 
@@ -117,7 +116,7 @@
             this.btnAddBalance.TabIndex = 2;
             this.btnAddBalance.Text = "Agregar saldo";
             this.btnAddBalance.UseVisualStyleBackColor = true;
-            this.btnAddBalance.Click += new System.EventHandler(this.btnAddBalance_Click);
+            this.btnAddBalance.Click += new System.EventHandler(this.BtnAddBalance_Click);
             // 
             // btnAccountRegister
             // 
@@ -130,7 +129,7 @@
             this.btnAccountRegister.TabIndex = 1;
             this.btnAccountRegister.Text = " Registrar cuenta";
             this.btnAccountRegister.UseVisualStyleBackColor = true;
-            this.btnAccountRegister.Click += new System.EventHandler(this.btnAccountRegister_Click);
+            this.btnAccountRegister.Click += new System.EventHandler(this.BtnAccountRegister_Click);
             // 
             // SecundaryPanel
             // 
@@ -142,7 +141,7 @@
             // timerOfAnswer
             // 
             this.timerOfAnswer.Interval = 5000;
-            this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfError_Tick);
+            this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfAnswer_Tick);
             // 
             // btnSettings
             // 
@@ -153,7 +152,7 @@
             this.btnSettings.Size = new System.Drawing.Size(47, 42);
             this.btnSettings.TabIndex = 6;
             this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
             // PrincipalForm
             // 
@@ -167,7 +166,6 @@
             this.MaximizeBox = false;
             this.Name = "PrincipalForm";
             this.Text = "Gestión de estacionamiento";
-            this.Load += new System.EventHandler(this.PrincipalForm_Load);
             this.principalPanel.ResumeLayout(false);
             this.principalPanel.PerformLayout();
             this.ResumeLayout(false);

@@ -60,7 +60,7 @@
             this.btnAccept.TabIndex = 1;
             this.btnAccept.Text = "Aceptar";
             this.btnAccept.UseVisualStyleBackColor = true;
-            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
+            this.btnAccept.Click += new System.EventHandler(this.BtnAccept_Click);
             // 
             // btnCancel
             // 
@@ -73,7 +73,7 @@
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // txtNumberPhone
             // 
@@ -105,7 +105,6 @@
             // timerOfAnswer
             // 
             this.timerOfAnswer.Interval = 5000;
-            this.timerOfAnswer.Tick += new System.EventHandler(this.timerOfError_Tick);
             // 
             // AccountRegister
             // 
@@ -120,7 +119,6 @@
             this.Controls.Add(this.lblNumberPhone);
             this.Name = "AccountRegister";
             this.Size = new System.Drawing.Size(383, 509);
-            this.Load += new System.EventHandler(this.AccountRegister_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

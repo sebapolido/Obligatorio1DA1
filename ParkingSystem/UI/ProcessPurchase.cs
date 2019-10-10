@@ -13,13 +13,13 @@ namespace UI
 {
     public partial class ProcessPurchase : UserControl
     {
-        Panel panel;
-        SystemController system;
-        ValidatorOfEnrollment validatorOfEnrollment;
-        ValidatorOfPhone validatorOfPhone;
-        ValidatorOfMessage validatorOfMessage;
-        ValidatorOfDate validatorOfDate;
-        int costForMinutes;
+        private Panel panel;
+        private SystemController system;
+        private ValidatorOfEnrollment validatorOfEnrollment;
+        private ValidatorOfPhone validatorOfPhone;
+        private ValidatorOfMessage validatorOfMessage;
+        private ValidatorOfDate validatorOfDate;
+        private int costForMinutes;
 
         public ProcessPurchase(Panel principalPanel, SystemController systemController, int actualCostForMinutes)
         {
@@ -31,40 +31,15 @@ namespace UI
             validatorOfMessage = new ValidatorOfMessage();
             validatorOfDate = new ValidatorOfDate();
             costForMinutes = actualCostForMinutes;
-           // this.txtMessage.Leave += new System.EventHandler(this.txtMessage_Leave);
-            this.txtMessage.Enter += new System.EventHandler(this.txtMessage_Enter);
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             panel.Visible = true;
         }
 
-        private void TxtMessage_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((int)e.KeyChar == (int)Keys.Enter)
-            {
-                ValidateEmptyNumber();
-            }
-
-        }
-
-        private void TxtNumberPhone_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((int)e.KeyChar == (int)Keys.Enter)
-            {
-                ValidateEmptyNumber();
-            }
-
-        }
-
-        private void btnAccept_Click(object sender, EventArgs e)
+        private void BtnAccept_Click(object sender, EventArgs e)
         {
             ValidateEmptyNumber();            
         }
@@ -85,9 +60,7 @@ namespace UI
         private void ValidateFormatNumber(string textOfPhone)
         {
             if (validatorOfPhone.ValidateFormatNumber(ref textOfPhone))
-            {
                 ValidateIsNumeric(textOfPhone);
-            }
             else
                 SetMessage("El número no coincide con el formato.");
         }
@@ -284,30 +257,17 @@ namespace UI
             txtMessage.Clear();
         }
         
-        public void SetMessage(string textToShow)
+        private void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;
             lblAnswer.Text = textToShow;
             timerOfAnswer.Start();
         }
 
-        private void timerOfAnswer_Tick(object sender, EventArgs e)
+        private void TimerOfAnswer_Tick(object sender, EventArgs e)
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
-        }
-        
-
-        private void txtMessage_Enter(object sender, EventArgs e)
-        {
-            txtMessage.ForeColor = Color.Black;
-            txtMessage.Text = "";
-        }
-
-
-        private void txtMessage_TextChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }

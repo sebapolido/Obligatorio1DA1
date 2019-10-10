@@ -49,7 +49,6 @@
             this.txtMessage.Size = new System.Drawing.Size(134, 20);
             this.txtMessage.TabIndex = 15;
             this.txtMessage.Text = "Ej: ABC 1234 60 11:00";
-            this.txtMessage.TextChanged += new System.EventHandler(this.txtMessage_TextChanged);
             // 
             // lblMessage
             // 
@@ -79,7 +78,7 @@
             this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnAccept
             // 
@@ -92,7 +91,7 @@
             this.btnAccept.TabIndex = 11;
             this.btnAccept.Text = "Aceptar";
             this.btnAccept.UseVisualStyleBackColor = true;
-            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
+            this.btnAccept.Click += new System.EventHandler(this.BtnAccept_Click);
             // 
             // lblNumberPhone
             // 
@@ -112,7 +111,6 @@
             this.lblAnswer.Name = "lblAnswer";
             this.lblAnswer.Size = new System.Drawing.Size(0, 18);
             this.lblAnswer.TabIndex = 16;
-            this.lblAnswer.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblProcessPurchase
             // 
@@ -128,7 +126,6 @@
             // timerOfAnswer
             // 
             this.timerOfAnswer.Interval = 5000;
-            this.timerOfAnswer.Tick += new System.EventHandler(this.timerOfAnswer_Tick);
             // 
             // ProcessPurchase
             // 
