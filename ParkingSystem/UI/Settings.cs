@@ -15,15 +15,13 @@ namespace UI
 
     {
         private Panel panel;
-        private SystemController system;
         private Validator validator;
         public int costForMinutes { get; set; }
 
-        public Settings(Panel principalPanel, SystemController systemController, int actualCostForMinutes)
+        public Settings(Panel principalPanel, int actualCostForMinutes)
         {
             InitializeComponent();
             panel = principalPanel;
-            system = systemController;
             validator = new Validator();
             costForMinutes = actualCostForMinutes;
             SetActualCostForMinute();

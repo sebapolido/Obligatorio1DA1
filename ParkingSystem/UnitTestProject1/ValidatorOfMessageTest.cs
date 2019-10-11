@@ -58,21 +58,21 @@ namespace UnitTestProject1
         public void ValidateWroteTimeNotWroteTime()
         {
             string[] line = new string[] { " ", "60" };
-            Assert.AreEqual(false, validator.WroteTime(line));
+            Assert.AreEqual(false, validator.WroteHourAndMinutes(line));
         }
 
         [TestMethod]
         public void ValidateWroteTimeInvalidWroteTime()
         {
             string[] line = new string[] { " ", "60", "1021:213321" };
-            Assert.AreEqual(false, validator.WroteTime(line));
+            Assert.AreEqual(false, validator.WroteHourAndMinutes(line));
         }
 
         [TestMethod]
         public void ValidateWroteTimeValidWroteTime()
         {
             string[] line = new string[] { " ", "60", "11:21" };
-            Assert.AreEqual(true, validator.WroteTime(line));
+            Assert.AreEqual(true, validator.WroteHourAndMinutes(line));
         }
 
         [TestMethod]
@@ -104,73 +104,73 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void ValidateMinutesEmpty()
+        public void ValidateMessageEmpty()
         {
             string line =  " " ;
-            Assert.AreEqual(false, validator.ValidateMinutes(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWhitMoreInput()
+        public void ValidateMessageWhitMoreInput()
         {
             string line = " 60 10:30 50 43 d";
-            Assert.AreEqual(false, validator.ValidateMinutes(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWhitBadFormatInHour()
+        public void ValidateMessageWhitBadFormatInHour()
         {
             string line = " 60 2132:30";
-            Assert.AreEqual(false, validator.ValidateMinutes(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWhitOnlyTime()
+        public void ValidateMessageWhitOnlyTime()
         {
             string line = " 60";
-            Assert.AreEqual(true, validator.ValidateMinutes(line));
+            Assert.AreEqual(true, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWhitValidTimeHourAndMinutes()
+        public void ValidateMessageWhitValidTimeHourAndMinutes()
         {
             string line = " 60 12:30";
-            Assert.AreEqual(true, validator.ValidateMinutes(line));
+            Assert.AreEqual(true, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWithBadFormatInMinutes()
+        public void ValidateMessageWithBadFormatInMinutes()
         {
             string line = " 60 12:3032";
-            Assert.AreEqual(false, validator.ValidateMinutes(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWithStringInTime()
+        public void ValidateMessageWithStringInTime()
         {
             string line = " ads 12:32";
-            Assert.AreEqual(false, validator.ValidateMinutes(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWithBadFormatInHours()
+        public void ValidateMessageWithBadFormatInHours()
         {
             string line = " 60 12:30:32";
-            Assert.AreEqual(false, validator.ValidateMinutes(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWithStringInHour()
+        public void ValidateMessageWithStringInHour()
         {
             string line = " 60 ab:32";
-            Assert.AreEqual(false, validator.ValidateMinutes(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
-        public void ValidateMinutesWithStringInMinutes()
+        public void ValidateMessageWithStringInMinutes()
         {
             string line = " 60 12:sf";
-            Assert.AreEqual(false, validator.ValidateMinutes(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]
@@ -201,79 +201,97 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseEmpty()
         {
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(0, 0, 0));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(0, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseTimeEmpty()
         {
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(0, 10, 30));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 10, 30, 0);
+            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(0, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseHourEmpty()
         {
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, 0, 30));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 0, 30, 0);
+            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseMinutesEmpty()
         {
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, 20, 0));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 20, 0, 0);
+            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseLessThanTen()
         {
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, 9, 30));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 9, 30, 0);
+            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseMoreThanSixteen()
         {
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, 19, 30));
-        }
-
-        [TestMethod]
-        public void ValidateCalculateFinalTimeOfPurchaseMinutesMoreOfSixty()
-        {
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, 10, 70));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 19, 30, 0);
+            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseTheTimeCompleteWithMinutes()
         {
-            Assert.AreEqual(60, validator.CalculateFinalTimeOfPurchase(60, 12, 40));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 12, 40, 0);
+            Assert.AreEqual(60, validator.CalculateFinalTimeOfPurchase(60, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseTheTimeIncompleteForOnlyMinutes()
         {
-            Assert.AreEqual(20, validator.CalculateFinalTimeOfPurchase(60, 17, 40));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 17, 40, 0);
+            Assert.AreEqual(20, validator.CalculateFinalTimeOfPurchase(60, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseTheTimeIncompleteForOnlyMinutesAndOneHour()
         {
-            Assert.AreEqual(80, validator.CalculateFinalTimeOfPurchase(90, 16, 40));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 16, 40, 0);
+            Assert.AreEqual(80, validator.CalculateFinalTimeOfPurchase(90, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseTheTimeCompleteForMinutesAndOneHour()
         {
-            Assert.AreEqual(60, validator.CalculateFinalTimeOfPurchase(60, 16, 40));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 16, 40, 0);
+            Assert.AreEqual(60, validator.CalculateFinalTimeOfPurchase(60, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseTheTimeIncompleteForALotOfHours()
         {
-            Assert.AreEqual(330, validator.CalculateFinalTimeOfPurchase(3000, 12, 30));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 12, 30, 0);
+            Assert.AreEqual(330, validator.CalculateFinalTimeOfPurchase(3000, dateOfPurchse));
         }
 
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseTheTimeCompleteForALotOfHours()
         {
-            Assert.AreEqual(300, validator.CalculateFinalTimeOfPurchase(300, 12, 30));
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, 12, 30, 0);
+            Assert.AreEqual(300, validator.CalculateFinalTimeOfPurchase(300, dateOfPurchse));
         }
 
     }

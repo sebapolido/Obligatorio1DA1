@@ -13,25 +13,12 @@ namespace UnitTestProject1
         public void testClean()
         {
             validator = null;
-
         }
 
         [TestInitialize]
         public void testInit()
         {
             validator = new ValidatorOfPhone();
-        }
-
-        [TestMethod]
-        public void ValidateIsEmptyTextOfPhoneEmpty()
-        {
-            Assert.AreEqual(true, validator.IsEmptyTextOfPhone(0));
-        }
-
-        [TestMethod]
-        public void ValidateIsEmptyTextOfPhoneNotEmpty()
-        {
-            Assert.AreEqual(false, validator.IsEmptyTextOfPhone(23));
         }
 
         [TestMethod]

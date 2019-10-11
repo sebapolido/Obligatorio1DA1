@@ -14,7 +14,7 @@ namespace ParkingSystem
             return length > 8 && length < 20;
         }
         
-        public bool WroteTime(string[] line)
+        public bool WroteHourAndMinutes(string[] line)
         {
             return line.Length == 3 && line[2].Contains(':') && line[2].Length == 5;
         }
@@ -24,29 +24,15 @@ namespace ParkingSystem
             return line.Length >= 2 && line.Length <= 3;
         }
         
-        public bool ValidateMinutes(string restOfMessage)
+        public bool ValidateMessageData(string restOfMessage)
         {
             string[] lineOfMessage = restOfMessage.Split(' ');
-            if (lineOfMessage.Length >= 2 && lineOfMessage.Length <= 3)
+            if (IsCorrectSeparationOfRestOfMessage(lineOfMessage))
             {
                 string time = lineOfMessage[1];
-                string hour = "";
-                string minutes = "";
                 if (lineOfMessage.Length == 3)
                 {
-                    string[] lineOfHours = lineOfMessage[2].Split(':');
-                    if (lineOfHours.Length == 2)
-                    {
-                        hour = lineOfHours[0];
-                        minutes = lineOfHours[1];
-                        if (hour.Length == 2 && minutes.Length == 2
-                            && ValidateIsNumeric(hour) && ValidateIsNumeric(minutes) && ValidateIsNumeric(time))
-                            return true;
-                        else
-                            return false;
-                    }
-                    else
-                        return false;
+                    return ValidateHourAndMinutesData(time, lineOfMessage);
                 }
                 else
                     return ValidateIsNumeric(time);
@@ -55,11 +41,15 @@ namespace ParkingSystem
                 return false;
         }
 
-        public bool ValideTimeOfPurchase(int timeOfPurchase)
+        private bool ValidateHourAndMinutesData(string time, string [] lineOfMessage)
         {
-            if (timeOfPurchase > 0)
+            string[] lineOfHours = lineOfMessage[2].Split(':');
+            if (lineOfHours.Length == 2)
             {
-                if (timeOfPurchase % 30 == 0)
+                string hour = lineOfHours[0];
+                string minutes = lineOfHours[1];
+                if (hour.Length == 2 && minutes.Length == 2
+                    && ValidateIsNumeric(hour) && ValidateIsNumeric(minutes) && ValidateIsNumeric(time))
                     return true;
                 else
                     return false;
@@ -68,13 +58,24 @@ namespace ParkingSystem
                 return false;
         }
 
-        public int CalculateFinalTimeOfPurchase(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase)
+        public bool ValideTimeOfPurchase(int timeOfPurchase)
         {
-            if (hourOfPurchase >= 10 && hourOfPurchase < 18 && minsOfPurchase >= 0 && minsOfPurchase < 60)
+            if (timeOfPurchase > 0)
+                if (timeOfPurchase % 30 == 0)
+                    return true;
+                else
+                    return false;
+            else
+                return false;
+        }
+
+        public int CalculateFinalTimeOfPurchase(int timeOfPurchase, DateTime dateOfPurchse)
+        {
+            if (dateOfPurchse.Hour >= 10 && dateOfPurchse.Hour < 18)
             {
                 int finalTimeOfPurchase = 0;
-                finalTimeOfPurchase = 60 - minsOfPurchase;
-                for (int i = hourOfPurchase; i < 17; i++)
+                finalTimeOfPurchase = 60 - dateOfPurchse.Minute;
+                for (int i = dateOfPurchse.Hour; i < 17; i++)
                     finalTimeOfPurchase += 60;
                 if (timeOfPurchase > finalTimeOfPurchase)
                     return finalTimeOfPurchase;

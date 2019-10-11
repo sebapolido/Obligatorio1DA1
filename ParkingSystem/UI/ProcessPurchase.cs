@@ -14,23 +14,25 @@ namespace UI
     public partial class ProcessPurchase : UserControl
     {
         private Panel panel;
-        private SystemController system;
+        private IParkingRepository repository;
         private ValidatorOfEnrollment validatorOfEnrollment;
         private ValidatorOfPhone validatorOfPhone;
         private ValidatorOfMessage validatorOfMessage;
         private ValidatorOfDate validatorOfDate;
         private int costForMinutes;
 
-        public ProcessPurchase(Panel principalPanel, SystemController systemController, int actualCostForMinutes)
+        public ProcessPurchase(Panel principalPanel, IParkingRepository parkingRepository, int actualCostForMinutes)
         {
             InitializeComponent();
             panel = principalPanel;
-            system = systemController;
+            repository = parkingRepository;
             validatorOfEnrollment = new ValidatorOfEnrollment();
             validatorOfPhone = new ValidatorOfPhone();
             validatorOfMessage = new ValidatorOfMessage();
             validatorOfDate = new ValidatorOfDate();
             costForMinutes = actualCostForMinutes;
+            this.txtMessage.Leave += new System.EventHandler(this.TxtMessage_Leave);
+            this.txtMessage.Enter += new System.EventHandler(this.TxtMessage_Enter);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -47,7 +49,7 @@ namespace UI
         private void ValidateEmptyNumber()
         {
             lblAnswer.ForeColor = Color.Red;
-            if (validatorOfPhone.IsEmpty(txtNumberPhone.Text))
+            if (validatorOfPhone.ValidateIsEmpty(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -75,7 +77,7 @@ namespace UI
 
         private void ValidateRepeatNumber(string textOfPhone)
         {
-           if (system.IsRepeatedNumber(textOfPhone))
+           if (repository.IsRepeatedNumber(textOfPhone))
                 ValidateEmptyMessage();
            else
                 SetMessage("El número que ingresó no está registrado.");
@@ -83,13 +85,13 @@ namespace UI
 
         private void ValidateEmptyMessage()
         {
-            if (!validatorOfMessage.IsEmpty(txtMessage.Text))
-                ValidateMessage();
+            if (!validatorOfMessage.ValidateIsEmpty(txtMessage.Text))
+                ValidateLengthMessage();
             else
                 SetMessage("Debe ingresar un mensaje.");
         }
 
-        private void ValidateMessage()
+        private void ValidateLengthMessage()
         {
             if (validatorOfMessage.IsLengthOfMessageCorrect(txtMessage.Text.Length))
                 ValidateEnrollment();
@@ -109,7 +111,7 @@ namespace UI
         private void ValidateEnrollmentWithSpace(string [] lineOfMessage)
         {
             if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0] + lineOfMessage[1]))
-                ValidateEmptyTime(txtMessage.Text.Substring(8));
+                ValidateMessageData(txtMessage.Text.Substring(8));
             else
                 SetMessage("El formato de la matrícula no es valido.");
         }
@@ -118,88 +120,58 @@ namespace UI
         {
             if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(lineOfMessage))
                 if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0]))
-                    ValidateEmptyTime(txtMessage.Text.Substring(7));
+                    ValidateMessageData(txtMessage.Text.Substring(7));
                 else
                     SetMessage("El formato de la matrícula no es valido.");
             else
                 SetMessage("El formato de la matrícula no es valido.");
         }
 
-        private void ValidateEmptyTime(string restOfMessage)
+        private void ValidateMessageData(string restOfMessage)
         {
-            string[] lineOfRestOfMessage = restOfMessage.Split(' ');
-            if (validatorOfMessage.IsCorrectSeparationOfRestOfMessage(lineOfRestOfMessage))
-            {
-                string hour = "";
-                string minutes = "";
-                if (validatorOfMessage.WroteTime(lineOfRestOfMessage))
-                {
-                    hour = lineOfRestOfMessage[2].Split(':')[0];
-                    minutes = lineOfRestOfMessage[2].Split(':')[1];
-                }
-                string time = lineOfRestOfMessage[1];
-                if (validatorOfMessage.ValidateMinutes(restOfMessage))
-                    ValidateTime(time, hour, minutes);
-                else
-                    SetMessage("El formato del mensaje no es correcto.");
-
-            }else
+            if (validatorOfMessage.ValidateMessageData(restOfMessage))
+                AssignValues(restOfMessage);
+            else
                 SetMessage("El formato del mensaje no es correcto.");
         }
 
-        private void ValidateTime(string time, string hour, string minutes)
+        private void AssignValues(string restOfMessage)
         {
-            if (Entrytime(hour, minutes)){
-                if (validatorOfMessage.ValidateIsNumeric(time))
-                    AssignTime(time, "" + DateTime.Now.Hour,"" + DateTime.Now.Minute);
-                else
-                    SetMessage("El formato del tiempo no es valido.");
-            }
-            else
+            string[] lineOfRestOfMessage = restOfMessage.Split(' ');
+            int hour = DateTime.Now.Hour;
+            int minutes = DateTime.Now.Minute;
+            if (validatorOfMessage.WroteHourAndMinutes(lineOfRestOfMessage))
             {
-                if (validatorOfMessage.ValidateIsNumeric(time) && validatorOfMessage.ValidateIsNumeric(hour) 
-                    && validatorOfMessage.ValidateIsNumeric(minutes))
-                    AssignTime(time, hour, minutes);
-                else
-                    SetMessage("El formato de la hora es valido.");
-            }           
+                hour = int.Parse(lineOfRestOfMessage[2].Split(':')[0]);
+                minutes = int.Parse(lineOfRestOfMessage[2].Split(':')[1]);
+            }
+            int time = int.Parse(lineOfRestOfMessage[1]);
+            AssignTimesToDate(time, hour, minutes);
         }
 
-        private void AssignTime(string time, string hour, string minutes)
+        private void AssignTimesToDate(int timeOfPurchase, int hourOfPurchase, int minutesOfPurchase)
         {
-            int timeOfPurchase = Int32.Parse(time);
-            int hourOfPurchase = Int32.Parse(hour);
-            int minsOfPurchase = Int32.Parse(minutes);
-            ValidateTimeMultipleOf30(timeOfPurchase, hourOfPurchase, minsOfPurchase);
+            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+                        DateTime.Now.Month, DateTime.Now.Day, hourOfPurchase,
+                        minutesOfPurchase, 0);
+            ValidateTimeMultipleOf30(timeOfPurchase, dateOfPurchse);
         }
 
-        private bool Entrytime(string hour, string minutes)
-        {
-            return hour.Equals("") && minutes.Equals("");
-        }
 
-        private void ValidateTimeMultipleOf30(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase)
+        private void ValidateTimeMultipleOf30(int timeOfPurchase, DateTime dateOfPurchse)
         {   
             if(validatorOfMessage.ValideTimeOfPurchase(timeOfPurchase))
-            {
-                if(minsOfPurchase >= 0 && minsOfPurchase < 60) 
-                    ValidateDate(timeOfPurchase, hourOfPurchase, minsOfPurchase);
-                else
-                    SetMessage("El formato de la hora no es correcto");
-            }
+                ValidateDate(timeOfPurchase, dateOfPurchse);
             else
                 SetMessage("La cantidad de minutos debe ser múltiplo de 30.");
         }
 
-        private void ValidateDate(int timeOfPurchase, int hourOfPurchase, int minsOfPurchase)
+        private void ValidateDate(int timeOfPurchase, DateTime dateOfPurchse)
         {
-            DateTime dateTime = new DateTime(DateTime.Now.Year,
-                        DateTime.Now.Month, DateTime.Now.Day, hourOfPurchase,
-                        minsOfPurchase, 0);
-            if (validatorOfDate.ValidateValidHour(dateTime))
+            if (validatorOfDate.ValidateValidHour(dateOfPurchse))
             {
-                int finalTimeOfPurchase = validatorOfMessage.CalculateFinalTimeOfPurchase(timeOfPurchase, hourOfPurchase, minsOfPurchase);
-                CheckBalanceAccount(finalTimeOfPurchase, dateTime);
+                int finalTimeOfPurchase = validatorOfMessage.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
+                CheckBalanceAccount(finalTimeOfPurchase, dateOfPurchse);
             }
             else
                 SetMessage("La hora es incorrecta o previa a la hora actual.");
@@ -207,7 +179,7 @@ namespace UI
 
         private void CheckBalanceAccount(int finalTimeOfPurchase, DateTime dateTime)
         {
-            Account account = system.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
+            Account account = repository.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
             int finalCostOfPurchase = finalTimeOfPurchase * costForMinutes;
             if (finalCostOfPurchase < account.balance)
             {
@@ -228,16 +200,16 @@ namespace UI
             string aEnrollment = txtMessage.Text.Replace(" ", "");
             Enrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
             Int32.Parse(aEnrollment.Substring(3, 4)));
-            system.AddEnrollment(enrollment);
+            repository.AddEnrollment(enrollment);
             AddPurchase(finalTimeOfPurchase, enrollment, dateTime);
         }
 
         private void AddPurchase(int finalTimeOfPurchase, Enrollment enrollment, DateTime dateTime)
         {
-            if (!system.ArePurchaseOnThatDate(dateTime, enrollment))
+            if (!repository.ArePurchaseOnThatDate(dateTime, enrollment))
             {
                 Purchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase, dateTime);
-                system.AddPurchase(newPurchase);
+                repository.AddPurchase(newPurchase);
                 MessagePurchaseAdded();
             }
             else
@@ -268,6 +240,24 @@ namespace UI
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
+        }
+
+        private void TxtMessage_Leave(object sender, EventArgs e)
+        {
+            if (txtMessage.Text.Length == 0)
+            {
+                txtMessage.Text = "Ej: ABC 1234 60 11:00";
+                txtMessage.ForeColor = Color.DarkGray;
+            }
+        }
+
+        private void TxtMessage_Enter(object sender, EventArgs e)
+        {
+            if (txtMessage.Text == "Ej: ABC 1234 60 11:00")
+            {
+                txtMessage.Text = "";
+                txtMessage.ForeColor = Color.Black;
+            }
         }
     }
 }

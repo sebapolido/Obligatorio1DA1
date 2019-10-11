@@ -105,6 +105,7 @@
             // timerOfAnswer
             // 
             this.timerOfAnswer.Interval = 5000;
+            this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfAnswer_Tick);
             // 
             // AccountRegister
             // 

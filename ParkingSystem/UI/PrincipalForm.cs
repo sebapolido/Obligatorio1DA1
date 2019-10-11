@@ -18,7 +18,7 @@ namespace UI
     public partial class PrincipalForm : Form
     {
 
-        private SystemController system;
+        private IParkingRepository repository;
         private int costForMinutes = 1;
         private Settings settings;
 
@@ -28,8 +28,8 @@ namespace UI
             this.SecundaryPanel.Visible = false;
             this.principalPanel.Visible = true;
             lblAnswer.Visible = false;
-            system = new SystemController();
-            settings = new Settings(principalPanel, system, costForMinutes);
+            repository = new ParkingRepository();
+            settings = new Settings(principalPanel, costForMinutes);
         }
 
         private void BtnAccountRegister_Click(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace UI
         private void StartRegisteringAccount()
         {
             ChangeStatus();
-            AddToPanel(new AccountRegister(principalPanel, system));
+            AddToPanel(new AccountRegister(principalPanel, repository));
         }
 
         private void BtnAddBalance_Click(object sender, EventArgs e)
@@ -50,10 +50,10 @@ namespace UI
 
         private void StartAddingBalance()
         {
-            if (system.GetAccounts().ToArray().Length > 0)
+            if (repository.GetAccounts().ToArray().Length > 0)
             {
                 ChangeStatus();
-                AddToPanel(new AddBalance(principalPanel, system));
+                AddToPanel(new AddBalance(principalPanel, repository));
             }
             else
                 SetMessage("Primero debe haber al menos una cuenta regitrada.");
@@ -66,14 +66,14 @@ namespace UI
 
         private void StartProcessingPurchase()
         {
-            if (system.GetAccounts().ToArray().Length > 0)
+            if (repository.GetAccounts().ToArray().Length > 0)
             {
                 if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18 && DateTime.Now.Minute >= 0 &&
                 DateTime.Now.Minute < 60)
                 {
                     costForMinutes = settings.costForMinutes;
                     ChangeStatus();
-                    AddToPanel(new ProcessPurchase(principalPanel, system, costForMinutes));
+                    AddToPanel(new ProcessPurchase(principalPanel, repository, costForMinutes));
                 }
                 else
                     SetMessage("Esta función solo está disponible de 10 a 18 horas.");
@@ -90,10 +90,10 @@ namespace UI
 
         private void StartCheckingPurchase()
         {
-            if (system.GetAccounts().ToArray().Length > 0)
+            if (repository.GetAccounts().ToArray().Length > 0)
             {
                 ChangeStatus();
-                AddToPanel(new CheckPurchase(principalPanel, system));
+                AddToPanel(new CheckPurchase(principalPanel, repository));
             }
             else
                 SetMessage("Primero debe haber al menos una cuenta regitrada.");
@@ -129,7 +129,7 @@ namespace UI
         {
             costForMinutes = settings.costForMinutes;
             ChangeStatus();
-            Settings newSettings = new Settings(principalPanel, system, costForMinutes);
+            Settings newSettings = new Settings(principalPanel, costForMinutes);
             AddToPanel(newSettings);
             settings = newSettings;
         }

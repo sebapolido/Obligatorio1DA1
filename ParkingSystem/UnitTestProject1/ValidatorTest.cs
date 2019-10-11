@@ -64,5 +64,17 @@ namespace UnitTestProject1
         {
             Assert.AreEqual(false, validator.ValidateIsNumeric("test"));
         }
+
+        [TestMethod]
+        public void ValidateIsEmpty()
+        {
+            Assert.AreEqual(true, validator.ValidateIsEmpty(""));
+        }
+
+        [TestMethod]
+        public void ValidateIsNotEmpty()
+        {
+            Assert.AreEqual(false, validator.ValidateIsEmpty("test"));
+        }
     }
 }

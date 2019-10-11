@@ -43,9 +43,10 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Enrollment.cs" />
+    <Compile Include="IParkingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchase.cs" />
-    <Compile Include="SystemController.cs" />
+    <Compile Include="ParkingRepository.cs" />
     <Compile Include="Validator.cs" />
     <Compile Include="ValidatorOfDate.cs" />
     <Compile Include="ValidatorOfEnrollment.cs" />

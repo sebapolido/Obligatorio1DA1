@@ -52,7 +52,7 @@
     <Compile Include="AccountTest.cs" />
     <Compile Include="EnrollmentTest.cs" />
     <Compile Include="PurchaseTest.cs" />
-    <Compile Include="SystemControllerTest.cs" />
+    <Compile Include="ParkingRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidatorOfDateTest.cs" />
     <Compile Include="ValidatorOfEnrollmentTest.cs" />

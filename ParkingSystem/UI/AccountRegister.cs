@@ -15,14 +15,14 @@ namespace UI
 
     {
         private Panel panel;
-        private SystemController system;
+        private IParkingRepository repository;
         private ValidatorOfPhone validatorOfPhone;
         
-        public AccountRegister(Panel principalPanel, SystemController systemController)
+        public AccountRegister(Panel principalPanel, IParkingRepository parkingRepository)
         {
             InitializeComponent();
             panel = principalPanel;
-            system = systemController;
+            repository = parkingRepository;
             validatorOfPhone = new ValidatorOfPhone();
         }     
 
@@ -30,7 +30,6 @@ namespace UI
         {
             this.Visible = false;
             panel.Visible = true;
-
         }
 
         private void BtnAccept_Click(object sender, EventArgs e)
@@ -41,17 +40,17 @@ namespace UI
 
         private void ValidateEmpty()
         {
-            if(validatorOfPhone.IsEmpty(txtNumberPhone.Text))
+            if(validatorOfPhone.ValidateIsEmpty(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
                 string textOfPhone = txtNumberPhone.Text;
                 textOfPhone = textOfPhone.Replace(" ", "");
-                ValidateNumberFormat(textOfPhone);
+                ValidateFormatNumber(textOfPhone);
             }
         }
 
-        private void ValidateNumberFormat(string textOfPhone)
+        private void ValidateFormatNumber(string textOfPhone)
         {
             if (validatorOfPhone.ValidateIsNumeric(textOfPhone))
                 if (validatorOfPhone.ValidateFormatNumber(ref textOfPhone))
@@ -64,8 +63,8 @@ namespace UI
 
         private void ValidateRepeatNumber(string textOfPhone)
         {
-            if (system.GetAccounts().ToArray().Length > 0)
-                if (!system.IsRepeatedNumber(textOfPhone))
+            if (repository.GetAccounts().ToArray().Length > 0)
+                if (!repository.IsRepeatedNumber(textOfPhone))
                     AddAccount(textOfPhone);
                 else
                     SetMessage("El número que ingresó ya está registrado.");
@@ -76,7 +75,7 @@ namespace UI
         private void AddAccount(string textOfPhone)
         {
             Account newAccount = new Account(0, textOfPhone);
-            system.AddAccount(newAccount);
+            repository.AddAccount(newAccount);
             MessageAccountAdded();
         }
 
@@ -94,7 +93,7 @@ namespace UI
             timerOfAnswer.Start();
         }
 
-        private void TimerOfError_Tick(object sender, EventArgs e)
+        private void TimerOfAnswer_Tick(object sender, EventArgs e)
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;

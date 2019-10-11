@@ -14,26 +14,26 @@ namespace UI
     public partial class AddBalance : UserControl
     {
         private Panel panel;
-        private SystemController system;
+        private IParkingRepository repository;
         private ValidatorOfPhone validatorOfPhone;
 
-        public AddBalance(Panel principalPanel, SystemController systemController)
+        public AddBalance(Panel principalPanel, IParkingRepository parkingRepository)
         {
             InitializeComponent();
             panel = principalPanel;
-            system = systemController;
+            repository = parkingRepository;
             validatorOfPhone = new ValidatorOfPhone();
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
-            ValidateEmpty();
+            ValidateEmptyNumber();
         }
 
-        private void ValidateEmpty()
+        private void ValidateEmptyNumber()
         {
-            if (validatorOfPhone.IsEmpty(txtNumberPhone.Text))
+            if (validatorOfPhone.ValidateIsEmpty(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -56,29 +56,34 @@ namespace UI
 
         private void ValidateRepeatNumber(string textOfPhone)
         {
-            if (system.IsRepeatedNumber(textOfPhone))
-                ValidateBalance(textOfPhone);
+            if (repository.IsRepeatedNumber(textOfPhone))
+                ValidateEmptyBalance(textOfPhone);
             else
                 SetMessage("El número que ingresó no está registrado.");
         }
 
-        private void ValidateBalance(string textOfPhone)
+        private void ValidateEmptyBalance(string textOfPhone)
         {
             if (txtBalanceToAdd.Text.Length > 0)
-                if (Int32.TryParse(txtBalanceToAdd.Text, out int balance))
-                    if (balance > 0)
-                        AddBalanceToAccount(textOfPhone, balance);
-                    else
-                        SetMessage("Debe ingresar un saldo valido.");
-                else
-                    SetMessage("Debe ingresar un saldo númerico.");
+                ValidateBalance(textOfPhone);
             else
                 SetMessage("Debe ingresar un saldo.");
         }
 
+        private void ValidateBalance(string textOfPhone)
+        {
+            if (Int32.TryParse(txtBalanceToAdd.Text, out int balance))
+                if (balance > 0)
+                   AddBalanceToAccount(textOfPhone, balance);
+                else
+                   SetMessage("Debe ingresar un saldo valido.");
+            else
+                SetMessage("Debe ingresar un saldo númerico.");
+        }
+
         private void AddBalanceToAccount(string textOfPhone, int balanceToAdd)
         {
-            Account account = system.GetAnAccount(textOfPhone);
+            Account account = repository.GetAnAccount(textOfPhone);
             account.AddBalance(balanceToAdd);
             MessageBalanceAdded();
         }

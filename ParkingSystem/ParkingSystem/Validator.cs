@@ -14,7 +14,7 @@ namespace ParkingSystem
             return (Int32.TryParse(text, out int isNumeric));
         }
 
-        public bool IsEmpty(string text)
+        public bool ValidateIsEmpty(string text)
         {
             return text.Length == 0;
         }
