@@ -16,3 +16,7 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.exe
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.pdb
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.Settings.resources
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\bin\Release\UI.exe.manifest
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\bin\Release\UI.application
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.exe.manifest
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.application

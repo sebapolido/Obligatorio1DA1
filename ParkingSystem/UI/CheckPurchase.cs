@@ -28,11 +28,15 @@ namespace UI
 
         private void AgregateItemsToComboBoxs()
         {
+            const int MIN_HOUR = 10;
+            const int MAX_HOUR = 17;
+            const int MIN_MINUTES = 0;
+            const int MAX_MINUTES = 59;
             if (cboHour.Items.Count == 0)
-                for (int i = 10; i < 18; i++)
+                for (int i = MIN_HOUR; i <= MAX_HOUR; i++)
                     cboHour.Items.Add(i);
             if (cboMinutes.Items.Count == 0)
-                for (int i = 0; i < 60; i++)
+                for (int i = MIN_MINUTES; i <= MAX_MINUTES; i++)
                     cboMinutes.Items.Add(i);
         }
 
@@ -50,22 +54,24 @@ namespace UI
 
         private void ValidateFormatEnrollment()
         {
-            if (txtEnrollment.Text.Length > 0 && txtEnrollment.Text.Length < 9)
-            {
-                string[] line = txtEnrollment.Text.Split(' ');
-                ValidateFormatOfEnrollmentWithSpace(line);
-            }
+            const int MAX_LENGTH_OF_ENROLLMENT = 8;
+            if (!validatorOfEnrollment.ValidateIsEmpty(txtEnrollment.Text))
+                if (txtEnrollment.Text.Length <= MAX_LENGTH_OF_ENROLLMENT)
+                    ValidateFormatOfEnrollmentWithSpace();
+                else
+                    SetMessage("Debe ingresar una matrícula valida.");
             else
                 SetMessage("Debe ingresar una matrícula.");
         }
 
-        private void ValidateFormatOfEnrollmentWithSpace(string[] line)
+        private void ValidateFormatOfEnrollmentWithSpace()
         {
+            string[] line = txtEnrollment.Text.Split(' ');
             if (line.Length == 2 && validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(line))
                 if (validatorOfEnrollment.ValidateFormatOfEnrollment(line[0] + line[1]))
                     ValidateRepeatEnrollment(line[0], line[1]);
                 else
-                    SetMessage("El formato de la matrícula no es valido.");
+                    SetMessage("El formato de la matrícula no es válido.");
             else
                 ValidateFormatOfEnrollmentWithoutSpace(line);
         }
@@ -76,9 +82,9 @@ namespace UI
                 if (validatorOfEnrollment.ValidateFormatOfEnrollment(line[0]))
                     ValidateRepeatEnrollment(line[0].Substring(0, 3), line[0].Substring(3));
                 else
-                    SetMessage("El formato de la matrícula no es valido.");
+                    SetMessage("El formato de la matrícula no es válido.");
             else
-                SetMessage("El formato de la matrícula no es valido.");
+                SetMessage("El formato de la matrícula no es válido.");
         }
 
         private void ValidateRepeatEnrollment(string letters, string numbers)
@@ -86,25 +92,25 @@ namespace UI
             if (validatorOfEnrollment.ValidateIsNumeric(numbers))
                 if (repository.IsRepeatedEnrollment(letters, int.Parse(numbers)))
                 {
-                    Enrollment enrollment = repository.GetAnEnrollment(letters, int.Parse(numbers));
-                    ValidateDate(enrollment);
+                    Enrollment enrollmentOfPurchase = repository.GetAnEnrollment(letters, int.Parse(numbers));
+                    ValidateDate(enrollmentOfPurchase);
                 }
                 else
                     SetMessage("No hay ninguna compra con esa matrícula.");
             else
-                SetMessage("El formato de la matrícula no es valido.");
+                SetMessage("El formato de la matrícula no es válido.");
         }
 
-        private void ValidateDate(Enrollment enrollment)
+        private void ValidateDate(Enrollment enrollmentOfPurchase)
         {
             if (cboHour.Text != null)
                 if (cboMinutes.Text != null)
                 {
-                    int hour = int.Parse(cboHour.Text);
-                    int minutes = int.Parse(cboMinutes.Text);
-                    DateTime date = new DateTime(lblDateTime.Value.Year, lblDateTime.Value.Month,
-                        lblDateTime.Value.Day, hour, minutes, 0);
-                    ArePurchasesOnThatDate(date, enrollment);
+                    int hourOfPurchase = int.Parse(cboHour.Text);
+                    int minutesOfPurchase = int.Parse(cboMinutes.Text);
+                    DateTime dateOfPurchase = new DateTime(lblDateTime.Value.Year, lblDateTime.Value.Month,
+                        lblDateTime.Value.Day, hourOfPurchase, minutesOfPurchase, 0);
+                    ArePurchasesOnThatDate(dateOfPurchase, enrollmentOfPurchase);
                 }
                 else
                     SetMessage("Debe ingresar un minuto.");

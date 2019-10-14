@@ -8,7 +8,6 @@ namespace ParkingSystem
 {
     public class  ValidatorOfPhone:Validator
     {
-
         public bool ValidateFormatNumber(ref string textOfPhone)
         {
             if (IsFormatOfLengthOfNine(textOfPhone))
@@ -22,14 +21,17 @@ namespace ParkingSystem
                 return false;
         }
 
-        public bool IsFormatOfLengthOfNine(string text)
+        public bool IsFormatOfLengthOfNine(string textOfPhone)
         {
-            return text.Length == 9 && text[0].Equals('0') && text[1].Equals('9');
+            const int LENGTH_FORMAT_OF_NINE = 9;
+            return textOfPhone.Length == LENGTH_FORMAT_OF_NINE && textOfPhone[0].Equals('0') 
+                && textOfPhone[1].Equals('9');
         }
 
-        public bool IsFormatOfLengthOfEigth(string text)
+        public bool IsFormatOfLengthOfEigth(string textOfPhone)
         {
-            return text.Length == 8 && text[0].Equals('9');
+            const int LENGTH_FORMAT_OF_EIGTH = 8;
+            return textOfPhone.Length == LENGTH_FORMAT_OF_EIGTH && textOfPhone[0].Equals('9');
         }
     }
 }

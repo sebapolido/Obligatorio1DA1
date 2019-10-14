@@ -14,13 +14,13 @@ namespace ParkingSystem
         private static List<Enrollment> enrollmentsList = new List<Enrollment>();
         private static List<Purchase> purchaseList = new List<Purchase>();
 
-        public void AddAccount(Account account)
+        public void AddAccount(Account newAccount)
         {
             ValidatorOfPhone validator = new ValidatorOfPhone();
-            string text = account.mobile;
-            if (account.balance >= 0 && validator.ValidateFormatNumber(ref text) && !IsRepeatedNumber(account.mobile) &&
-                 validator.ValidateIsNumeric(account.mobile))
-                accountsList.Add(account);
+            string text = newAccount.mobile;
+            if (newAccount.balance >= 0 && validator.ValidateFormatNumber(ref text) && !IsRepeatedNumber(newAccount.mobile) &&
+                 validator.ValidateIsNumeric(newAccount.mobile))
+                accountsList.Add(newAccount);
         }
 
         public List<Account> GetAccounts()
@@ -28,12 +28,12 @@ namespace ParkingSystem
             return accountsList;
         }
 
-        public void AddEnrollment(Enrollment enrollment)
+        public void AddEnrollment(Enrollment newEnrollment)
         {
             ValidatorOfEnrollment validator = new ValidatorOfEnrollment();
-            if(validator.ValidateFormatOfEnrollment(enrollment.lettersOfEnrollment + enrollment.numbersOfEnrollment)
-                && !IsRepeatedEnrollment(enrollment.lettersOfEnrollment, enrollment.numbersOfEnrollment))
-                enrollmentsList.Add(enrollment);
+            if(validator.ValidateFormatOfEnrollment(newEnrollment.lettersOfEnrollment + newEnrollment.numbersOfEnrollment)
+                && !IsRepeatedEnrollment(newEnrollment.lettersOfEnrollment, newEnrollment.numbersOfEnrollment))
+                enrollmentsList.Add(newEnrollment);
         }
 
         public List<Enrollment> GetEnrollments()
@@ -41,10 +41,9 @@ namespace ParkingSystem
             return enrollmentsList;
         }
 
-
-        public void AddPurchase(Purchase purchase)
+        public void AddPurchase(Purchase newPurchase)
         {
-            purchaseList.Add(purchase);
+            purchaseList.Add(newPurchase);
         }
 
         public List<Purchase> GetPurchases()
@@ -60,10 +59,10 @@ namespace ParkingSystem
             return false;
         }
 
-        public Account GetAnAccount(string text)
+        public Account GetAnAccount(string mobileToCompare)
         {
             for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
-                if (text.Equals(this.GetAccounts().ToArray().ElementAt(i).mobile))
+                if (mobileToCompare.Equals(this.GetAccounts().ToArray().ElementAt(i).mobile))
                     return this.GetAccounts().ToArray().ElementAt(i);
             return null;
         }
@@ -89,14 +88,14 @@ namespace ParkingSystem
             return false;
         }
 
-        public bool ArePurchaseOnThatDate(DateTime date, Enrollment enrollment)
+        public bool ArePurchaseOnThatDate(DateTime dateToCompare, Enrollment enrollmentToCompare)
         {
             ValidatorOfDate validator = new ValidatorOfDate();
             for(int i = 0; i<this.GetPurchases().ToArray().Length; i++)
             {
                 Enrollment enrollmentOfPurchase = this.GetPurchases().ToArray().ElementAt(i).enrollmentOfPurchase;
-                if (validator.CheckDateWithTimeOfPurchase(date, this.GetPurchases().ToArray().ElementAt(i)) &&
-                    enrollmentOfPurchase.Equals(enrollment))
+                if (validator.CheckDateWithTimeOfPurchase(dateToCompare, this.GetPurchases().ToArray().ElementAt(i)) &&
+                    enrollmentOfPurchase.Equals(enrollmentToCompare))
                     return true;
             }
             return false;

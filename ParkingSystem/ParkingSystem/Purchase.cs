@@ -24,6 +24,5 @@ namespace ParkingSystem
             timeOfPurchase = time;
             dateOfPurchase = dateTime;
         }
-        
     }
 }

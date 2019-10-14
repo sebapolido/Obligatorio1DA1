@@ -55,22 +55,14 @@ namespace UI
             if (validator.ValidateIsNumeric(txtCostForMinutes.Text))
             {
                 lblAnswer.ForeColor = Color.Green;
-                costForMinutes = CostForMinutes();
+                costForMinutes = int.Parse(txtCostForMinutes.Text);
                 SetActualCostForMinute();
                 SetMessage("El costo por minuto ha sido actualizado.");
             }
             else
                 SetMessage("Debe ingresar un número.");
         }
-
-        private int CostForMinutes()
-        {
-            if (txtCostForMinutes.Text.Length == 0)
-                return 1;
-            else
-                return int.Parse(txtCostForMinutes.Text);
-        }
-
+        
         private void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;

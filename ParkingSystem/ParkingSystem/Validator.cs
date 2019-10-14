@@ -8,7 +8,6 @@ namespace ParkingSystem
 {
     public class Validator
     {
-
         public bool ValidateIsNumeric(string text)
         {
             return (Int32.TryParse(text, out int isNumeric));

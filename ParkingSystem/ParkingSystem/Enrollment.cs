@@ -28,6 +28,5 @@ namespace ParkingSystem
             Enrollment enrollment = (Enrollment)obj;
             return numbersOfEnrollment == enrollment.numbersOfEnrollment && lettersOfEnrollment.Equals(enrollment.lettersOfEnrollment);
         }
-
     }
 }

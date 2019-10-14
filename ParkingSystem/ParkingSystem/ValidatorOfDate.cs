@@ -10,7 +10,9 @@ namespace ParkingSystem
     {
         public bool ValidateValidHour(DateTime date)
         {
-            return date.Hour >= 10 && date.Hour < 18 && date.Minute >= 0 && date.Minute < 60 && ValidateTimeThatHasPassed(date);
+            const int MIN_HOUR = 10;
+            const int MAX_HOUR = 17;
+            return date.Hour >= MIN_HOUR && date.Hour <= MAX_HOUR && ValidateTimeThatHasPassed(date);
         }
 
         public bool ValidateTimeThatHasPassed(DateTime date)

@@ -8,32 +8,33 @@ namespace ParkingSystem
 {
     public class ValidatorOfMessage:Validator
     {
-
         public bool IsLengthOfMessageCorrect(int length)
         {
-            return length > 8 && length < 20;
+            const int MIN_LENGTH_OF_MESSAGE = 9;
+            const int MAX_LENGTH_OF_MESSAGE = 19;
+            return length >= MIN_LENGTH_OF_MESSAGE && length <= MAX_LENGTH_OF_MESSAGE;
         }
         
-        public bool WroteHourAndMinutes(string[] line)
+        public bool WroteHourAndMinutes(string[] lineOfMessage)
         {
-            return line.Length == 3 && line[2].Contains(':') && line[2].Length == 5;
+            return lineOfMessage.Length == 3 && lineOfMessage[2].Contains(':') &&
+                lineOfMessage[2].Length == 5;
         }
 
-        public bool IsCorrectSeparationOfRestOfMessage(string[] line)
+        public bool IsCorrectSeparationOfRestOfMessage(string[] lineOfMessage)
         {
-            return line.Length >= 2 && line.Length <= 3;
+            return lineOfMessage.Length >= 2 && lineOfMessage.Length <= 3;
         }
         
         public bool ValidateMessageData(string restOfMessage)
         {
+            const int CORRECT_LENGTH_OF_LINE_MESSAGE = 3;
             string[] lineOfMessage = restOfMessage.Split(' ');
             if (IsCorrectSeparationOfRestOfMessage(lineOfMessage))
             {
                 string time = lineOfMessage[1];
-                if (lineOfMessage.Length == 3)
-                {
+                if (lineOfMessage.Length == CORRECT_LENGTH_OF_LINE_MESSAGE)
                     return ValidateHourAndMinutesData(time, lineOfMessage);
-                }
                 else
                     return ValidateIsNumeric(time);
             }
@@ -60,8 +61,10 @@ namespace ParkingSystem
 
         public bool ValideTimeOfPurchase(int timeOfPurchase)
         {
-            if (timeOfPurchase > 0)
-                if (timeOfPurchase % 30 == 0)
+            const int EMPTY_TIME = 0;
+            const int TIME_THAT_MUST_BE_MULTIPLE = 30;
+            if (timeOfPurchase > EMPTY_TIME)
+                if (timeOfPurchase % TIME_THAT_MUST_BE_MULTIPLE == 0)
                     return true;
                 else
                     return false;
@@ -71,20 +74,15 @@ namespace ParkingSystem
 
         public int CalculateFinalTimeOfPurchase(int timeOfPurchase, DateTime dateOfPurchse)
         {
-            if (dateOfPurchse.Hour >= 10 && dateOfPurchse.Hour < 18)
-            {
-                int finalTimeOfPurchase = 0;
-                finalTimeOfPurchase = 60 - dateOfPurchse.Minute;
-                for (int i = dateOfPurchse.Hour; i < 17; i++)
-                    finalTimeOfPurchase += 60;
-                if (timeOfPurchase > finalTimeOfPurchase)
-                    return finalTimeOfPurchase;
-                else
-                    return timeOfPurchase;
-            }
+            const int MAX_HOUR = 17;
+            const int ONE_HOUR_IN_MINUTES = 60;
+            int timeOfTheRestOfDay = ONE_HOUR_IN_MINUTES - dateOfPurchse.Minute;
+            for (int i = dateOfPurchse.Hour; i < MAX_HOUR; i++)
+                timeOfTheRestOfDay += ONE_HOUR_IN_MINUTES;
+            if (timeOfPurchase > timeOfTheRestOfDay)
+                return timeOfTheRestOfDay;
             else
-                return 0;
+                return timeOfPurchase;
         }
-
     }
 }

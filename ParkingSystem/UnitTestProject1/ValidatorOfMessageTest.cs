@@ -205,47 +205,7 @@ namespace UnitTestProject1
                         DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
             Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(0, dateOfPurchse));
         }
-
-        [TestMethod]
-        public void ValidateCalculateFinalTimeOfPurchaseTimeEmpty()
-        {
-            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
-                        DateTime.Now.Month, DateTime.Now.Day, 10, 30, 0);
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(0, dateOfPurchse));
-        }
-
-        [TestMethod]
-        public void ValidateCalculateFinalTimeOfPurchaseHourEmpty()
-        {
-            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
-                        DateTime.Now.Month, DateTime.Now.Day, 0, 30, 0);
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, dateOfPurchse));
-        }
-
-        [TestMethod]
-        public void ValidateCalculateFinalTimeOfPurchaseMinutesEmpty()
-        {
-            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
-                        DateTime.Now.Month, DateTime.Now.Day, 20, 0, 0);
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, dateOfPurchse));
-        }
-
-        [TestMethod]
-        public void ValidateCalculateFinalTimeOfPurchaseLessThanTen()
-        {
-            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
-                        DateTime.Now.Month, DateTime.Now.Day, 9, 30, 0);
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, dateOfPurchse));
-        }
-
-        [TestMethod]
-        public void ValidateCalculateFinalTimeOfPurchaseMoreThanSixteen()
-        {
-            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
-                        DateTime.Now.Month, DateTime.Now.Day, 19, 30, 0);
-            Assert.AreEqual(0, validator.CalculateFinalTimeOfPurchase(30, dateOfPurchse));
-        }
-
+        
         [TestMethod]
         public void ValidateCalculateFinalTimeOfPurchaseTheTimeCompleteWithMinutes()
         {

@@ -67,9 +67,7 @@ namespace UI
         private void StartProcessingPurchase()
         {
             if (repository.GetAccounts().ToArray().Length > 0)
-            {
-                if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18 && DateTime.Now.Minute >= 0 &&
-                DateTime.Now.Minute < 60)
+                if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18)
                 {
                     costForMinutes = settings.costForMinutes;
                     ChangeStatus();
@@ -77,7 +75,6 @@ namespace UI
                 }
                 else
                     SetMessage("Esta función solo está disponible de 10 a 18 horas.");
-            }
             else
                 SetMessage("Primero debe haber al menos una cuenta regitrada.");
 

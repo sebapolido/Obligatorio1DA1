@@ -64,7 +64,7 @@ namespace UI
 
         private void ValidateEmptyBalance(string textOfPhone)
         {
-            if (txtBalanceToAdd.Text.Length > 0)
+            if (!validatorOfPhone.ValidateIsEmpty(textOfPhone))
                 ValidateBalance(textOfPhone);
             else
                 SetMessage("Debe ingresar un saldo.");
@@ -72,11 +72,12 @@ namespace UI
 
         private void ValidateBalance(string textOfPhone)
         {
+            const int MIN_BALANCE_TO_ADD = 1;
             if (Int32.TryParse(txtBalanceToAdd.Text, out int balance))
-                if (balance > 0)
+                if (balance >= MIN_BALANCE_TO_ADD)
                    AddBalanceToAccount(textOfPhone, balance);
                 else
-                   SetMessage("Debe ingresar un saldo valido.");
+                   SetMessage("Debe ingresar un saldo válido.");
             else
                 SetMessage("Debe ingresar un saldo númerico.");
         }

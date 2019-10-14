@@ -113,7 +113,7 @@ namespace UI
             if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0] + lineOfMessage[1]))
                 ValidateMessageData(txtMessage.Text.Substring(8));
             else
-                SetMessage("El formato de la matrícula no es valido.");
+                SetMessage("El formato de la matrícula no es válido.");
         }
 
         private void ValidateEnrollmentWithoutSpace(string [] lineOfMessage)
@@ -122,9 +122,9 @@ namespace UI
                 if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0]))
                     ValidateMessageData(txtMessage.Text.Substring(7));
                 else
-                    SetMessage("El formato de la matrícula no es valido.");
+                    SetMessage("El formato de la matrícula no es válido.");
             else
-                SetMessage("El formato de la matrícula no es valido.");
+                SetMessage("El formato de la matrícula no es válido.");
         }
 
         private void ValidateMessageData(string restOfMessage)
@@ -157,7 +157,6 @@ namespace UI
             ValidateTimeMultipleOf30(timeOfPurchase, dateOfPurchse);
         }
 
-
         private void ValidateTimeMultipleOf30(int timeOfPurchase, DateTime dateOfPurchse)
         {   
             if(validatorOfMessage.ValideTimeOfPurchase(timeOfPurchase))
@@ -177,14 +176,14 @@ namespace UI
                 SetMessage("La hora es incorrecta o previa a la hora actual.");
         }
 
-        private void CheckBalanceAccount(int finalTimeOfPurchase, DateTime dateTime)
+        private void CheckBalanceAccount(int finalTimeOfPurchase, DateTime dateTimeOfPurchase)
         {
             Account account = repository.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
             int finalCostOfPurchase = finalTimeOfPurchase * costForMinutes;
-            if (finalCostOfPurchase < account.balance)
+            if (finalCostOfPurchase <= account.balance)
             {
                 SubtractBalance(account, finalCostOfPurchase);
-                AddEnrollment(finalTimeOfPurchase, dateTime);
+                AddEnrollment(finalTimeOfPurchase, dateTimeOfPurchase);
             }
             else
                 SetMessage("El saldo de la cuenta es insuficiente.");
