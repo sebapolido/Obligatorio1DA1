@@ -20,3 +20,25 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\bin\Release\UI.application
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.exe.manifest
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.application
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\bin\Release\UI.exe.config
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\bin\Release\UI.exe.manifest
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\bin\Release\UI.application
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\bin\Release\UI.exe
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\bin\Release\UI.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\bin\Release\ParkingSystem.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\bin\Release\ParkingSystem.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.csprojAssemblyReference.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.AccountRegister.resources
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.AddBalance.resources
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.CheckPurchase.resources
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.PrincipalForm.resources
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.ProcessPurchase.resources
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.Properties.Resources.resources
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.Settings.resources
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.csproj.GenerateResource.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.csproj.CoreCompileInputs.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.exe.manifest
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.application
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.csproj.CopyComplete
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.exe
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\UI\obj\Release\UI.pdb

@@ -138,23 +138,22 @@ namespace UI
         private void AssignValues(string restOfMessage)
         {
             string[] lineOfRestOfMessage = restOfMessage.Split(' ');
-            int hour = DateTime.Now.Hour;
-            int minutes = DateTime.Now.Minute;
+            int hourOfPurchase = DateTime.Now.Hour;
+            int minutesOfPurchase = DateTime.Now.Minute;
             if (validatorOfMessage.WroteHourAndMinutes(lineOfRestOfMessage))
             {
-                hour = int.Parse(lineOfRestOfMessage[2].Split(':')[0]);
-                minutes = int.Parse(lineOfRestOfMessage[2].Split(':')[1]);
+                hourOfPurchase = int.Parse(lineOfRestOfMessage[2].Split(':')[0]);
+                minutesOfPurchase = int.Parse(lineOfRestOfMessage[2].Split(':')[1]);
             }
-            int time = int.Parse(lineOfRestOfMessage[1]);
-            AssignTimesToDate(time, hour, minutes);
+            int timeOfPurchase = int.Parse(lineOfRestOfMessage[1]);
+            DateTime dateOfPurchase = AssignTimesToDate(hourOfPurchase, minutesOfPurchase);
+            ValidateTimeMultipleOf30(timeOfPurchase, dateOfPurchase);
         }
 
-        private void AssignTimesToDate(int timeOfPurchase, int hourOfPurchase, int minutesOfPurchase)
+        private DateTime AssignTimesToDate(int hourOfPurchase, int minutesOfPurchase)
         {
-            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
-                        DateTime.Now.Month, DateTime.Now.Day, hourOfPurchase,
-                        minutesOfPurchase, 0);
-            ValidateTimeMultipleOf30(timeOfPurchase, dateOfPurchse);
+            return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 
+                hourOfPurchase, minutesOfPurchase, 0);
         }
 
         private void ValidateTimeMultipleOf30(int timeOfPurchase, DateTime dateOfPurchse)

@@ -70,16 +70,16 @@ namespace UI
             timerOfAnswer.Start();
         }
 
-        private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            this.Visible = false;
-            panel.Visible = true;
-        }
-
         private void TimerOfAnswer_Tick(object sender, EventArgs e)
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            panel.Visible = true;
         }
     }
 }

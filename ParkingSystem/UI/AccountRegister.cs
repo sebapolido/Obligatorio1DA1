@@ -12,7 +12,6 @@ using ParkingSystem;
 namespace UI
 {
     public partial class AccountRegister : UserControl
-
     {
         private Panel panel;
         private IParkingRepository repository;

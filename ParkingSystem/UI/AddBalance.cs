@@ -25,6 +25,12 @@ namespace UI
             validatorOfPhone = new ValidatorOfPhone();
         }
 
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            panel.Visible = true;
+        }
+
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
@@ -95,12 +101,6 @@ namespace UI
             SetMessage("Saldo de la cuenta actualizado.");
             txtBalanceToAdd.Clear();
             txtNumberPhone.Clear();
-        }
-
-        private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            this.Visible = false;
-            panel.Visible = true;
         }
 
         private void SetMessage(string textToShow)

@@ -96,6 +96,15 @@ namespace UI
                 SetMessage("Primero debe haber al menos una cuenta regitrada.");
         }
 
+        private void BtnSettings_Click(object sender, EventArgs e)
+        {
+            costForMinutes = settings.costForMinutes;
+            ChangeStatus();
+            Settings newSettings = new Settings(principalPanel, costForMinutes);
+            AddToPanel(newSettings);
+            settings = newSettings;
+        }
+
         private void AddToPanel(System.Windows.Forms.Control newControl)
         {
             this.SecundaryPanel.Controls.Clear();
@@ -109,12 +118,6 @@ namespace UI
             lblAnswer.Visible = false;
         }
 
-        private void TimerOfAnswer_Tick(object sender, EventArgs e)
-        {
-            lblAnswer.Visible = false;
-            timerOfAnswer.Enabled = false;
-        }
-
         private void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;
@@ -122,13 +125,10 @@ namespace UI
             timerOfAnswer.Start();
         }
 
-        private void BtnSettings_Click(object sender, EventArgs e)
+        private void TimerOfAnswer_Tick(object sender, EventArgs e)
         {
-            costForMinutes = settings.costForMinutes;
-            ChangeStatus();
-            Settings newSettings = new Settings(principalPanel, costForMinutes);
-            AddToPanel(newSettings);
-            settings = newSettings;
+            lblAnswer.Visible = false;
+            timerOfAnswer.Enabled = false;
         }
     }
 }
