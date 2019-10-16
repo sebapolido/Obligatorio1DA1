@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ParkingSystem",
-    "\\ParkingSystem\\UI"
+    "\\ParkingSystem\\BusinessLogicTest",
+    "\\ParkingSystem\\BusinessLogicTest\\Properties"
   ],
-  "SelectedNode": "\\ParkingSystem\\UI\\PrincipalForm.cs",
+  "SelectedNode": "\\ParkingSystem",
   "PreviewInSolutionExplorer": false
 }
