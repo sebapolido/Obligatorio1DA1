@@ -16,23 +16,21 @@ namespace UI
         private Panel panel;
         private IParkingRepository repository;
         private ValidatorOfEnrollment validatorOfEnrollment;
-        private ValidatorOfPhone validatorOfPhone;
-        private ValidatorOfMessage validatorOfMessage;
         private ValidatorOfDate validatorOfDate;
+        private CountryHandler countryHandler;
         private int costForMinutes;
 
-        public ProcessPurchase(Panel principalPanel, IParkingRepository parkingRepository, int actualCostForMinutes)
+        public ProcessPurchase(Panel principalPanel, IParkingRepository parkingRepository, int actualCostForMinutes, Country actualCountry)
         {
             InitializeComponent();
             panel = principalPanel;
             repository = parkingRepository;
             validatorOfEnrollment = new ValidatorOfEnrollment();
-            validatorOfPhone = new ValidatorOfPhone();
-            validatorOfMessage = new ValidatorOfMessage();
             validatorOfDate = new ValidatorOfDate();
             costForMinutes = actualCostForMinutes;
             this.txtMessage.Leave += new System.EventHandler(this.TxtMessage_Leave);
             this.txtMessage.Enter += new System.EventHandler(this.TxtMessage_Enter);
+            countryHandler = new CountryHandler(actualCountry);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -49,7 +47,7 @@ namespace UI
         private void ValidateEmptyNumber()
         {
             lblAnswer.ForeColor = Color.Red;
-            if (validatorOfPhone.ValidateIsEmpty(txtNumberPhone.Text))
+            if (countryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -61,7 +59,7 @@ namespace UI
 
         private void ValidateFormatNumber(string textOfPhone)
         {
-            if (validatorOfPhone.ValidateFormatNumber(ref textOfPhone))
+            if (countryHandler.ValidateFormatNumberByCountry(ref textOfPhone))
                 ValidateIsNumeric(textOfPhone);
             else
                 SetMessage("El número no coincide con el formato.");
@@ -69,7 +67,7 @@ namespace UI
 
         private void ValidateIsNumeric(string textOfPhone)
         {
-            if (validatorOfPhone.ValidateIsNumeric(textOfPhone))
+            if (countryHandler.ValidateIsNumericByCountry(textOfPhone))
                 ValidateRepeatNumber(textOfPhone);
             else
                 SetMessage("El número que ingresó no es númerico.");
@@ -85,7 +83,7 @@ namespace UI
 
         private void ValidateEmptyMessage()
         {
-            if (!validatorOfMessage.ValidateIsEmpty(txtMessage.Text))
+            if (!countryHandler.ValidateIsEmptyByCountry(txtMessage.Text))
                 ValidateLengthMessage();
             else
                 SetMessage("Debe ingresar un mensaje.");
@@ -93,7 +91,7 @@ namespace UI
 
         private void ValidateLengthMessage()
         {
-            if (validatorOfMessage.IsLengthOfMessageCorrect(txtMessage.Text.Length))
+            if (countryHandler.IsLengthOfMessageCorrectByCountry(txtMessage.Text.Length))
                 ValidateEnrollment();
             else
                 SetMessage("El formato del mensaje no es correcto.");
@@ -129,7 +127,7 @@ namespace UI
 
         private void ValidateMessageData(string restOfMessage)
         {
-            if (validatorOfMessage.ValidateMessageData(restOfMessage))
+            if (countryHandler.ValidateMessageDataByCountry(restOfMessage))
                 AssignValues(restOfMessage);
             else
                 SetMessage("El formato del mensaje no es correcto.");
@@ -140,7 +138,7 @@ namespace UI
             string[] lineOfRestOfMessage = restOfMessage.Split(' ');
             int hourOfPurchase = DateTime.Now.Hour;
             int minutesOfPurchase = DateTime.Now.Minute;
-            if (validatorOfMessage.WroteHourAndMinutes(lineOfRestOfMessage))
+            if (countryHandler.WroteHourAndMinutesByCountry(lineOfRestOfMessage))
             {
                 hourOfPurchase = int.Parse(lineOfRestOfMessage[2].Split(':')[0]);
                 minutesOfPurchase = int.Parse(lineOfRestOfMessage[2].Split(':')[1]);
@@ -158,7 +156,7 @@ namespace UI
 
         private void ValidateTimeMultipleOf30(int timeOfPurchase, DateTime dateOfPurchse)
         {   
-            if(validatorOfMessage.ValideTimeOfPurchase(timeOfPurchase))
+            if(countryHandler.ValidateTimeOfPurchaseByCountry(timeOfPurchase))
                 ValidateDate(timeOfPurchase, dateOfPurchse);
             else
                 SetMessage("La cantidad de minutos debe ser múltiplo de 30.");
@@ -168,7 +166,7 @@ namespace UI
         {
             if (validatorOfDate.ValidateValidHour(dateOfPurchse))
             {
-                int finalTimeOfPurchase = validatorOfMessage.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
+                int finalTimeOfPurchase = countryHandler.CalculateFinalTimeOfPurchaseByCountry(timeOfPurchase, dateOfPurchse);
                 CheckBalanceAccount(finalTimeOfPurchase, dateOfPurchse);
             }
             else

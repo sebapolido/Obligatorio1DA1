@@ -16,20 +16,31 @@ namespace UI
     {
         private Panel panel;
         private Validator validator;
-        public int costForMinutes { get; set; }
+        private IParkingRepository parkingRepository;
+        public Country country { get; set; }
 
-        public Settings(Panel principalPanel, int actualCostForMinutes)
+        public Settings(Panel principalPanel, IParkingRepository parking, Country actualCountry)
         {
             InitializeComponent();
             panel = principalPanel;
+            parkingRepository = parking;
             validator = new Validator();
-            costForMinutes = actualCostForMinutes;
-            SetActualCostForMinute();
+            country = actualCountry;
+            AgregateItemsToComboBoxs();
+            SetActualData();
         }
 
-        private void SetActualCostForMinute()
+        private void AgregateItemsToComboBoxs()
         {
-            lblActualCostForMinutes.Text = "El costo por minuto actual es de: " + costForMinutes;
+             if (cboCountry.Items.Count == 0)
+                for (int i = 0; i < parkingRepository.GetCountries().ToArray().Length; i++)
+                    cboCountry.Items.Add(parkingRepository.GetCountries().ElementAt(i).nameOfCountry);
+        }
+
+        private void SetActualData()
+        {
+            lblActualCostForMinutes.Text = "El costo por minuto actual es de: " + country.costForMinutes;
+            lblActualCountry.Text = "El país actual es: " + country.nameOfCountry;
         }
 
         private void TxtCostForMinutes_KeyPress(object sender, KeyPressEventArgs e)
@@ -47,16 +58,51 @@ namespace UI
         private void BtnAccept_Click(object sender, EventArgs e)
         {
             lblAnswer.ForeColor = Color.Red;
-            ValidateCorrectNumber();
+            ValidateEmptyData();
         }
 
-        private void ValidateCorrectNumber()
+        private void ValidateEmptyData()
         {
-            if (validator.ValidateIsNumeric(txtCostForMinutes.Text))
+            if (validator.ValidateIsEmpty(txtCostForMinutes.Text) && cboCountry.Text.Equals(""))
+                SetMessage("Debe ingresar un país o un costo.");
+            else
+                ValidateOnlyCountrySelected();
+        }
+
+        private void ValidateOnlyCountrySelected()
+        {
+            if (!cboCountry.Text.Equals("") && validator.ValidateIsEmpty(txtCostForMinutes.Text))
+            {
+                country = parkingRepository.GetACountry(cboCountry.Text);
+                SetActualData();
+                lblAnswer.ForeColor = Color.Green;
+                SetMessage("El país ha sido actualizado.");
+            }
+            else
+                ValidateOnlyCostSelected();
+        }
+
+        private void ValidateOnlyCostSelected()
+        {
+            if (validator.ValidateIsNumeric(txtCostForMinutes.Text) && cboCountry.Text.Equals(""))
             {
                 lblAnswer.ForeColor = Color.Green;
-                costForMinutes = int.Parse(txtCostForMinutes.Text);
-                SetActualCostForMinute();
+                country.costForMinutes = int.Parse(txtCostForMinutes.Text);
+                SetActualData();
+                SetMessage("El costo por minuto ha sido actualizado.");
+            }
+            else
+                ValidateCorrectCountryAndCost();
+        }
+
+        private void ValidateCorrectCountryAndCost()
+        {
+            if (validator.ValidateIsNumeric(txtCostForMinutes.Text))
+            {                
+                lblAnswer.ForeColor = Color.Green;
+                country = parkingRepository.GetACountry(cboCountry.Text);
+                country.costForMinutes = int.Parse(txtCostForMinutes.Text);
+                SetActualData();
                 SetMessage("El costo por minuto ha sido actualizado.");
             }
             else

@@ -4,3 +4,9 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\Pa
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Release\ParkingSystem.dll
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Release\ParkingSystem.pdb
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Release\BusinessLogic.csprojAssemblyReference.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\ParkingSystem\obj\Release\BusinessLogic.csprojAssemblyReference.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\ParkingSystem\obj\Release\BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\ParkingSystem\obj\Release\ParkingSystem.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\ParkingSystem\obj\Release\ParkingSystem.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\ParkingSystem\bin\Release\ParkingSystem.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\ParkingSystem\bin\Release\ParkingSystem.pdb

@@ -10,12 +10,13 @@ namespace ParkingSystem
     {
         public int balance { get; set; }
         public string mobile { get; set; }
-
+        public Country country { get; set; }
         
-        public Account(int newBalance, string newMobile)
+        public Account(int newBalance, string newMobile, Country newCountry)
         {
             balance = newBalance;
             mobile = newMobile;
+            country = newCountry;
         }
 
         public Account()

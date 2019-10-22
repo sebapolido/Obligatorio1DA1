@@ -36,3 +36,22 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLI
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\obj\Release\BusinessLogicTest.csproj.CopyComplete
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\obj\Release\BusinessLogicTest.dll
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\obj\Release\BusinessLogicTest.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\obj\Release\BusinessLogicTest.csprojAssemblyReference.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\obj\Release\BusinessLogicTest.csproj.CoreCompileInputs.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\obj\Release\BusinessLogicTest.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\obj\Release\BusinessLogicTest.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\es\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\es\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\es\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\BusinessLogicTest.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\BusinessLogicTest.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\ParkingSystem.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\ParkingSystem.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\obligatorioii\ParkingSystem\BusinessLogicTest\obj\Release\BusinessLogicTest.csproj.CopyComplete

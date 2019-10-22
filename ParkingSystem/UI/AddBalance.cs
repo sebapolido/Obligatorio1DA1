@@ -15,14 +15,14 @@ namespace UI
     {
         private Panel panel;
         private IParkingRepository repository;
-        private ValidatorOfPhone validatorOfPhone;
+        private CountryHandler countryHandler;
 
-        public AddBalance(Panel principalPanel, IParkingRepository parkingRepository)
+        public AddBalance(Panel principalPanel, IParkingRepository parkingRepository, Country country)
         {
             InitializeComponent();
             panel = principalPanel;
             repository = parkingRepository;
-            validatorOfPhone = new ValidatorOfPhone();
+            countryHandler = new CountryHandler(country);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace UI
 
         private void ValidateEmptyNumber()
         {
-            if (validatorOfPhone.ValidateIsEmpty(txtNumberPhone.Text))
+            if (countryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -51,8 +51,8 @@ namespace UI
 
         private void ValidateNumberFormat(string textOfPhone)
         {
-            if (validatorOfPhone.ValidateIsNumeric(textOfPhone))
-                if (validatorOfPhone.ValidateFormatNumber(ref textOfPhone))
+            if (countryHandler.ValidateIsNumericByCountry(textOfPhone))
+                if (countryHandler.ValidateFormatNumberByCountry(ref textOfPhone))
                     ValidateRepeatNumber(textOfPhone);
                 else
                     SetMessage("El número no coincide con el formato.");
@@ -70,7 +70,7 @@ namespace UI
 
         private void ValidateEmptyBalance(string textOfPhone)
         {
-            if (!validatorOfPhone.ValidateIsEmpty(textOfPhone))
+            if (!countryHandler.ValidateIsEmptyByCountry(textOfPhone))
                 ValidateBalance(textOfPhone);
             else
                 SetMessage("Debe ingresar un saldo.");

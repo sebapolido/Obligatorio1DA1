@@ -13,13 +13,14 @@ namespace ParkingSystem
         private static List<Account> accountsList = new List<Account>();
         private static List<Enrollment> enrollmentsList = new List<Enrollment>();
         private static List<Purchase> purchaseList = new List<Purchase>();
+        private static List<Country> countryList = new List<Country>();
 
-        public void AddAccount(Account newAccount)
+        public void AddAccount(Account newAccount, Country country)
         {
-            ValidatorOfPhone validator = new ValidatorOfPhone();
+            CountryHandler countryHandler = new CountryHandler(country);
             string text = newAccount.mobile;
-            if (newAccount.balance >= 0 && validator.ValidateFormatNumber(ref text) && !IsRepeatedNumber(newAccount.mobile) &&
-                 validator.ValidateIsNumeric(newAccount.mobile))
+            if (newAccount.balance >= 0 && countryHandler.ValidateFormatNumberByCountry(ref text) && !IsRepeatedNumber(text) &&
+                 countryHandler.ValidateIsNumericByCountry(newAccount.mobile))
                 accountsList.Add(newAccount);
         }
 
@@ -49,8 +50,19 @@ namespace ParkingSystem
         public List<Purchase> GetPurchases()
         {
             return purchaseList;
-        }   
-        
+        }
+
+        public void AddCountry(Country newCountry)
+        {
+            if(!IsRepeatedCountry(newCountry.nameOfCountry))
+                countryList.Add(newCountry);
+        }
+
+        public List<Country> GetCountries()
+        {
+            return countryList;
+        }
+
         public bool IsRepeatedNumber(string text)
         {
             for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
@@ -76,6 +88,14 @@ namespace ParkingSystem
             return null;
         }
 
+        public Country GetACountry(string nameOfCountry)
+        {
+            for (int i = 0; i < this.GetCountries().ToArray().Length; i++)
+                if (nameOfCountry.ToUpper().Equals(this.GetCountries().ToArray().ElementAt(i).nameOfCountry.ToUpper()))
+                    return this.GetCountries().ToArray().ElementAt(i);
+            return null;
+        }
+
         public bool IsRepeatedEnrollment(string letters, int numbers)
         {
             for (int i = 0; i < this.GetEnrollments().ToArray().Length; i++)
@@ -83,6 +103,17 @@ namespace ParkingSystem
                 string lettersOfEnrollment = this.GetEnrollments().ToArray().ElementAt(i).lettersOfEnrollment.ToUpper();
                 int numbersOfEnrollment = this.GetEnrollments().ToArray().ElementAt(i).numbersOfEnrollment;
                 if (letters.ToUpper().Equals(lettersOfEnrollment) && numbers == numbersOfEnrollment)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsRepeatedCountry(string name)
+        {
+            for (int i = 0; i < this.GetCountries().ToArray().Length; i++)
+            {
+                string nameOfCountry = this.GetCountries().ToArray().ElementAt(i).nameOfCountry.ToUpper();
+                if (name.ToUpper().Equals(nameOfCountry))
                     return true;
             }
             return false;

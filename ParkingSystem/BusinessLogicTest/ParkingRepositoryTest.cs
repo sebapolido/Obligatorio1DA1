@@ -9,7 +9,8 @@ namespace UnitTestProject1
     public class ParkingRepositoryTest
     {
         IParkingRepository repository;
-
+        Country uruguay;
+        Country argentina;
 
         [TestCleanup]
         public void testClean()
@@ -17,7 +18,10 @@ namespace UnitTestProject1
             repository.GetAccounts().Clear();
             repository.GetEnrollments().Clear();
             repository.GetPurchases().Clear();
+            repository.GetCountries().Clear();
             repository = null;
+            uruguay = null;
+            argentina = null;
             
         }
 
@@ -25,13 +29,17 @@ namespace UnitTestProject1
         public void testInit()
         {
            repository = new ParkingRepository();
+           uruguay = new Country("Uruguay", 1);
+         //  argentina = new Country("Argentina", 1);
+           //repository.AddCountry(argentina);
+           //repository.AddCountry(uruguay);
         }
 
         [TestMethod]
         public void AddAccountEmpty()
         {
             Account account = new Account();
-            repository.AddAccount(account);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(0, repository.GetAccounts().ToArray().Length);
         }
 
@@ -40,39 +48,39 @@ namespace UnitTestProject1
         {
             Account account = new Account();
             account.balance = 50;
-            repository.AddAccount(account);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(0, repository.GetAccounts().ToArray().Length);
         }
 
         [TestMethod]
         public void AddAccountWithErrorInBalance()
         {
-            Account account = new Account(-25, "099366931");
-            repository.AddAccount(account);
+            Account account = new Account(-25, "099366931", uruguay);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(0, repository.GetAccounts().ToArray().Length);
         }
 
         [TestMethod]
         public void AddAccountWithErrorInNumberMoreLength()
         {
-            Account account = new Account(25, "099366931343");
-            repository.AddAccount(account);
+            Account account = new Account(25, "099366931343", uruguay);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(0, repository.GetAccounts().ToArray().Length);
         }
 
         [TestMethod]
         public void AddAccountWithErrorInNumberLessLength()
         {
-            Account account = new Account(25, "09936");
-            repository.AddAccount(account);
+            Account account = new Account(25, "09936", uruguay);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(0, repository.GetAccounts().ToArray().Length);
         }
 
         [TestMethod]
         public void AddAccountWithErrorInNumberFormat()
         {
-            Account account = new Account(25, "09ed1343");
-            repository.AddAccount(account);
+            Account account = new Account(25, "09ed1343", uruguay);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(0, repository.GetAccounts().ToArray().Length);
         }
 
@@ -81,34 +89,34 @@ namespace UnitTestProject1
         {
             Account account = new Account();
             account.mobile = "099366931";
-            repository.AddAccount(account);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(1, repository.GetAccounts().ToArray().Length);
         }
 
         [TestMethod]
         public void AddValidAccount()
         {
-            Account account = new Account(25, "099366931");
-            repository.AddAccount(account);
+            Account account = new Account(25, "099366931", uruguay);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(1, repository.GetAccounts().ToArray().Length);
         }
 
         [TestMethod]
         public void AddValidAccountTwoTimes()
         {
-            Account account = new Account(25, "099366931");
-            repository.AddAccount(account);
-            repository.AddAccount(account);
+            Account account = new Account(25, "099366931", uruguay);
+            repository.AddAccount(account, uruguay);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(1, repository.GetAccounts().ToArray().Length);
         }
 
         [TestMethod]
         public void AddValidAccountWhitZeroAndWithoutZero()
         {
-            Account validAccount = new Account(25, "099366931");
-            repository.AddAccount(validAccount);
-            Account invalidAccount = new Account(25, "  99366931");
-            repository.AddAccount(invalidAccount);
+            Account validAccount = new Account(25, "099366931", uruguay);
+            repository.AddAccount(validAccount, uruguay);
+            Account invalidAccount = new Account(25, "99366931", uruguay);
+            repository.AddAccount(invalidAccount, uruguay);
             Assert.AreEqual(1, repository.GetAccounts().ToArray().Length);
         }
 
@@ -121,12 +129,12 @@ namespace UnitTestProject1
         [TestMethod]
         public void getListOfAccountsWithAccounts()
         {
-            Account accountOne = new Account(25, "099366931");
-            Account accountTwo = new Account(225, "099366932");
-            Account accountThree = new Account(254, "099366933");
-            repository.AddAccount(accountOne);
-            repository.AddAccount(accountTwo);
-            repository.AddAccount(accountThree);
+            Account accountOne = new Account(25, "099366931", uruguay);
+            Account accountTwo = new Account(225, "099366932", uruguay);
+            Account accountThree = new Account(254, "099366933", uruguay);
+            repository.AddAccount(accountOne, uruguay);
+            repository.AddAccount(accountTwo, uruguay);
+            repository.AddAccount(accountThree, uruguay);
             Assert.AreEqual(3, repository.GetAccounts().ToArray().Length);
         }
 
@@ -273,6 +281,41 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void AddCountryEmpty()
+        {
+            Country country = new Country("Brasil", 1);
+            Assert.AreEqual(0, repository.GetCountries().ToArray().Length);
+        }
+
+        [TestMethod]
+        public void AddCountry()
+        {
+            Country country = new Country("Brasil", 1);
+            repository.AddCountry(country);
+            Assert.AreEqual(1, repository.GetCountries().ToArray().Length);
+        }
+
+        [TestMethod]
+        public void AddTwoCountry()
+        {
+            Country country = new Country("Brasil", 1);
+            Country secondCountry = new Country("Chile", 1);
+            repository.AddCountry(country);
+            repository.AddCountry(secondCountry);
+            Assert.AreEqual(2, repository.GetCountries().ToArray().Length);
+        }
+
+        [TestMethod]
+        public void AddTwoEqualsCountry()
+        {
+            Country country = new Country("Brasil", 1);
+            Country secondCountry = new Country("Brasil", 2);
+            repository.AddCountry(country);
+            repository.AddCountry(secondCountry);
+            Assert.AreEqual(1, repository.GetCountries().ToArray().Length);
+        }
+
+        [TestMethod]
         public void ValidateRepeatNumberEmpty()
         {
             Assert.AreEqual(false, repository.IsRepeatedNumber(""));
@@ -299,7 +342,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateRepeatNumberRepeated()
         {
-            repository.AddAccount(new Account(0, "099366931"));
+            repository.AddAccount(new Account(0, "099366931", uruguay), uruguay);
             Assert.AreEqual(true, repository.IsRepeatedNumber("099366931"));
         }
 
@@ -312,26 +355,26 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateGrabAnAccountOutsideOfTheList()
         {
-            repository.AddAccount(new Account(0, "098993924"));
+            repository.AddAccount(new Account(0, "098993924", uruguay), uruguay);
             Assert.AreEqual(null, repository.GetAnAccount("099366931"));
         }
 
         [TestMethod]
         public void ValidateGrabAnAccountInTheListOfAnAccount()
         {
-            Account account = new Account(0, "099366931");
-            repository.AddAccount(account);
+            Account account = new Account(0, "099366931", uruguay);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(account, repository.GetAnAccount("099366931"));
         }
 
         [TestMethod]
         public void ValidateGrabAnAccountInTheListOfManyAccounts()
         {
-            repository.AddAccount(new Account(0, "092345678"));
-            repository.AddAccount(new Account(0, "095345688"));
-            repository.AddAccount(new Account(0, "092340478"));
-            Account account = new Account(0, "099366931");
-            repository.AddAccount(account);
+            repository.AddAccount(new Account(0, "092345678", uruguay), uruguay);
+            repository.AddAccount(new Account(0, "095345688", uruguay), uruguay);
+            repository.AddAccount(new Account(0, "092340478", uruguay), uruguay);
+            Account account = new Account(0, "099366931", uruguay);
+            repository.AddAccount(account, uruguay);
             Assert.AreEqual(account, repository.GetAnAccount("099366931"));
         }
 
@@ -381,7 +424,38 @@ namespace UnitTestProject1
             Assert.AreEqual(enrollment, repository.GetAnEnrollment("fds", 1232));
         }
 
+        [TestMethod]
+        public void ValidateGrabACountryWithListEmpty()
+        {
+            Assert.AreEqual(null, repository.GetACountry("Argentina"));
+        }
+
+        [TestMethod]
+        public void ValidateGrabAnCountryOutsideOfTheList()
+        {
+            repository.AddCountry(new Country("Argentina", 3));
+            Assert.AreEqual(null, repository.GetACountry("Brasil"));
+        }
+
+        [TestMethod]
+        public void ValidateGrabAnCountryInTheList()
+        {
+            Country brasil = new Country("Brasil", 5);
+            repository.AddCountry(brasil);
+            Assert.AreEqual(brasil, repository.GetACountry("Brasil"));
+        }
         
+        [TestMethod]
+        public void ValidateGrabACountryInTheListOfManyCountries()
+        {
+            repository.AddCountry(new Country("Argentina", 2));
+            repository.AddCountry(new Country("Chile", 3));
+            repository.AddCountry(new Country("Brasil", 2));
+            Country venezuela = new Country("Venezuela", 3);
+            repository.AddCountry(venezuela);
+            Assert.AreEqual(venezuela, repository.GetACountry("Venezuela"));
+        }
+
         [TestMethod]
         public void ValidateRepeatEnrollmentEmpty()
         {
@@ -427,8 +501,28 @@ namespace UnitTestProject1
             repository.AddEnrollment(enrollment);
             Assert.AreEqual(true, repository.IsRepeatedEnrollment("SBN", 4849));
         }
-        
 
+        [TestMethod]
+        public void ValidateRepeatCountryNotRepeated()
+        {
+            Country country = new Country("Brasil", 1);
+            repository.AddCountry(country);
+            Assert.AreEqual(false, repository.IsRepeatedCountry("Chile"));
+        }
+
+        [TestMethod]
+        public void ValidateRepeatCountryEmptyList()
+        {
+            Assert.AreEqual(false, repository.IsRepeatedCountry("Chile"));
+        }
+
+        [TestMethod]
+        public void ValidateRepeatCountry()
+        {
+            Country country = new Country("Brasil", 2);
+            repository.AddCountry(country);
+            Assert.AreEqual(true, repository.IsRepeatedCountry("Brasil"));
+        }
         
         [TestMethod]
         public void ValidatePurchaseInTheDateNotPurchases()

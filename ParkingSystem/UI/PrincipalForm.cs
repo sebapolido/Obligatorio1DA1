@@ -29,7 +29,16 @@ namespace UI
             this.principalPanel.Visible = true;
             lblAnswer.Visible = false;
             repository = new ParkingRepository();
-            settings = new Settings(principalPanel, costForMinutes);
+            addCountries();
+        }
+
+        private void addCountries()
+        {
+            Country Argentina = new Country("Argentina", 1);
+            Country Uruguay = new Country("Uruguay", 1);
+            repository.AddCountry(Argentina);
+            repository.AddCountry(Uruguay);
+            settings = new Settings(principalPanel, repository, Uruguay);
         }
 
         private void BtnAccountRegister_Click(object sender, EventArgs e)
@@ -40,7 +49,8 @@ namespace UI
         private void StartRegisteringAccount()
         {
             ChangeStatus();
-            AddToPanel(new AccountRegister(principalPanel, repository));
+            Country country = settings.country;
+            AddToPanel(new AccountRegister(principalPanel, repository, country));
         }
 
         private void BtnAddBalance_Click(object sender, EventArgs e)
@@ -53,7 +63,8 @@ namespace UI
             if (repository.GetAccounts().ToArray().Length > 0)
             {
                 ChangeStatus();
-                AddToPanel(new AddBalance(principalPanel, repository));
+                Country country = settings.country;
+                AddToPanel(new AddBalance(principalPanel, repository, country));
             }
             else
                 SetMessage("Primero debe haber al menos una cuenta regitrada.");
@@ -68,10 +79,11 @@ namespace UI
         {
             if (repository.GetAccounts().ToArray().Length > 0)
                 if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18)
-                {
-                    costForMinutes = settings.costForMinutes;
+                {                    
                     ChangeStatus();
-                    AddToPanel(new ProcessPurchase(principalPanel, repository, costForMinutes));
+                    Country country = settings.country;
+                    costForMinutes = country.costForMinutes;
+                    AddToPanel(new ProcessPurchase(principalPanel, repository, costForMinutes, country));
                 }
                 else
                     SetMessage("Esta función solo está disponible de 10 a 18 horas.");
@@ -98,9 +110,10 @@ namespace UI
 
         private void BtnSettings_Click(object sender, EventArgs e)
         {
-            costForMinutes = settings.costForMinutes;
             ChangeStatus();
-            Settings newSettings = new Settings(principalPanel, costForMinutes);
+            Country country = settings.country;
+            costForMinutes = country.costForMinutes;
+            Settings newSettings = new Settings(principalPanel, repository, country);
             AddToPanel(newSettings);
             settings = newSettings;
         }

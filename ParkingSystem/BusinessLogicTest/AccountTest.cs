@@ -6,35 +6,28 @@ using ParkingSystem;
 
 namespace UnitTestProject1
 {
-    /// <summary>
-    /// Descripción resumida de AccountTest
-    /// </summary>
     [TestClass]
     public class AccountTest
     {
-        public AccountTest()
-        {
-            //
-            // TODO: Agregar aquí la lógica del constructor
-            //
-        }
-        
         Account account;
         Account accountEmpty;
+        Country country;
 
         [TestCleanup]
         public void testClean()
         {
             account = null;
             accountEmpty = null;
+            country = null;
 
         }
 
         [TestInitialize]
         public void testInit()
         {
+            country = new Country("Uruguay", 1);
             accountEmpty = new Account();
-            account = new Account(0, "099366931");
+            account = new Account(0, "099366931", country);
         }
 
         [TestMethod]

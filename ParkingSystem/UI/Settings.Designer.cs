@@ -38,6 +38,9 @@
             this.lblActualCostForMinutes = new System.Windows.Forms.Label();
             this.lblAnswer = new System.Windows.Forms.Label();
             this.timerOfAnswer = new System.Windows.Forms.Timer(this.components);
+            this.lblCountry = new System.Windows.Forms.Label();
+            this.cboCountry = new System.Windows.Forms.ComboBox();
+            this.lblActualCountry = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblProcessPurchase
@@ -55,7 +58,7 @@
             // 
             this.lblCostForMinute.AutoSize = true;
             this.lblCostForMinute.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblCostForMinute.Location = new System.Drawing.Point(36, 161);
+            this.lblCostForMinute.Location = new System.Drawing.Point(35, 250);
             this.lblCostForMinute.Name = "lblCostForMinute";
             this.lblCostForMinute.Size = new System.Drawing.Size(183, 17);
             this.lblCostForMinute.TabIndex = 21;
@@ -63,7 +66,7 @@
             // 
             // txtCostForMinutes
             // 
-            this.txtCostForMinutes.Location = new System.Drawing.Point(225, 160);
+            this.txtCostForMinutes.Location = new System.Drawing.Point(224, 249);
             this.txtCostForMinutes.Name = "txtCostForMinutes";
             this.txtCostForMinutes.Size = new System.Drawing.Size(100, 20);
             this.txtCostForMinutes.TabIndex = 22;
@@ -74,7 +77,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(35, 232);
+            this.btnCancel.Location = new System.Drawing.Point(30, 290);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(136, 45);
             this.btnCancel.TabIndex = 24;
@@ -87,7 +90,7 @@
             this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAccept.Image = ((System.Drawing.Image)(resources.GetObject("btnAccept.Image")));
             this.btnAccept.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAccept.Location = new System.Drawing.Point(198, 232);
+            this.btnAccept.Location = new System.Drawing.Point(193, 290);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(136, 45);
             this.btnAccept.TabIndex = 23;
@@ -99,7 +102,7 @@
             // 
             this.lblActualCostForMinutes.AutoSize = true;
             this.lblActualCostForMinutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblActualCostForMinutes.Location = new System.Drawing.Point(36, 120);
+            this.lblActualCostForMinutes.Location = new System.Drawing.Point(36, 141);
             this.lblActualCostForMinutes.Name = "lblActualCostForMinutes";
             this.lblActualCostForMinutes.Size = new System.Drawing.Size(218, 17);
             this.lblActualCostForMinutes.TabIndex = 25;
@@ -110,7 +113,7 @@
             this.lblAnswer.AutoSize = true;
             this.lblAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lblAnswer.ForeColor = System.Drawing.Color.Green;
-            this.lblAnswer.Location = new System.Drawing.Point(36, 332);
+            this.lblAnswer.Location = new System.Drawing.Point(27, 363);
             this.lblAnswer.Name = "lblAnswer";
             this.lblAnswer.Size = new System.Drawing.Size(0, 17);
             this.lblAnswer.TabIndex = 26;
@@ -120,11 +123,43 @@
             this.timerOfAnswer.Interval = 5000;
             this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfAnswer_Tick);
             // 
+            // lblCountry
+            // 
+            this.lblCountry.AutoSize = true;
+            this.lblCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblCountry.Location = new System.Drawing.Point(35, 212);
+            this.lblCountry.Name = "lblCountry";
+            this.lblCountry.Size = new System.Drawing.Size(166, 17);
+            this.lblCountry.TabIndex = 27;
+            this.lblCountry.Text = "Actualizar el país de uso:";
+            // 
+            // cboCountry
+            // 
+            this.cboCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCountry.FormattingEnabled = true;
+            this.cboCountry.Location = new System.Drawing.Point(224, 212);
+            this.cboCountry.Name = "cboCountry";
+            this.cboCountry.Size = new System.Drawing.Size(100, 21);
+            this.cboCountry.TabIndex = 28;
+            // 
+            // lblActualCountry
+            // 
+            this.lblActualCountry.AutoSize = true;
+            this.lblActualCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblActualCountry.Location = new System.Drawing.Point(36, 114);
+            this.lblActualCountry.Name = "lblActualCountry";
+            this.lblActualCountry.Size = new System.Drawing.Size(119, 17);
+            this.lblActualCountry.TabIndex = 29;
+            this.lblActualCountry.Text = "El país actual es: ";
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
+            this.Controls.Add(this.lblActualCountry);
+            this.Controls.Add(this.cboCountry);
+            this.Controls.Add(this.lblCountry);
             this.Controls.Add(this.lblAnswer);
             this.Controls.Add(this.lblActualCostForMinutes);
             this.Controls.Add(this.btnCancel);
@@ -149,5 +184,8 @@
         private System.Windows.Forms.Label lblActualCostForMinutes;
         private System.Windows.Forms.Label lblAnswer;
         private System.Windows.Forms.Timer timerOfAnswer;
+        private System.Windows.Forms.Label lblCountry;
+        private System.Windows.Forms.ComboBox cboCountry;
+        private System.Windows.Forms.Label lblActualCountry;
     }
 }

@@ -54,9 +54,15 @@
     <Compile Include="PurchaseTest.cs" />
     <Compile Include="ParkingRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CountryHandlerTest.cs" />
+    <Compile Include="CountryTest.cs" />
     <Compile Include="ValidatorOfDateTest.cs" />
     <Compile Include="ValidatorOfEnrollmentTest.cs" />
+    <Compile Include="ValidatorOfMessageInArgentinaTest.cs" />
+    <Compile Include="ValidatorOfMessageInUruguayTest.cs" />
     <Compile Include="ValidatorOfMessageTest.cs" />
+    <Compile Include="ValidatorOfPhoneInArgentinaTest.cs" />
+    <Compile Include="ValidatorOfPhoneInUruguayTest.cs" />
     <Compile Include="ValidatorOfPhoneTest.cs" />
     <Compile Include="ValidatorTest.cs" />
   </ItemGroup>

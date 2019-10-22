@@ -15,14 +15,14 @@ namespace UI
     {
         private Panel panel;
         private IParkingRepository repository;
-        private ValidatorOfPhone validatorOfPhone;
-        
-        public AccountRegister(Panel principalPanel, IParkingRepository parkingRepository)
+        private CountryHandler countryHandler;
+
+        public AccountRegister(Panel principalPanel, IParkingRepository parkingRepository, Country actualCountry)
         {
             InitializeComponent();
             panel = principalPanel;
             repository = parkingRepository;
-            validatorOfPhone = new ValidatorOfPhone();
+            countryHandler = new CountryHandler(actualCountry);
         }     
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace UI
 
         private void ValidateEmpty()
         {
-            if(validatorOfPhone.ValidateIsEmpty(txtNumberPhone.Text))
+            if(countryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
@@ -51,13 +51,13 @@ namespace UI
 
         private void ValidateFormatNumber(string textOfPhone)
         {
-            if (validatorOfPhone.ValidateIsNumeric(textOfPhone))
-                if (validatorOfPhone.ValidateFormatNumber(ref textOfPhone))
+            if (countryHandler.ValidateFormatNumberByCountry(ref textOfPhone))
+                if (countryHandler.ValidateIsNumericByCountry(textOfPhone))
                     ValidateRepeatNumber(textOfPhone);
                 else
-                    SetMessage("El número no coincide con el formato.");
+                    SetMessage("El número que ingresó no es númerico.");
             else
-                SetMessage("El número que ingresó no es númerico.");
+                SetMessage("El número no coincide con el formato.");
         }
 
         private void ValidateRepeatNumber(string textOfPhone)
@@ -73,8 +73,8 @@ namespace UI
 
         private void AddAccount(string textOfPhone)
         {
-            Account newAccount = new Account(0, textOfPhone);
-            repository.AddAccount(newAccount);
+            Account newAccount = new Account(0, textOfPhone, countryHandler.country);
+            repository.AddAccount(newAccount, countryHandler.country);
             MessageAccountAdded();
         }
 

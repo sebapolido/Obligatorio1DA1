@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="CountryHandler.cs" />
     <Compile Include="Enrollment.cs" />
     <Compile Include="IParkingRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,7 +53,11 @@
     <Compile Include="ValidatorOfDate.cs" />
     <Compile Include="ValidatorOfEnrollment.cs" />
     <Compile Include="ValidatorOfMessage.cs" />
+    <Compile Include="ValidatorOfMessageInArgentina.cs" />
+    <Compile Include="ValidatorOfMessageInUruguay.cs" />
     <Compile Include="ValidatorOfPhone.cs" />
+    <Compile Include="ValidatorOfPhoneInArgentina.cs" />
+    <Compile Include="ValidatorOfPhoneInUruguay.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
