@@ -8,7 +8,7 @@ namespace ParkingSystem
 {
     public class ValidatorOfMessageInArgentina:ValidatorOfMessage
     {
-        public bool WroteHourAndMinutes(string[] lineOfMessage) //arreglar
+        public bool WroteHourAndMinutes(string[] lineOfMessage)
         {
             return lineOfMessage.Length == 3 && lineOfMessage[1].Contains(':') &&
                 lineOfMessage[1].Length == 5;
@@ -56,6 +56,24 @@ namespace ParkingSystem
         public bool ValideTimeOfPurchase(int timeOfPurchase)
         {
             return timeOfPurchase > 0;
+        }
+
+        internal int AssignHour(string[] lineOfRestOfMessage)
+        {
+            return int.Parse(lineOfRestOfMessage[1].Split(':')[0]);
+        }
+
+        internal int AssignMinutes(string[] lineOfRestOfMessage)
+        {
+            return int.Parse(lineOfRestOfMessage[1].Split(':')[1]);
+        }
+
+        internal int AssignTime(string[] lineOfRestOfMessage)
+        {
+            if(WroteHourAndMinutes(lineOfRestOfMessage))
+                return int.Parse(lineOfRestOfMessage[2]);
+            else
+                return int.Parse(lineOfRestOfMessage[1]);
         }
     }
 }

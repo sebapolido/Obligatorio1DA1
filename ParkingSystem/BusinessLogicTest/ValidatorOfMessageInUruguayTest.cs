@@ -15,7 +15,6 @@ namespace BusinessLogicTest
         public void testClean()
         {
             validator = null;
-
         }
 
         [TestInitialize]

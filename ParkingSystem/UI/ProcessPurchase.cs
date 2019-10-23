@@ -28,8 +28,6 @@ namespace UI
             validatorOfEnrollment = new ValidatorOfEnrollment();
             validatorOfDate = new ValidatorOfDate();
             costForMinutes = actualCostForMinutes;
-            this.txtMessage.Leave += new System.EventHandler(this.TxtMessage_Leave);
-            this.txtMessage.Enter += new System.EventHandler(this.TxtMessage_Enter);
             countryHandler = new CountryHandler(actualCountry);
         }
 
@@ -140,10 +138,10 @@ namespace UI
             int minutesOfPurchase = DateTime.Now.Minute;
             if (countryHandler.WroteHourAndMinutesByCountry(lineOfRestOfMessage))
             {
-                hourOfPurchase = int.Parse(lineOfRestOfMessage[2].Split(':')[0]);
-                minutesOfPurchase = int.Parse(lineOfRestOfMessage[2].Split(':')[1]);
+                hourOfPurchase = countryHandler.AssignHour(lineOfRestOfMessage);
+                minutesOfPurchase = countryHandler.AssignMinutes(lineOfRestOfMessage);
             }
-            int timeOfPurchase = int.Parse(lineOfRestOfMessage[1]);
+            int timeOfPurchase = countryHandler.AssignTime(lineOfRestOfMessage);
             DateTime dateOfPurchase = AssignTimesToDate(hourOfPurchase, minutesOfPurchase);
             ValidateTimeMultipleOf30(timeOfPurchase, dateOfPurchase);
         }
@@ -236,24 +234,6 @@ namespace UI
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
-        }
-
-        private void TxtMessage_Leave(object sender, EventArgs e)
-        {
-            if (txtMessage.Text.Length == 0)
-            {
-                txtMessage.Text = "Ej: ABC 1234 60 11:00";
-                txtMessage.ForeColor = Color.DarkGray;
-            }
-        }
-
-        private void TxtMessage_Enter(object sender, EventArgs e)
-        {
-            if (txtMessage.Text == "Ej: ABC 1234 60 11:00")
-            {
-                txtMessage.Text = "";
-                txtMessage.ForeColor = Color.Black;
-            }
         }
     }
 }

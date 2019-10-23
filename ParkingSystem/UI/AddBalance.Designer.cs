@@ -141,6 +141,7 @@
             this.Controls.Add(this.lblNumberPhone);
             this.Name = "AddBalance";
             this.Size = new System.Drawing.Size(383, 473);
+            this.Load += new System.EventHandler(this.AddBalance_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -51,13 +51,13 @@ namespace UI
 
         private void ValidateNumberFormat(string textOfPhone)
         {
-            if (countryHandler.ValidateIsNumericByCountry(textOfPhone))
-                if (countryHandler.ValidateFormatNumberByCountry(ref textOfPhone))
+            if (countryHandler.ValidateFormatNumberByCountry(ref textOfPhone))
+                if (countryHandler.ValidateIsNumericByCountry(textOfPhone))
                     ValidateRepeatNumber(textOfPhone);
                 else
-                    SetMessage("El número no coincide con el formato.");
+                    SetMessage("El número que ingresó no es númerico.");
             else
-                SetMessage("El número que ingresó no es númerico.");
+                SetMessage("El número no coincide con el formato.");
         }
 
         private void ValidateRepeatNumber(string textOfPhone)
@@ -114,6 +114,11 @@ namespace UI
         {
             lblAnswer.Visible = false;
             timerOfAnswer.Enabled = false;
+        }
+
+        private void AddBalance_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

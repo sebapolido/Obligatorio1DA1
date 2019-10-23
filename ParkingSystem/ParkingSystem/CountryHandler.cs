@@ -9,6 +9,10 @@ namespace ParkingSystem
     public class CountryHandler
     {
         public Country country { get; set; }
+        private ValidatorOfPhoneInArgentina validatorOfPhoneInArgentina = new ValidatorOfPhoneInArgentina();
+        private ValidatorOfPhoneInUruguay validatorOfPhoneInUruguay = new ValidatorOfPhoneInUruguay();
+        private ValidatorOfMessageInArgentina validatorOfMessageInArgentina = new ValidatorOfMessageInArgentina();
+        private ValidatorOfMessageInUruguay validatorOfMessageInUruguay = new ValidatorOfMessageInUruguay();
 
         public CountryHandler(Country actualCountry)
         {
@@ -17,114 +21,91 @@ namespace ParkingSystem
 
         public bool ValidateIsEmptyByCountry(string textOfPhone)
         {
-            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-            {
-                ValidatorOfPhoneInArgentina validator = new ValidatorOfPhoneInArgentina();
-                return validator.ValidateIsEmpty(textOfPhone);
-            }
+            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))           
+                return validatorOfPhoneInArgentina.ValidateIsEmpty(textOfPhone);
             else
-            {
-                ValidatorOfPhoneInUruguay validator = new ValidatorOfPhoneInUruguay();
-                return validator.ValidateIsEmpty(textOfPhone);
-            }
+                return validatorOfPhoneInUruguay.ValidateIsEmpty(textOfPhone);            
         }
 
         public bool ValidateIsNumericByCountry(string textOfPhone)
         {
-            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-            {
-                ValidatorOfPhoneInArgentina validator = new ValidatorOfPhoneInArgentina();
-                return validator.ValidateIsNumeric(textOfPhone);
-            }
+            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))            
+                return validatorOfPhoneInArgentina.ValidateIsNumeric(textOfPhone);
             else
-            {
-                ValidatorOfPhoneInUruguay validator = new ValidatorOfPhoneInUruguay();
-                return validator.ValidateIsNumeric(textOfPhone);
-            }
+                return validatorOfPhoneInUruguay.ValidateIsNumeric(textOfPhone);
+            
         }
 
         public bool ValidateFormatNumberByCountry(ref string textOfPhone)
         {
             if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-            {
-                ValidatorOfPhoneInArgentina validator = new ValidatorOfPhoneInArgentina();
-                return validator.ValidateFormatNumber(ref textOfPhone);
-            }
+                return validatorOfPhoneInArgentina.ValidateFormatNumber(ref textOfPhone);
             else
-            {
-                ValidatorOfPhoneInUruguay validator = new ValidatorOfPhoneInUruguay();
-                return validator.ValidateFormatNumber(ref textOfPhone);
-            }
+                return validatorOfPhoneInUruguay.ValidateFormatNumber(ref textOfPhone);
         }
 
         public bool ValidateMessageDataByCountry(string restOfMessage)
         {
             if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-            {
-                ValidatorOfMessageInArgentina validator = new ValidatorOfMessageInArgentina();
-                return validator.ValidateMessageData(restOfMessage);
-            }
+                return validatorOfMessageInArgentina.ValidateMessageData(restOfMessage);
             else
-            {
-                ValidatorOfMessageInUruguay validator = new ValidatorOfMessageInUruguay();
-                return validator.ValidateMessageData(restOfMessage);
-            }
+                return validatorOfMessageInUruguay.ValidateMessageData(restOfMessage);
         }
 
         public bool WroteHourAndMinutesByCountry(string[] lineOfRestOfMessage)
         {
             if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-            {
-                ValidatorOfMessageInArgentina validator = new ValidatorOfMessageInArgentina();
-                return validator.WroteHourAndMinutes(lineOfRestOfMessage);
-            }
+                return validatorOfMessageInArgentina.WroteHourAndMinutes(lineOfRestOfMessage);
             else
-            {
-                ValidatorOfMessageInUruguay validator = new ValidatorOfMessageInUruguay();
-                return validator.WroteHourAndMinutes(lineOfRestOfMessage);
-            }
+                return validatorOfMessageInUruguay.WroteHourAndMinutes(lineOfRestOfMessage);
         }
 
         public bool ValidateTimeOfPurchaseByCountry(int timeOfPurchase)
         {
             if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-            {
-                ValidatorOfMessageInArgentina validator = new ValidatorOfMessageInArgentina();
-                return validator.ValideTimeOfPurchase(timeOfPurchase);
-            }
+                return validatorOfMessageInArgentina.ValideTimeOfPurchase(timeOfPurchase);
             else
-            {
-                ValidatorOfMessageInUruguay validator = new ValidatorOfMessageInUruguay();
-                return validator.ValideTimeOfPurchase(timeOfPurchase);
-            }
+                return validatorOfMessageInUruguay.ValideTimeOfPurchase(timeOfPurchase);
         }
 
         public bool IsLengthOfMessageCorrectByCountry(int length)
         {
             if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-            {
-                ValidatorOfMessageInArgentina validator = new ValidatorOfMessageInArgentina();
-                return validator.IsLengthOfMessageCorrect(length);
-            }
+                return validatorOfMessageInArgentina.IsLengthOfMessageCorrect(length);
             else
-            {
-                ValidatorOfMessageInUruguay validator = new ValidatorOfMessageInUruguay();
-                return validator.IsLengthOfMessageCorrect(length);
-            }
+                return validatorOfMessageInUruguay.IsLengthOfMessageCorrect(length);
         }
 
         public int CalculateFinalTimeOfPurchaseByCountry(int timeOfPurchase, DateTime dateOfPurchse)
         {
             if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-            {
-                ValidatorOfMessageInArgentina validator = new ValidatorOfMessageInArgentina();
-                return validator.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
-            }
+                return validatorOfMessageInArgentina.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
             else
-            {
-                ValidatorOfMessageInUruguay validator = new ValidatorOfMessageInUruguay();
-                return validator.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
-            }
+                return validatorOfMessageInUruguay.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
+        }
+
+        public int AssignHour(string[] lineOfRestOfMessage)
+        {
+            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
+                return validatorOfMessageInArgentina.AssignHour(lineOfRestOfMessage);
+            else
+                return validatorOfMessageInUruguay.AssignHour(lineOfRestOfMessage);
+        }
+
+        public int AssignMinutes(string[] lineOfRestOfMessage)
+        {
+            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
+                return validatorOfMessageInArgentina.AssignMinutes(lineOfRestOfMessage);
+            else
+                return validatorOfMessageInUruguay.AssignMinutes(lineOfRestOfMessage);
+        }
+
+        public int AssignTime(string[] lineOfRestOfMessage)
+        {
+            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
+                return validatorOfMessageInArgentina.AssignTime(lineOfRestOfMessage);
+            else
+                return validatorOfMessageInUruguay.AssignTime(lineOfRestOfMessage);
         }
     }
 }

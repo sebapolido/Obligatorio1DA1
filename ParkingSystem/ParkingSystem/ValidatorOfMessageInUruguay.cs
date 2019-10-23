@@ -60,5 +60,20 @@ namespace ParkingSystem
             else
                 return false;
         }
+
+        internal int AssignHour(string[] lineOfRestOfMessage)
+        {
+            return int.Parse(lineOfRestOfMessage[2].Split(':')[0]);
+        }
+
+        internal int AssignMinutes(string[] lineOfRestOfMessage)
+        {
+            return int.Parse(lineOfRestOfMessage[2].Split(':')[1]);
+        }
+
+        internal int AssignTime(string[] lineOfRestOfMessage)
+        {
+            return int.Parse(lineOfRestOfMessage[1]);
+        }
     }
 }
