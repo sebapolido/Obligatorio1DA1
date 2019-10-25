@@ -19,7 +19,6 @@ namespace UI
     {
 
         private IParkingRepository repository;
-        private int costForMinutes = 1;
         private Settings settings;
 
         public PrincipalForm()
@@ -29,10 +28,10 @@ namespace UI
             this.principalPanel.Visible = true;
             lblAnswer.Visible = false;
             repository = new ParkingRepository();
-            addCountries();
+            AddCountries();
         }
 
-        private void addCountries()
+        private void AddCountries()
         {
             Country Argentina = new Country("Argentina", 1);
             Country Uruguay = new Country("Uruguay", 1);
@@ -43,85 +42,47 @@ namespace UI
 
         private void BtnAccountRegister_Click(object sender, EventArgs e)
         {
-            StartRegisteringAccount();
-        }
-
-        private void StartRegisteringAccount()
-        {
-            ChangeStatus();
-            Country country = settings.country;
-            AddToPanel(new AccountRegister(principalPanel, repository, country));
+            AddToPanel(new AccountRegister(principalPanel, repository, settings.country));
         }
 
         private void BtnAddBalance_Click(object sender, EventArgs e)
         {
-            StartAddingBalance();
-        }
-
-        private void StartAddingBalance()
-        {
-            if (repository.GetAccounts().ToArray().Length > 0)
-            {
-                ChangeStatus();
-                Country country = settings.country;
-                AddToPanel(new AddBalance(principalPanel, repository, country));
-            }
-            else
-                SetMessage("Primero debe haber al menos una cuenta regitrada.");
+            AddToPanelCheckingAreAccounts(new AddBalance(principalPanel, repository, settings.country));
         }
 
         private void BtnProcessPurchase_Click(object sender, EventArgs e)
         {
-            StartProcessingPurchase();
-        }
-
-        private void StartProcessingPurchase()
-        {
-            if (repository.GetAccounts().ToArray().Length > 0)
-                if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18)
-                {                    
-                    ChangeStatus();
-                    Country country = settings.country;
-                    costForMinutes = country.costForMinutes;
-                    AddToPanel(new ProcessPurchase(principalPanel, repository, costForMinutes, country));
-                }
-                else
-                    SetMessage("Esta función solo está disponible de 10 a 18 horas.");
+            if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18)
+               AddToPanelCheckingAreAccounts(new ProcessPurchase(principalPanel, repository, settings.country));
             else
-                SetMessage("Primero debe haber al menos una cuenta regitrada.");
-
+                SetMessage("Esta función solo está disponible de 10 a 18 horas.");
         }
 
         private void BtnCheckPurchase_Click(object sender, EventArgs e)
         {
-            StartCheckingPurchase();
-        }
-
-        private void StartCheckingPurchase()
-        {
-            if (repository.GetAccounts().ToArray().Length > 0)
-            {
-                ChangeStatus();
-                AddToPanel(new CheckPurchase(principalPanel, repository));
-            }
-            else
-                SetMessage("Primero debe haber al menos una cuenta regitrada.");
+            AddToPanelCheckingAreAccounts(new CheckPurchase(principalPanel, repository));            
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)
         {
-            ChangeStatus();
-            Country country = settings.country;
-            costForMinutes = country.costForMinutes;
-            Settings newSettings = new Settings(principalPanel, repository, country);
+            Settings newSettings = new Settings(principalPanel, repository, settings.country);
             AddToPanel(newSettings);
             settings = newSettings;
+        }
+
+        private void AddToPanelCheckingAreAccounts(System.Windows.Forms.Control newControl)
+        {
+            if (repository.GetAccounts().ToArray().Length > 0)
+                AddToPanel(newControl);
+            else
+                SetMessage("Primero debe haber al menos una cuenta regitrada.");
         }
 
         private void AddToPanel(System.Windows.Forms.Control newControl)
         {
             this.SecundaryPanel.Controls.Clear();
             this.SecundaryPanel.Controls.Add(newControl);
+            ChangeStatus();
         }
 
         private void ChangeStatus()

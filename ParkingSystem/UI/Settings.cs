@@ -72,12 +72,7 @@ namespace UI
         private void ValidateOnlyCountrySelected()
         {
             if (!cboCountry.Text.Equals("") && validator.ValidateIsEmpty(txtCostForMinutes.Text))
-            {
-                country = parkingRepository.GetACountry(cboCountry.Text);
-                SetActualData();
-                lblAnswer.ForeColor = Color.Green;
-                SetMessage("El país ha sido actualizado.");
-            }
+                ActualizationMessage("El país ha sido actualizado.");
             else
                 ValidateOnlyCostSelected();
         }
@@ -85,12 +80,7 @@ namespace UI
         private void ValidateOnlyCostSelected()
         {
             if (validator.ValidateIsNumeric(txtCostForMinutes.Text) && cboCountry.Text.Equals(""))
-            {
-                lblAnswer.ForeColor = Color.Green;
-                country.costForMinutes = int.Parse(txtCostForMinutes.Text);
-                SetActualData();
-                SetMessage("El costo por minuto ha sido actualizado.");
-            }
+                ActualizationMessage("El costo por minuto ha sido actualizado.");
             else
                 ValidateCorrectCountryAndCost();
         }
@@ -98,17 +88,28 @@ namespace UI
         private void ValidateCorrectCountryAndCost()
         {
             if (validator.ValidateIsNumeric(txtCostForMinutes.Text))
-            {                
-                lblAnswer.ForeColor = Color.Green;
-                country = parkingRepository.GetACountry(cboCountry.Text);
-                country.costForMinutes = int.Parse(txtCostForMinutes.Text);
-                SetActualData();
-                SetMessage("El costo por minuto ha sido actualizado.");
-            }
+                ActualizationMessage("El costo por minuto ha sido actualizado.");
             else
                 SetMessage("Debe ingresar un número.");
         }
-        
+
+        private void ActualizationMessage(string message)
+        {
+            if(!cboCountry.Text.Equals(""))
+                country = parkingRepository.GetACountry(cboCountry.Text);
+            if(validator.ValidateIsNumeric(txtCostForMinutes.Text))
+                country.costForMinutes = int.Parse(txtCostForMinutes.Text);
+            lblAnswer.ForeColor = Color.Green;
+            SetActualData();
+            SetMessage(message);
+            RestartInputData();
+        }
+
+        private void RestartInputData()
+        {
+            txtCostForMinutes.Clear();
+        }
+
         private void SetMessage(string textToShow)
         {
             lblAnswer.Visible = true;

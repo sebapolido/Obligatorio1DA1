@@ -43,12 +43,11 @@
             // 
             // txtMessage
             // 
-            this.txtMessage.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.txtMessage.ForeColor = System.Drawing.Color.Black;
             this.txtMessage.Location = new System.Drawing.Point(199, 155);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(134, 20);
             this.txtMessage.TabIndex = 15;
-            this.txtMessage.Text = "Ej: ABC 1234 60 11:00";
             // 
             // lblMessage
             // 

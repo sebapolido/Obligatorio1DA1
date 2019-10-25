@@ -20,14 +20,14 @@ namespace UI
         private CountryHandler countryHandler;
         private int costForMinutes;
 
-        public ProcessPurchase(Panel principalPanel, IParkingRepository parkingRepository, int actualCostForMinutes, Country actualCountry)
+        public ProcessPurchase(Panel principalPanel, IParkingRepository parkingRepository, Country actualCountry)
         {
             InitializeComponent();
             panel = principalPanel;
             repository = parkingRepository;
             validatorOfEnrollment = new ValidatorOfEnrollment();
             validatorOfDate = new ValidatorOfDate();
-            costForMinutes = actualCostForMinutes;
+            costForMinutes = actualCountry.costForMinutes;
             countryHandler = new CountryHandler(actualCountry);
         }
 

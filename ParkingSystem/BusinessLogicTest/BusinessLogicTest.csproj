@@ -56,15 +56,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CountryHandlerTest.cs" />
     <Compile Include="CountryTest.cs" />
-    <Compile Include="ValidatorOfDateTest.cs" />
-    <Compile Include="ValidatorOfEnrollmentTest.cs" />
-    <Compile Include="ValidatorOfMessageInArgentinaTest.cs" />
-    <Compile Include="ValidatorOfMessageInUruguayTest.cs" />
-    <Compile Include="ValidatorOfMessageTest.cs" />
-    <Compile Include="ValidatorOfPhoneInArgentinaTest.cs" />
-    <Compile Include="ValidatorOfPhoneInUruguayTest.cs" />
-    <Compile Include="ValidatorOfPhoneTest.cs" />
-    <Compile Include="ValidatorTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorOfDateTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorOfEnrollmentTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorOfMessageInArgentinaTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorOfMessageInUruguayTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorOfMessageTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorOfPhoneInArgentinaTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorOfPhoneInUruguayTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorOfPhoneTest.cs" />
+    <Compile Include="ValidatorsTests\ValidatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
