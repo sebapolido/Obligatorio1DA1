@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,25 +9,27 @@ namespace ParkingSystem
 {
     public class Enrollment
     {
-        public string lettersOfEnrollment { get; set; }
-        public int numbersOfEnrollment { get; set; }
+        [Key]
+        public int IdEnrollment { get; set; }
+        public string LettersOfEnrollment { get; set; }
+        public int NumbersOfEnrollment { get; set; }
 
         public Enrollment()
         {
-            this.lettersOfEnrollment = "";
-            this.numbersOfEnrollment = 0;
+            this.LettersOfEnrollment = "";
+            this.NumbersOfEnrollment = 0;
         }
 
         public Enrollment(string newLetter, int newNumbers)
         {
-            lettersOfEnrollment = newLetter;
-            numbersOfEnrollment = newNumbers;
+            LettersOfEnrollment = newLetter;
+            NumbersOfEnrollment = newNumbers;
         }
 
         public override bool Equals(Object obj)
         {
             Enrollment enrollment = (Enrollment)obj;
-            return numbersOfEnrollment == enrollment.numbersOfEnrollment && lettersOfEnrollment.Equals(enrollment.lettersOfEnrollment);
+            return NumbersOfEnrollment == enrollment.NumbersOfEnrollment && LettersOfEnrollment.Equals(enrollment.LettersOfEnrollment);
         }
     }
 }

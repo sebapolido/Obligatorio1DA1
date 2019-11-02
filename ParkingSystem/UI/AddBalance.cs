@@ -17,12 +17,12 @@ namespace UI
         private IParkingRepository repository;
         private CountryHandler countryHandler;
 
-        public AddBalance(Panel principalPanel, IParkingRepository parkingRepository, Country country)
+        public AddBalance(Panel principalPanel, IParkingRepository parkingRepository, CountryHandler actualCountry)
         {
             InitializeComponent();
             panel = principalPanel;
             repository = parkingRepository;
-            countryHandler = new CountryHandler(country);
+            countryHandler = actualCountry;
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)

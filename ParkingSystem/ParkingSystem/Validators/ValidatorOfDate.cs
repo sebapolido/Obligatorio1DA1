@@ -25,9 +25,9 @@ namespace ParkingSystem
 
         public bool CheckDateWithTimeOfPurchase(DateTime date, Purchase purchase)
         {
-            DateTime dateWithTime = purchase.dateOfPurchase;
-            dateWithTime = dateWithTime.AddMinutes(purchase.timeOfPurchase);
-            if (date >= purchase.dateOfPurchase &&
+            DateTime dateWithTime = purchase.DateOfPurchase;
+            dateWithTime = dateWithTime.AddMinutes(purchase.TimeOfPurchase);
+            if (date >= purchase.DateOfPurchase &&
                 date <= dateWithTime)
                 return true;
             else

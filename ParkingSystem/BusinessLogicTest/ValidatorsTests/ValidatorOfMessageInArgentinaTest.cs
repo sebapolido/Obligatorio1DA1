@@ -69,7 +69,7 @@ namespace BusinessLogicTest
         public void ValidateMessageWhitOnlyTime()
         {
             string line = " 60";
-            Assert.AreEqual(true, validator.ValidateMessageData(line));
+            Assert.AreEqual(false, validator.ValidateMessageData(line));
         }
 
         [TestMethod]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,33 +9,35 @@ namespace ParkingSystem
 {
     public class Account
     {
-        public int balance { get; set; }
-        public string mobile { get; set; }
-        public Country country { get; set; }
+        [Key]
+        public int IdAccount { get; set; }
+        public int Balance { get; set; }
+        public string Mobile { get; set; }
+        public CountryHandler Country { get; set; }
         
-        public Account(int newBalance, string newMobile, Country newCountry)
+        public Account(int newBalance, string newMobile, CountryHandler newCountry)
         {
-            balance = newBalance;
-            mobile = newMobile;
-            country = newCountry;
+            Balance = newBalance;
+            Mobile = newMobile;
+            Country = newCountry;
         }
 
         public Account()
         {
-            this.balance = 0;
-            this.mobile = "";
+            this.Balance = 0;
+            this.Mobile = "";
         }
 
         public void AddBalance(int balanceToAdd)
         {
             if(balanceToAdd > 0)
-                balance += balanceToAdd;
+                Balance += balanceToAdd;
         }
 
         public void SubstractBalance(int balanceToSubstract)
         {
-            if(balanceToSubstract > 0 && this.balance >= balanceToSubstract)
-                balance -= balanceToSubstract;
+            if(balanceToSubstract > 0 && this.Balance >= balanceToSubstract)
+                Balance -= balanceToSubstract;
         }
     }
 }

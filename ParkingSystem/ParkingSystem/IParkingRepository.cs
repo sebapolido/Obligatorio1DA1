@@ -8,7 +8,7 @@ namespace ParkingSystem
 {
     public interface IParkingRepository
     {
-        void AddAccount(Account account, Country country);
+        void AddAccount(Account account);
 
         List<Account> GetAccounts();
 
@@ -20,9 +20,9 @@ namespace ParkingSystem
 
         List<Purchase> GetPurchases();
 
-        void AddCountry(Country newCountry);
+        void AddCountry(CountryHandler newCountry);
 
-        List<Country> GetCountries();
+        List<CountryHandler> GetCountries();
        
         bool IsRepeatedNumber(string text);
 
@@ -30,7 +30,7 @@ namespace ParkingSystem
 
         Enrollment GetAnEnrollment(string lettersToCompare, int numbersToCompare);
 
-        Country GetACountry(string nameOfCountry);
+        CountryHandler GetACountry(string nameOfCountry);
 
         bool IsRepeatedEnrollment(string letters, int numbers);
 

@@ -42,32 +42,32 @@ namespace UnitTestProject1
         [TestMethod]
         public void CreateEmptyPurchaseTimeOfPurchase()
         {
-            Assert.AreEqual(0, purchaseEmpty.timeOfPurchase);
+            Assert.AreEqual(0, purchaseEmpty.TimeOfPurchase);
         }
 
         [TestMethod]
         public void CreateEmptyPurchaseEnrollment()
         {
-            Assert.AreEqual(null, purchaseEmpty.enrollmentOfPurchase);
+            Assert.AreEqual(null, purchaseEmpty.EnrollmentOfPurchase);
         }
 
         [TestMethod]
         public void CreatePurchaseEnrollment()
         {
-            Assert.AreEqual(enrollment, purchase.enrollmentOfPurchase);
+            Assert.AreEqual(enrollment, purchase.EnrollmentOfPurchase);
         }
 
         [TestMethod]
         public void CreatePurchaseTime()
         {
-            Assert.AreEqual(30, purchase.timeOfPurchase);
+            Assert.AreEqual(30, purchase.TimeOfPurchase);
         }
 
         [TestMethod]
         public void CreatePurchaseDate()
         {
             DateTime date = new DateTime(2019, 10, 8, 15, 10, 0);
-            Assert.AreEqual(date, purchase.dateOfPurchase);
+            Assert.AreEqual(date, purchase.DateOfPurchase);
         }
     }
 }

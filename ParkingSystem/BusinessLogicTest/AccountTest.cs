@@ -11,7 +11,7 @@ namespace UnitTestProject1
     {
         Account account;
         Account accountEmpty;
-        Country country;
+        CountryHandler country;
 
         [TestCleanup]
         public void testClean()
@@ -25,7 +25,7 @@ namespace UnitTestProject1
         [TestInitialize]
         public void testInit()
         {
-            country = new Country("Uruguay", 1);
+            country = new CountryHandler("Uruguay", 1);
             accountEmpty = new Account();
             account = new Account(0, "099366931", country);
         }
@@ -33,39 +33,39 @@ namespace UnitTestProject1
         [TestMethod]
         public void CreateEmptyAccountBalance()
         {
-            Assert.AreEqual(0, accountEmpty.balance);
+            Assert.AreEqual(0, accountEmpty.Balance);
         }
 
         [TestMethod]
         public void CreateEmptyAccountMobile()
         {
-            Assert.AreEqual("", accountEmpty.mobile);
+            Assert.AreEqual("", accountEmpty.Mobile);
         }
 
         [TestMethod]
         public void CreateAccountBalance()
         {
-            Assert.AreEqual(0, account.balance);
+            Assert.AreEqual(0, account.Balance);
         }
 
         [TestMethod]
         public void CreateAccountMobile()
         {
-            Assert.AreEqual("099366931", account.mobile);
+            Assert.AreEqual("099366931", account.Mobile);
         }
 
         [TestMethod]
         public void AddInvalidBalanceTest()
         {
             account.AddBalance(-25);
-            Assert.AreEqual(0, account.balance);
+            Assert.AreEqual(0, account.Balance);
         }
 
         [TestMethod]
         public void AddValidBalanceWithBalanceInZeroTest()
         {
             account.AddBalance(25);
-            Assert.AreEqual(25, account.balance);
+            Assert.AreEqual(25, account.Balance);
         }
 
         [TestMethod]
@@ -73,21 +73,21 @@ namespace UnitTestProject1
         {
             account.AddBalance(22);
             account.AddBalance(25);
-            Assert.AreEqual(47, account.balance);
+            Assert.AreEqual(47, account.Balance);
         }
 
         [TestMethod]
         public void SubstractInvalidBalanceTest()
         {
             account.SubstractBalance(-25);
-            Assert.AreEqual(0, account.balance);
+            Assert.AreEqual(0, account.Balance);
         }
 
         [TestMethod]
         public void SubstractBalanceWithBalanceInZeroTest()
         {
             account.SubstractBalance(25);
-            Assert.AreEqual(0, account.balance);
+            Assert.AreEqual(0, account.Balance);
         }
 
         [TestMethod]
@@ -95,7 +95,7 @@ namespace UnitTestProject1
         {
             account.AddBalance(20);
             account.SubstractBalance(25);
-            Assert.AreEqual(20, account.balance);
+            Assert.AreEqual(20, account.Balance);
         }
 
         [TestMethod]
@@ -103,7 +103,7 @@ namespace UnitTestProject1
         {
             account.AddBalance(22);
             account.SubstractBalance(22);
-            Assert.AreEqual(0, account.balance);
+            Assert.AreEqual(0, account.Balance);
         }
 
         [TestMethod]
@@ -111,7 +111,7 @@ namespace UnitTestProject1
         {
             account.AddBalance(22);
             account.SubstractBalance(12);
-            Assert.AreEqual(10, account.balance);
+            Assert.AreEqual(10, account.Balance);
         }
     }
 }

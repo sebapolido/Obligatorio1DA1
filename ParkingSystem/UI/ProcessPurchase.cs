@@ -20,15 +20,15 @@ namespace UI
         private CountryHandler countryHandler;
         private int costForMinutes;
 
-        public ProcessPurchase(Panel principalPanel, IParkingRepository parkingRepository, Country actualCountry)
+        public ProcessPurchase(Panel principalPanel, IParkingRepository parkingRepository, CountryHandler actualCountry)
         {
             InitializeComponent();
             panel = principalPanel;
             repository = parkingRepository;
             validatorOfEnrollment = new ValidatorOfEnrollment();
             validatorOfDate = new ValidatorOfDate();
-            costForMinutes = actualCountry.costForMinutes;
-            countryHandler = new CountryHandler(actualCountry);
+            costForMinutes = actualCountry.CostForMinutes;
+            countryHandler = actualCountry;
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -175,7 +175,7 @@ namespace UI
         {
             Account account = repository.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
             int finalCostOfPurchase = finalTimeOfPurchase * costForMinutes;
-            if (finalCostOfPurchase <= account.balance)
+            if (finalCostOfPurchase <= account.Balance)
             {
                 SubtractBalance(account, finalCostOfPurchase);
                 AddEnrollment(finalTimeOfPurchase, dateTimeOfPurchase);

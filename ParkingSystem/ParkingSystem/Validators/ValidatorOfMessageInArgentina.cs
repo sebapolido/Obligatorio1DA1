@@ -18,22 +18,14 @@ namespace ParkingSystem
         {
             const int CORRECT_LENGTH_OF_LINE_MESSAGE = 3;
             string[] lineOfMessage = restOfMessage.Split(' ');
-            if (IsCorrectSeparationOfRestOfMessage(lineOfMessage))
+            string time;
+            if (lineOfMessage.Length == CORRECT_LENGTH_OF_LINE_MESSAGE)
             {
-                string time;
-                if (lineOfMessage.Length == CORRECT_LENGTH_OF_LINE_MESSAGE)
-                {
-                    time = lineOfMessage[2];
-                    return ValidateHourAndMinutesData(time, lineOfMessage);
-                }
-                else
-                {
-                    time = lineOfMessage[1];
-                    return ValidateIsNumeric(time);
-                }
+                time = lineOfMessage[2];
+                return ValidateHourAndMinutesData(time, lineOfMessage);
             }
             else
-                return false;
+                return false;            
         }
 
         private bool ValidateHourAndMinutesData(string time, string[] lineOfMessage)

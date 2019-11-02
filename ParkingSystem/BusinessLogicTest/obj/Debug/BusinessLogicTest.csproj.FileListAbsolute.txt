@@ -74,5 +74,6 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLI
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\obj\Debug\BusinessLogicTest.csproj.CopyComplete
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\obj\Debug\BusinessLogicTest.dll
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\obj\Debug\BusinessLogicTest.pdb
-C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\BusinessLogicTest.dll.CodeAnalysisLog.xml
-C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\BusinessLogicTest.dll.lastcodeanalysissucceeded
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\ParkingSystem.dll.config
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\EntityFramework.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\EntityFramework.xml

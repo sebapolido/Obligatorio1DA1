@@ -17,12 +17,12 @@ namespace UI
         private IParkingRepository repository;
         private CountryHandler countryHandler;
 
-        public AccountRegister(Panel principalPanel, IParkingRepository parkingRepository, Country actualCountry)
+        public AccountRegister(Panel principalPanel, IParkingRepository parkingRepository, CountryHandler actualCountry)
         {
             InitializeComponent();
             panel = principalPanel;
             repository = parkingRepository;
-            countryHandler = new CountryHandler(actualCountry);
+            countryHandler = actualCountry;
         }     
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -73,8 +73,8 @@ namespace UI
 
         private void AddAccount(string textOfPhone)
         {
-            Account newAccount = new Account(0, textOfPhone, countryHandler.country);
-            repository.AddAccount(newAccount, countryHandler.country);
+            Account newAccount = new Account(0, textOfPhone, countryHandler);
+            repository.AddAccount(newAccount);
             MessageAccountAdded();
         }
 

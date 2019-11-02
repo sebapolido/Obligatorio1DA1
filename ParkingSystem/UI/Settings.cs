@@ -17,9 +17,9 @@ namespace UI
         private Panel panel;
         private Validator validator;
         private IParkingRepository parkingRepository;
-        public Country country { get; set; }
+        public CountryHandler country { get; set; }
 
-        public Settings(Panel principalPanel, IParkingRepository parking, Country actualCountry)
+        public Settings(Panel principalPanel, IParkingRepository parking, CountryHandler actualCountry)
         {
             InitializeComponent();
             panel = principalPanel;
@@ -34,13 +34,13 @@ namespace UI
         {
              if (cboCountry.Items.Count == 0)
                 for (int i = 0; i < parkingRepository.GetCountries().ToArray().Length; i++)
-                    cboCountry.Items.Add(parkingRepository.GetCountries().ElementAt(i).nameOfCountry);
+                    cboCountry.Items.Add(parkingRepository.GetCountries().ElementAt(i).NameOfCountry);
         }
 
         private void SetActualData()
         {
-            lblActualCostForMinutes.Text = "El costo por minuto actual es de: " + country.costForMinutes;
-            lblActualCountry.Text = "El país actual es: " + country.nameOfCountry;
+            lblActualCostForMinutes.Text = "El costo por minuto actual es de: " + country.CostForMinutes;
+            lblActualCountry.Text = "El país actual es: " + country.NameOfCountry;
         }
 
         private void TxtCostForMinutes_KeyPress(object sender, KeyPressEventArgs e)
@@ -98,7 +98,7 @@ namespace UI
             if(!cboCountry.Text.Equals(""))
                 country = parkingRepository.GetACountry(cboCountry.Text);
             if(validator.ValidateIsNumeric(txtCostForMinutes.Text))
-                country.costForMinutes = int.Parse(txtCostForMinutes.Text);
+                country.CostForMinutes = int.Parse(txtCostForMinutes.Text);
             lblAnswer.ForeColor = Color.Green;
             SetActualData();
             SetMessage(message);

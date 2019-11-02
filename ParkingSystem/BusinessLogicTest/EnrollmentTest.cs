@@ -40,25 +40,25 @@ namespace UnitTestProject1
         [TestMethod]
         public void CreateEmptyEnrollmentLetters()
         {
-            Assert.AreEqual("", enrollmentEmpty.lettersOfEnrollment);
+            Assert.AreEqual("", enrollmentEmpty.LettersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEmptyEnrollmentNumbers()
         {
-            Assert.AreEqual(0, enrollmentEmpty.numbersOfEnrollment);
+            Assert.AreEqual(0, enrollmentEmpty.NumbersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEnrollmentLetters()
         {
-            Assert.AreEqual("SBN", enrollment.lettersOfEnrollment);
+            Assert.AreEqual("SBN", enrollment.LettersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEnrollmentNumbers()
         {
-            Assert.AreEqual(4849, enrollment.numbersOfEnrollment);
+            Assert.AreEqual(4849, enrollment.NumbersOfEnrollment);
         }
 
         [TestMethod]

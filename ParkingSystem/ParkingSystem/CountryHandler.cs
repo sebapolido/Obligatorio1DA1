@@ -8,94 +8,77 @@ namespace ParkingSystem
 {
     public class CountryHandler
     {
-        public Country country { get; set; }
+        public int IdCountry { get; set; }
+        public string NameOfCountry { get; set; }
+        public int CostForMinutes { get; set; }
         private ValidatorOfPhone validatorOfPhone;
         private ValidatorOfMessage validatorOfMessage;
 
-        public CountryHandler(Country actualCountry)
+        public CountryHandler(string actualCountry, int NewCostForMinutes)
         {
-            this.country = actualCountry;
+            this.NameOfCountry = actualCountry;
+            this.CostForMinutes = NewCostForMinutes;
         }
 
-        private ValidatorOfPhone VerifyCountryForPhone()
+           
+        public void SetValidators(ValidatorOfPhone newValidatorOfPhone, ValidatorOfMessage newValidatorOfMessage)
         {
-            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-                return new ValidatorOfPhoneInArgentina();
-            else
-                return new ValidatorOfPhoneInUruguay();
-        }
-
-        private ValidatorOfMessage VerifyCountryForMessage()
-        {
-            if (country.nameOfCountry.ToUpper().Equals("ARGENTINA"))
-                return new ValidatorOfMessageInArgentina();
-            else
-                return new ValidatorOfMessageInUruguay();
+            validatorOfPhone = newValidatorOfPhone;
+            validatorOfMessage = newValidatorOfMessage;
         }
 
         public bool ValidateIsEmptyByCountry(string textOfPhone)
         {
-            validatorOfPhone = VerifyCountryForPhone();
             return validatorOfPhone.ValidateIsEmpty(textOfPhone);           
         }
 
         public bool ValidateIsNumericByCountry(string textOfPhone)
         {
-            validatorOfPhone = VerifyCountryForPhone();
             return validatorOfPhone.ValidateIsNumeric(textOfPhone);            
         }
 
         public bool ValidateFormatNumberByCountry(ref string textOfPhone)
         {
-            validatorOfPhone = VerifyCountryForPhone();
             return validatorOfPhone.ValidateFormatNumber(ref textOfPhone);
         }
 
         public bool ValidateMessageDataByCountry(string restOfMessage)
         {
-            validatorOfMessage = VerifyCountryForMessage();
             return validatorOfMessage.ValidateMessageData(restOfMessage);
         }
 
         public bool WroteHourAndMinutesByCountry(string[] lineOfRestOfMessage)
         {
-            validatorOfMessage = VerifyCountryForMessage();
             return validatorOfMessage.WroteHourAndMinutes(lineOfRestOfMessage);
         }
 
         public bool ValidateTimeOfPurchaseByCountry(int timeOfPurchase)
         {
-            validatorOfMessage = VerifyCountryForMessage();
             return validatorOfMessage.ValideTimeOfPurchase(timeOfPurchase);
         }
 
         public bool IsLengthOfMessageCorrectByCountry(int length)
         {
-            validatorOfMessage = VerifyCountryForMessage();
             return validatorOfMessage.IsLengthOfMessageCorrect(length);
         }
 
         public int CalculateFinalTimeOfPurchaseByCountry(int timeOfPurchase, DateTime dateOfPurchse)
         {
-            validatorOfMessage = VerifyCountryForMessage();
             return validatorOfMessage.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
         }
 
         public int AssignHour(string[] lineOfRestOfMessage)
         {
-            validatorOfMessage = VerifyCountryForMessage();
             return validatorOfMessage.AssignHour(lineOfRestOfMessage);
         }
 
         public int AssignMinutes(string[] lineOfRestOfMessage)
         {
-            validatorOfMessage = VerifyCountryForMessage();
             return validatorOfMessage.AssignMinutes(lineOfRestOfMessage);
         }
 
         public int AssignTime(string[] lineOfRestOfMessage)
         {
-            validatorOfMessage = VerifyCountryForMessage();
             return validatorOfMessage.AssignTime(lineOfRestOfMessage);
         }
     }
