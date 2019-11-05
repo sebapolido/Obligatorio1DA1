@@ -62,7 +62,7 @@ namespace UI
 
         private void ValidateRepeatNumber(string textOfPhone)
         {
-            if (repository.IsRepeatedNumber(textOfPhone))
+            if (repository.IsRepeatedNumber(textOfPhone, countryHandler))
                 ValidateEmptyBalance(textOfPhone);
             else
                 SetMessage("El número que ingresó no está registrado.");
@@ -91,7 +91,7 @@ namespace UI
         private void AddBalanceToAccount(string textOfPhone, int balanceToAdd)
         {
             Account account = repository.GetAnAccount(textOfPhone);
-            account.AddBalance(balanceToAdd);
+            repository.AddBalanceToAccount(account, balanceToAdd);
             MessageBalanceAdded();
         }
 

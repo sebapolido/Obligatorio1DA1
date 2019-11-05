@@ -9,8 +9,7 @@ namespace ParkingSystem
 {
     public class Enrollment
     {
-        [Key]
-        public int IdEnrollment { get; set; }
+        public int EnrollmentId { get; set; }
         public string LettersOfEnrollment { get; set; }
         public int NumbersOfEnrollment { get; set; }
 

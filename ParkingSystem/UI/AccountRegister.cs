@@ -63,7 +63,7 @@ namespace UI
         private void ValidateRepeatNumber(string textOfPhone)
         {
             if (repository.GetAccounts().ToArray().Length > 0)
-                if (!repository.IsRepeatedNumber(textOfPhone))
+                if (!repository.IsRepeatedNumber(textOfPhone, countryHandler))
                     AddAccount(textOfPhone);
                 else
                     SetMessage("El número que ingresó ya está registrado.");

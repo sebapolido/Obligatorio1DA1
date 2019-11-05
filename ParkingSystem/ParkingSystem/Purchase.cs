@@ -9,8 +9,7 @@ namespace ParkingSystem
 {
     public class Purchase
     {
-        [Key]
-        public int IdPurchase { get; set; }
+        public int PurchaseId { get; set; }
         public Enrollment EnrollmentOfPurchase { get; set;}
         public int TimeOfPurchase { get; set; }
         public DateTime DateOfPurchase { get; set; }

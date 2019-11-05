@@ -9,8 +9,7 @@ namespace ParkingSystem
 {
     public class Account
     {
-        [Key]
-        public int IdAccount { get; set; }
+        public int AccountId { get; set; }
         public int Balance { get; set; }
         public string Mobile { get; set; }
         public CountryHandler Country { get; set; }
@@ -26,18 +25,6 @@ namespace ParkingSystem
         {
             this.Balance = 0;
             this.Mobile = "";
-        }
-
-        public void AddBalance(int balanceToAdd)
-        {
-            if(balanceToAdd > 0)
-                Balance += balanceToAdd;
-        }
-
-        public void SubstractBalance(int balanceToSubstract)
-        {
-            if(balanceToSubstract > 0 && this.Balance >= balanceToSubstract)
-                Balance -= balanceToSubstract;
         }
     }
 }

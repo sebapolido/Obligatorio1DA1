@@ -24,7 +24,7 @@ namespace ParkingSystem
 
         List<CountryHandler> GetCountries();
        
-        bool IsRepeatedNumber(string text);
+        bool IsRepeatedNumber(string text, CountryHandler country);
 
         Account GetAnAccount(string text);
 
@@ -37,6 +37,9 @@ namespace ParkingSystem
         bool IsRepeatedCountry(string name);
 
         bool ArePurchaseOnThatDate(DateTime date, Enrollment enrollment);
-        
+
+        void AddBalanceToAccount(Account account, int balanceToAdd);
+
+        void SubstractBalanceToAccount(Account account, int balanceToSubstract);
     }
 }

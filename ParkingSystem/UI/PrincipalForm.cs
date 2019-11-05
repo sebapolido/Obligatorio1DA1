@@ -28,8 +28,8 @@ namespace UI
             this.principalPanel.Visible = true;
             lblAnswer.Visible = false;
             repository = new ParkingRepository();
-            CountryHandler initialCountry = repository.GetACountry("Uruguay");
-            settings = new Settings(principalPanel, repository, initialCountry);
+            //CountryHandler initialCountry = repository.GetACountry("Uruguay");
+            settings = new Settings(principalPanel, repository, repository.GetACountry("Uruguay"));
         }
 
         private void BtnAccountRegister_Click(object sender, EventArgs e)

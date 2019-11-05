@@ -314,32 +314,32 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateRepeatNumberEmpty()
         {
-            Assert.AreEqual(false, repository.IsRepeatedNumber(""));
+            Assert.AreEqual(false, repository.IsRepeatedNumber("", uruguay));
         }
 
         [TestMethod]
         public void ValidateRepeatNumberBadFormat()
         {
-            Assert.AreEqual(false, repository.IsRepeatedNumber("43823"));
+            Assert.AreEqual(false, repository.IsRepeatedNumber("43823", uruguay));
         }
 
         [TestMethod]
         public void ValidateRepeatNumberLetters()
         {
-            Assert.AreEqual(false, repository.IsRepeatedNumber("test"));
+            Assert.AreEqual(false, repository.IsRepeatedNumber("test", uruguay));
         }
 
         [TestMethod]
         public void ValidateRepeatNumberNotRepeated()
         {
-            Assert.AreEqual(false, repository.IsRepeatedNumber("099366931"));
+            Assert.AreEqual(false, repository.IsRepeatedNumber("099366931", uruguay));
         }
 
         [TestMethod]
         public void ValidateRepeatNumberRepeated()
         {
             repository.AddAccount(new Account(0, "099366931", uruguay));
-            Assert.AreEqual(true, repository.IsRepeatedNumber("099366931"));
+            Assert.AreEqual(true, repository.IsRepeatedNumber("099366931", uruguay));
         }
 
         [TestMethod]
@@ -626,8 +626,66 @@ namespace UnitTestProject1
             repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
             
             Assert.AreEqual(true, repository.ArePurchaseOnThatDate(DateTime.Now, enrollment));
+        }        
+
+        [TestMethod]
+        public void AddInvalidBalanceTest()
+        {
+            repository.AddBalanceToAccount(account, -25);
+            Assert.AreEqual(0, account.Balance);
         }
 
-        
+        [TestMethod]
+        public void AddValidBalanceWithBalanceInZeroTest()
+        {
+            repository.AddBalanceToAccount(account, 25);
+            Assert.AreEqual(25, account.Balance);
+        }
+
+        [TestMethod]
+        public void AddValidBalanceWithBalanceTest()
+        {
+            repository.AddBalanceToAccount(account, 22);
+            repository.AddBalanceToAccount(account, 25);
+            Assert.AreEqual(47, account.Balance);
+        }
+
+        [TestMethod]
+        public void SubstractInvalidBalanceTest()
+        {
+            repository.SubstractBalanceToAccount(account, -25);
+            Assert.AreEqual(0, account.Balance);
+        }
+
+        [TestMethod]
+        public void SubstractBalanceWithBalanceInZeroTest()
+        {
+            repository.SubstractBalanceToAccount(account, 25);
+            Assert.AreEqual(0, account.Balance);
+        }
+
+        [TestMethod]
+        public void SubstractBalanceMoreThanTheAccountBalance()
+        {
+            repository.AddBalanceToAccount(account, 20);
+            repository.SubstractBalanceToAccount(account, 25);
+            Assert.AreEqual(20, account.Balance);
+        }
+
+        [TestMethod]
+        public void SubstracTheSameBalanceInTheAccount()
+        {
+            repository.AddBalanceToAccount(account, 22);
+            repository.SubstractBalanceToAccount(account, 22);
+            Assert.AreEqual(0, account.Balance);
+        }
+
+        [TestMethod]
+        public void SubstracBalanceInTheAccount()
+        {
+            repository.AddBalanceToAccount(account, 22);
+            repository.SubstractBalanceToAccount(account, 12);
+            Assert.AreEqual(10, account.Balance);
+        }
     }
 }

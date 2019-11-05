@@ -14,30 +14,36 @@ namespace ParkingSystem
         private static List<Enrollment> enrollmentsList = new List<Enrollment>();
         private static List<Purchase> purchaseList = new List<Purchase>();
         private static List<CountryHandler> countryList = new List<CountryHandler>();
+        private static List<ValidatorOfMessage> ValidatorOfMessageList = new List<ValidatorOfMessage>();
+        private static List<ValidatorOfPhone> ValidatorOfPhoneList = new List<ValidatorOfPhone>();
 
         public ParkingRepository()
-        {
-            CountryHandler Argentina = new CountryHandler("Argentina", 1);
-            Argentina.SetValidators(new ValidatorOfPhoneInArgentina(), new ValidatorOfMessageInArgentina());
-            CountryHandler Uruguay = new CountryHandler("Uruguay", 1);
-            Uruguay.SetValidators(new ValidatorOfPhoneInUruguay(), new ValidatorOfMessageInUruguay());
-            this.AddCountry(Argentina);
-            this.AddCountry(Uruguay);
+        {           
+            using (var myContext = new MyContext())
+            {
+                accountsList = myContext.Accounts.ToList();
+                enrollmentsList = myContext.Enrollments.ToList();
+                purchaseList = myContext.Purchases.ToList();
+                ValidatorOfPhoneList = myContext.ValidatorsOfPhone.ToList();
+                ValidatorOfMessageList = myContext.ValidatorsOfMessage.ToList();
+                countryList = myContext.Countries.ToList();
+                myContext.SaveChanges();
+            }
         }
 
         public void AddAccount(Account newAccount)
         {
             CountryHandler countryHandler = newAccount.Country;
             string text = newAccount.Mobile;
-            if (newAccount.Balance >= 0 && countryHandler.ValidateFormatNumberByCountry(ref text) && !IsRepeatedNumber(text) &&
+            if (newAccount.Balance >= 0 && countryHandler.ValidateFormatNumberByCountry(ref text) && !IsRepeatedNumber(text, countryHandler) &&
                  countryHandler.ValidateIsNumericByCountry(newAccount.Mobile))
             {
                 accountsList.Add(newAccount);
-                /*using (var myContext = new MyContext())
+                using (var myContext = new MyContext())
                 {
                     myContext.Accounts.Add(newAccount);
                     myContext.SaveChanges();
-                }*/
+                }
             }
         }
 
@@ -46,12 +52,47 @@ namespace ParkingSystem
             return accountsList;
         }
 
+        public void AddBalanceToAccount(Account account, int balanceToAdd)
+        {
+            if (balanceToAdd > 0)
+            {
+                account.Balance += balanceToAdd;
+                using (var myContext = new MyContext())
+                {
+                    Account accountInDataBase = myContext.Accounts.Find(account.AccountId);
+                    accountInDataBase.Balance += balanceToAdd;
+                    myContext.SaveChanges();
+                }
+            }
+        }
+
+        public void SubstractBalanceToAccount(Account account, int balanceToSubstract)
+        {
+            if (balanceToSubstract > 0 && account.Balance >= balanceToSubstract)
+            {
+                account.Balance -= balanceToSubstract;
+                using (var myContext = new MyContext())
+                {
+                    Account accountInDataBase = myContext.Accounts.Find(account.AccountId);
+                    accountInDataBase.Balance -= balanceToSubstract;
+                    myContext.SaveChanges();
+                }
+            }
+        }        
+
         public void AddEnrollment(Enrollment newEnrollment)
         {
             ValidatorOfEnrollment validator = new ValidatorOfEnrollment();
-            if(validator.ValidateFormatOfEnrollment(newEnrollment.LettersOfEnrollment + newEnrollment.NumbersOfEnrollment)
+            if (validator.ValidateFormatOfEnrollment(newEnrollment.LettersOfEnrollment + newEnrollment.NumbersOfEnrollment)
                 && !IsRepeatedEnrollment(newEnrollment.LettersOfEnrollment, newEnrollment.NumbersOfEnrollment))
+            {
                 enrollmentsList.Add(newEnrollment);
+                using (var myContext = new MyContext())
+                {
+                    myContext.Enrollments.Add(newEnrollment);
+                    myContext.SaveChanges();
+                }
+            }
         }
 
         public List<Enrollment> GetEnrollments()
@@ -62,6 +103,11 @@ namespace ParkingSystem
         public void AddPurchase(Purchase newPurchase)
         {
             purchaseList.Add(newPurchase);
+            using (var myContext = new MyContext())
+            {
+                myContext.Purchases.Add(newPurchase);
+                myContext.SaveChanges();
+            }
         }
 
         public List<Purchase> GetPurchases()
@@ -71,8 +117,15 @@ namespace ParkingSystem
 
         public void AddCountry(CountryHandler newCountry)
         {
-            if(!IsRepeatedCountry(newCountry.NameOfCountry))
+            if (!IsRepeatedCountry(newCountry.NameOfCountry))
+            {
                 countryList.Add(newCountry);
+                using (var myContext = new MyContext())
+                {
+                    myContext.Countries.Add(newCountry);
+                    myContext.SaveChanges();
+                }
+            }
         }
 
         public List<CountryHandler> GetCountries()
@@ -80,10 +133,11 @@ namespace ParkingSystem
             return countryList;
         }
 
-        public bool IsRepeatedNumber(string text)
+        public bool IsRepeatedNumber(string text, CountryHandler country)
         {
             for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
-                if (text.Equals(this.GetAccounts().ToArray().ElementAt(i).Mobile))
+                if (text.Equals(this.GetAccounts().ToArray().ElementAt(i).Mobile) && 
+                    country.Equals(this.GetAccounts().ToArray().ElementAt(i).Country))
                     return true;
             return false;
         }

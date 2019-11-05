@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ParkingSystem.dll" size="17408">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ParkingSystem.dll" size="19456">
       <assemblyIdentity name="ParkingSystem" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9BgMtPdUBMvfxImoEFMGhtYTsE3nJEeTa7UzO9ZeTMk=</dsig:DigestValue>
+        <dsig:DigestValue>Dc2ScfKr4OzD0HvOGmY17Meo6j6k4BHJ/wSbwSCQwyQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -85,17 +85,17 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>m3EWGxCwiRtlaAri10U8nnWaejdvFXiyl2v7Z05Bc8E=</dsig:DigestValue>
+        <dsig:DigestValue>eg1MUB7zRx2GrmnEwIgvTO9tsgGjSlUcxFE6WzPD9G8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="UI.exe.config" size="836">
+  <file name="UI.exe.config" size="1060">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>t4FrBuHIr1V6CmqJg6WfzhHn+WoTt0qVvGvNXk5o/xs=</dsig:DigestValue>
+      <dsig:DigestValue>w6t4aQwnKBx9GqmJ/4zKJBxAtPkVNlrTCLroNM4N3eM=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

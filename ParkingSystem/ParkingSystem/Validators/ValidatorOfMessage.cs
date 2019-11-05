@@ -8,6 +8,8 @@ namespace ParkingSystem
 {
     public abstract class ValidatorOfMessage:Validator
     {
+        public int ValidatorOfMessageId { get; set; }
+
         public abstract bool WroteHourAndMinutes(string[] lineOfMessage);
 
         public abstract bool ValidateMessageData(string restOfMessage);

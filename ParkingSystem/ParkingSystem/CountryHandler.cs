@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,11 @@ namespace ParkingSystem
 {
     public class CountryHandler
     {
-        public int IdCountry { get; set; }
+        public int CountryHandlerId { get; set; }
         public string NameOfCountry { get; set; }
         public int CostForMinutes { get; set; }
-        private ValidatorOfPhone validatorOfPhone;
-        private ValidatorOfMessage validatorOfMessage;
+        public ValidatorOfPhone validatorOfPhone { get; set; }
+        public ValidatorOfMessage validatorOfMessage { get; set; }
 
         public CountryHandler(string actualCountry, int NewCostForMinutes)
         {
@@ -20,6 +21,10 @@ namespace ParkingSystem
             this.CostForMinutes = NewCostForMinutes;
         }
 
+        public CountryHandler()
+        {
+
+        }
            
         public void SetValidators(ValidatorOfPhone newValidatorOfPhone, ValidatorOfMessage newValidatorOfMessage)
         {
