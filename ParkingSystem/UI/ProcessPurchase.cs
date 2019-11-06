@@ -202,7 +202,8 @@ namespace UI
         {
             if (!repository.ArePurchaseOnThatDate(dateTime, enrollment))
             {
-                Purchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase, dateTime);
+                Account account = repository.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
+                Purchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase, dateTime, account);
                 repository.AddPurchase(newPurchase);
                 MessagePurchaseAdded();
             }

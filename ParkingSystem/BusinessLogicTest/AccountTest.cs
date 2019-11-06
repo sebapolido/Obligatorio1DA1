@@ -14,16 +14,15 @@ namespace UnitTestProject1
         CountryHandler country;
 
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
             account = null;
             accountEmpty = null;
             country = null;
-
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
             country = new CountryHandler("Uruguay", 1);
             accountEmpty = new Account();
@@ -52,6 +51,12 @@ namespace UnitTestProject1
         public void CreateAccountMobile()
         {
             Assert.AreEqual("099366931", account.Mobile);
+        }
+
+        [TestMethod]
+        public void ValidateToString()
+        {
+            Assert.AreEqual("099366931", account.ToString());
         }
     }
 }

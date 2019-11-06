@@ -26,5 +26,10 @@ namespace ParkingSystem
             this.Balance = 0;
             this.Mobile = "";
         }
+
+        public override string ToString()
+        {
+            return Mobile;
+        }
     }
 }

@@ -13,14 +13,14 @@ namespace BusinessLogicTest
         CountryHandler argentina;
 
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
             uruguay = null;
             argentina = null;
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
             uruguay = new CountryHandler("Uruguay", 1);
             argentina = new CountryHandler("Argentina", 1);
@@ -29,9 +29,15 @@ namespace BusinessLogicTest
         }
 
         [TestMethod]
-        public void ValidateIsEmptyByCountryArgentina()
+        public void ValidateEmptyConstructor()
         {
-            
+            CountryHandler brasil = new CountryHandler();
+            Assert.AreEqual(null, brasil.validatorOfPhone);
+        }
+
+        [TestMethod]
+        public void ValidateIsEmptyByCountryArgentina()
+        {            
             Assert.AreEqual(true, argentina.ValidateIsEmptyByCountry(""));
         }
 

@@ -66,26 +66,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ParkingSystem.dll" size="19456">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ParkingSystem.dll" size="20480">
       <assemblyIdentity name="ParkingSystem" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>REEd+ACnFVt9L5wc2r/QvrrQ45QRaEqQWIGhE0AkdPU=</dsig:DigestValue>
+        <dsig:DigestValue>v71mHENqpTyUFcNT/LQmnVtwgduu6vhnjqAsDascCHc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UI.exe" size="58352">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UI.exe" size="60400">
       <assemblyIdentity name="UI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SPyt7dyHrqdihNsD7FpkyXlISR41xgzoG42annmhqmM=</dsig:DigestValue>
+        <dsig:DigestValue>y7j7scr3n2aW8ZXAkh1epBxdL2Lme7J1khqqYFQfMCk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

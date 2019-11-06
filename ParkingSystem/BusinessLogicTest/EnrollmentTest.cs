@@ -6,32 +6,25 @@ using ParkingSystem;
 
 namespace UnitTestProject1
 {
-    /// <summary>
-    /// Descripción resumida de EnrollmentTest
-    /// </summary>
     [TestClass]
     public class EnrollmentTest
     {
         public EnrollmentTest()
         {
-            //
-            // TODO: Agregar aquí la lógica del constructor
-            //
         }
        
         Enrollment enrollment;
         Enrollment enrollmentEmpty;
 
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
             enrollment = null;
             enrollmentEmpty = null;
-
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
             enrollmentEmpty = new Enrollment();
             enrollment = new Enrollment("SBN", 4849);
@@ -80,9 +73,9 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
-        public void ValidateEquals()
+        public void ValidateToString()
         {
-            Assert.AreEqual(true, enrollment.Equals(new Enrollment("SBN", 4849)));
+            Assert.AreEqual("SBN4849", enrollment.ToString());
         }
     }
 }

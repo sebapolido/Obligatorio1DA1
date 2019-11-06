@@ -55,7 +55,6 @@
     <Compile Include="ParkingRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CountryHandlerTest.cs" />
-    <Compile Include="CountryTest.cs" />
     <Compile Include="ValidatorsTests\ValidatorOfDateTest.cs" />
     <Compile Include="ValidatorsTests\ValidatorOfEnrollmentTest.cs" />
     <Compile Include="ValidatorsTests\ValidatorOfMessageInArgentinaTest.cs" />

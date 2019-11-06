@@ -8,18 +8,25 @@ namespace UnitTestProject1
     public class ValidatorOfDateTest
     {
         ValidatorOfDate validator;
+        Enrollment enrollment;
+        Account account;
+        DateTime dateCheck;
 
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
             validator = null;
-
+            enrollment = null;
+            account = null;
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
             validator = new ValidatorOfDate();
+            enrollment = new Enrollment("sbn", 4849);
+            account = new Account(0, "099366931", new CountryHandler("Uruguay",1));
+            dateCheck = DateTime.Now;
         }
 
         [TestMethod]
@@ -87,35 +94,28 @@ namespace UnitTestProject1
         [TestMethod]
         public void ValidateCheckDateTheSameDate()
         {
-            Enrollment enrollment = new Enrollment("sbn", 4849);
-            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(DateTime.Now, new Purchase(enrollment, 30, DateTime.Now)));
+            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(DateTime.Now, new Purchase(enrollment, 30, DateTime.Now, account)));
         }
 
         [TestMethod]
         public void ValidateCheckDateDateInTime()
         {
-            Enrollment enrollment = new Enrollment("sbn", 4849);
-            DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(15);
-            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));
+            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now, account)));
         }
 
         [TestMethod]
         public void ValidateCheckDateDateInALimitTime()
         {
-            Enrollment enrollment = new Enrollment("sbn", 4849);
-            DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(30);
-            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));
+            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now, account)));
         }
 
         [TestMethod]
         public void ValidateCheckDateDateOutOfBounds()
         {
-            Enrollment enrollment = new Enrollment("sbn", 4849);
-            DateTime dateCheck = DateTime.Now;
             dateCheck = dateCheck.AddMinutes(40);
-            Assert.AreEqual(false, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now)));
+            Assert.AreEqual(false, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now, account)));
         }
     }
 }

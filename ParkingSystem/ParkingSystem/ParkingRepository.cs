@@ -107,6 +107,7 @@ namespace ParkingSystem
             using (var myContext = new MyContext())
             {
                 myContext.Enrollments.Attach(newPurchase.EnrollmentOfPurchase);
+                myContext.Accounts.Attach(newPurchase.AccountOfPurchase);
                 myContext.Purchases.Add(newPurchase);
                 myContext.SaveChanges();
             }
@@ -203,6 +204,38 @@ namespace ParkingSystem
                     return true;
             }
             return false;
+        }
+
+        public List<Purchase> InsertPurchaseOfEnrollmentToDataGridView(Enrollment enrollmentOfPurchase)
+        {
+            List<Purchase> purchaseOfThisEnrollment = new List<Purchase>();
+            for (int i = 0; i < GetPurchases().ToArray().Length; i++)
+                if (GetPurchases().ElementAt(i).EnrollmentOfPurchase.Equals(enrollmentOfPurchase))
+                    purchaseOfThisEnrollment.Add(GetPurchases().ElementAt(i));
+            return purchaseOfThisEnrollment;
+        }
+
+        public List<Purchase> InsertPurchaseOnThatDate(DateTime initialDateOfPurchase, DateTime finalDateOfPurchase)
+        {
+            List<Purchase> purchaseOfThisEnrollment = new List<Purchase>();
+            for (int i = 0; i < GetPurchases().ToArray().Length; i++)
+            {
+                DateTime dateToEvaluate = GetPurchases().ElementAt(i).DateOfPurchase;
+                if (dateToEvaluate >= initialDateOfPurchase && dateToEvaluate<=finalDateOfPurchase)
+                    purchaseOfThisEnrollment.Add(GetPurchases().ElementAt(i));
+            }
+            return purchaseOfThisEnrollment;
+        }
+
+        public List<Purchase> EliminatePurchasesFromAnoterCountry(List<Purchase> purchasesOnThatDate, CountryHandler country)
+        {
+            for (int i = 0; i < purchasesOnThatDate.ToArray().Length; i++)
+            {
+                Purchase purchaseToEvaluate = purchasesOnThatDate.ElementAt(i);
+                if (purchaseToEvaluate.AccountOfPurchase.Country != country)
+                    purchasesOnThatDate.Remove(purchasesOnThatDate.ElementAt(i));
+            }
+            return purchasesOnThatDate;
         }
     }
 }

@@ -10,14 +10,13 @@ namespace UnitTestProject1
         ValidatorOfMessage validator;
         
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
             validator = null;
-
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
             validator = new ValidatorOfMessageInUruguay();
         }

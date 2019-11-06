@@ -13,7 +13,7 @@ namespace UnitTestProject1
         Account account;
 
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
             repository.GetAccounts().Clear();
             repository.GetEnrollments().Clear();
@@ -25,7 +25,7 @@ namespace UnitTestProject1
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
            repository = new ParkingRepository();
            uruguay = new CountryHandler("Uruguay", 1);
@@ -525,7 +525,7 @@ namespace UnitTestProject1
             Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateTimeOfPurchase = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, DateTime.Now.Hour, 10, DateTime.Now.Second);
-            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase, account));
 
             DateTime dateTimeOfQuery = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, DateTime.Now.Hour, 45, DateTime.Now.Second);
@@ -539,7 +539,7 @@ namespace UnitTestProject1
             Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateTimeOfPurchase = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 14, DateTime.Now.Minute, DateTime.Now.Second);
-            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase, account));
 
             DateTime dateTimeOfQuery = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 15, DateTime.Now.Minute, DateTime.Now.Second);
@@ -553,7 +553,7 @@ namespace UnitTestProject1
             Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateTimeOfPurchase = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 23, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase, account));
 
             DateTime dateTimeOfQuery = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 22, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
@@ -567,7 +567,7 @@ namespace UnitTestProject1
             Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateTimeOfPurchase = new DateTime(DateTime.Now.Year, 11,
                 DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase, account));
 
             DateTime dateTimeOfQuery = new DateTime(DateTime.Now.Year, 5,
                 DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
@@ -581,7 +581,7 @@ namespace UnitTestProject1
             Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateTimeOfPurchase = new DateTime(2019, DateTime.Now.Month,
                 DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase, account));
 
             DateTime dateTimeOfQuery = new DateTime(2018, DateTime.Now.Month,
                 DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
@@ -594,7 +594,7 @@ namespace UnitTestProject1
         {
             Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateTimeOfPurchase = DateTime.Now;
-            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase, account));
             Assert.AreEqual(false, repository.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbm", 4849)));
         }
 
@@ -603,7 +603,7 @@ namespace UnitTestProject1
         {
             Enrollment enrollment = new Enrollment("sbn", 4849);
             DateTime dateTimeOfPurchase = DateTime.Now;
-            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase));
+            repository.AddPurchase(new Purchase(enrollment, 30, dateTimeOfPurchase, account));
             Assert.AreEqual(false, repository.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbn",4848)));
         }
 
@@ -611,7 +611,7 @@ namespace UnitTestProject1
         public void ValidatePurchaseInTheDateOnePurchase()
         {
             Enrollment enrollment = new Enrollment("sbn", 4849);
-            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
+            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now, account));
             Assert.AreEqual(true, repository.ArePurchaseOnThatDate(DateTime.Now, enrollment));
         }
    
@@ -620,10 +620,10 @@ namespace UnitTestProject1
         {
             Enrollment enrollment = new Enrollment("sbn", 4849);
 
-            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
-            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
-            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
-            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now));
+            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now, account));
+            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now, account));
+            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now, account));
+            repository.AddPurchase(new Purchase(enrollment, 30, DateTime.Now, account));
             
             Assert.AreEqual(true, repository.ArePurchaseOnThatDate(DateTime.Now, enrollment));
         }        

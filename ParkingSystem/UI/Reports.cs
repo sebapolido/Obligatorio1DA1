@@ -26,6 +26,7 @@ namespace UI
             country = actualCountry;
             rbtnEnrollments.Checked = true;
             AgregateItemsToComboBoxs();
+            validatorOfEnrollment = new ValidatorOfEnrollment();
         }
 
         private void AgregateItemsToComboBoxs()
@@ -46,6 +47,9 @@ namespace UI
                     cboInitialMinutes.Items.Add(i);
                     cboFinalMinutes.Items.Add(i);
                 }
+            if (cboCountry.Items.Count == 0)
+                for (int i = 0; i < repository.GetCountries().ToArray().Length; i++)
+                    cboCountry.Items.Add(repository.GetCountries().ElementAt(i).NameOfCountry);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -114,14 +118,14 @@ namespace UI
 
         private void InsertPurchaseOfEnrollmentToDataGridView(Enrollment enrollmentOfPurchase)
         {
-            List<Enrollment> enrollmentsToAdd = repository.InsertPurchaseOfEnrollmentToDataGridView(enrollmentOfPurchase);
-            dgvReports.DataSource = enrollmentsToAdd;//terminar
+            List<Purchase> purchaseToAdd = repository.InsertPurchaseOfEnrollmentToDataGridView(enrollmentOfPurchase);
+            dgvReports.DataSource = purchaseToAdd;//terminar
         }
 
         private void ValidateDatesOfPurchases()
         {
-            if (cboInitialHour.Text != null && cboFinalHour.Text != null)
-                if (cboInitialMinutes.Text != null && cboFinalMinutes.Text != null)
+            if (!cboInitialHour.Text.Equals("") && !cboFinalHour.Text.Equals(""))
+                if (!cboInitialMinutes.Text.Equals("") && !cboFinalMinutes.Text.Equals(""))
                     AssignDateTimes();                    
                 else
                     SetMessage("Debe ingresar minutos de inicio y fin.");
@@ -146,8 +150,8 @@ namespace UI
         {
             List<Purchase> purchasesOnThatDate = repository.InsertPurchaseOnThatDate(initialDateOfPurchase, finalDateOfPurchase);
             if (!cboCountry.Text.Equals(""))
-                for(int i = 0; i<purchasesOnThatDate.ToArray().Length; i++)
-                    //if(purchasesOnThatDate.ElementAt(i).)
+                purchasesOnThatDate = repository.EliminatePurchasesFromAnoterCountry(purchasesOnThatDate, repository.GetACountry(cboCountry.Text));
+            dgvReports.DataSource = purchasesOnThatDate;
         }
 
         private void RbtnEnrollments_CheckedChanged(object sender, EventArgs e)

@@ -6,37 +6,36 @@ using ParkingSystem;
 
 namespace UnitTestProject1
 {
-    /// <summary>
-    /// Descripción resumida de PurchaseTest
-    /// </summary>
     [TestClass]
     public class PurchaseTest
     {
         Purchase purchase;
         Purchase purchaseEmpty;
         Enrollment enrollment;
+        Account account;
+
         public PurchaseTest()
         {
 
         }
 
-
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
             purchase = null;
             purchaseEmpty = null;
             enrollment = null;
-
+            account = null;
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
             enrollment = new Enrollment("sbn", 4848);
             purchaseEmpty = new Purchase();
             DateTime date = new DateTime(2019,10,8,15,10,0);
-            purchase = new Purchase(enrollment, 30, date);
+            account = new Account(25, "099366931", new CountryHandler("Uruguay", 1));
+            purchase = new Purchase(enrollment, 30, date, account);
         }
 
         [TestMethod]

@@ -77,7 +77,7 @@
             this.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReports.Location = new System.Drawing.Point(68, 291);
             this.btnReports.Name = "btnReports";
-            this.btnReports.Size = new System.Drawing.Size(224, 34);
+            this.btnReports.Size = new System.Drawing.Size(224, 36);
             this.btnReports.TabIndex = 7;
             this.btnReports.Text = "Reportes";
             this.btnReports.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.lblAnswer.AutoSize = true;
             this.lblAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer.ForeColor = System.Drawing.Color.Red;
-            this.lblAnswer.Location = new System.Drawing.Point(3, 339);
+            this.lblAnswer.Location = new System.Drawing.Point(4, 346);
             this.lblAnswer.Name = "lblAnswer";
             this.lblAnswer.Size = new System.Drawing.Size(352, 18);
             this.lblAnswer.TabIndex = 5;
@@ -112,7 +112,7 @@
             this.btnProcessPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProcessPurchase.Location = new System.Drawing.Point(68, 189);
             this.btnProcessPurchase.Name = "btnProcessPurchase";
-            this.btnProcessPurchase.Size = new System.Drawing.Size(224, 34);
+            this.btnProcessPurchase.Size = new System.Drawing.Size(224, 36);
             this.btnProcessPurchase.TabIndex = 4;
             this.btnProcessPurchase.Text = "  Procesar compra";
             this.btnProcessPurchase.UseVisualStyleBackColor = true;
@@ -123,9 +123,9 @@
             this.btnCheckPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCheckPurchase.Image = ((System.Drawing.Image)(resources.GetObject("btnCheckPurchase.Image")));
             this.btnCheckPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCheckPurchase.Location = new System.Drawing.Point(68, 238);
+            this.btnCheckPurchase.Location = new System.Drawing.Point(68, 240);
             this.btnCheckPurchase.Name = "btnCheckPurchase";
-            this.btnCheckPurchase.Size = new System.Drawing.Size(224, 34);
+            this.btnCheckPurchase.Size = new System.Drawing.Size(224, 36);
             this.btnCheckPurchase.TabIndex = 3;
             this.btnCheckPurchase.Text = "  Consultar compra";
             this.btnCheckPurchase.UseVisualStyleBackColor = true;
@@ -138,7 +138,7 @@
             this.btnAddBalance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAddBalance.Location = new System.Drawing.Point(68, 137);
             this.btnAddBalance.Name = "btnAddBalance";
-            this.btnAddBalance.Size = new System.Drawing.Size(224, 34);
+            this.btnAddBalance.Size = new System.Drawing.Size(224, 36);
             this.btnAddBalance.TabIndex = 2;
             this.btnAddBalance.Text = "Agregar saldo";
             this.btnAddBalance.UseVisualStyleBackColor = true;
@@ -151,7 +151,7 @@
             this.btnAccountRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAccountRegister.Location = new System.Drawing.Point(68, 86);
             this.btnAccountRegister.Name = "btnAccountRegister";
-            this.btnAccountRegister.Size = new System.Drawing.Size(224, 34);
+            this.btnAccountRegister.Size = new System.Drawing.Size(224, 36);
             this.btnAccountRegister.TabIndex = 1;
             this.btnAccountRegister.Text = " Registrar cuenta";
             this.btnAccountRegister.UseVisualStyleBackColor = true;
@@ -175,7 +175,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(367, 434);
+            this.ClientSize = new System.Drawing.Size(374, 441);
             this.Controls.Add(this.principalPanel);
             this.Controls.Add(this.SecundaryPanel);
             this.MaximizeBox = false;

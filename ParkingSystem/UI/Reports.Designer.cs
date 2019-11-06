@@ -33,28 +33,28 @@
             this.lblWelcome = new System.Windows.Forms.Label();
             this.dgvReports = new System.Windows.Forms.DataGridView();
             this.pnlEnrollments = new System.Windows.Forms.Panel();
+            this.txtEnrollment = new System.Windows.Forms.TextBox();
+            this.lblEnrollment = new System.Windows.Forms.Label();
             this.pnlPurchase = new System.Windows.Forms.Panel();
+            this.cboCountry = new System.Windows.Forms.ComboBox();
+            this.cboFinalMinutes = new System.Windows.Forms.ComboBox();
+            this.lblCountry = new System.Windows.Forms.Label();
+            this.lblFinalMinutes = new System.Windows.Forms.Label();
+            this.cboFinalHour = new System.Windows.Forms.ComboBox();
+            this.lblFinalHour = new System.Windows.Forms.Label();
+            this.lblFinalDateTime = new System.Windows.Forms.DateTimePicker();
+            this.lblFinalDate = new System.Windows.Forms.Label();
             this.cboInitialMinutes = new System.Windows.Forms.ComboBox();
             this.lblInitialMinutes = new System.Windows.Forms.Label();
             this.cboInitialHour = new System.Windows.Forms.ComboBox();
             this.lblInitialHour = new System.Windows.Forms.Label();
             this.lblInitialDateTime = new System.Windows.Forms.DateTimePicker();
             this.lblInitialDate = new System.Windows.Forms.Label();
-            this.txtEnrollment = new System.Windows.Forms.TextBox();
-            this.lblEnrollment = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.rbtnEnrollments = new System.Windows.Forms.RadioButton();
             this.rbtnPurchase = new System.Windows.Forms.RadioButton();
             this.lblAnswer = new System.Windows.Forms.Label();
-            this.cboFinalMinutes = new System.Windows.Forms.ComboBox();
-            this.lblFinalMinutes = new System.Windows.Forms.Label();
-            this.cboFinalHour = new System.Windows.Forms.ComboBox();
-            this.lblFinalHour = new System.Windows.Forms.Label();
-            this.lblFinalDateTime = new System.Windows.Forms.DateTimePicker();
-            this.lblFinalDate = new System.Windows.Forms.Label();
-            this.cboCountry = new System.Windows.Forms.ComboBox();
-            this.lblCountry = new System.Windows.Forms.Label();
             this.timerOfAnswer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReports)).BeginInit();
             this.pnlEnrollments.SuspendLayout();
@@ -75,95 +75,19 @@
             // dgvReports
             // 
             this.dgvReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReports.Location = new System.Drawing.Point(24, 289);
+            this.dgvReports.Location = new System.Drawing.Point(24, 276);
             this.dgvReports.Name = "dgvReports";
-            this.dgvReports.Size = new System.Drawing.Size(317, 143);
+            this.dgvReports.Size = new System.Drawing.Size(317, 117);
             this.dgvReports.TabIndex = 2;
             // 
             // pnlEnrollments
             // 
             this.pnlEnrollments.Controls.Add(this.txtEnrollment);
             this.pnlEnrollments.Controls.Add(this.lblEnrollment);
-            this.pnlEnrollments.Location = new System.Drawing.Point(24, 97);
+            this.pnlEnrollments.Location = new System.Drawing.Point(24, 84);
             this.pnlEnrollments.Name = "pnlEnrollments";
             this.pnlEnrollments.Size = new System.Drawing.Size(317, 134);
             this.pnlEnrollments.TabIndex = 3;
-            // 
-            // pnlPurchase
-            // 
-            this.pnlPurchase.Controls.Add(this.cboCountry);
-            this.pnlPurchase.Controls.Add(this.cboFinalMinutes);
-            this.pnlPurchase.Controls.Add(this.lblCountry);
-            this.pnlPurchase.Controls.Add(this.lblFinalMinutes);
-            this.pnlPurchase.Controls.Add(this.cboFinalHour);
-            this.pnlPurchase.Controls.Add(this.lblFinalHour);
-            this.pnlPurchase.Controls.Add(this.lblFinalDateTime);
-            this.pnlPurchase.Controls.Add(this.lblFinalDate);
-            this.pnlPurchase.Controls.Add(this.cboInitialMinutes);
-            this.pnlPurchase.Controls.Add(this.lblInitialMinutes);
-            this.pnlPurchase.Controls.Add(this.cboInitialHour);
-            this.pnlPurchase.Controls.Add(this.lblInitialHour);
-            this.pnlPurchase.Controls.Add(this.lblInitialDateTime);
-            this.pnlPurchase.Controls.Add(this.lblInitialDate);
-            this.pnlPurchase.Location = new System.Drawing.Point(24, 97);
-            this.pnlPurchase.Name = "pnlPurchase";
-            this.pnlPurchase.Size = new System.Drawing.Size(317, 143);
-            this.pnlPurchase.TabIndex = 16;
-            // 
-            // cboInitialMinutes
-            // 
-            this.cboInitialMinutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboInitialMinutes.FormattingEnabled = true;
-            this.cboInitialMinutes.Location = new System.Drawing.Point(104, 68);
-            this.cboInitialMinutes.Name = "cboInitialMinutes";
-            this.cboInitialMinutes.Size = new System.Drawing.Size(36, 21);
-            this.cboInitialMinutes.TabIndex = 30;
-            // 
-            // lblInitialMinutes
-            // 
-            this.lblInitialMinutes.AutoSize = true;
-            this.lblInitialMinutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInitialMinutes.Location = new System.Drawing.Point(17, 74);
-            this.lblInitialMinutes.Name = "lblInitialMinutes";
-            this.lblInitialMinutes.Size = new System.Drawing.Size(86, 15);
-            this.lblInitialMinutes.TabIndex = 29;
-            this.lblInitialMinutes.Text = "Minutos inicio:";
-            // 
-            // cboInitialHour
-            // 
-            this.cboInitialHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboInitialHour.FormattingEnabled = true;
-            this.cboInitialHour.Location = new System.Drawing.Point(104, 37);
-            this.cboInitialHour.Name = "cboInitialHour";
-            this.cboInitialHour.Size = new System.Drawing.Size(36, 21);
-            this.cboInitialHour.TabIndex = 28;
-            // 
-            // lblInitialHour
-            // 
-            this.lblInitialHour.AutoSize = true;
-            this.lblInitialHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInitialHour.Location = new System.Drawing.Point(17, 43);
-            this.lblInitialHour.Name = "lblInitialHour";
-            this.lblInitialHour.Size = new System.Drawing.Size(69, 15);
-            this.lblInitialHour.TabIndex = 27;
-            this.lblInitialHour.Text = "Hora inicio:";
-            // 
-            // lblInitialDateTime
-            // 
-            this.lblInitialDateTime.Location = new System.Drawing.Point(104, 5);
-            this.lblInitialDateTime.Name = "lblInitialDateTime";
-            this.lblInitialDateTime.Size = new System.Drawing.Size(36, 20);
-            this.lblInitialDateTime.TabIndex = 26;
-            // 
-            // lblInitialDate
-            // 
-            this.lblInitialDate.AutoSize = true;
-            this.lblInitialDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInitialDate.Location = new System.Drawing.Point(17, 10);
-            this.lblInitialDate.Name = "lblInitialDate";
-            this.lblInitialDate.Size = new System.Drawing.Size(76, 15);
-            this.lblInitialDate.TabIndex = 25;
-            this.lblInitialDate.Text = "Fecha inicio:";
             // 
             // txtEnrollment
             // 
@@ -182,12 +106,162 @@
             this.lblEnrollment.TabIndex = 14;
             this.lblEnrollment.Text = "Ingrese la matrícula:";
             // 
+            // pnlPurchase
+            // 
+            this.pnlPurchase.Controls.Add(this.cboCountry);
+            this.pnlPurchase.Controls.Add(this.cboFinalMinutes);
+            this.pnlPurchase.Controls.Add(this.lblCountry);
+            this.pnlPurchase.Controls.Add(this.lblFinalMinutes);
+            this.pnlPurchase.Controls.Add(this.cboFinalHour);
+            this.pnlPurchase.Controls.Add(this.lblFinalHour);
+            this.pnlPurchase.Controls.Add(this.lblFinalDateTime);
+            this.pnlPurchase.Controls.Add(this.lblFinalDate);
+            this.pnlPurchase.Controls.Add(this.cboInitialMinutes);
+            this.pnlPurchase.Controls.Add(this.lblInitialMinutes);
+            this.pnlPurchase.Controls.Add(this.cboInitialHour);
+            this.pnlPurchase.Controls.Add(this.lblInitialHour);
+            this.pnlPurchase.Controls.Add(this.lblInitialDateTime);
+            this.pnlPurchase.Controls.Add(this.lblInitialDate);
+            this.pnlPurchase.Location = new System.Drawing.Point(24, 84);
+            this.pnlPurchase.Name = "pnlPurchase";
+            this.pnlPurchase.Size = new System.Drawing.Size(317, 134);
+            this.pnlPurchase.TabIndex = 16;
+            // 
+            // cboCountry
+            // 
+            this.cboCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCountry.FormattingEnabled = true;
+            this.cboCountry.Location = new System.Drawing.Point(56, 101);
+            this.cboCountry.Name = "cboCountry";
+            this.cboCountry.Size = new System.Drawing.Size(83, 21);
+            this.cboCountry.TabIndex = 38;
+            // 
+            // cboFinalMinutes
+            // 
+            this.cboFinalMinutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFinalMinutes.FormattingEnabled = true;
+            this.cboFinalMinutes.Location = new System.Drawing.Point(239, 73);
+            this.cboFinalMinutes.Name = "cboFinalMinutes";
+            this.cboFinalMinutes.Size = new System.Drawing.Size(36, 21);
+            this.cboFinalMinutes.TabIndex = 36;
+            // 
+            // lblCountry
+            // 
+            this.lblCountry.AutoSize = true;
+            this.lblCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCountry.Location = new System.Drawing.Point(16, 107);
+            this.lblCountry.Name = "lblCountry";
+            this.lblCountry.Size = new System.Drawing.Size(34, 15);
+            this.lblCountry.TabIndex = 37;
+            this.lblCountry.Text = "País:";
+            // 
+            // lblFinalMinutes
+            // 
+            this.lblFinalMinutes.AutoSize = true;
+            this.lblFinalMinutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFinalMinutes.Location = new System.Drawing.Point(163, 79);
+            this.lblFinalMinutes.Name = "lblFinalMinutes";
+            this.lblFinalMinutes.Size = new System.Drawing.Size(70, 15);
+            this.lblFinalMinutes.TabIndex = 35;
+            this.lblFinalMinutes.Text = "Minutos fin:";
+            // 
+            // cboFinalHour
+            // 
+            this.cboFinalHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFinalHour.FormattingEnabled = true;
+            this.cboFinalHour.Location = new System.Drawing.Point(238, 42);
+            this.cboFinalHour.Name = "cboFinalHour";
+            this.cboFinalHour.Size = new System.Drawing.Size(36, 21);
+            this.cboFinalHour.TabIndex = 34;
+            // 
+            // lblFinalHour
+            // 
+            this.lblFinalHour.AutoSize = true;
+            this.lblFinalHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFinalHour.Location = new System.Drawing.Point(163, 48);
+            this.lblFinalHour.Name = "lblFinalHour";
+            this.lblFinalHour.Size = new System.Drawing.Size(53, 15);
+            this.lblFinalHour.TabIndex = 33;
+            this.lblFinalHour.Text = "Hora fin:";
+            // 
+            // lblFinalDateTime
+            // 
+            this.lblFinalDateTime.Location = new System.Drawing.Point(238, 10);
+            this.lblFinalDateTime.Name = "lblFinalDateTime";
+            this.lblFinalDateTime.Size = new System.Drawing.Size(36, 20);
+            this.lblFinalDateTime.TabIndex = 32;
+            // 
+            // lblFinalDate
+            // 
+            this.lblFinalDate.AutoSize = true;
+            this.lblFinalDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFinalDate.Location = new System.Drawing.Point(163, 15);
+            this.lblFinalDate.Name = "lblFinalDate";
+            this.lblFinalDate.Size = new System.Drawing.Size(60, 15);
+            this.lblFinalDate.TabIndex = 31;
+            this.lblFinalDate.Text = "Fecha fin:";
+            // 
+            // cboInitialMinutes
+            // 
+            this.cboInitialMinutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboInitialMinutes.FormattingEnabled = true;
+            this.cboInitialMinutes.Location = new System.Drawing.Point(103, 74);
+            this.cboInitialMinutes.Name = "cboInitialMinutes";
+            this.cboInitialMinutes.Size = new System.Drawing.Size(36, 21);
+            this.cboInitialMinutes.TabIndex = 30;
+            // 
+            // lblInitialMinutes
+            // 
+            this.lblInitialMinutes.AutoSize = true;
+            this.lblInitialMinutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInitialMinutes.Location = new System.Drawing.Point(16, 80);
+            this.lblInitialMinutes.Name = "lblInitialMinutes";
+            this.lblInitialMinutes.Size = new System.Drawing.Size(86, 15);
+            this.lblInitialMinutes.TabIndex = 29;
+            this.lblInitialMinutes.Text = "Minutos inicio:";
+            // 
+            // cboInitialHour
+            // 
+            this.cboInitialHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboInitialHour.FormattingEnabled = true;
+            this.cboInitialHour.Location = new System.Drawing.Point(103, 43);
+            this.cboInitialHour.Name = "cboInitialHour";
+            this.cboInitialHour.Size = new System.Drawing.Size(36, 21);
+            this.cboInitialHour.TabIndex = 28;
+            // 
+            // lblInitialHour
+            // 
+            this.lblInitialHour.AutoSize = true;
+            this.lblInitialHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInitialHour.Location = new System.Drawing.Point(16, 49);
+            this.lblInitialHour.Name = "lblInitialHour";
+            this.lblInitialHour.Size = new System.Drawing.Size(69, 15);
+            this.lblInitialHour.TabIndex = 27;
+            this.lblInitialHour.Text = "Hora inicio:";
+            // 
+            // lblInitialDateTime
+            // 
+            this.lblInitialDateTime.Location = new System.Drawing.Point(103, 11);
+            this.lblInitialDateTime.Name = "lblInitialDateTime";
+            this.lblInitialDateTime.Size = new System.Drawing.Size(36, 20);
+            this.lblInitialDateTime.TabIndex = 26;
+            // 
+            // lblInitialDate
+            // 
+            this.lblInitialDate.AutoSize = true;
+            this.lblInitialDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInitialDate.Location = new System.Drawing.Point(16, 16);
+            this.lblInitialDate.Name = "lblInitialDate";
+            this.lblInitialDate.Size = new System.Drawing.Size(76, 15);
+            this.lblInitialDate.TabIndex = 25;
+            this.lblInitialDate.Text = "Fecha inicio:";
+            // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
             this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSearch.Location = new System.Drawing.Point(227, 237);
+            this.btnSearch.Location = new System.Drawing.Point(227, 224);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(114, 36);
             this.btnSearch.TabIndex = 16;
@@ -200,7 +274,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(24, 237);
+            this.btnCancel.Location = new System.Drawing.Point(24, 224);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(113, 36);
             this.btnCancel.TabIndex = 17;
@@ -211,7 +285,7 @@
             // rbtnEnrollments
             // 
             this.rbtnEnrollments.AutoSize = true;
-            this.rbtnEnrollments.Location = new System.Drawing.Point(24, 74);
+            this.rbtnEnrollments.Location = new System.Drawing.Point(24, 61);
             this.rbtnEnrollments.Name = "rbtnEnrollments";
             this.rbtnEnrollments.Size = new System.Drawing.Size(126, 17);
             this.rbtnEnrollments.TabIndex = 18;
@@ -223,7 +297,7 @@
             // rbtnPurchase
             // 
             this.rbtnPurchase.AutoSize = true;
-            this.rbtnPurchase.Location = new System.Drawing.Point(182, 74);
+            this.rbtnPurchase.Location = new System.Drawing.Point(182, 61);
             this.rbtnPurchase.Name = "rbtnPurchase";
             this.rbtnPurchase.Size = new System.Drawing.Size(159, 17);
             this.rbtnPurchase.TabIndex = 19;
@@ -235,88 +309,15 @@
             // 
             this.lblAnswer.AutoSize = true;
             this.lblAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAnswer.Location = new System.Drawing.Point(21, 435);
+            this.lblAnswer.Location = new System.Drawing.Point(21, 407);
             this.lblAnswer.Name = "lblAnswer";
             this.lblAnswer.Size = new System.Drawing.Size(0, 18);
             this.lblAnswer.TabIndex = 20;
             // 
-            // cboFinalMinutes
-            // 
-            this.cboFinalMinutes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboFinalMinutes.FormattingEnabled = true;
-            this.cboFinalMinutes.Location = new System.Drawing.Point(240, 67);
-            this.cboFinalMinutes.Name = "cboFinalMinutes";
-            this.cboFinalMinutes.Size = new System.Drawing.Size(36, 21);
-            this.cboFinalMinutes.TabIndex = 36;
-            // 
-            // lblFinalMinutes
-            // 
-            this.lblFinalMinutes.AutoSize = true;
-            this.lblFinalMinutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFinalMinutes.Location = new System.Drawing.Point(164, 73);
-            this.lblFinalMinutes.Name = "lblFinalMinutes";
-            this.lblFinalMinutes.Size = new System.Drawing.Size(70, 15);
-            this.lblFinalMinutes.TabIndex = 35;
-            this.lblFinalMinutes.Text = "Minutos fin:";
-            // 
-            // cboFinalHour
-            // 
-            this.cboFinalHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboFinalHour.FormattingEnabled = true;
-            this.cboFinalHour.Location = new System.Drawing.Point(239, 36);
-            this.cboFinalHour.Name = "cboFinalHour";
-            this.cboFinalHour.Size = new System.Drawing.Size(36, 21);
-            this.cboFinalHour.TabIndex = 34;
-            // 
-            // lblFinalHour
-            // 
-            this.lblFinalHour.AutoSize = true;
-            this.lblFinalHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFinalHour.Location = new System.Drawing.Point(164, 42);
-            this.lblFinalHour.Name = "lblFinalHour";
-            this.lblFinalHour.Size = new System.Drawing.Size(53, 15);
-            this.lblFinalHour.TabIndex = 33;
-            this.lblFinalHour.Text = "Hora fin:";
-            // 
-            // lblFinalDateTime
-            // 
-            this.lblFinalDateTime.Location = new System.Drawing.Point(239, 4);
-            this.lblFinalDateTime.Name = "lblFinalDateTime";
-            this.lblFinalDateTime.Size = new System.Drawing.Size(36, 20);
-            this.lblFinalDateTime.TabIndex = 32;
-            // 
-            // lblFinalDate
-            // 
-            this.lblFinalDate.AutoSize = true;
-            this.lblFinalDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFinalDate.Location = new System.Drawing.Point(164, 9);
-            this.lblFinalDate.Name = "lblFinalDate";
-            this.lblFinalDate.Size = new System.Drawing.Size(60, 15);
-            this.lblFinalDate.TabIndex = 31;
-            this.lblFinalDate.Text = "Fecha fin:";
-            // 
-            // cboCountry
-            // 
-            this.cboCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCountry.FormattingEnabled = true;
-            this.cboCountry.Location = new System.Drawing.Point(57, 95);
-            this.cboCountry.Name = "cboCountry";
-            this.cboCountry.Size = new System.Drawing.Size(83, 21);
-            this.cboCountry.TabIndex = 38;
-            // 
-            // lblCountry
-            // 
-            this.lblCountry.AutoSize = true;
-            this.lblCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCountry.Location = new System.Drawing.Point(17, 101);
-            this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(34, 15);
-            this.lblCountry.TabIndex = 37;
-            this.lblCountry.Text = "País:";
-            // 
             // timerOfAnswer
             // 
             this.timerOfAnswer.Interval = 5000;
+            this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfAnswer_Tick);
             // 
             // Reports
             // 

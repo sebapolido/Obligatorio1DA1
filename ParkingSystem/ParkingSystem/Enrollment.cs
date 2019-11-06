@@ -25,10 +25,9 @@ namespace ParkingSystem
             NumbersOfEnrollment = newNumbers;
         }
 
-        public override bool Equals(Object obj)
+        public override string ToString()
         {
-            Enrollment enrollment = (Enrollment)obj;
-            return NumbersOfEnrollment == enrollment.NumbersOfEnrollment && LettersOfEnrollment.Equals(enrollment.LettersOfEnrollment);
+            return LettersOfEnrollment.ToUpper() + NumbersOfEnrollment;
         }
     }
 }
