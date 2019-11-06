@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrincipalForm));
             this.lblWelcome = new System.Windows.Forms.Label();
             this.principalPanel = new System.Windows.Forms.Panel();
+            this.btnReports = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.lblAnswer = new System.Windows.Forms.Label();
             this.btnProcessPurchase = new System.Windows.Forms.Button();
             this.btnCheckPurchase = new System.Windows.Forms.Button();
@@ -39,7 +41,6 @@
             this.btnAccountRegister = new System.Windows.Forms.Button();
             this.SecundaryPanel = new System.Windows.Forms.Panel();
             this.timerOfAnswer = new System.Windows.Forms.Timer(this.components);
-            this.btnSettings = new System.Windows.Forms.Button();
             this.principalPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +57,7 @@
             // 
             // principalPanel
             // 
+            this.principalPanel.Controls.Add(this.btnReports);
             this.principalPanel.Controls.Add(this.btnSettings);
             this.principalPanel.Controls.Add(this.lblAnswer);
             this.principalPanel.Controls.Add(this.btnProcessPurchase);
@@ -67,6 +69,30 @@
             this.principalPanel.Name = "principalPanel";
             this.principalPanel.Size = new System.Drawing.Size(356, 427);
             this.principalPanel.TabIndex = 1;
+            // 
+            // btnReports
+            // 
+            this.btnReports.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReports.Image = ((System.Drawing.Image)(resources.GetObject("btnReports.Image")));
+            this.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReports.Location = new System.Drawing.Point(68, 291);
+            this.btnReports.Name = "btnReports";
+            this.btnReports.Size = new System.Drawing.Size(224, 34);
+            this.btnReports.TabIndex = 7;
+            this.btnReports.Text = "Reportes";
+            this.btnReports.UseVisualStyleBackColor = true;
+            this.btnReports.Click += new System.EventHandler(this.BtnReports_Click);
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
+            this.btnSettings.Location = new System.Drawing.Point(306, 377);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(47, 42);
+            this.btnSettings.TabIndex = 6;
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
             // lblAnswer
             // 
@@ -84,9 +110,9 @@
             this.btnProcessPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProcessPurchase.Image = ((System.Drawing.Image)(resources.GetObject("btnProcessPurchase.Image")));
             this.btnProcessPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProcessPurchase.Location = new System.Drawing.Point(68, 216);
+            this.btnProcessPurchase.Location = new System.Drawing.Point(68, 189);
             this.btnProcessPurchase.Name = "btnProcessPurchase";
-            this.btnProcessPurchase.Size = new System.Drawing.Size(224, 42);
+            this.btnProcessPurchase.Size = new System.Drawing.Size(224, 34);
             this.btnProcessPurchase.TabIndex = 4;
             this.btnProcessPurchase.Text = "  Procesar compra";
             this.btnProcessPurchase.UseVisualStyleBackColor = true;
@@ -97,9 +123,9 @@
             this.btnCheckPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCheckPurchase.Image = ((System.Drawing.Image)(resources.GetObject("btnCheckPurchase.Image")));
             this.btnCheckPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCheckPurchase.Location = new System.Drawing.Point(68, 281);
+            this.btnCheckPurchase.Location = new System.Drawing.Point(68, 238);
             this.btnCheckPurchase.Name = "btnCheckPurchase";
-            this.btnCheckPurchase.Size = new System.Drawing.Size(224, 42);
+            this.btnCheckPurchase.Size = new System.Drawing.Size(224, 34);
             this.btnCheckPurchase.TabIndex = 3;
             this.btnCheckPurchase.Text = "  Consultar compra";
             this.btnCheckPurchase.UseVisualStyleBackColor = true;
@@ -110,9 +136,9 @@
             this.btnAddBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddBalance.Image = ((System.Drawing.Image)(resources.GetObject("btnAddBalance.Image")));
             this.btnAddBalance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddBalance.Location = new System.Drawing.Point(68, 151);
+            this.btnAddBalance.Location = new System.Drawing.Point(68, 137);
             this.btnAddBalance.Name = "btnAddBalance";
-            this.btnAddBalance.Size = new System.Drawing.Size(224, 42);
+            this.btnAddBalance.Size = new System.Drawing.Size(224, 34);
             this.btnAddBalance.TabIndex = 2;
             this.btnAddBalance.Text = "Agregar saldo";
             this.btnAddBalance.UseVisualStyleBackColor = true;
@@ -125,7 +151,7 @@
             this.btnAccountRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAccountRegister.Location = new System.Drawing.Point(68, 86);
             this.btnAccountRegister.Name = "btnAccountRegister";
-            this.btnAccountRegister.Size = new System.Drawing.Size(224, 42);
+            this.btnAccountRegister.Size = new System.Drawing.Size(224, 34);
             this.btnAccountRegister.TabIndex = 1;
             this.btnAccountRegister.Text = " Registrar cuenta";
             this.btnAccountRegister.UseVisualStyleBackColor = true;
@@ -142,17 +168,6 @@
             // 
             this.timerOfAnswer.Interval = 5000;
             this.timerOfAnswer.Tick += new System.EventHandler(this.TimerOfAnswer_Tick);
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
-            this.btnSettings.Location = new System.Drawing.Point(306, 377);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(47, 42);
-            this.btnSettings.TabIndex = 6;
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
             // PrincipalForm
             // 
@@ -184,6 +199,7 @@
         private System.Windows.Forms.Label lblAnswer;
         private System.Windows.Forms.Timer timerOfAnswer;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btnReports;
     }
 }
 

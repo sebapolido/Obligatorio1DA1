@@ -28,8 +28,8 @@ namespace UI
             this.principalPanel.Visible = true;
             lblAnswer.Visible = false;
             repository = new ParkingRepository();
-            //CountryHandler initialCountry = repository.GetACountry("Uruguay");
-            settings = new Settings(principalPanel, repository, repository.GetACountry("Uruguay"));
+            CountryHandler initialCountry = repository.GetACountry("Uruguay");
+            settings = new Settings(principalPanel, repository, initialCountry);
         }
 
         private void BtnAccountRegister_Click(object sender, EventArgs e)
@@ -45,14 +45,19 @@ namespace UI
         private void BtnProcessPurchase_Click(object sender, EventArgs e)
         {
             if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18)
-               AddToPanelCheckingAreAccounts(new ProcessPurchase(principalPanel, repository, settings.country));
+                AddToPanelCheckingAreAccounts(new ProcessPurchase(principalPanel, repository, settings.country));
             else
                 SetMessage("Esta función solo está disponible de 10 a 18 horas.");
         }
 
         private void BtnCheckPurchase_Click(object sender, EventArgs e)
         {
-            AddToPanelCheckingAreAccounts(new CheckPurchase(principalPanel, repository));            
+            AddToPanelCheckingAreAccounts(new CheckPurchase(principalPanel, repository));
+        }
+
+        private void BtnReports_Click(object sender, EventArgs e)
+        {
+            AddToPanelCheckingAreAccounts(new Reports(principalPanel, repository, settings.country));
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)

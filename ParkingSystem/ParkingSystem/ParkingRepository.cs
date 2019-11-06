@@ -41,6 +41,7 @@ namespace ParkingSystem
                 accountsList.Add(newAccount);
                 using (var myContext = new MyContext())
                 {
+                    myContext.Countries.Attach(newAccount.Country);
                     myContext.Accounts.Add(newAccount);
                     myContext.SaveChanges();
                 }
@@ -105,6 +106,7 @@ namespace ParkingSystem
             purchaseList.Add(newPurchase);
             using (var myContext = new MyContext())
             {
+                myContext.Enrollments.Attach(newPurchase.EnrollmentOfPurchase);
                 myContext.Purchases.Add(newPurchase);
                 myContext.SaveChanges();
             }

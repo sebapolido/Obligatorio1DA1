@@ -41,5 +41,7 @@ namespace ParkingSystem
         void AddBalanceToAccount(Account account, int balanceToAdd);
 
         void SubstractBalanceToAccount(Account account, int balanceToSubstract);
+        List<Enrollment> InsertPurchaseOfEnrollmentToDataGridView(Enrollment enrollmentOfPurchase);
+        List<Purchase> InsertPurchaseOnThatDate(DateTime initialDateOfPurchase, DateTime finalDateOfPurchase);
     }
 }

@@ -73,19 +73,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Dc2ScfKr4OzD0HvOGmY17Meo6j6k4BHJ/wSbwSCQwyQ=</dsig:DigestValue>
+        <dsig:DigestValue>REEd+ACnFVt9L5wc2r/QvrrQ45QRaEqQWIGhE0AkdPU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UI.exe" size="49136">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UI.exe" size="58352">
       <assemblyIdentity name="UI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>eg1MUB7zRx2GrmnEwIgvTO9tsgGjSlUcxFE6WzPD9G8=</dsig:DigestValue>
+        <dsig:DigestValue>SPyt7dyHrqdihNsD7FpkyXlISR41xgzoG42annmhqmM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
