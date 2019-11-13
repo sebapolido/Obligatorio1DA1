@@ -95,14 +95,23 @@ namespace UI
 
         private void ActualizationMessage(string message)
         {
-            if(!cboCountry.Text.Equals(""))
-                country = parkingRepository.GetACountry(cboCountry.Text);
-            if(validator.ValidateIsNumeric(txtCostForMinutes.Text))
-                country.CostForMinutes = int.Parse(txtCostForMinutes.Text);
+            UpdateData();
             lblAnswer.ForeColor = Color.Green;
             SetActualData();
             SetMessage(message);
             RestartInputData();
+        }
+
+        private void UpdateData()
+        {
+            if (!cboCountry.Text.Equals(""))
+                country = parkingRepository.GetACountry(cboCountry.Text);
+            if (validator.ValidateIsNumeric(txtCostForMinutes.Text))
+            {
+                int NewCostOfMinutes = int.Parse(txtCostForMinutes.Text);
+                country.CostForMinutes = NewCostOfMinutes;
+                parkingRepository.UpdateCostForMinutes(country);
+            }
         }
 
         private void RestartInputData()

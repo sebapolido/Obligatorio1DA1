@@ -1,0 +1,2 @@
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\DataBaseConnection\obj\Debug\DataBaseConnection.csprojAssemblyReference.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\DataBaseConnection\obj\Debug\DataBaseConnection.csproj.CoreCompileInputs.cache

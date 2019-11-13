@@ -118,8 +118,8 @@ namespace UI
 
         private void InsertPurchaseOfEnrollmentToDataGridView(Enrollment enrollmentOfPurchase)
         {
-            List<Purchase> purchaseToAdd = repository.InsertPurchaseOfEnrollmentToDataGridView(enrollmentOfPurchase);
-            dgvReports.DataSource = purchaseToAdd;//terminar
+            //List<Purchase> purchaseToAdd =
+            dgvReports.DataSource = repository.InsertPurchaseOfEnrollmentToDataGridView(enrollmentOfPurchase); /*purchaseToAdd;//terminar*/
         }
 
         private void ValidateDatesOfPurchases()

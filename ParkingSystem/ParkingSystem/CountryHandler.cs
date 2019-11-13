@@ -12,8 +12,8 @@ namespace ParkingSystem
         public int CountryHandlerId { get; set; }
         public string NameOfCountry { get; set; }
         public int CostForMinutes { get; set; }
-        public ValidatorOfPhone validatorOfPhone { get; set; }
-        public ValidatorOfMessage validatorOfMessage { get; set; }
+        public ValidatorOfPhone ValidatorOfPhone { get; set; }
+        public ValidatorOfMessage ValidatorOfMessage { get; set; }
 
         public CountryHandler(string actualCountry, int NewCostForMinutes)
         {
@@ -28,63 +28,63 @@ namespace ParkingSystem
            
         public void SetValidators(ValidatorOfPhone newValidatorOfPhone, ValidatorOfMessage newValidatorOfMessage)
         {
-            validatorOfPhone = newValidatorOfPhone;
-            validatorOfMessage = newValidatorOfMessage;
+            ValidatorOfPhone = newValidatorOfPhone;
+            ValidatorOfMessage = newValidatorOfMessage;
         }
 
         public bool ValidateIsEmptyByCountry(string textOfPhone)
         {
-            return validatorOfPhone.ValidateIsEmpty(textOfPhone);           
+            return ValidatorOfPhone.ValidateIsEmpty(textOfPhone);           
         }
 
         public bool ValidateIsNumericByCountry(string textOfPhone)
         {
-            return validatorOfPhone.ValidateIsNumeric(textOfPhone);            
+            return ValidatorOfPhone.ValidateIsNumeric(textOfPhone);            
         }
 
         public bool ValidateFormatNumberByCountry(ref string textOfPhone)
         {
-            return validatorOfPhone.ValidateFormatNumber(ref textOfPhone);
+            return ValidatorOfPhone.ValidateFormatNumber(ref textOfPhone);
         }
 
         public bool ValidateMessageDataByCountry(string restOfMessage)
         {
-            return validatorOfMessage.ValidateMessageData(restOfMessage);
+            return ValidatorOfMessage.ValidateMessageData(restOfMessage);
         }
 
         public bool WroteHourAndMinutesByCountry(string[] lineOfRestOfMessage)
         {
-            return validatorOfMessage.WroteHourAndMinutes(lineOfRestOfMessage);
+            return ValidatorOfMessage.WroteHourAndMinutes(lineOfRestOfMessage);
         }
 
         public bool ValidateTimeOfPurchaseByCountry(int timeOfPurchase)
         {
-            return validatorOfMessage.ValideTimeOfPurchase(timeOfPurchase);
+            return ValidatorOfMessage.ValideTimeOfPurchase(timeOfPurchase);
         }
 
         public bool IsLengthOfMessageCorrectByCountry(int length)
         {
-            return validatorOfMessage.IsLengthOfMessageCorrect(length);
+            return ValidatorOfMessage.IsLengthOfMessageCorrect(length);
         }
 
         public int CalculateFinalTimeOfPurchaseByCountry(int timeOfPurchase, DateTime dateOfPurchse)
         {
-            return validatorOfMessage.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
+            return ValidatorOfMessage.CalculateFinalTimeOfPurchase(timeOfPurchase, dateOfPurchse);
         }
 
-        public int AssignHour(string[] lineOfRestOfMessage)
+        public int AssignHourByCountry(string[] lineOfRestOfMessage)
         {
-            return validatorOfMessage.AssignHour(lineOfRestOfMessage);
+            return ValidatorOfMessage.AssignHour(lineOfRestOfMessage);
         }
 
-        public int AssignMinutes(string[] lineOfRestOfMessage)
+        public int AssignMinutesByCountry(string[] lineOfRestOfMessage)
         {
-            return validatorOfMessage.AssignMinutes(lineOfRestOfMessage);
+            return ValidatorOfMessage.AssignMinutes(lineOfRestOfMessage);
         }
 
-        public int AssignTime(string[] lineOfRestOfMessage)
+        public int AssignTimeByCountry(string[] lineOfRestOfMessage)
         {
-            return validatorOfMessage.AssignTime(lineOfRestOfMessage);
+            return ValidatorOfMessage.AssignTime(lineOfRestOfMessage);
         }
     }
 }

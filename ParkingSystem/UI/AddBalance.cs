@@ -62,7 +62,7 @@ namespace UI
 
         private void ValidateRepeatNumber(string textOfPhone)
         {
-            if (repository.IsRepeatedNumber(textOfPhone, countryHandler))
+            if (repository.IsRepeatedNumber(textOfPhone))
                 ValidateEmptyBalance(textOfPhone);
             else
                 SetMessage("El número que ingresó no está registrado.");

@@ -10,24 +10,25 @@ namespace ParkingSystem
 {
     public class ParkingRepository:IParkingRepository
     {
-        private static List<Account> accountsList = new List<Account>();
-        private static List<Enrollment> enrollmentsList = new List<Enrollment>();
-        private static List<Purchase> purchaseList = new List<Purchase>();
-        private static List<CountryHandler> countryList = new List<CountryHandler>();
-        private static List<ValidatorOfMessage> ValidatorOfMessageList = new List<ValidatorOfMessage>();
-        private static List<ValidatorOfPhone> ValidatorOfPhoneList = new List<ValidatorOfPhone>();
+
+        private List<Account> accountList = new List<Account>();
+        private List<Enrollment> enrollmentList = new List<Enrollment>();
+        private List<Purchase> purchaseList = new List<Purchase>();
+        private List<CountryHandler> countryList = new List<CountryHandler>();
 
         public ParkingRepository()
         {           
             using (var myContext = new MyContext())
             {
-                accountsList = myContext.Accounts.ToList();
-                enrollmentsList = myContext.Enrollments.ToList();
-                purchaseList = myContext.Purchases.ToList();
-                ValidatorOfPhoneList = myContext.ValidatorsOfPhone.ToList();
-                ValidatorOfMessageList = myContext.ValidatorsOfMessage.ToList();
-                countryList = myContext.Countries.ToList();
+                accountList = myContext.Accounts.Include("Country").Include("Country.ValidatorOfPhone")
+                    .Include("Country.ValidatorOfMessage").ToList();
                 myContext.SaveChanges();
+                enrollmentList = myContext.Enrollments.ToList();
+                purchaseList = myContext.Purchases.Include("AccountOfPurchase").Include("EnrollmentOfPurchase")
+                    .Include("AccountOfPurchase.Country").Include("AccountOfPurchase.Country.ValidatorOfMessage").
+                    Include("AccountOfPurchase.Country.ValidatorOfPhone").ToList();
+                countryList = myContext.Countries
+                    .Include("ValidatorOfMessage").Include("ValidatorOfPhone").ToList();
             }
         }
 
@@ -35,22 +36,22 @@ namespace ParkingSystem
         {
             CountryHandler countryHandler = newAccount.Country;
             string text = newAccount.Mobile;
-            if (newAccount.Balance >= 0 && countryHandler.ValidateFormatNumberByCountry(ref text) && !IsRepeatedNumber(text, countryHandler) &&
-                 countryHandler.ValidateIsNumericByCountry(newAccount.Mobile))
+            if (newAccount.Balance >= 0 && countryHandler.ValidateFormatNumberByCountry(ref text) && !IsRepeatedNumber(text) &&
+                countryHandler.ValidateIsNumericByCountry(newAccount.Mobile))
             {
-                accountsList.Add(newAccount);
-                using (var myContext = new MyContext())
-                {
+               accountList.Add(newAccount);
+               using (var myContext = new MyContext())
+               {
                     myContext.Countries.Attach(newAccount.Country);
                     myContext.Accounts.Add(newAccount);
                     myContext.SaveChanges();
-                }
+               }
             }
         }
 
         public List<Account> GetAccounts()
         {
-            return accountsList;
+            return accountList;
         }
 
         public void AddBalanceToAccount(Account account, int balanceToAdd)
@@ -87,7 +88,7 @@ namespace ParkingSystem
             if (validator.ValidateFormatOfEnrollment(newEnrollment.LettersOfEnrollment + newEnrollment.NumbersOfEnrollment)
                 && !IsRepeatedEnrollment(newEnrollment.LettersOfEnrollment, newEnrollment.NumbersOfEnrollment))
             {
-                enrollmentsList.Add(newEnrollment);
+                enrollmentList.Add(newEnrollment);
                 using (var myContext = new MyContext())
                 {
                     myContext.Enrollments.Add(newEnrollment);
@@ -98,7 +99,7 @@ namespace ParkingSystem
 
         public List<Enrollment> GetEnrollments()
         {
-            return enrollmentsList;
+            return enrollmentList;
         }
 
         public void AddPurchase(Purchase newPurchase)
@@ -136,13 +137,9 @@ namespace ParkingSystem
             return countryList;
         }
 
-        public bool IsRepeatedNumber(string text, CountryHandler country)
+        public bool IsRepeatedNumber(string text)
         {
-            for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
-                if (text.Equals(this.GetAccounts().ToArray().ElementAt(i).Mobile) && 
-                    country.Equals(this.GetAccounts().ToArray().ElementAt(i).Country))
-                    return true;
-            return false;
+            return this.GetAccounts().Any(a => text.Equals(a.Mobile));
         }
 
         public Account GetAnAccount(string mobileToCompare)
@@ -172,25 +169,13 @@ namespace ParkingSystem
 
         public bool IsRepeatedEnrollment(string letters, int numbers)
         {
-            for (int i = 0; i < this.GetEnrollments().ToArray().Length; i++)
-            {
-                string lettersOfEnrollment = this.GetEnrollments().ToArray().ElementAt(i).LettersOfEnrollment.ToUpper();
-                int numbersOfEnrollment = this.GetEnrollments().ToArray().ElementAt(i).NumbersOfEnrollment;
-                if (letters.ToUpper().Equals(lettersOfEnrollment) && numbers == numbersOfEnrollment)
-                    return true;
-            }
-            return false;
+            return this.GetEnrollments().Any(e => letters.ToUpper().Equals(e.LettersOfEnrollment.ToUpper())
+                && numbers == e.NumbersOfEnrollment);
         }
 
         public bool IsRepeatedCountry(string name)
         {
-            for (int i = 0; i < this.GetCountries().ToArray().Length; i++)
-            {
-                string nameOfCountry = this.GetCountries().ToArray().ElementAt(i).NameOfCountry.ToUpper();
-                if (name.ToUpper().Equals(nameOfCountry))
-                    return true;
-            }
-            return false;
+            return this.GetCountries().Any(c => name.ToUpper().Equals(c.NameOfCountry.ToUpper()));
         }
 
         public bool ArePurchaseOnThatDate(DateTime dateToCompare, Enrollment enrollmentToCompare)
@@ -199,8 +184,8 @@ namespace ParkingSystem
             for(int i = 0; i<this.GetPurchases().ToArray().Length; i++)
             {
                 Enrollment enrollmentOfPurchase = this.GetPurchases().ToArray().ElementAt(i).EnrollmentOfPurchase;
-                if (validator.CheckDateWithTimeOfPurchase(dateToCompare, this.GetPurchases().ToArray().ElementAt(i)) &&
-                    enrollmentOfPurchase.Equals(enrollmentToCompare))
+                if (validator.CheckDateWithTimeOfPurchase(dateToCompare, this.GetPurchases().ElementAt(i)) &&
+                    enrollmentOfPurchase.EnrollmentId == enrollmentToCompare.EnrollmentId)
                     return true;
             }
             return false;
@@ -209,33 +194,31 @@ namespace ParkingSystem
         public List<Purchase> InsertPurchaseOfEnrollmentToDataGridView(Enrollment enrollmentOfPurchase)
         {
             List<Purchase> purchaseOfThisEnrollment = new List<Purchase>();
-            for (int i = 0; i < GetPurchases().ToArray().Length; i++)
-                if (GetPurchases().ElementAt(i).EnrollmentOfPurchase.Equals(enrollmentOfPurchase))
-                    purchaseOfThisEnrollment.Add(GetPurchases().ElementAt(i));
+            purchaseOfThisEnrollment = GetPurchases().Where(p => p.EnrollmentOfPurchase.EnrollmentId.Equals(enrollmentOfPurchase.EnrollmentId)).ToList();
             return purchaseOfThisEnrollment;
         }
 
         public List<Purchase> InsertPurchaseOnThatDate(DateTime initialDateOfPurchase, DateTime finalDateOfPurchase)
         {
             List<Purchase> purchaseOfThisEnrollment = new List<Purchase>();
-            for (int i = 0; i < GetPurchases().ToArray().Length; i++)
-            {
-                DateTime dateToEvaluate = GetPurchases().ElementAt(i).DateOfPurchase;
-                if (dateToEvaluate >= initialDateOfPurchase && dateToEvaluate<=finalDateOfPurchase)
-                    purchaseOfThisEnrollment.Add(GetPurchases().ElementAt(i));
-            }
+            purchaseOfThisEnrollment = GetPurchases().Where(p => p.DateOfPurchase >= initialDateOfPurchase
+                && p.DateOfPurchase <= finalDateOfPurchase).ToList();
             return purchaseOfThisEnrollment;
         }
 
         public List<Purchase> EliminatePurchasesFromAnoterCountry(List<Purchase> purchasesOnThatDate, CountryHandler country)
         {
-            for (int i = 0; i < purchasesOnThatDate.ToArray().Length; i++)
+           return purchasesOnThatDate.Where(p => p.AccountOfPurchase.Country.CountryHandlerId == country.CountryHandlerId).ToList();
+        }
+
+        public void UpdateCostForMinutes(CountryHandler country)
+        {
+            using (var myContext = new MyContext())
             {
-                Purchase purchaseToEvaluate = purchasesOnThatDate.ElementAt(i);
-                if (purchaseToEvaluate.AccountOfPurchase.Country != country)
-                    purchasesOnThatDate.Remove(purchasesOnThatDate.ElementAt(i));
+                CountryHandler countryInDataBase = myContext.Countries.Find(country.CountryHandlerId);
+                countryInDataBase.CostForMinutes = country.CostForMinutes;
+                myContext.SaveChanges();
             }
-            return purchasesOnThatDate;
         }
     }
 }

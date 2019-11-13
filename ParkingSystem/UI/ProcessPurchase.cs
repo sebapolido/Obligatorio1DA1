@@ -73,7 +73,7 @@ namespace UI
 
         private void ValidateRepeatNumber(string textOfPhone)
         {
-           if (repository.IsRepeatedNumber(textOfPhone, countryHandler))
+           if (repository.IsRepeatedNumber(textOfPhone))
                 ValidateEmptyMessage();
            else
                 SetMessage("El número que ingresó no está registrado.");
@@ -138,10 +138,10 @@ namespace UI
             int minutesOfPurchase = DateTime.Now.Minute;
             if (countryHandler.WroteHourAndMinutesByCountry(lineOfRestOfMessage))
             {
-                hourOfPurchase = countryHandler.AssignHour(lineOfRestOfMessage);
-                minutesOfPurchase = countryHandler.AssignMinutes(lineOfRestOfMessage);
+                hourOfPurchase = countryHandler.AssignHourByCountry(lineOfRestOfMessage);
+                minutesOfPurchase = countryHandler.AssignMinutesByCountry(lineOfRestOfMessage);
             }
-            int timeOfPurchase = countryHandler.AssignTime(lineOfRestOfMessage);
+            int timeOfPurchase = countryHandler.AssignTimeByCountry(lineOfRestOfMessage);
             DateTime dateOfPurchase = AssignTimesToDate(hourOfPurchase, minutesOfPurchase);
             ValidateTimeMultipleOf30(timeOfPurchase, dateOfPurchase);
         }
@@ -194,7 +194,10 @@ namespace UI
             string aEnrollment = txtMessage.Text.Replace(" ", "");
             Enrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
             Int32.Parse(aEnrollment.Substring(3, 4)));
-            repository.AddEnrollment(enrollment);
+            if (repository.IsRepeatedEnrollment(enrollment.LettersOfEnrollment, enrollment.NumbersOfEnrollment))
+                enrollment = repository.GetAnEnrollment(enrollment.LettersOfEnrollment, enrollment.NumbersOfEnrollment);
+            else
+                repository.AddEnrollment(enrollment);
             AddPurchase(finalTimeOfPurchase, enrollment, dateTime);
         }
 

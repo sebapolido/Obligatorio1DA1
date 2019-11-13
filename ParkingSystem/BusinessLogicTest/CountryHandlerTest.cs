@@ -32,7 +32,7 @@ namespace BusinessLogicTest
         public void ValidateEmptyConstructor()
         {
             CountryHandler brasil = new CountryHandler();
-            Assert.AreEqual(null, brasil.validatorOfPhone);
+            Assert.AreEqual(null, brasil.ValidatorOfPhone);
         }
 
         [TestMethod]
@@ -105,49 +105,49 @@ namespace BusinessLogicTest
         public void ValidateAssignHourByCountryArgentina()
         {
             string[] line = new string[] { " ", "11:21", "60" };
-            Assert.AreEqual(11, argentina.AssignHour(line));
+            Assert.AreEqual(11, argentina.AssignHourByCountry(line));
         }
 
         [TestMethod]
         public void ValidateAssignHourByCountryUruguay()
         {
             string[] line = new string[] { " ", "60", "13:21" };
-            Assert.AreEqual(13, uruguay.AssignHour(line));
+            Assert.AreEqual(13, uruguay.AssignHourByCountry(line));
         }
 
         [TestMethod]
         public void ValidateAssignMinutesByCountryArgentina()
         {
             string[] line = new string[] { " ", "11:21", "60" };
-            Assert.AreEqual(21, argentina.AssignMinutes(line));
+            Assert.AreEqual(21, argentina.AssignMinutesByCountry(line));
         }
 
         [TestMethod]
         public void ValidateAssignMinutesByCountryUruguay()
         {
             string[] line = new string[] { " ", "60", "13:45" };
-            Assert.AreEqual(45, uruguay.AssignMinutes(line));
+            Assert.AreEqual(45, uruguay.AssignMinutesByCountry(line));
         }
 
         [TestMethod]
         public void ValidateAssignTimeByCountryArgentina()
         {
             string[] line = new string[] { " ", "11:21", "60" };
-            Assert.AreEqual(60, argentina.AssignTime(line));
+            Assert.AreEqual(60, argentina.AssignTimeByCountry(line));
         }
 
         [TestMethod]
         public void ValidateAssignTimeWhitoutHourAndMinutesByCountryArgentina()
         {
             string[] line = new string[] { " ", "34" };
-            Assert.AreEqual(34, argentina.AssignTime(line));
+            Assert.AreEqual(34, argentina.AssignTimeByCountry(line));
         }
 
         [TestMethod]
         public void ValidateAssignTimeByCountryUruguay()
         {
             string[] line = new string[] { " ", "30", "13:21" };
-            Assert.AreEqual(30, uruguay.AssignTime(line));
+            Assert.AreEqual(30, uruguay.AssignTimeByCountry(line));
         }
 
         [TestMethod]

@@ -77,3 +77,6 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLI
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\ParkingSystem.dll.config
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\EntityFramework.dll
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\EntityFramework.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\BusinessLogicTest.dll.config
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\BusinessLogicTest\bin\Debug\EntityFramework.SqlServer.xml
