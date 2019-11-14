@@ -28,3 +28,15 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLI
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\ParkingSystem\bin\Debug\EntityFramework.xml
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\ParkingSystem\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\OBLIGATORIOI\ParkingSystem\ParkingSystem\obj\Debug\BusinessLogic.csproj.CopyComplete
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\bin\Debug\ParkingSystem.dll.config
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\bin\Debug\ParkingSystem.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\bin\Debug\ParkingSystem.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\bin\Debug\EntityFramework.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\bin\Debug\EntityFramework.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\obj\Debug\BusinessLogic.csprojAssemblyReference.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\obj\Debug\BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\obj\Debug\BusinessLogic.csproj.CopyComplete
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\obj\Debug\ParkingSystem.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\ParkingSystem\obj\Debug\ParkingSystem.pdb

@@ -20,15 +20,11 @@ namespace ParkingSystem
         {           
             using (var myContext = new MyContext())
             {
-                accountList = myContext.Accounts.Include("Country").Include("Country.ValidatorOfPhone")
-                    .Include("Country.ValidatorOfMessage").ToList();
+                accountList = myContext.ReturnListOfAccounts();               
+                enrollmentList = myContext.ReturnListOfEnrollments();
+                purchaseList = myContext.ReturnListOfPurchases();
+                countryList = myContext.ReturnListOfCountries();
                 myContext.SaveChanges();
-                enrollmentList = myContext.Enrollments.ToList();
-                purchaseList = myContext.Purchases.Include("AccountOfPurchase").Include("EnrollmentOfPurchase")
-                    .Include("AccountOfPurchase.Country").Include("AccountOfPurchase.Country.ValidatorOfMessage").
-                    Include("AccountOfPurchase.Country.ValidatorOfPhone").ToList();
-                countryList = myContext.Countries
-                    .Include("ValidatorOfMessage").Include("ValidatorOfPhone").ToList();
             }
         }
 
@@ -41,11 +37,7 @@ namespace ParkingSystem
             {
                accountList.Add(newAccount);
                using (var myContext = new MyContext())
-               {
-                    myContext.Countries.Attach(newAccount.Country);
-                    myContext.Accounts.Add(newAccount);
-                    myContext.SaveChanges();
-               }
+                    myContext.AddAccount(newAccount); 
             }
         }
 
@@ -60,11 +52,7 @@ namespace ParkingSystem
             {
                 account.Balance += balanceToAdd;
                 using (var myContext = new MyContext())
-                {
-                    Account accountInDataBase = myContext.Accounts.Find(account.AccountId);
-                    accountInDataBase.Balance += balanceToAdd;
-                    myContext.SaveChanges();
-                }
+                    myContext.AddBalanceToAccount(account, balanceToAdd);
             }
         }
 
@@ -74,11 +62,7 @@ namespace ParkingSystem
             {
                 account.Balance -= balanceToSubstract;
                 using (var myContext = new MyContext())
-                {
-                    Account accountInDataBase = myContext.Accounts.Find(account.AccountId);
-                    accountInDataBase.Balance -= balanceToSubstract;
-                    myContext.SaveChanges();
-                }
+                    myContext.SubstractBalanceToAccount(account, balanceToSubstract);
             }
         }        
 
@@ -90,10 +74,7 @@ namespace ParkingSystem
             {
                 enrollmentList.Add(newEnrollment);
                 using (var myContext = new MyContext())
-                {
-                    myContext.Enrollments.Add(newEnrollment);
-                    myContext.SaveChanges();
-                }
+                    myContext.AddEnrollment(newEnrollment);
             }
         }
 
@@ -106,12 +87,7 @@ namespace ParkingSystem
         {
             purchaseList.Add(newPurchase);
             using (var myContext = new MyContext())
-            {
-                myContext.Enrollments.Attach(newPurchase.EnrollmentOfPurchase);
-                myContext.Accounts.Attach(newPurchase.AccountOfPurchase);
-                myContext.Purchases.Add(newPurchase);
-                myContext.SaveChanges();
-            }
+                myContext.AddPurchase(newPurchase);
         }
 
         public List<Purchase> GetPurchases()
@@ -125,10 +101,7 @@ namespace ParkingSystem
             {
                 countryList.Add(newCountry);
                 using (var myContext = new MyContext())
-                {
-                    myContext.Countries.Add(newCountry);
-                    myContext.SaveChanges();
-                }
+                    myContext.AddCountry(newCountry);
             }
         }
 
@@ -214,11 +187,7 @@ namespace ParkingSystem
         public void UpdateCostForMinutes(CountryHandler country)
         {
             using (var myContext = new MyContext())
-            {
-                CountryHandler countryInDataBase = myContext.Countries.Find(country.CountryHandlerId);
-                countryInDataBase.CostForMinutes = country.CostForMinutes;
-                myContext.SaveChanges();
-            }
+                myContext.UpdateCostForMinutes(country);
         }
     }
 }

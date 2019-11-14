@@ -81,8 +81,8 @@ namespace UI
         private void MessageAccountAdded()
         {
             lblAnswer.ForeColor = Color.Green;
-            SetMessage("La cuenta ha sido registrada correctamente.");
             txtNumberPhone.Clear();
+            SetMessage("La cuenta ha sido registrada correctamente.");           
         }
 
         private void SetMessage(string textToShow)
