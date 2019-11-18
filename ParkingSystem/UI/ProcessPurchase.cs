@@ -13,28 +13,28 @@ namespace UI
 {
     public partial class ProcessPurchase : UserControl
     {
-        private Panel panel;
-        private IParkingRepository repository;
-        private ValidatorOfEnrollment validatorOfEnrollment;
-        private ValidatorOfDate validatorOfDate;
-        private CountryHandler countryHandler;
-        private int costForMinutes;
+        private Panel Panel;
+        private IParkingRepository Repository;
+        private ValidatorOfEnrollment ValidatorOfEnrollment;
+        private ValidatorOfDate ValidatorOfDate;
+        private CountryHandler CountryHandler;
+        private int CostForMinutes;
 
-        public ProcessPurchase(Panel principalPanel, IParkingRepository parkingRepository, CountryHandler actualCountry)
+        public ProcessPurchase(Panel PrincipalPanel, IParkingRepository ParkingRepository, CountryHandler ActualCountry)
         {
             InitializeComponent();
-            panel = principalPanel;
-            repository = parkingRepository;
-            validatorOfEnrollment = new ValidatorOfEnrollment();
-            validatorOfDate = new ValidatorOfDate();
-            costForMinutes = actualCountry.CostForMinutes;
-            countryHandler = actualCountry;
+            Panel = PrincipalPanel;
+            Repository = ParkingRepository;
+            ValidatorOfEnrollment = new ValidatorOfEnrollment();
+            ValidatorOfDate = new ValidatorOfDate();
+            CostForMinutes = ActualCountry.CostForMinutes;
+            CountryHandler = ActualCountry;
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            panel.Visible = true;
+            Panel.Visible = true;
         }
 
         private void BtnAccept_Click(object sender, EventArgs e)
@@ -45,35 +45,35 @@ namespace UI
         private void ValidateEmptyNumber()
         {
             lblAnswer.ForeColor = Color.Red;
-            if (countryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
+            if (CountryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
-                string textOfPhone = txtNumberPhone.Text;
-                textOfPhone = textOfPhone.Replace(" ", "");
-                ValidateFormatNumber(textOfPhone);
+                string TextOfPhone = txtNumberPhone.Text;
+                TextOfPhone = TextOfPhone.Replace(" ", "");
+                ValidateFormatNumber(TextOfPhone);
             }
         }
 
-        private void ValidateFormatNumber(string textOfPhone)
+        private void ValidateFormatNumber(string TextOfPhone)
         {
-            if (countryHandler.ValidateFormatNumberByCountry(ref textOfPhone))
-                ValidateIsNumeric(textOfPhone);
+            if (CountryHandler.ValidateFormatNumberByCountry(ref TextOfPhone))
+                ValidateIsNumeric(TextOfPhone);
             else
                 SetMessage("El número no coincide con el formato.");
         }
 
-        private void ValidateIsNumeric(string textOfPhone)
+        private void ValidateIsNumeric(string TextOfPhone)
         {
-            if (countryHandler.ValidateIsNumericByCountry(textOfPhone))
-                ValidateRepeatNumber(textOfPhone);
+            if (CountryHandler.ValidateIsNumericByCountry(TextOfPhone))
+                ValidateRepeatNumber(TextOfPhone);
             else
                 SetMessage("El número que ingresó no es númerico.");
         }
 
-        private void ValidateRepeatNumber(string textOfPhone)
+        private void ValidateRepeatNumber(string TextOfPhone)
         {
-           if (repository.IsRepeatedNumber(textOfPhone))
+           if (Repository.IsRepeatedNumber(TextOfPhone))
                 ValidateEmptyMessage();
            else
                 SetMessage("El número que ingresó no está registrado.");
@@ -81,7 +81,7 @@ namespace UI
 
         private void ValidateEmptyMessage()
         {
-            if (!countryHandler.ValidateIsEmptyByCountry(txtMessage.Text))
+            if (!CountryHandler.ValidateIsEmptyByCountry(txtMessage.Text))
                 ValidateLengthMessage();
             else
                 SetMessage("Debe ingresar un mensaje.");
@@ -89,7 +89,7 @@ namespace UI
 
         private void ValidateLengthMessage()
         {
-            if (countryHandler.IsLengthOfMessageCorrectByCountry(txtMessage.Text.Length))
+            if (CountryHandler.IsLengthOfMessageCorrectByCountry(txtMessage.Text.Length))
                 ValidateEnrollment();
             else
                 SetMessage("El formato del mensaje no es correcto.");
@@ -97,25 +97,25 @@ namespace UI
 
         private void ValidateEnrollment()
         {
-            string[] lineOfMessage = txtMessage.Text.Split(' ');
-            if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(lineOfMessage))
-                ValidateEnrollmentWithSpace(lineOfMessage);
+            string[] LineOfMessage = txtMessage.Text.Split(' ');
+            if (ValidatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(LineOfMessage))
+                ValidateEnrollmentWithSpace(LineOfMessage);
             else
-                ValidateEnrollmentWithoutSpace(lineOfMessage);
+                ValidateEnrollmentWithoutSpace(LineOfMessage);
         }
 
-        private void ValidateEnrollmentWithSpace(string [] lineOfMessage)
+        private void ValidateEnrollmentWithSpace(string [] LineOfMessage)
         {
-            if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0] + lineOfMessage[1]))
+            if (ValidatorOfEnrollment.ValidateFormatOfEnrollment(LineOfMessage[0] + LineOfMessage[1]))
                 ValidateMessageData(txtMessage.Text.Substring(8));
             else
                 SetMessage("El formato de la matrícula no es válido.");
         }
 
-        private void ValidateEnrollmentWithoutSpace(string [] lineOfMessage)
+        private void ValidateEnrollmentWithoutSpace(string [] LineOfMessage)
         {
-            if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(lineOfMessage))
-                if (validatorOfEnrollment.ValidateFormatOfEnrollment(lineOfMessage[0]))
+            if (ValidatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(LineOfMessage))
+                if (ValidatorOfEnrollment.ValidateFormatOfEnrollment(LineOfMessage[0]))
                     ValidateMessageData(txtMessage.Text.Substring(7));
                 else
                     SetMessage("El formato de la matrícula no es válido.");
@@ -123,91 +123,91 @@ namespace UI
                 SetMessage("El formato de la matrícula no es válido.");
         }
 
-        private void ValidateMessageData(string restOfMessage)
+        private void ValidateMessageData(string RestOfMessage)
         {
-            if (countryHandler.ValidateMessageDataByCountry(restOfMessage))
-                AssignValues(restOfMessage);
+            if (CountryHandler.ValidateMessageDataByCountry(RestOfMessage))
+                AssignValues(RestOfMessage);
             else
                 SetMessage("El formato del mensaje no es correcto.");
         }
 
-        private void AssignValues(string restOfMessage)
+        private void AssignValues(string RestOfMessage)
         {
-            string[] lineOfRestOfMessage = restOfMessage.Split(' ');
-            int hourOfPurchase = DateTime.Now.Hour;
-            int minutesOfPurchase = DateTime.Now.Minute;
-            if (countryHandler.WroteHourAndMinutesByCountry(lineOfRestOfMessage))
+            string[] LineOfRestOfMessage = RestOfMessage.Split(' ');
+            int HourOfPurchase = DateTime.Now.Hour;
+            int MinutesOfPurchase = DateTime.Now.Minute;
+            if (CountryHandler.WroteHourAndMinutesByCountry(LineOfRestOfMessage))
             {
-                hourOfPurchase = countryHandler.AssignHourByCountry(lineOfRestOfMessage);
-                minutesOfPurchase = countryHandler.AssignMinutesByCountry(lineOfRestOfMessage);
+                HourOfPurchase = CountryHandler.AssignHourByCountry(LineOfRestOfMessage);
+                MinutesOfPurchase = CountryHandler.AssignMinutesByCountry(LineOfRestOfMessage);
             }
-            int timeOfPurchase = countryHandler.AssignTimeByCountry(lineOfRestOfMessage);
-            DateTime dateOfPurchase = AssignTimesToDate(hourOfPurchase, minutesOfPurchase);
-            ValidateTimeMultipleOf30(timeOfPurchase, dateOfPurchase);
+            int TimeOfPurchase = CountryHandler.AssignTimeByCountry(LineOfRestOfMessage);
+            DateTime DateOfPurchase = AssignTimesToDate(HourOfPurchase, MinutesOfPurchase);
+            ValidateTimeMultipleOf30(TimeOfPurchase, DateOfPurchase);
         }
 
-        private DateTime AssignTimesToDate(int hourOfPurchase, int minutesOfPurchase)
+        private DateTime AssignTimesToDate(int HourOfPurchase, int MinutesOfPurchase)
         {
             return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 
-                hourOfPurchase, minutesOfPurchase, 0);
+                HourOfPurchase, MinutesOfPurchase, 0);
         }
 
-        private void ValidateTimeMultipleOf30(int timeOfPurchase, DateTime dateOfPurchse)
+        private void ValidateTimeMultipleOf30(int TimeOfPurchase, DateTime DateOfPurchase)
         {   
-            if(countryHandler.ValidateTimeOfPurchaseByCountry(timeOfPurchase))
-                ValidateDate(timeOfPurchase, dateOfPurchse);
+            if(CountryHandler.ValidateTimeOfPurchaseByCountry(TimeOfPurchase))
+                ValidateDate(TimeOfPurchase, DateOfPurchase);
             else
                 SetMessage("La cantidad de minutos debe ser múltiplo de 30.");
         }
 
-        private void ValidateDate(int timeOfPurchase, DateTime dateOfPurchse)
+        private void ValidateDate(int TimeOfPurchase, DateTime DateOfPurchase)
         {
-            if (validatorOfDate.ValidateValidHour(dateOfPurchse))
+            if (ValidatorOfDate.ValidateValidHour(DateOfPurchase))
             {
-                int finalTimeOfPurchase = countryHandler.CalculateFinalTimeOfPurchaseByCountry(timeOfPurchase, dateOfPurchse);
-                CheckBalanceAccount(finalTimeOfPurchase, dateOfPurchse);
+                int FinalTimeOfPurchase = CountryHandler.CalculateFinalTimeOfPurchaseByCountry(TimeOfPurchase, DateOfPurchase);
+                CheckBalanceAccount(FinalTimeOfPurchase, DateOfPurchase);
             }
             else
                 SetMessage("La hora es incorrecta o previa a la hora actual.");
         }
 
-        private void CheckBalanceAccount(int finalTimeOfPurchase, DateTime dateTimeOfPurchase)
+        private void CheckBalanceAccount(int FinalTimeOfPurchase, DateTime DateTimeOfPurchase)
         {
-            Account account = repository.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
-            int finalCostOfPurchase = finalTimeOfPurchase * costForMinutes;
-            if (finalCostOfPurchase <= account.Balance)
+            Account Account = Repository.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
+            int FinalCostOfPurchase = FinalTimeOfPurchase * CostForMinutes;
+            if (FinalCostOfPurchase <= Account.Balance)
             {
-                SubtractBalance(account, finalCostOfPurchase);
-                AddEnrollment(finalTimeOfPurchase, dateTimeOfPurchase);
+                SubtractBalance(Account, FinalCostOfPurchase);
+                AddEnrollment(FinalTimeOfPurchase, DateTimeOfPurchase);
             }
             else
                 SetMessage("El saldo de la cuenta es insuficiente.");
         }
 
-        private void SubtractBalance(Account account, int finalCostOfPurchase)
+        private void SubtractBalance(Account Account, int FinalCostOfPurchase)
         {
-            repository.SubstractBalanceToAccount(account, finalCostOfPurchase);
+            Repository.SubstractBalanceToAccount(Account, FinalCostOfPurchase);
         }
 
-        private void AddEnrollment(int finalTimeOfPurchase, DateTime dateTime)
+        private void AddEnrollment(int FinalTimeOfPurchase, DateTime DateTime)
         {
-            string aEnrollment = txtMessage.Text.Replace(" ", "");
-            Enrollment enrollment = new Enrollment(aEnrollment.Substring(0, 3),
-            Int32.Parse(aEnrollment.Substring(3, 4)));
-            if (repository.IsRepeatedEnrollment(enrollment.LettersOfEnrollment, enrollment.NumbersOfEnrollment))
-                enrollment = repository.GetAnEnrollment(enrollment.LettersOfEnrollment, enrollment.NumbersOfEnrollment);
+            string NewEnrollment = txtMessage.Text.Replace(" ", "");
+            Enrollment Enrollment = new Enrollment(NewEnrollment.Substring(0, 3),
+            Int32.Parse(NewEnrollment.Substring(3, 4)));
+            if (Repository.IsRepeatedEnrollment(Enrollment.LettersOfEnrollment, Enrollment.NumbersOfEnrollment))
+                Enrollment = Repository.GetAnEnrollment(Enrollment.LettersOfEnrollment, Enrollment.NumbersOfEnrollment);
             else
-                repository.AddEnrollment(enrollment);
-            AddPurchase(finalTimeOfPurchase, enrollment, dateTime);
+                Repository.AddEnrollment(Enrollment);
+            AddPurchase(FinalTimeOfPurchase, Enrollment, DateTime);
         }
 
-        private void AddPurchase(int finalTimeOfPurchase, Enrollment enrollment, DateTime dateTime)
+        private void AddPurchase(int FinalTimeOfPurchase, Enrollment Enrollment, DateTime DateTime)
         {
-            if (!repository.ArePurchaseOnThatDate(dateTime, enrollment))
+            if (!Repository.ArePurchaseOnThatDate(DateTime, Enrollment))
             {
-                Account account = repository.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
-                Purchase newPurchase = new Purchase(enrollment, finalTimeOfPurchase, dateTime, account);
-                repository.AddPurchase(newPurchase);
+                Account Account = Repository.GetAnAccount(txtNumberPhone.Text.Replace(" ", ""));
+                Purchase NewPurchase = new Purchase(Enrollment, FinalTimeOfPurchase, DateTime, Account);
+                Repository.AddPurchase(NewPurchase);
                 MessagePurchaseAdded();
             }
             else
@@ -227,10 +227,10 @@ namespace UI
             txtMessage.Clear();
         }
         
-        private void SetMessage(string textToShow)
+        private void SetMessage(string TextToShow)
         {
             lblAnswer.Visible = true;
-            lblAnswer.Text = textToShow;
+            lblAnswer.Text = TextToShow;
             timerOfAnswer.Start();
         }
 

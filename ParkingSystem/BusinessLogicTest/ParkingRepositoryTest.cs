@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using DataBaseConnection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ParkingSystem;
 
@@ -9,531 +11,573 @@ namespace UnitTestProject1
     [TestClass]
     public class ParkingRepositoryTest
     {
-        IParkingRepository repository;
-        Account account;
-        Enrollment enrollment;
+        IParkingRepository Repository;
+        Account Account;
+        Enrollment Enrollment;
 
         [TestCleanup]
         public void TestClean() {
-            account = null;
+            Account = null;
         }
 
         [TestInitialize]
         public void TestInit()
         {
-            repository = new ParkingRepository();
-            repository.GetAccounts().Clear();
-            repository.GetEnrollments().Clear();
-            repository.GetPurchases().Clear();
-            account = new Account();
-            account.Mobile = "099344951";
-            account.Balance = 0;
-            enrollment = new Enrollment("sbn", 4849);
-            account.Country = repository.GetACountry("Uruguay");
+            Repository = new ParkingRepository();
+            Repository.GetAccounts().Clear();
+            Repository.GetEnrollments().Clear();
+            Repository.GetPurchases().Clear();
+            Account = new Account();
+            Account.Mobile = "099344951";
+            Account.Balance = 0;
+            Enrollment = new Enrollment("sbn", 4849);
+            Account.Country = Repository.GetACountry("Uruguay");
+        }
+
+        [TestMethod]
+        public void ValidateIsNumericEmpty()
+        {
+            Assert.AreEqual(false, Account.Country.ValidateIsNumericByCountry(""));
+        }
+
+        [TestMethod]
+        public void ValidateIsNumericWithOneNumber()
+        {
+            Assert.AreEqual(true, Account.Country.ValidateIsNumericByCountry("1"));
+        }
+
+        [TestMethod]
+        public void ValidateIsNumericWithDecimalNumber()
+        {
+            Assert.AreEqual(false, Account.Country.ValidateIsNumericByCountry("2,4"));
+        }
+
+        [TestMethod]
+        public void ValidateIsNumericWithLettersAndNumbers()
+        {
+            Assert.AreEqual(false, Account.Country.ValidateIsNumericByCountry("t2e3s4t"));
+        }
+
+        [TestMethod]
+        public void ValidatePhoneIsNumeric()
+        {
+            Assert.AreEqual(true, Account.Country.ValidateIsNumericByCountry("099366931"));
+        }
+
+        [TestMethod]
+        public void ValidateIsEmpty()
+        {
+            Assert.AreEqual(true, Account.Country.ValidateIsEmptyByCountry(""));
+        }
+
+        [TestMethod]
+        public void ValidateIsNotEmpty()
+        {
+            Assert.AreEqual(false, Account.Country.ValidateIsEmptyByCountry("test"));
         }
 
         [TestMethod]
         public void AddAccountEmpty()
         {
-            account.Mobile = "";
-            repository.AddAccount(account);
-            Assert.AreEqual(false, repository.GetAccounts().Contains(account));
+            Account.Mobile = "";
+            Repository.AddAccount(Account);
+            Assert.AreEqual(false, Repository.GetAccounts().Contains(Account));
         }
 
         [TestMethod]
         public void AddAccountMobileEmpty()
         {
-           account.Mobile = "";
-           account.Balance = 50;
-           repository.AddAccount(account);
-           Assert.AreEqual(false, repository.GetAccounts().Contains(account));
+           Account.Mobile = "";
+           Account.Balance = 50;
+           Repository.AddAccount(Account);
+           Assert.AreEqual(false, Repository.GetAccounts().Contains(Account));
         }
 
         [TestMethod]
         public void AddAccountWithErrorInBalance()
         {
-            account.Balance = -25;
-            repository.AddAccount(account);
-            Assert.AreEqual(false, repository.GetAccounts().Contains(account));
+            Account.Balance = -25;
+            Repository.AddAccount(Account);
+            Assert.AreEqual(false, Repository.GetAccounts().Contains(Account));
         }
 
         [TestMethod]
         public void AddAccountWithErrorInNumberLessLength()
         {
-            account.Mobile = "09936";
-            repository.AddAccount(account);
-            Assert.AreEqual(false, repository.GetAccounts().Contains(account));
+            Account.Mobile = "09936";
+            Repository.AddAccount(Account);
+            Assert.AreEqual(false, Repository.GetAccounts().Contains(Account));
         }
 
         [TestMethod]
         public void AddAccountWithErrorInNumberFormat()
         {
-            account.Mobile = "09ed1343";
-            repository.AddAccount(account);
-            Assert.AreEqual(false, repository.GetAccounts().Contains(account));
+            Account.Mobile = "09ed1343";
+            Repository.AddAccount(Account);
+            Assert.AreEqual(false, Repository.GetAccounts().Contains(Account));
         }
 
         [TestMethod]
         public void AddAccountBalanceEmpty()
         {
-            account.Mobile = "099123496";
-            repository.AddAccount(account);
-            Assert.AreEqual(true, repository.GetAccounts().Contains(account));
+            Account.Mobile = "099123496";
+            Repository.AddAccount(Account);
+            Assert.AreEqual(true, Repository.GetAccounts().Contains(Account));
         }
 
         [TestMethod]
         public void AddValidAccount()
         {
-            repository.AddAccount(account);
-            Assert.AreEqual(true, repository.GetAccounts().Contains(account));
-            using (var myContext = new MyContext())
+            Repository.AddAccount(Account);
+            Assert.AreEqual(true, Repository.GetAccounts().Contains(Account));
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void AddValidAccountTwoTimes()
         {
-            repository.AddAccount(account);
-            repository.AddAccount(account);
-            Assert.AreEqual(true, repository.GetAccounts().Contains(account));
-            using (var myContext = new MyContext())
+            Repository.AddAccount(Account);
+            Repository.AddAccount(Account);
+            Assert.AreEqual(true, Repository.GetAccounts().Contains(Account));
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void AddValidAccountWhitZeroAndWithoutZero()
         {
-            Account validAccount = new Account(25, "099366931", repository.GetACountry("Uruguay"));
-            repository.AddAccount(validAccount);
-            Account invalidAccount = new Account(25, "99366931", repository.GetACountry("Uruguay"));
-            repository.AddAccount(invalidAccount);
-            Assert.AreEqual(false, repository.GetAccounts().Contains(invalidAccount));
-            using (var myContext = new MyContext())
+            Account validAccount = new Account(25, "099366931", Repository.GetACountry("Uruguay"));
+            Repository.AddAccount(validAccount);
+            Account invalidAccount = new Account(25, "99366931", Repository.GetACountry("Uruguay"));
+            Repository.AddAccount(invalidAccount);
+            Assert.AreEqual(false, Repository.GetAccounts().Contains(invalidAccount));
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void AddEnrollmentEmpty()
         {
-            Enrollment enrollment = new Enrollment();
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollment));
+            Enrollment Enrollment = new Enrollment();
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(Enrollment));
         }
 
         [TestMethod]
         public void AddEnrollmentWithLetttersEmpty()
         {
-            Enrollment enrollment = new Enrollment();
-            enrollment.NumbersOfEnrollment = 2344;
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollment));
+            Enrollment Enrollment = new Enrollment();
+            Enrollment.NumbersOfEnrollment = 2344;
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(Enrollment));
         }
 
         [TestMethod]
         public void AddEnrollmentWithNumbersEmpty()
         {
-            Enrollment enrollment = new Enrollment();
-            enrollment.LettersOfEnrollment = "AAA";
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollment));
+            Enrollment Enrollment = new Enrollment();
+            Enrollment.LettersOfEnrollment = "AAA";
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(Enrollment));
         }
 
         [TestMethod]
         public void AddEnrollmentLettersLess()
         {
-            Enrollment enrollment = new Enrollment("AA", 2323);
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollment));
+            Enrollment Enrollment = new Enrollment("AA", 2323);
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(Enrollment));
         }
 
         [TestMethod]
         public void AddEnrollmentLettersMore()
         {
-            Enrollment enrollment = new Enrollment("AAAA", 2345);
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollment));
+            Enrollment Enrollment = new Enrollment("AAAA", 2345);
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(Enrollment));
         }
 
         [TestMethod]
         public void AddEnrollmentNumbersLess()
         {
-            Enrollment enrollment = new Enrollment("AAA", 232);
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollment));
+            Enrollment Enrollment = new Enrollment("AAA", 232);
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(Enrollment));
         }
 
         [TestMethod]
         public void AddEnrollmentNumbersMore()
         {
-            Enrollment enrollment = new Enrollment("AAA", 23424);
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollment));
+            Enrollment Enrollment = new Enrollment("AAA", 23424);
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(Enrollment));
         }
 
         [TestMethod]
         public void AddValidEnrollment()
         {
-            Enrollment enrollment = new Enrollment("AAA", 2324);
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(true, repository.GetEnrollments().Contains(enrollment));
-            using (var myContext = new MyContext())
+            Enrollment Enrollment = new Enrollment("AAA", 2324);
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(true, Repository.GetEnrollments().Contains(Enrollment));
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollment);
+                MyContext.Enrollments.Attach(Enrollment);
             }
         }
 
         [TestMethod]
         public void AddTwoEqualsNumbersEnrollment()
         {
-            Enrollment enrollmentOne = new Enrollment("AAA", 2344);
-            Enrollment enrollmentTwo = new Enrollment("BBB", 2344);
-            repository.AddEnrollment(enrollmentOne);
-            repository.AddEnrollment(enrollmentTwo);
-            Assert.AreEqual(true, repository.GetEnrollments().Contains(enrollmentTwo));
-            using (var myContext = new MyContext())
+            Enrollment EnrollmentOne = new Enrollment("AAA", 2344);
+            Enrollment EnrollmentTwo = new Enrollment("BBB", 2344);
+            Repository.AddEnrollment(EnrollmentOne);
+            Repository.AddEnrollment(EnrollmentTwo);
+            Assert.AreEqual(true, Repository.GetEnrollments().Contains(EnrollmentTwo));
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollmentOne);
-                myContext.Enrollments.Attach(enrollmentTwo);
+                MyContext.Enrollments.Attach(EnrollmentOne);
+                MyContext.Enrollments.Attach(EnrollmentTwo);
             }
         }
 
         [TestMethod]
         public void AddTwoEqualsLettersEnrollment()
         {
-            Enrollment enrollmentOne = new Enrollment("AAA", 2346);
-            Enrollment enrollmentTwo = new Enrollment("AAA", 2347);
-            repository.AddEnrollment(enrollmentOne);
-            repository.AddEnrollment(enrollmentTwo);
-            Assert.AreEqual(true, repository.GetEnrollments().Contains(enrollmentTwo));
-            using (var myContext = new MyContext())
+            Enrollment EnrollmentOne = new Enrollment("AAA", 2346);
+            Enrollment EnrollmentTwo = new Enrollment("AAA", 2347);
+            Repository.AddEnrollment(EnrollmentOne);
+            Repository.AddEnrollment(EnrollmentTwo);
+            Assert.AreEqual(true, Repository.GetEnrollments().Contains(EnrollmentTwo));
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollmentOne);
-                myContext.Enrollments.Attach(enrollmentTwo);
+                MyContext.Enrollments.Attach(EnrollmentOne);
+                MyContext.Enrollments.Attach(EnrollmentTwo);
             }
         }
 
         [TestMethod]
         public void AddTwoEqualsEnrollment()
         {
-            Enrollment enrollmentOne = new Enrollment("AAA", 2344);
-            Enrollment enrollmentTwo = new Enrollment("AAA", 2344);
-            repository.AddEnrollment(enrollmentOne);
-            repository.AddEnrollment(enrollmentTwo);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollmentTwo));
-            using (var myContext = new MyContext())
+            Enrollment EnrollmentOne = new Enrollment("AAA", 2344);
+            Enrollment EnrollmentTwo = new Enrollment("AAA", 2344);
+            Repository.AddEnrollment(EnrollmentOne);
+            Repository.AddEnrollment(EnrollmentTwo);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(EnrollmentTwo));
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollmentOne);
+                MyContext.Enrollments.Attach(EnrollmentOne);
             }
         }
 
         [TestMethod]
         public void AddTwoEqualsLettersInUpperAndLowerCase()
         {
-            Enrollment enrollmentOne = new Enrollment("aaa", 2344);
-            Enrollment enrollmentTwo = new Enrollment("AAA", 2344);
-            repository.AddEnrollment(enrollmentOne);
-            repository.AddEnrollment(enrollmentTwo);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollmentTwo));
-            using (var myContext = new MyContext())
+            Enrollment EnrollmentOne = new Enrollment("aaa", 2344);
+            Enrollment EnrollmentTwo = new Enrollment("AAA", 2344);
+            Repository.AddEnrollment(EnrollmentOne);
+            Repository.AddEnrollment(EnrollmentTwo);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(EnrollmentTwo));
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollmentOne);
+                MyContext.Enrollments.Attach(EnrollmentOne);
             }
         }
 
         [TestMethod]
         public void AddTwoEqualsLettersInUpperAndLowerCaseTwo()
         {
-            Enrollment enrollmentOne = new Enrollment("AbC", 2344);
-            Enrollment enrollmentTwo = new Enrollment("aBc", 2344);
-            repository.AddEnrollment(enrollmentOne);
-            repository.AddEnrollment(enrollmentTwo);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollmentTwo));
-            using (var myContext = new MyContext())
+            Enrollment EnrollmentOne = new Enrollment("AbC", 2344);
+            Enrollment EnrollmentTwo = new Enrollment("aBc", 2344);
+            Repository.AddEnrollment(EnrollmentOne);
+            Repository.AddEnrollment(EnrollmentTwo);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(EnrollmentTwo));
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollmentOne);
+                MyContext.Enrollments.Attach(EnrollmentOne);
             }
         }
 
         [TestMethod]
         public void AddEnrollmentNumbersInLetters()
         {
-            Enrollment enrollment = new Enrollment("232", 23424);
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.GetEnrollments().Contains(enrollment));
+            Enrollment Enrollment = new Enrollment("232", 23424);
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.GetEnrollments().Contains(Enrollment));
         }
 
         [TestMethod]
         public void AddCountryEmpty()
         {
-            CountryHandler country = new CountryHandler("Bolivia", 1);
-            Assert.AreEqual(false, repository.GetCountries().Contains(country));
+            CountryHandler Country = new CountryHandler("Bolivia", 1);
+            Assert.AreEqual(false, Repository.GetCountries().Contains(Country));
         }
 
         [TestMethod]
         public void AddCountry()
         {
-            repository.GetCountries().Clear();
-            CountryHandler country = new CountryHandler("Brasil", 1);
-            repository.AddCountry(country);
-            Assert.AreEqual(true, repository.GetCountries().Contains(country));
-            using (var myContext = new MyContext())
+            Repository.GetCountries().Clear();
+            CountryHandler Country = new CountryHandler("Brasil", 1);
+            Repository.AddCountry(Country);
+            Assert.AreEqual(true, Repository.GetCountries().Contains(Country));
+            using (var MyContext = new MyContext())
             {
-                myContext.Countries.Attach(country);
+                MyContext.Countries.Attach(Country);
             }
         }
 
         [TestMethod]
         public void AddTwoEqualsCountry()
         {
-            CountryHandler country = new CountryHandler("Brasil", 1);
+            CountryHandler Country = new CountryHandler("Brasil", 1);
             CountryHandler secondCountry = new CountryHandler("Brasil", 2);
-            repository.AddCountry(country);
-            repository.AddCountry(secondCountry);
-            Assert.AreEqual(false, repository.GetCountries().Contains(secondCountry));
-            using (var myContext = new MyContext())
+            Repository.AddCountry(Country);
+            Repository.AddCountry(secondCountry);
+            Assert.AreEqual(false, Repository.GetCountries().Contains(secondCountry));
+            using (var MyContext = new MyContext())
             {
-                myContext.Countries.Attach(country);
+                MyContext.Countries.Attach(Country);
             }
         }
 
         [TestMethod]
         public void ValidateRepeatNumberEmpty()
         {
-            Assert.AreEqual(false, repository.IsRepeatedNumber(""));
+            Assert.AreEqual(false, Repository.IsRepeatedNumber(""));
         }
 
         [TestMethod]
         public void ValidateRepeatNumberBadFormat()
         {
-            Assert.AreEqual(false, repository.IsRepeatedNumber("43823"));
+            Assert.AreEqual(false, Repository.IsRepeatedNumber("43823"));
         }
 
         [TestMethod]
         public void ValidateRepeatNumberLetters()
         {
-            Assert.AreEqual(false, repository.IsRepeatedNumber("test"));
+            Assert.AreEqual(false, Repository.IsRepeatedNumber("test"));
         }
 
         [TestMethod]
         public void ValidateRepeatNumberNotRepeated()
         {
-            Assert.AreEqual(false, repository.IsRepeatedNumber("12398989898"));
+            Assert.AreEqual(false, Repository.IsRepeatedNumber("12398989898"));
         }
 
         [TestMethod]
         public void ValidateRepeatNumberRepeated()
         {
-            repository.AddAccount(new Account(0, "099366931", repository.GetACountry("Uruguay")));
-            Assert.AreEqual(true, repository.IsRepeatedNumber("099366931"));
+            Repository.AddAccount(new Account(0, "099366931", Repository.GetACountry("Uruguay")));
+            Assert.AreEqual(true, Repository.IsRepeatedNumber("099366931"));
         }
 
         [TestMethod]
         public void ValidateGrabAnAccountWithListEmpty()
         {
-            Assert.AreEqual(null, repository.GetAnAccount("099366931"));
+            Assert.AreEqual(null, Repository.GetAnAccount("099366931"));
         }
 
         [TestMethod]
         public void ValidateGrabAnAccountOutsideOfTheList()
         {
-            Account account = new Account(0, "098993924", repository.GetACountry("Uruguay"));
-            repository.AddAccount(account);
-            Assert.AreEqual(null, repository.GetAnAccount("099366931"));
-            using (var myContext = new MyContext())
+            Account Account = new Account(0, "098993924", Repository.GetACountry("Uruguay"));
+            Repository.AddAccount(Account);
+            Assert.AreEqual(null, Repository.GetAnAccount("099366931"));
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void ValidateGrabAnAccountInTheListOfAnAccount()
         {
-            Account account = new Account(0, "099366931", repository.GetACountry("Uruguay"));
-            repository.AddAccount(account);
-            Assert.AreEqual(account, repository.GetAnAccount("099366931"));
-            using (var myContext = new MyContext())
+            Account Account = new Account(0, "099366931", Repository.GetACountry("Uruguay"));
+            Repository.AddAccount(Account);
+            Assert.AreEqual(Account, Repository.GetAnAccount("099366931"));
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void ValidateGrabAnAccountInTheListOfManyAccounts()
         {
-            repository.AddAccount(new Account(0, "092345678", repository.GetACountry("Uruguay")));
-            repository.AddAccount(new Account(0, "095345688", repository.GetACountry("Uruguay")));
-            repository.AddAccount(new Account(0, "092340478", repository.GetACountry("Uruguay")));
-            Account account = new Account(0, "099366931", repository.GetACountry("Uruguay"));
-            repository.AddAccount(account);
-            Assert.AreEqual(account, repository.GetAnAccount("099366931"));
+            Repository.AddAccount(new Account(0, "092345678", Repository.GetACountry("Uruguay")));
+            Repository.AddAccount(new Account(0, "095345688", Repository.GetACountry("Uruguay")));
+            Repository.AddAccount(new Account(0, "092340478", Repository.GetACountry("Uruguay")));
+            Account Account = new Account(0, "099366931", Repository.GetACountry("Uruguay"));
+            Repository.AddAccount(Account);
+            Assert.AreEqual(Account, Repository.GetAnAccount("099366931"));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentWithListEmpty()
         {
-            Assert.AreEqual(null, repository.GetAnEnrollment("sbn", 4040));
+            Assert.AreEqual(null, Repository.GetAnEnrollment("sbn", 4040));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentOutsideOfTheList()
         {
-            repository.AddEnrollment(new Enrollment("sbn", 3924));
-            Assert.AreEqual(null, repository.GetAnEnrollment("sad", 4334));
+            Repository.AddEnrollment(new Enrollment("sbn", 3924));
+            Assert.AreEqual(null, Repository.GetAnEnrollment("sad", 4334));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentWhitTheSameLetters()
         {
-            repository.AddEnrollment(new Enrollment("sbn", 3924));
-            Assert.AreEqual(null, repository.GetAnEnrollment("sbn", 3922));
+            Repository.AddEnrollment(new Enrollment("sbn", 3924));
+            Assert.AreEqual(null, Repository.GetAnEnrollment("sbn", 3922));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentWhitTheSameNumbers()
         {
-            repository.AddEnrollment(new Enrollment("sbn", 3924));
-            Assert.AreEqual(null, repository.GetAnEnrollment("sbv", 3924));
+            Repository.AddEnrollment(new Enrollment("sbn", 3924));
+            Assert.AreEqual(null, Repository.GetAnEnrollment("sbv", 3924));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentInTheListOfEnrollment()
         {
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(enrollment, repository.GetAnEnrollment("sbn", 4849));
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(Enrollment, Repository.GetAnEnrollment("sbn", 4849));
         }
 
         [TestMethod]
         public void ValidateGrabAnEnrollmentInTheListOfManyEnrollments()
         {
-            Enrollment enrollment = new Enrollment("fds", 1232);
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(enrollment, repository.GetAnEnrollment("fds", 1232));
-            using (var myContext = new MyContext())
+            Enrollment Enrollment = new Enrollment("fds", 1232);
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(Enrollment, Repository.GetAnEnrollment("fds", 1232));
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollment);
+                MyContext.Enrollments.Attach(Enrollment);
             }
         }        
 
         [TestMethod]
         public void ValidateGrabAnCountryOutsideOfTheList()
         {
-            repository.GetCountries().Clear();
-            Assert.AreEqual(null, repository.GetACountry("Brasil"));
+            Repository.GetCountries().Clear();
+            Assert.AreEqual(null, Repository.GetACountry("Brasil"));
         }
 
         [TestMethod]
         public void ValidateGrabAnCountryInTheList()
         {
-            repository.GetCountries().Clear();
+            Repository.GetCountries().Clear();
             CountryHandler brasil = new CountryHandler("Brasil", 5);
-            repository.AddCountry(brasil);
-            Assert.AreEqual(brasil, repository.GetACountry("Brasil"));
+            Repository.AddCountry(brasil);
+            Assert.AreEqual(brasil, Repository.GetACountry("Brasil"));
         }
         
         [TestMethod]
         public void ValidateGrabACountryInTheListOfManyCountries()
         {
-            repository.GetCountries().Clear();
-            repository.AddCountry(new CountryHandler("Argentina", 2));
-            repository.AddCountry(new CountryHandler("Chile", 3));
-            repository.AddCountry(new CountryHandler("Brasil", 2));
+            Repository.GetCountries().Clear();
+            Repository.AddCountry(new CountryHandler("Argentina", 2));
+            Repository.AddCountry(new CountryHandler("Chile", 3));
+            Repository.AddCountry(new CountryHandler("Brasil", 2));
             CountryHandler venezuela = new CountryHandler("Venezuela", 3);
-            repository.AddCountry(venezuela);
-            Assert.AreEqual(venezuela, repository.GetACountry("Venezuela"));
+            Repository.AddCountry(venezuela);
+            Assert.AreEqual(venezuela, Repository.GetACountry("Venezuela"));
         }
 
         [TestMethod]
         public void ValidateRepeatEnrollmentEmpty()
         {
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.IsRepeatedEnrollment("", 0));
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.IsRepeatedEnrollment("", 0));
         }
 
         [TestMethod]
         public void ValidateRepeatEnrollmentEmptyList()
         {
-            Assert.AreEqual(false, repository.IsRepeatedEnrollment("SBN", 4230));
+            Assert.AreEqual(false, Repository.IsRepeatedEnrollment("SBN", 4230));
         }
 
         [TestMethod]
         public void ValidateRepeatEnrollmentNumbers()
         {
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.IsRepeatedEnrollment("SBM", 4849));
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.IsRepeatedEnrollment("SBM", 4849));
         }
 
         [TestMethod]
         public void ValidateRepeatEnrollmentLetters()
         {
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.IsRepeatedEnrollment("SBN", 4848));
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.IsRepeatedEnrollment("SBN", 4848));
         }
 
         [TestMethod]
         public void ValidateRepeatEnrollmentNotRepeated()
         {
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(false, repository.IsRepeatedEnrollment("SBM", 4848));
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(false, Repository.IsRepeatedEnrollment("SBM", 4848));
         }
 
         [TestMethod]
         public void ValidateRepeatEnrollmentRepeated()
         {
-            repository.AddEnrollment(enrollment);
-            Assert.AreEqual(true, repository.IsRepeatedEnrollment("SBN", 4849));
+            Repository.AddEnrollment(Enrollment);
+            Assert.AreEqual(true, Repository.IsRepeatedEnrollment("SBN", 4849));
         }
 
         [TestMethod]
         public void ValidateRepeatCountryNotRepeated()
         {
-            repository.GetCountries().Clear();
-            CountryHandler country = new CountryHandler("Brasil", 1);
-            repository.AddCountry(country);
-            Assert.AreEqual(false, repository.IsRepeatedCountry(""));
+            Repository.GetCountries().Clear();
+            CountryHandler Country = new CountryHandler("Brasil", 1);
+            Repository.AddCountry(Country);
+            Assert.AreEqual(false, Repository.IsRepeatedCountry(""));
         }
 
         [TestMethod]
         public void ValidateRepeatCountryEmptyList()
         {
-            repository.GetCountries().Clear();
-            Assert.AreEqual(false, repository.IsRepeatedCountry("Chile"));
+            Repository.GetCountries().Clear();
+            Assert.AreEqual(false, Repository.IsRepeatedCountry("Chile"));
         }
 
         [TestMethod]
         public void ValidateRepeatCountry()
         {
-            CountryHandler country = new CountryHandler("Brasil", 2);
-            repository.AddCountry(country);
-            Assert.AreEqual(true, repository.IsRepeatedCountry("Brasil"));
+            CountryHandler Country = new CountryHandler("Brasil", 2);
+            Repository.AddCountry(Country);
+            Assert.AreEqual(true, Repository.IsRepeatedCountry("Brasil"));
         }
         
         [TestMethod]
         public void ValidatePurchaseInTheDateNotPurchases()
         {
-            Assert.AreEqual(false, repository.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbm" , 3030)));
+            Assert.AreEqual(false, Repository.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbm" , 3030)));
         }
 
         [TestMethod]
         public void ValidatePurchaseInTheDateNotPurchasesInThatDateInMinutes()
         {
             DateTime dateTimeOfPurchase = new DateTime(2019, 4, 20, 13, 20, 0);
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeOfPurchase, account);
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            repository.AddPurchase(purchase);
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeOfPurchase, Account);
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Repository.AddPurchase(Purchase);
             DateTime dateTimeOfQuery = new DateTime(2019, 4, 20, 13, 0, 0);
-            Assert.AreEqual(false, repository.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
-            using (var myContext = new MyContext())
+            Assert.AreEqual(false, Repository.ArePurchaseOnThatDate(dateTimeOfQuery, Enrollment));
+            using (var MyContext = new MyContext())
             {
-                myContext.Purchases.Attach(purchase);
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
+                MyContext.Purchases.Attach(Purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
@@ -541,17 +585,17 @@ namespace UnitTestProject1
         public void ValidatePurchaseInTheDateNotPurchasesInThatDateInHours()
         {
             DateTime dateTimeOfPurchase = new DateTime(2019, 4, 20, 13, 0, 0);
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeOfPurchase, account);
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            repository.AddPurchase(purchase);
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeOfPurchase, Account);
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Repository.AddPurchase(Purchase);
             DateTime dateTimeOfQuery = new DateTime(2019, 4, 20, 14, 0, 0);
-            Assert.AreEqual(false, repository.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
-            using (var myContext = new MyContext())
+            Assert.AreEqual(false, Repository.ArePurchaseOnThatDate(dateTimeOfQuery, Enrollment));
+            using (var MyContext = new MyContext())
             {
-                myContext.Purchases.Attach(purchase);
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
+                MyContext.Purchases.Attach(Purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
@@ -559,17 +603,17 @@ namespace UnitTestProject1
         public void ValidatePurchaseInTheDateNotPurchasesInThatDateInDay()
         {
             DateTime dateTimeOfPurchase = new DateTime(2019, 4, 20, 13, 0, 0);
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeOfPurchase, account);
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            repository.AddPurchase(purchase);
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeOfPurchase, Account);
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Repository.AddPurchase(Purchase);
             DateTime dateTimeOfQuery = new DateTime(2019, 4, 22, 13, 0, 0);
-            Assert.AreEqual(false, repository.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
-            using (var myContext = new MyContext())
+            Assert.AreEqual(false, Repository.ArePurchaseOnThatDate(dateTimeOfQuery, Enrollment));
+            using (var MyContext = new MyContext())
             {
-                myContext.Purchases.Attach(purchase);
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
+                MyContext.Purchases.Attach(Purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
@@ -577,17 +621,17 @@ namespace UnitTestProject1
         public void ValidatePurchaseInTheDateNotPurchasesInThatDateInMonth()
         {
             DateTime dateTimeOfPurchase = new DateTime(2019, 11, 20, 13, 0, 0);
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeOfPurchase, account);
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            repository.AddPurchase(purchase);
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeOfPurchase, Account);
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Repository.AddPurchase(Purchase);
             DateTime dateTimeOfQuery = new DateTime(2019, 5, 20, 13, 0, 0);
-            Assert.AreEqual(false, repository.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
-            using (var myContext = new MyContext())
+            Assert.AreEqual(false, Repository.ArePurchaseOnThatDate(dateTimeOfQuery, Enrollment));
+            using (var MyContext = new MyContext())
             {
-                myContext.Purchases.Attach(purchase);
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
+                MyContext.Purchases.Attach(Purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
@@ -595,17 +639,17 @@ namespace UnitTestProject1
         public void ValidatePurchaseInTheDateNotPurchasesInThatDateInYear()
         {
             DateTime dateTimeOfPurchase = new DateTime(2019, 4, 20, 13, 0, 0);
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeOfPurchase, account);
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            repository.AddPurchase(purchase);
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeOfPurchase, Account);
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Repository.AddPurchase(Purchase);
             DateTime dateTimeOfQuery = new DateTime(2018, 4, 20, 13, 0, 0);
-            Assert.AreEqual(false, repository.ArePurchaseOnThatDate(dateTimeOfQuery, enrollment));
-            using (var myContext = new MyContext())
+            Assert.AreEqual(false, Repository.ArePurchaseOnThatDate(dateTimeOfQuery, Enrollment));
+            using (var MyContext = new MyContext())
             {
-                myContext.Purchases.Attach(purchase);
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
+                MyContext.Purchases.Attach(Purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
@@ -613,16 +657,16 @@ namespace UnitTestProject1
         public void ValidatePurchaseInTheDateNotPurchasesInThatEnrollmentInLetters()
         {
             DateTime dateTimeOfPurchase = DateTime.Now;
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeOfPurchase, account);
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            repository.AddPurchase(purchase);
-            Assert.AreEqual(false, repository.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbm", 4849)));
-            using (var myContext = new MyContext())
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeOfPurchase, Account);
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Repository.AddPurchase(Purchase);
+            Assert.AreEqual(false, Repository.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbm", 4849)));
+            using (var MyContext = new MyContext())
             {
-                myContext.Purchases.Attach(purchase);
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
+                MyContext.Purchases.Attach(Purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
@@ -630,252 +674,268 @@ namespace UnitTestProject1
         public void ValidatePurchaseInTheDateNotPurchasesInThatEnrollmentInNumbers()
         {
             DateTime dateTimeOfPurchase = DateTime.Now;
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeOfPurchase, account);
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            repository.AddPurchase(purchase);
-            Assert.AreEqual(false, repository.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbn",4848)));
-            using (var myContext = new MyContext())
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeOfPurchase, Account);
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Repository.AddPurchase(Purchase);
+            Assert.AreEqual(false, Repository.ArePurchaseOnThatDate(DateTime.Now, new Enrollment("sbn",4848)));
+            using (var MyContext = new MyContext())
             {
-                myContext.Purchases.Attach(purchase);
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
+                MyContext.Purchases.Attach(Purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void ValidatePurchaseInTheDateOnePurchase()
         {
-            Purchase purchase = new Purchase(enrollment, 30, DateTime.Now, account);
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            repository.AddPurchase(purchase);
-            Assert.AreEqual(true, repository.ArePurchaseOnThatDate(DateTime.Now, enrollment));
-            using (var myContext = new MyContext())
+            Purchase Purchase = new Purchase(Enrollment, 30, DateTime.Now, Account);
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Repository.AddPurchase(Purchase);
+            Assert.AreEqual(true, Repository.ArePurchaseOnThatDate(DateTime.Now, Enrollment));
+            using (var MyContext = new MyContext())
             {
-                myContext.Purchases.Attach(purchase);
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
+                MyContext.Purchases.Attach(Purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
             }
         }    
 
         [TestMethod]
         public void AddInvalidBalanceTest()
         {
-            repository.AddAccount(account);
-            repository.AddBalanceToAccount(account, -25);
-            Assert.AreEqual(0, account.Balance);
-            using (var myContext = new MyContext())
+            Repository.AddAccount(Account);
+            Repository.AddBalanceToAccount(Account, -25);
+            Assert.AreEqual(0, Account.Balance);
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void AddValidBalanceWithBalanceInZeroTest()
         {
-            repository.AddAccount(account);
-            repository.AddBalanceToAccount(account, 25);
-            Assert.AreEqual(25, account.Balance);
-            using (var myContext = new MyContext())
+            Repository.AddAccount(Account);
+            Repository.AddBalanceToAccount(Account, 25);
+            Assert.AreEqual(25, Account.Balance);
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void AddValidBalanceWithBalanceTest()
         {
-            account.Mobile = "099344951";
-            account.Balance = 0;
-            repository.AddAccount(account);
-            repository.AddBalanceToAccount(account, 22);
-            repository.AddBalanceToAccount(account, 25);
-            Assert.AreEqual(47, account.Balance);
-            using (var myContext = new MyContext())
+            Account.Mobile = "099344951";
+            Account.Balance = 0;
+            Repository.AddAccount(Account);
+            Repository.AddBalanceToAccount(Account, 22);
+            Repository.AddBalanceToAccount(Account, 25);
+            Assert.AreEqual(47, Account.Balance);
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void SubstractInvalidBalanceTest()
         {
-            repository.AddAccount(account);
-            repository.SubstractBalanceToAccount(account, -25);
-            Assert.AreEqual(0, account.Balance);
-            using (var myContext = new MyContext())
+            Repository.AddAccount(Account);
+            Repository.SubstractBalanceToAccount(Account, -25);
+            Assert.AreEqual(0, Account.Balance);
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void SubstractBalanceWithBalanceInZeroTest()
         {
-            account.Mobile = "099344951";
-            account.Balance = 0;
-            repository.AddAccount(account);
-            repository.SubstractBalanceToAccount(account, 25);
-            Assert.AreEqual(0, account.Balance);
+            Account.Mobile = "099344951";
+            Account.Balance = 0;
+            Repository.AddAccount(Account);
+            Repository.SubstractBalanceToAccount(Account, 25);
+            Assert.AreEqual(0, Account.Balance);
         }
 
         [TestMethod]
         public void SubstractBalanceMoreThanTheAccountBalance()
         {
-            repository.AddAccount(account);
-            repository.AddBalanceToAccount(account, 20);
-            repository.SubstractBalanceToAccount(account, 25);
-            Assert.AreEqual(20, account.Balance);
-            using (var myContext = new MyContext())
+            Repository.AddAccount(Account);
+            Repository.AddBalanceToAccount(Account, 20);
+            Repository.SubstractBalanceToAccount(Account, 25);
+            Assert.AreEqual(20, Account.Balance);
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void SubstracTheSameBalanceInTheAccount()
         {
-            repository.AddAccount(account);
-            repository.AddBalanceToAccount(account, 22);
-            repository.SubstractBalanceToAccount(account, 22);
-            Assert.AreEqual(0, account.Balance);
-            using (var myContext = new MyContext())
+            Repository.AddAccount(Account);
+            Repository.AddBalanceToAccount(Account, 22);
+            Repository.SubstractBalanceToAccount(Account, 22);
+            Assert.AreEqual(0, Account.Balance);
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void SubstracBalanceInTheAccount()
         {
-            repository.AddAccount(account);
-            repository.AddBalanceToAccount(account, 22);
-            repository.SubstractBalanceToAccount(account, 12);
-            Assert.AreEqual(10, account.Balance);
-            using (var myContext = new MyContext())
+            Repository.AddAccount(Account);
+            Repository.AddBalanceToAccount(Account, 22);
+            Repository.SubstractBalanceToAccount(Account, 12);
+            Assert.AreEqual(10, Account.Balance);
+            using (var MyContext = new MyContext())
             {
-                myContext.Accounts.Attach(account);
+                MyContext.Accounts.Attach(Account);
             }
         }
 
         [TestMethod]
         public void InsertPurchaseOfEnrollmentEmpty()
         {
-            repository.GetPurchases().Clear();
-            repository.AddEnrollment(enrollment);
-            List<Purchase> purchases = repository.InsertPurchaseOfEnrollmentToDataGridView(enrollment);
-            Assert.AreEqual(0, purchases.ToArray().Length);
-            using (var myContext = new MyContext())
+            Repository.GetPurchases().Clear();
+            Repository.AddEnrollment(Enrollment);
+            List<Purchase> Purchases = Repository.InsertPurchaseOfEnrollmentToDataGridView(Enrollment);
+            Assert.AreEqual(0, Purchases.ToArray().Length);
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollment);
+                MyContext.Enrollments.Attach(Enrollment);
             }
         }
 
         [TestMethod]
         public void InsertPurchaseOfEnrollment()
         {
-            repository.GetPurchases().Clear();
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            Purchase purchase = new Purchase(enrollment, 30, DateTime.Now, account);
-            repository.AddPurchase(purchase);
-            List<Purchase> purchases = repository.InsertPurchaseOfEnrollmentToDataGridView(enrollment);
-            Assert.AreEqual(1, purchases.ToArray().Length);
-            using (var myContext = new MyContext())
+            Repository.GetPurchases().Clear();
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Purchase Purchase = new Purchase(Enrollment, 30, DateTime.Now, Account);
+            Repository.AddPurchase(Purchase);
+            List<Purchase> Purchases = Repository.InsertPurchaseOfEnrollmentToDataGridView(Enrollment);
+            Assert.AreEqual(1, Purchases.ToArray().Length);
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
-                myContext.Purchases.Attach(purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
+                MyContext.Purchases.Attach(Purchase);
             }
         }
 
         [TestMethod]
         public void InsertPurchaseOnThatDateEmpty()
         {
-            repository.GetPurchases().Clear();
-            repository.AddEnrollment(enrollment);
+            Repository.GetPurchases().Clear();
+            Repository.AddEnrollment(Enrollment);
             DateTime dateTimeInitial = new DateTime(2019, 4, 20, 12, 0, 0);
             DateTime dateTimeFinal = new DateTime(2019, 4, 20, 13, 00, DateTime.Now.Second);
-            List<Purchase> purchases = repository.InsertPurchaseOnThatDate(dateTimeInitial, dateTimeFinal);
-            Assert.AreEqual(0, purchases.ToArray().Length);
-            using (var myContext = new MyContext())
+            List<Purchase> Purchases = Repository.InsertPurchaseOnThatDate(dateTimeInitial, dateTimeFinal);
+            Assert.AreEqual(0, Purchases.ToArray().Length);
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollment);
+                MyContext.Enrollments.Attach(Enrollment);
             }
         }
 
         [TestMethod]
         public void InsertPurchaseOnThatDate()
         {
-            repository.GetPurchases().Clear();
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
+            Repository.GetPurchases().Clear();
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
             DateTime dateTimeInitial = new DateTime(2019, 4, 20, 12, 0, 0);
             DateTime dateTimeFinal = new DateTime(2019, 4, 20, 13, 0, 0);
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeFinal, account);
-            repository.AddPurchase(purchase);
-            List<Purchase> purchases = repository.InsertPurchaseOnThatDate(dateTimeInitial, dateTimeFinal);
-            Assert.AreEqual(1, purchases.ToArray().Length);
-            using (var myContext = new MyContext())
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeFinal, Account);
+            Repository.AddPurchase(Purchase);
+            List<Purchase> Purchases = Repository.InsertPurchaseOnThatDate(dateTimeInitial, dateTimeFinal);
+            Assert.AreEqual(1, Purchases.ToArray().Length);
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
-                myContext.Purchases.Attach(purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
+                MyContext.Purchases.Attach(Purchase);
             }
         }
 
         [TestMethod]
         public void EliminatePurchaseFromAnotherCountryEmpty()
         {
-            repository.GetPurchases().Clear();
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
-            Purchase purchase = new Purchase(enrollment, 30, DateTime.Now, account);
-            repository.AddPurchase(purchase);
-            List<Purchase> purchases = repository.EliminatePurchasesFromAnoterCountry(repository.GetPurchases(), repository.GetACountry("Argentina"));
-            Assert.AreEqual(0, purchases.ToArray().Length);
-            using (var myContext = new MyContext())
+            Repository.GetPurchases().Clear();
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
+            Purchase Purchase = new Purchase(Enrollment, 30, DateTime.Now, Account);
+            Repository.AddPurchase(Purchase);
+            List<Purchase> Purchases = Repository.EliminatePurchasesFromAnoterCountry(Repository.GetPurchases(), Repository.GetACountry("Argentina"));
+            Assert.AreEqual(0, Purchases.ToArray().Length);
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
-                myContext.Purchases.Attach(purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
+                MyContext.Purchases.Attach(Purchase);
             }
         }
 
         [TestMethod]
         public void EliminatePurchaseFromAnotherCountry()
         {
-            repository.GetPurchases().Clear();
-            repository.AddAccount(account);
-            repository.AddEnrollment(enrollment);
+            Repository.GetPurchases().Clear();
+            Repository.AddAccount(Account);
+            Repository.AddEnrollment(Enrollment);
             DateTime dateTimeInitial = new DateTime(2019, 4, 20, 12, 0, 0);
             DateTime dateTimeFinal = new DateTime(2019, 4, 20, 13, 0, 0);
-            Purchase purchase = new Purchase(enrollment, 30, dateTimeFinal, account);
-            repository.AddPurchase(purchase);
-            List<Purchase> purchases = repository.EliminatePurchasesFromAnoterCountry(repository.GetPurchases(), repository.GetACountry("Uruguay"));
-            Assert.AreEqual(1, purchases.ToArray().Length);
-            using (var myContext = new MyContext())
+            Purchase Purchase = new Purchase(Enrollment, 30, dateTimeFinal, Account);
+            Repository.AddPurchase(Purchase);
+            List<Purchase> Purchases = Repository.EliminatePurchasesFromAnoterCountry(Repository.GetPurchases(), Repository.GetACountry("Uruguay"));
+            Assert.AreEqual(1, Purchases.ToArray().Length);
+            using (var MyContext = new MyContext())
             {
-                myContext.Enrollments.Attach(enrollment);
-                myContext.Accounts.Attach(account);
-                myContext.Purchases.Attach(purchase);
+                MyContext.Enrollments.Attach(Enrollment);
+                MyContext.Accounts.Attach(Account);
+                MyContext.Purchases.Attach(Purchase);
             }
         }
 
         [TestMethod]
         public void UpdateCostOfMinutes()
         {
-            repository.GetCountries().Clear();
-            CountryHandler country = new CountryHandler("Uruguay", 1);
-            country.SetValidators(new ValidatorOfPhoneInUruguay(), new ValidatorOfMessageInUruguay());
-            repository.AddCountry(country);
-            country.CostForMinutes = 2;
-            repository.UpdateCostForMinutes(country);
-            Assert.AreEqual(2, country.CostForMinutes);
-            using (var myContext = new MyContext())
+            Repository.GetCountries().Clear();
+            CountryHandler Country = new CountryHandler("Uruguay", 1);
+            Country.SetValidators(new ValidatorOfPhoneInUruguay(), new ValidatorOfMessageInUruguay());
+            Repository.AddCountry(Country);
+            Country.CostForMinutes = 2;
+            Repository.UpdateCostForMinutes(Country);
+            Assert.AreEqual(2, Country.CostForMinutes);
+            using (var MyContext = new MyContext())
             {
-                myContext.Countries.Attach(country);
+                MyContext.Countries.Attach(Country);
+            }
+        }
+
+        [TestMethod]
+        public void CallContextDataBaseEmpty()
+        {
+            Repository.AddAccount(Account);
+            int LengthAccountContextEmpty;
+            using (var MyContext = new MyContextEmpty())
+            {
+                LengthAccountContextEmpty = MyContext.Accounts.ToArray().Length;
+            }
+            Assert.AreEqual(0, LengthAccountContextEmpty);
+            using (var MyContext = new MyContext())
+            {
+                MyContext.Accounts.Attach(Account);
             }
         }
     }

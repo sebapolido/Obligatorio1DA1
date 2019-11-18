@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reports));
             this.lblWelcome = new System.Windows.Forms.Label();
             this.dgvReports = new System.Windows.Forms.DataGridView();
             this.pnlEnrollments = new System.Windows.Forms.Panel();
@@ -259,7 +258,7 @@
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
+            this.btnSearch.Image = global::UI.Properties.Resources.consult;
             this.btnSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSearch.Location = new System.Drawing.Point(227, 224);
             this.btnSearch.Name = "btnSearch";
@@ -272,7 +271,7 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.Image = global::UI.Properties.Resources.returnBack;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancel.Location = new System.Drawing.Point(24, 224);
             this.btnCancel.Name = "btnCancel";

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataBaseConnection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,183 +12,183 @@ namespace ParkingSystem
     public class ParkingRepository:IParkingRepository
     {
 
-        private List<Account> accountList = new List<Account>();
-        private List<Enrollment> enrollmentList = new List<Enrollment>();
-        private List<Purchase> purchaseList = new List<Purchase>();
-        private List<CountryHandler> countryList = new List<CountryHandler>();
+        private List<Account> AccountList = new List<Account>();
+        private List<Enrollment> EnrollmentList = new List<Enrollment>();
+        private List<Purchase> PurchaseList = new List<Purchase>();
+        private List<CountryHandler> CountryList = new List<CountryHandler>();
 
         public ParkingRepository()
-        {           
-            using (var myContext = new MyContext())
+        {
+            using (var MyContext = new MyContext())
             {
-                accountList = myContext.ReturnListOfAccounts();               
-                enrollmentList = myContext.ReturnListOfEnrollments();
-                purchaseList = myContext.ReturnListOfPurchases();
-                countryList = myContext.ReturnListOfCountries();
-                myContext.SaveChanges();
+                AccountList = MyContext.ReturnListOfAccounts();               
+                EnrollmentList = MyContext.ReturnListOfEnrollments();
+                PurchaseList = MyContext.ReturnListOfPurchases();
+                CountryList = MyContext.ReturnListOfCountries();
+                MyContext.SaveChanges();
             }
         }
 
-        public void AddAccount(Account newAccount)
+        public void AddAccount(Account NewAccount)
         {
-            CountryHandler countryHandler = newAccount.Country;
-            string text = newAccount.Mobile;
-            if (newAccount.Balance >= 0 && countryHandler.ValidateFormatNumberByCountry(ref text) && !IsRepeatedNumber(text) &&
-                countryHandler.ValidateIsNumericByCountry(newAccount.Mobile))
+            CountryHandler CountryHandler = NewAccount.Country;
+            string Text = NewAccount.Mobile;
+            if (NewAccount.Balance >= 0 && CountryHandler.ValidateFormatNumberByCountry(ref Text) && !IsRepeatedNumber(Text) &&
+                CountryHandler.ValidateIsNumericByCountry(NewAccount.Mobile))
             {
-               accountList.Add(newAccount);
-               using (var myContext = new MyContext())
-                    myContext.AddAccount(newAccount); 
+               AccountList.Add(NewAccount);
+               using (var MyContext = new MyContext())
+                    MyContext.AddAccount(NewAccount); 
             }
         }
 
         public List<Account> GetAccounts()
         {
-            return accountList;
+            return AccountList;
         }
 
-        public void AddBalanceToAccount(Account account, int balanceToAdd)
+        public void AddBalanceToAccount(Account Account, int BalanceToAdd)
         {
-            if (balanceToAdd > 0)
+            if (BalanceToAdd > 0)
             {
-                account.Balance += balanceToAdd;
-                using (var myContext = new MyContext())
-                    myContext.AddBalanceToAccount(account, balanceToAdd);
+                Account.Balance += BalanceToAdd;
+                using (var MyContext = new MyContext())
+                    MyContext.AddBalanceToAccount(Account, BalanceToAdd);
             }
         }
 
-        public void SubstractBalanceToAccount(Account account, int balanceToSubstract)
+        public void SubstractBalanceToAccount(Account Account, int BalanceToSubstract)
         {
-            if (balanceToSubstract > 0 && account.Balance >= balanceToSubstract)
+            if (BalanceToSubstract > 0 && Account.Balance >= BalanceToSubstract)
             {
-                account.Balance -= balanceToSubstract;
-                using (var myContext = new MyContext())
-                    myContext.SubstractBalanceToAccount(account, balanceToSubstract);
+                Account.Balance -= BalanceToSubstract;
+                using (var MyContext = new MyContext())
+                    MyContext.SubstractBalanceToAccount(Account, BalanceToSubstract);
             }
         }        
 
-        public void AddEnrollment(Enrollment newEnrollment)
+        public void AddEnrollment(Enrollment NewEnrollment)
         {
             ValidatorOfEnrollment validator = new ValidatorOfEnrollment();
-            if (validator.ValidateFormatOfEnrollment(newEnrollment.LettersOfEnrollment + newEnrollment.NumbersOfEnrollment)
-                && !IsRepeatedEnrollment(newEnrollment.LettersOfEnrollment, newEnrollment.NumbersOfEnrollment))
+            if (validator.ValidateFormatOfEnrollment(NewEnrollment.LettersOfEnrollment + NewEnrollment.NumbersOfEnrollment)
+                && !IsRepeatedEnrollment(NewEnrollment.LettersOfEnrollment, NewEnrollment.NumbersOfEnrollment))
             {
-                enrollmentList.Add(newEnrollment);
-                using (var myContext = new MyContext())
-                    myContext.AddEnrollment(newEnrollment);
+                EnrollmentList.Add(NewEnrollment);
+                using (var MyContext = new MyContext())
+                    MyContext.AddEnrollment(NewEnrollment);
             }
         }
 
         public List<Enrollment> GetEnrollments()
         {
-            return enrollmentList;
+            return EnrollmentList;
         }
 
-        public void AddPurchase(Purchase newPurchase)
+        public void AddPurchase(Purchase NewPurchase)
         {
-            purchaseList.Add(newPurchase);
-            using (var myContext = new MyContext())
-                myContext.AddPurchase(newPurchase);
+            PurchaseList.Add(NewPurchase);
+            using (var MyContext = new MyContext())
+                MyContext.AddPurchase(NewPurchase);
         }
 
         public List<Purchase> GetPurchases()
         {
-            return purchaseList;
+            return PurchaseList;
         }
 
-        public void AddCountry(CountryHandler newCountry)
+        public void AddCountry(CountryHandler NewCountry)
         {
-            if (!IsRepeatedCountry(newCountry.NameOfCountry))
+            if (!IsRepeatedCountry(NewCountry.NameOfCountry))
             {
-                countryList.Add(newCountry);
-                using (var myContext = new MyContext())
-                    myContext.AddCountry(newCountry);
+                CountryList.Add(NewCountry);
+                using (var MyContext = new MyContext())
+                    MyContext.AddCountry(NewCountry);
             }
         }
 
         public List<CountryHandler> GetCountries()
         {
-            return countryList;
+            return CountryList;
         }
 
-        public bool IsRepeatedNumber(string text)
+        public bool IsRepeatedNumber(string Text)
         {
-            return this.GetAccounts().Any(a => text.Equals(a.Mobile));
+            return this.GetAccounts().Any(a => Text.Equals(a.Mobile));
         }
 
-        public Account GetAnAccount(string mobileToCompare)
+        public Account GetAnAccount(string MobileToCompare)
         {
             for (int i = 0; i < this.GetAccounts().ToArray().Length; i++)
-                if (mobileToCompare.Equals(this.GetAccounts().ToArray().ElementAt(i).Mobile))
+                if (MobileToCompare.Equals(this.GetAccounts().ToArray().ElementAt(i).Mobile))
                     return this.GetAccounts().ToArray().ElementAt(i);
             return null;
         }
 
-        public Enrollment GetAnEnrollment(string lettersToCompare, int numbersToCompare)
+        public Enrollment GetAnEnrollment(string LettersToCompare, int NumbersToCompare)
         {
             for (int i = 0; i < this.GetEnrollments().ToArray().Length; i++)
-                if (lettersToCompare.ToUpper().Equals(this.GetEnrollments().ToArray().ElementAt(i).LettersOfEnrollment.ToUpper())
-                    && numbersToCompare == this.GetEnrollments().ToArray().ElementAt(i).NumbersOfEnrollment)
+                if (LettersToCompare.ToUpper().Equals(this.GetEnrollments().ToArray().ElementAt(i).LettersOfEnrollment.ToUpper())
+                    && NumbersToCompare == this.GetEnrollments().ToArray().ElementAt(i).NumbersOfEnrollment)
                     return this.GetEnrollments().ToArray().ElementAt(i);
             return null;
         }
 
-        public CountryHandler GetACountry(string nameOfCountry)
+        public CountryHandler GetACountry(string NameOfCountry)
         {
             for (int i = 0; i < this.GetCountries().ToArray().Length; i++)
-                if (nameOfCountry.ToUpper().Equals(this.GetCountries().ToArray().ElementAt(i).NameOfCountry.ToUpper()))
+                if (NameOfCountry.ToUpper().Equals(this.GetCountries().ToArray().ElementAt(i).NameOfCountry.ToUpper()))
                     return this.GetCountries().ToArray().ElementAt(i);
             return null;
         }
 
-        public bool IsRepeatedEnrollment(string letters, int numbers)
+        public bool IsRepeatedEnrollment(string Letters, int Numbers)
         {
-            return this.GetEnrollments().Any(e => letters.ToUpper().Equals(e.LettersOfEnrollment.ToUpper())
-                && numbers == e.NumbersOfEnrollment);
+            return this.GetEnrollments().Any(e => Letters.ToUpper().Equals(e.LettersOfEnrollment.ToUpper())
+                && Numbers == e.NumbersOfEnrollment);
         }
 
-        public bool IsRepeatedCountry(string name)
+        public bool IsRepeatedCountry(string Name)
         {
-            return this.GetCountries().Any(c => name.ToUpper().Equals(c.NameOfCountry.ToUpper()));
+            return this.GetCountries().Any(c => Name.ToUpper().Equals(c.NameOfCountry.ToUpper()));
         }
 
-        public bool ArePurchaseOnThatDate(DateTime dateToCompare, Enrollment enrollmentToCompare)
+        public bool ArePurchaseOnThatDate(DateTime DateToCompare, Enrollment EnrollmentToCompare)
         {
             ValidatorOfDate validator = new ValidatorOfDate();
             for(int i = 0; i<this.GetPurchases().ToArray().Length; i++)
             {
-                Enrollment enrollmentOfPurchase = this.GetPurchases().ToArray().ElementAt(i).EnrollmentOfPurchase;
-                if (validator.CheckDateWithTimeOfPurchase(dateToCompare, this.GetPurchases().ElementAt(i)) &&
-                    enrollmentOfPurchase.EnrollmentId == enrollmentToCompare.EnrollmentId)
+                Enrollment EnrollmentOfPurchase = this.GetPurchases().ToArray().ElementAt(i).EnrollmentOfPurchase;
+                if (validator.CheckDateWithTimeOfPurchase(DateToCompare, this.GetPurchases().ElementAt(i)) &&
+                    EnrollmentOfPurchase.EnrollmentId == EnrollmentToCompare.EnrollmentId)
                     return true;
             }
             return false;
         }
 
-        public List<Purchase> InsertPurchaseOfEnrollmentToDataGridView(Enrollment enrollmentOfPurchase)
+        public List<Purchase> InsertPurchaseOfEnrollmentToDataGridView(Enrollment EnrollmentOfPurchase)
         {
-            List<Purchase> purchaseOfThisEnrollment = new List<Purchase>();
-            purchaseOfThisEnrollment = GetPurchases().Where(p => p.EnrollmentOfPurchase.EnrollmentId.Equals(enrollmentOfPurchase.EnrollmentId)).ToList();
-            return purchaseOfThisEnrollment;
+            List<Purchase> PurchaseOfThisEnrollment = new List<Purchase>();
+            PurchaseOfThisEnrollment = GetPurchases().Where(p => p.EnrollmentOfPurchase.EnrollmentId.Equals(EnrollmentOfPurchase.EnrollmentId)).ToList();
+            return PurchaseOfThisEnrollment;
         }
 
-        public List<Purchase> InsertPurchaseOnThatDate(DateTime initialDateOfPurchase, DateTime finalDateOfPurchase)
+        public List<Purchase> InsertPurchaseOnThatDate(DateTime InitialDateOfPurchase, DateTime FinalDateOfPurchase)
         {
-            List<Purchase> purchaseOfThisEnrollment = new List<Purchase>();
-            purchaseOfThisEnrollment = GetPurchases().Where(p => p.DateOfPurchase >= initialDateOfPurchase
-                && p.DateOfPurchase <= finalDateOfPurchase).ToList();
-            return purchaseOfThisEnrollment;
+            List<Purchase> PurchaseOfThisEnrollment = new List<Purchase>();
+            PurchaseOfThisEnrollment = GetPurchases().Where(p => p.DateOfPurchase >= InitialDateOfPurchase
+                && p.DateOfPurchase <= FinalDateOfPurchase).ToList();
+            return PurchaseOfThisEnrollment;
         }
 
-        public List<Purchase> EliminatePurchasesFromAnoterCountry(List<Purchase> purchasesOnThatDate, CountryHandler country)
+        public List<Purchase> EliminatePurchasesFromAnoterCountry(List<Purchase> PurchasesOnThatDate, CountryHandler Country)
         {
-           return purchasesOnThatDate.Where(p => p.AccountOfPurchase.Country.CountryHandlerId == country.CountryHandlerId).ToList();
+           return PurchasesOnThatDate.Where(p => p.AccountOfPurchase.Country.CountryHandlerId == Country.CountryHandlerId).ToList();
         }
 
-        public void UpdateCostForMinutes(CountryHandler country)
+        public void UpdateCostForMinutes(CountryHandler Country)
         {
-            using (var myContext = new MyContext())
-                myContext.UpdateCostForMinutes(country);
+            using (var MyContext = new MyContext())
+                MyContext.UpdateCostForMinutes(Country);
         }
     }
 }

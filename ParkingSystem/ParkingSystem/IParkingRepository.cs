@@ -8,19 +8,19 @@ namespace ParkingSystem
 {
     public interface IParkingRepository
     {
-        void AddAccount(Account account);
+        void AddAccount(Account Account);
 
         List<Account> GetAccounts();
 
-        void AddEnrollment(Enrollment enrollment);
+        void AddEnrollment(Enrollment Enrollment);
 
         List<Enrollment> GetEnrollments();
 
-        void AddPurchase(Purchase purchase);
+        void AddPurchase(Purchase Purchase);
 
         List<Purchase> GetPurchases();
 
-        void AddCountry(CountryHandler newCountry);
+        void AddCountry(CountryHandler NewCountry);
 
         List<CountryHandler> GetCountries();
        
@@ -28,26 +28,26 @@ namespace ParkingSystem
 
         Account GetAnAccount(string text);
 
-        Enrollment GetAnEnrollment(string lettersToCompare, int numbersToCompare);
+        Enrollment GetAnEnrollment(string LettersToCompare, int NumbersToCompare);
 
-        CountryHandler GetACountry(string nameOfCountry);
+        CountryHandler GetACountry(string NameOfCountry);
 
-        bool IsRepeatedEnrollment(string letters, int numbers);
+        bool IsRepeatedEnrollment(string Letters, int Numbers);
 
         bool IsRepeatedCountry(string name);
 
-        bool ArePurchaseOnThatDate(DateTime date, Enrollment enrollment);
+        bool ArePurchaseOnThatDate(DateTime date, Enrollment Enrollment);
 
-        void AddBalanceToAccount(Account account, int balanceToAdd);
+        void AddBalanceToAccount(Account Account, int balanceToAdd);
 
-        void SubstractBalanceToAccount(Account account, int balanceToSubstract);
+        void SubstractBalanceToAccount(Account Account, int BalanceToSubstract);
 
-        List<Purchase> InsertPurchaseOfEnrollmentToDataGridView(Enrollment enrollmentOfPurchase);
+        List<Purchase> InsertPurchaseOfEnrollmentToDataGridView(Enrollment EnrollmentOfPurchase);
 
-        List<Purchase> InsertPurchaseOnThatDate(DateTime initialDateOfPurchase, DateTime finalDateOfPurchase);
+        List<Purchase> InsertPurchaseOnThatDate(DateTime InitialDateOfPurchase, DateTime FinalDateOfPurchase);
 
-        List<Purchase> EliminatePurchasesFromAnoterCountry(List<Purchase> purchasesOnThatDate, CountryHandler country);
+        List<Purchase> EliminatePurchasesFromAnoterCountry(List<Purchase> PurchasesOnThatDate, CountryHandler Country);
 
-        void UpdateCostForMinutes(CountryHandler country);
+        void UpdateCostForMinutes(CountryHandler Country);
     }
 }

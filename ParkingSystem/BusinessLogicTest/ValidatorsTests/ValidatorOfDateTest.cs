@@ -7,115 +7,115 @@ namespace UnitTestProject1
     [TestClass]
     public class ValidatorOfDateTest
     {
-        ValidatorOfDate validator;
-        Enrollment enrollment;
-        Account account;
-        DateTime dateCheck;
+        ValidatorOfDate Validator;
+        Enrollment Enrollment;
+        Account Account;
+        DateTime DateCheck;
 
         [TestCleanup]
         public void TestClean()
         {
-            validator = null;
-            enrollment = null;
-            account = null;
+            Validator = null;
+            Enrollment = null;
+            Account = null;
         }
 
         [TestInitialize]
         public void TestInit()
         {
-            validator = new ValidatorOfDate();
-            enrollment = new Enrollment("sbn", 4849);
-            account = new Account(0, "099366931", new CountryHandler("Uruguay",1));
-            dateCheck = DateTime.Now;
+            Validator = new ValidatorOfDate();
+            Enrollment = new Enrollment("sbn", 4849);
+            Account = new Account(0, "099366931", new CountryHandler("Uruguay",1));
+            DateCheck = DateTime.Now;
         }
 
         [TestMethod]
         public void ValidateHourEmpty()
         {
-            DateTime date = new DateTime();
-            Assert.AreEqual(false, validator.ValidateValidHour(date));
+            DateTime Date = new DateTime();
+            Assert.AreEqual(false, Validator.ValidateValidHour(Date));
         }
 
         [TestMethod]
         public void ValidateTimeHourLessThanTen()
         {
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+            DateTime Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 9, 0, 0);
-            Assert.AreEqual(false, validator.ValidateValidHour(date));
+            Assert.AreEqual(false, Validator.ValidateValidHour(Date));
         }
 
         [TestMethod]
         public void ValidateTimeHourMoreThanSixteen()
         {
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+            DateTime Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 21, 0, 0);
-            Assert.AreEqual(false, validator.ValidateValidHour(date));
+            Assert.AreEqual(false, Validator.ValidateValidHour(Date));
         }
 
         [TestMethod]
         public void ValidateHourSixteen()
         {
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+            DateTime Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
                 DateTime.Now.Day, 18, 0, 0);
-            Assert.AreEqual(false, validator.ValidateValidHour(date));
+            Assert.AreEqual(false, Validator.ValidateValidHour(Date));
         }
 
         [TestMethod]
         public void ValidateDateTimeNow()
         {
-            DateTime date = DateTime.Now;
-            Assert.AreEqual(true, validator.ValidateTimeThatHasPassed(date));
+            DateTime Date = DateTime.Now;
+            Assert.AreEqual(true, Validator.ValidateTimeThatHasPassed(Date));
         }
 
         [TestMethod]
         public void ValidateDateTimeNowMoreMinutes()
         {
-            DateTime date = DateTime.Now;
-            date.AddMinutes(10);
-            Assert.AreEqual(true, validator.ValidateTimeThatHasPassed(date));
+            DateTime Date = DateTime.Now;
+            Date.AddMinutes(10);
+            Assert.AreEqual(true, Validator.ValidateTimeThatHasPassed(Date));
         }
 
         [TestMethod]
         public void ValidateDateTimeNowMoreHours()
         {
-            DateTime date = DateTime.Now;
-            date.AddHours(1);
-            Assert.AreEqual(true, validator.ValidateTimeThatHasPassed(date));
+            DateTime Date = DateTime.Now;
+            Date.AddHours(1);
+            Assert.AreEqual(true, Validator.ValidateTimeThatHasPassed(Date));
         }
 
         [TestMethod]
         public void ValidateDateTimeNowLessHours()
         {
-            DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month
+            DateTime Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month
                 , DateTime.Now.Day, DateTime.Now.Hour - 1, DateTime.Now.Minute, DateTime.Now.Second);
-            Assert.AreEqual(false, validator.ValidateTimeThatHasPassed(date));
+            Assert.AreEqual(false, Validator.ValidateTimeThatHasPassed(Date));
         }
 
         [TestMethod]
         public void ValidateCheckDateTheSameDate()
         {
-            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(DateTime.Now, new Purchase(enrollment, 30, DateTime.Now, account)));
+            Assert.AreEqual(true, Validator.CheckDateWithTimeOfPurchase(DateTime.Now, new Purchase(Enrollment, 30, DateTime.Now, Account)));
         }
 
         [TestMethod]
         public void ValidateCheckDateDateInTime()
         {
-            dateCheck = dateCheck.AddMinutes(15);
-            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now, account)));
+            DateCheck = DateCheck.AddMinutes(15);
+            Assert.AreEqual(true, Validator.CheckDateWithTimeOfPurchase(DateCheck, new Purchase(Enrollment, 30, DateTime.Now, Account)));
         }
 
         [TestMethod]
         public void ValidateCheckDateDateInALimitTime()
         {
-            dateCheck = dateCheck.AddMinutes(30);
-            Assert.AreEqual(true, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now, account)));
+            DateCheck = DateCheck.AddMinutes(30);
+            Assert.AreEqual(true, Validator.CheckDateWithTimeOfPurchase(DateCheck, new Purchase(Enrollment, 30, DateTime.Now, Account)));
         }
 
         [TestMethod]
         public void ValidateCheckDateDateOutOfBounds()
         {
-            dateCheck = dateCheck.AddMinutes(40);
-            Assert.AreEqual(false, validator.CheckDateWithTimeOfPurchase(dateCheck, new Purchase(enrollment, 30, DateTime.Now, account)));
+            DateCheck = DateCheck.AddMinutes(40);
+            Assert.AreEqual(false, Validator.CheckDateWithTimeOfPurchase(DateCheck, new Purchase(Enrollment, 30, DateTime.Now, Account)));
         }
     }
 }

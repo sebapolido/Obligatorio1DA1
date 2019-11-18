@@ -9,54 +9,54 @@ namespace UnitTestProject1
     [TestClass]
     public class AccountTest
     {
-        Account account;
-        Account accountEmpty;
-        CountryHandler country;
+        Account Account;
+        Account AccountEmpty;
+        CountryHandler Country;
 
         [TestCleanup]
         public void TestClean()
         {
-            account = null;
-            accountEmpty = null;
-            country = null;
+            Account = null;
+            AccountEmpty = null;
+            Country = null;
         }
 
         [TestInitialize]
         public void TestInit()
         {
-            country = new CountryHandler("Uruguay", 1);
-            accountEmpty = new Account();
-            account = new Account(0, "099366931", country);
+            Country = new CountryHandler("Uruguay", 1);
+            AccountEmpty = new Account();
+            Account = new Account(0, "099366931", Country);
         }
 
         [TestMethod]
         public void CreateEmptyAccountBalance()
         {
-            Assert.AreEqual(0, accountEmpty.Balance);
+            Assert.AreEqual(0, AccountEmpty.Balance);
         }
 
         [TestMethod]
         public void CreateEmptyAccountMobile()
         {
-            Assert.AreEqual("", accountEmpty.Mobile);
+            Assert.AreEqual("", AccountEmpty.Mobile);
         }
 
         [TestMethod]
         public void CreateAccountBalance()
         {
-            Assert.AreEqual(0, account.Balance);
+            Assert.AreEqual(0, Account.Balance);
         }
 
         [TestMethod]
         public void CreateAccountMobile()
         {
-            Assert.AreEqual("099366931", account.Mobile);
+            Assert.AreEqual("099366931", Account.Mobile);
         }
 
         [TestMethod]
         public void ValidateToString()
         {
-            Assert.AreEqual("099366931", account.ToString());
+            Assert.AreEqual("099366931", Account.ToString());
         }
     }
 }

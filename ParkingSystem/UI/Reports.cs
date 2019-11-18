@@ -13,20 +13,20 @@ namespace UI
 {
     public partial class Reports : UserControl
     {
-        Panel panel;
-        IParkingRepository repository;
-        CountryHandler country;
-        ValidatorOfEnrollment validatorOfEnrollment;
+        Panel Panel;
+        IParkingRepository Repository;
+        CountryHandler Country;
+        ValidatorOfEnrollment ValidatorOfEnrollment;
 
-        public Reports(Panel principalPanel, IParkingRepository parkingRepository, CountryHandler actualCountry)
+        public Reports(Panel PrincipalPanel, IParkingRepository ParkingRepository, CountryHandler ActualCountry)
         {
             InitializeComponent();
-            panel = principalPanel;
-            repository = parkingRepository;
-            country = actualCountry;
+            Panel = PrincipalPanel;
+            Repository = ParkingRepository;
+            Country = ActualCountry;
             rbtnEnrollments.Checked = true;
             AgregateItemsToComboBoxs();
-            validatorOfEnrollment = new ValidatorOfEnrollment();
+            ValidatorOfEnrollment = new ValidatorOfEnrollment();
         }
 
         private void AgregateItemsToComboBoxs()
@@ -48,14 +48,14 @@ namespace UI
                     cboFinalMinutes.Items.Add(i);
                 }
             if (cboCountry.Items.Count == 0)
-                for (int i = 0; i < repository.GetCountries().ToArray().Length; i++)
-                    cboCountry.Items.Add(repository.GetCountries().ElementAt(i).NameOfCountry);
+                for (int i = 0; i < Repository.GetCountries().ToArray().Length; i++)
+                    cboCountry.Items.Add(Repository.GetCountries().ElementAt(i).NameOfCountry);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            panel.Visible = true;
+            Panel.Visible = true;
         }
 
         private void BtnSearch_Click(object sender, EventArgs e)
@@ -69,9 +69,9 @@ namespace UI
 
         private void ValidateFormatEnrollment()
         {
-            const int MAX_LENGTH_OF_ENROLLMENT = 8;
-            if (!validatorOfEnrollment.ValidateIsEmpty(txtEnrollment.Text))
-                if (txtEnrollment.Text.Length <= MAX_LENGTH_OF_ENROLLMENT)
+            const int MAX_LENGTH_OF_Enrollment = 8;
+            if (!ValidatorOfEnrollment.ValidateIsEmpty(txtEnrollment.Text))
+                if (txtEnrollment.Text.Length <= MAX_LENGTH_OF_Enrollment)
                     ValidateFormatOfEnrollmentWithSpace();
                 else
                     SetMessage("Debe ingresar una matrícula valida.");
@@ -81,34 +81,34 @@ namespace UI
 
         private void ValidateFormatOfEnrollmentWithSpace()
         {
-            string[] line = txtEnrollment.Text.Split(' ');
-            if (line.Length == 2 && validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(line))
-                if (validatorOfEnrollment.ValidateFormatOfEnrollment(line[0] + line[1]))
-                    ValidateRepeatEnrollment(line[0], line[1]);
+            string[] Line = txtEnrollment.Text.Split(' ');
+            if (Line.Length == 2 && ValidatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(Line))
+                if (ValidatorOfEnrollment.ValidateFormatOfEnrollment(Line[0] + Line[1]))
+                    ValidateRepeatEnrollment(Line[0], Line[1]);
                 else
                     SetMessage("El formato de la matrícula no es válido.");
             else
-                ValidateFormatOfEnrollmentWithoutSpace(line);
+                ValidateFormatOfEnrollmentWithoutSpace(Line);
         }
 
-        private void ValidateFormatOfEnrollmentWithoutSpace(string[] line)
+        private void ValidateFormatOfEnrollmentWithoutSpace(string[] Line)
         {
-            if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line))
-                if (validatorOfEnrollment.ValidateFormatOfEnrollment(line[0]))
-                    ValidateRepeatEnrollment(line[0].Substring(0, 3), line[0].Substring(3));
+            if (ValidatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(Line))
+                if (ValidatorOfEnrollment.ValidateFormatOfEnrollment(Line[0]))
+                    ValidateRepeatEnrollment(Line[0].Substring(0, 3), Line[0].Substring(3));
                 else
                     SetMessage("El formato de la matrícula no es válido.");
             else
                 SetMessage("El formato de la matrícula no es válido.");
         }
 
-        private void ValidateRepeatEnrollment(string letters, string numbers)
+        private void ValidateRepeatEnrollment(string Letters, string Numbers)
         {
-            if (validatorOfEnrollment.ValidateIsNumeric(numbers))
-                if (repository.IsRepeatedEnrollment(letters, int.Parse(numbers)))
+            if (ValidatorOfEnrollment.ValidateIsNumeric(Numbers))
+                if (Repository.IsRepeatedEnrollment(Letters, int.Parse(Numbers)))
                 {
-                    Enrollment enrollmentOfPurchase = repository.GetAnEnrollment(letters, int.Parse(numbers));
-                    InsertPurchaseOfEnrollmentToDataGridView(enrollmentOfPurchase);
+                    Enrollment EnrollmentOfPurchase = Repository.GetAnEnrollment(Letters, int.Parse(Numbers));
+                    InsertPurchaseOfEnrollmentToDataGridView(EnrollmentOfPurchase);
                 }
                 else
                     SetMessage("No hay ninguna compra con esa matrícula.");
@@ -116,10 +116,9 @@ namespace UI
                 SetMessage("El formato de la matrícula no es válido.");
         }
 
-        private void InsertPurchaseOfEnrollmentToDataGridView(Enrollment enrollmentOfPurchase)
+        private void InsertPurchaseOfEnrollmentToDataGridView(Enrollment EnrollmentOfPurchase)
         {
-            //List<Purchase> purchaseToAdd =
-            dgvReports.DataSource = repository.InsertPurchaseOfEnrollmentToDataGridView(enrollmentOfPurchase); /*purchaseToAdd;//terminar*/
+            dgvReports.DataSource = Repository.InsertPurchaseOfEnrollmentToDataGridView(EnrollmentOfPurchase); /*PurchaseToAdd;//terminar*/
         }
 
         private void ValidateDatesOfPurchases()
@@ -135,23 +134,23 @@ namespace UI
 
         private void AssignDateTimes()
         {
-            int initialHourOfPurchases = int.Parse(cboInitialHour.Text);
-            int initialMinutesOfPurchase = int.Parse(cboInitialMinutes.Text);
-            DateTime initialDateOfPurchase = new DateTime(lblInitialDateTime.Value.Year, lblInitialDateTime.Value.Month,
-                lblInitialDateTime.Value.Day, initialHourOfPurchases, initialMinutesOfPurchase, 0);
-            int finalHourOfPurchases = int.Parse(cboFinalHour.Text);
-            int finalMinutesOfPurchase = int.Parse(cboFinalMinutes.Text);
-            DateTime finalDateOfPurchase = new DateTime(lblFinalDateTime.Value.Year, lblFinalDateTime.Value.Month,
-                lblFinalDateTime.Value.Day, finalHourOfPurchases, finalMinutesOfPurchase, 0);
-            ArePurchasesOnThatDate(initialDateOfPurchase, finalDateOfPurchase);
+            int InitialHourOfPurchases = int.Parse(cboInitialHour.Text);
+            int InitialMinutesOfPurchase = int.Parse(cboInitialMinutes.Text);
+            DateTime InitialDateOfPurchase = new DateTime(lblInitialDateTime.Value.Year, lblInitialDateTime.Value.Month,
+                lblInitialDateTime.Value.Day, InitialHourOfPurchases, InitialMinutesOfPurchase, 0);
+            int FinalHourOfPurchases = int.Parse(cboFinalHour.Text);
+            int FinalMinutesOfPurchase = int.Parse(cboFinalMinutes.Text);
+            DateTime FinalDateOfPurchase = new DateTime(lblFinalDateTime.Value.Year, lblFinalDateTime.Value.Month,
+                lblFinalDateTime.Value.Day, FinalHourOfPurchases, FinalMinutesOfPurchase, 0);
+            ArePurchasesOnThatDate(InitialDateOfPurchase, FinalDateOfPurchase);
         }
 
-        private void ArePurchasesOnThatDate(DateTime initialDateOfPurchase, DateTime finalDateOfPurchase)
+        private void ArePurchasesOnThatDate(DateTime InitialDateOfPurchase, DateTime FinalDateOfPurchase)
         {
-            List<Purchase> purchasesOnThatDate = repository.InsertPurchaseOnThatDate(initialDateOfPurchase, finalDateOfPurchase);
+            List<Purchase> PurchasesOnThatDate = Repository.InsertPurchaseOnThatDate(InitialDateOfPurchase, FinalDateOfPurchase);
             if (!cboCountry.Text.Equals(""))
-                purchasesOnThatDate = repository.EliminatePurchasesFromAnoterCountry(purchasesOnThatDate, repository.GetACountry(cboCountry.Text));
-            dgvReports.DataSource = purchasesOnThatDate;
+                PurchasesOnThatDate = Repository.EliminatePurchasesFromAnoterCountry(PurchasesOnThatDate, Repository.GetACountry(cboCountry.Text));
+            dgvReports.DataSource = PurchasesOnThatDate;
         }
 
         private void RbtnEnrollments_CheckedChanged(object sender, EventArgs e)
@@ -168,10 +167,10 @@ namespace UI
             }
         }
 
-        private void SetMessage(string textToShow)
+        private void SetMessage(string TextToShow)
         {
             lblAnswer.Visible = true;
-            lblAnswer.Text = textToShow;
+            lblAnswer.Text = TextToShow;
             timerOfAnswer.Start();
         }
 

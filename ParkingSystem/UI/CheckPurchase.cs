@@ -13,16 +13,16 @@ namespace UI
 {
     public partial class CheckPurchase : UserControl
     {
-        Panel panel;
-        IParkingRepository repository;
-        ValidatorOfEnrollment validatorOfEnrollment;
+        Panel Panel;
+        IParkingRepository Repository;
+        ValidatorOfEnrollment ValidatorOfEnrollment;
         
-        public CheckPurchase(Panel principalPanel, IParkingRepository parkingRepository)
+        public CheckPurchase(Panel PrincipalPanel, IParkingRepository ParkingRepository)
         {
             InitializeComponent();
-            panel = principalPanel;
-            repository = parkingRepository;
-            validatorOfEnrollment = new ValidatorOfEnrollment();
+            Panel = PrincipalPanel;
+            Repository = ParkingRepository;
+            ValidatorOfEnrollment = new ValidatorOfEnrollment();
             AgregateItemsToComboBoxs();
         }
 
@@ -43,7 +43,7 @@ namespace UI
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            panel.Visible = true;
+            Panel.Visible = true;
         }
 
         private void BtnConsult_Click(object sender, EventArgs e)
@@ -54,9 +54,9 @@ namespace UI
 
         private void ValidateFormatEnrollment()
         {
-            const int MAX_LENGTH_OF_ENROLLMENT = 8;
-            if (!validatorOfEnrollment.ValidateIsEmpty(txtEnrollment.Text))
-                if (txtEnrollment.Text.Length <= MAX_LENGTH_OF_ENROLLMENT)
+            const int MAX_LENGTH_OF_Enrollment = 8;
+            if (!ValidatorOfEnrollment.ValidateIsEmpty(txtEnrollment.Text))
+                if (txtEnrollment.Text.Length <= MAX_LENGTH_OF_Enrollment)
                     ValidateFormatOfEnrollmentWithSpace();
                 else
                     SetMessage("Debe ingresar una matrícula valida.");
@@ -66,34 +66,34 @@ namespace UI
 
         private void ValidateFormatOfEnrollmentWithSpace()
         {
-            string[] line = txtEnrollment.Text.Split(' ');
-            if (line.Length == 2 && validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(line))
-                if (validatorOfEnrollment.ValidateFormatOfEnrollment(line[0] + line[1]))
-                    ValidateRepeatEnrollment(line[0], line[1]);
+            string[] Line = txtEnrollment.Text.Split(' ');
+            if (Line.Length == 2 && ValidatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithSpace(Line))
+                if (ValidatorOfEnrollment.ValidateFormatOfEnrollment(Line[0] + Line[1]))
+                    ValidateRepeatEnrollment(Line[0], Line[1]);
                 else
                     SetMessage("El formato de la matrícula no es válido.");
             else
-                ValidateFormatOfEnrollmentWithoutSpace(line);
+                ValidateFormatOfEnrollmentWithoutSpace(Line);
         }
 
-        private void ValidateFormatOfEnrollmentWithoutSpace(string[] line)
+        private void ValidateFormatOfEnrollmentWithoutSpace(string[] Line)
         {
-            if (validatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(line))
-                if (validatorOfEnrollment.ValidateFormatOfEnrollment(line[0]))
-                    ValidateRepeatEnrollment(line[0].Substring(0, 3), line[0].Substring(3));
+            if (ValidatorOfEnrollment.IsCorrectSeparationOfEnrollmentMessageWithOutSpace(Line))
+                if (ValidatorOfEnrollment.ValidateFormatOfEnrollment(Line[0]))
+                    ValidateRepeatEnrollment(Line[0].Substring(0, 3), Line[0].Substring(3));
                 else
                     SetMessage("El formato de la matrícula no es válido.");
             else
                 SetMessage("El formato de la matrícula no es válido.");
         }
 
-        private void ValidateRepeatEnrollment(string letters, string numbers)
+        private void ValidateRepeatEnrollment(string Letters, string Numbers)
         {
-            if (validatorOfEnrollment.ValidateIsNumeric(numbers))
-                if (repository.IsRepeatedEnrollment(letters, int.Parse(numbers)))
+            if (ValidatorOfEnrollment.ValidateIsNumeric(Numbers))
+                if (Repository.IsRepeatedEnrollment(Letters, int.Parse(Numbers)))
                 {
-                    Enrollment enrollmentOfPurchase = repository.GetAnEnrollment(letters, int.Parse(numbers));
-                    ValidateDate(enrollmentOfPurchase);
+                    Enrollment EnrollmentOfPurchase = Repository.GetAnEnrollment(Letters, int.Parse(Numbers));
+                    ValidateDate(EnrollmentOfPurchase);
                 }
                 else
                     SetMessage("No hay ninguna compra con esa matrícula.");
@@ -101,16 +101,16 @@ namespace UI
                 SetMessage("El formato de la matrícula no es válido.");
         }
 
-        private void ValidateDate(Enrollment enrollmentOfPurchase)
+        private void ValidateDate(Enrollment EnrollmentOfPurchase)
         {
             if (cboHour.Text != null)
                 if (cboMinutes.Text != null)
                 {
-                    int hourOfPurchase = int.Parse(cboHour.Text);
-                    int minutesOfPurchase = int.Parse(cboMinutes.Text);
-                    DateTime dateOfPurchase = new DateTime(lblDateTime.Value.Year, lblDateTime.Value.Month,
-                        lblDateTime.Value.Day, hourOfPurchase, minutesOfPurchase, 0);
-                    ArePurchasesOnThatDate(dateOfPurchase, enrollmentOfPurchase);
+                    int HourOfPurchase = int.Parse(cboHour.Text);
+                    int MinutesOfPurchase = int.Parse(cboMinutes.Text);
+                    DateTime DateOfPurchase = new DateTime(lblDateTime.Value.Year, lblDateTime.Value.Month,
+                        lblDateTime.Value.Day, HourOfPurchase, MinutesOfPurchase, 0);
+                    ArePurchasesOnThatDate(DateOfPurchase, EnrollmentOfPurchase);
                 }
                 else
                     SetMessage("Debe ingresar un minuto.");
@@ -118,9 +118,9 @@ namespace UI
                 SetMessage("Debe ingresar una hora.");
         }
 
-        private void ArePurchasesOnThatDate(DateTime date, Enrollment enrollment)
+        private void ArePurchasesOnThatDate(DateTime Date, Enrollment Enrollment)
         {
-            if (repository.ArePurchaseOnThatDate(date, enrollment))
+            if (Repository.ArePurchaseOnThatDate(Date, Enrollment))
                 MessageCorrectCheck();
             else
                 SetMessage("No hay ninguna compra en ese horario.");
@@ -133,10 +133,10 @@ namespace UI
             SetMessage("Existe una compra activa en ese horario.");
         }
 
-        private void SetMessage(string textToShow)
+        private void SetMessage(string TextToShow)
         {
             lblAnswer.Visible = true;
-            lblAnswer.Text = textToShow;
+            lblAnswer.Text = TextToShow;
             timerOfAnswer.Start();
         }
 

@@ -111,3 +111,9 @@ C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obli
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\obj\Debug\UI.csproj.CopyComplete
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\obj\Debug\UI.exe
 C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\obj\Debug\UI.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\bin\Debug\Entities.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\bin\Debug\DataBaseConnection.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\bin\Debug\Entities.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\bin\Debug\Entities.dll.config
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\bin\Debug\DataBaseConnection.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\UI\bin\Debug\DataBaseConnection.dll.config

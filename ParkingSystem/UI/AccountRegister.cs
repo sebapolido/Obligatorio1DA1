@@ -13,22 +13,22 @@ namespace UI
 {
     public partial class AccountRegister : UserControl
     {
-        private Panel panel;
-        private IParkingRepository repository;
-        private CountryHandler countryHandler;
+        private Panel Panel;
+        private IParkingRepository Repository;
+        private CountryHandler CountryHandler;
 
-        public AccountRegister(Panel principalPanel, IParkingRepository parkingRepository, CountryHandler actualCountry)
+        public AccountRegister(Panel PrincipalPanel, IParkingRepository ParkingRepository, CountryHandler ActualCountry)
         {
             InitializeComponent();
-            panel = principalPanel;
-            repository = parkingRepository;
-            countryHandler = actualCountry;
+            Panel = PrincipalPanel;
+            Repository = ParkingRepository;
+            CountryHandler = ActualCountry;
         }     
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            panel.Visible = true;
+            Panel.Visible = true;
         }
 
         private void BtnAccept_Click(object sender, EventArgs e)
@@ -39,42 +39,42 @@ namespace UI
 
         private void ValidateEmpty()
         {
-            if(countryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
+            if(CountryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
-                string textOfPhone = txtNumberPhone.Text;
-                textOfPhone = textOfPhone.Replace(" ", "");
-                ValidateFormatNumber(textOfPhone);
+                string TextOfPhone = txtNumberPhone.Text;
+                TextOfPhone = TextOfPhone.Replace(" ", "");
+                ValidateFormatNumber(TextOfPhone);
             }
         }
 
-        private void ValidateFormatNumber(string textOfPhone)
+        private void ValidateFormatNumber(string TextOfPhone)
         {
-            if (countryHandler.ValidateFormatNumberByCountry(ref textOfPhone))
-                if (countryHandler.ValidateIsNumericByCountry(textOfPhone))
-                    ValidateRepeatNumber(textOfPhone);
+            if (CountryHandler.ValidateFormatNumberByCountry(ref TextOfPhone))
+                if (CountryHandler.ValidateIsNumericByCountry(TextOfPhone))
+                    ValidateRepeatNumber(TextOfPhone);
                 else
                     SetMessage("El número que ingresó no es númerico.");
             else
                 SetMessage("El número no coincide con el formato.");
         }
 
-        private void ValidateRepeatNumber(string textOfPhone)
+        private void ValidateRepeatNumber(string TextOfPhone)
         {
-            if (repository.GetAccounts().ToArray().Length > 0)
-                if (!repository.IsRepeatedNumber(textOfPhone))
-                    AddAccount(textOfPhone);
+            if (Repository.GetAccounts().ToArray().Length > 0)
+                if (!Repository.IsRepeatedNumber(TextOfPhone))
+                    AddAccount(TextOfPhone);
                 else
                     SetMessage("El número que ingresó ya está registrado.");
             else
-                AddAccount(textOfPhone);
+                AddAccount(TextOfPhone);
         }
 
-        private void AddAccount(string textOfPhone)
+        private void AddAccount(string TextOfPhone)
         {
-            Account newAccount = new Account(0, textOfPhone, countryHandler);
-            repository.AddAccount(newAccount);
+            Account NewAccount = new Account(0, TextOfPhone, CountryHandler);
+            Repository.AddAccount(NewAccount);
             MessageAccountAdded();
         }
 
@@ -85,10 +85,10 @@ namespace UI
             SetMessage("La cuenta ha sido registrada correctamente.");           
         }
 
-        private void SetMessage(string textToShow)
+        private void SetMessage(string TextToShow)
         {
             lblAnswer.Visible = true;
-            lblAnswer.Text = textToShow;
+            lblAnswer.Text = TextToShow;
             timerOfAnswer.Start();
         }
 

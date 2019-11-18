@@ -70,14 +70,20 @@
     <Compile Include="ValidatorsTests\ValidatorOfMessageTest.cs" />
     <Compile Include="ValidatorsTests\ValidatorOfPhoneInArgentinaTest.cs" />
     <Compile Include="ValidatorsTests\ValidatorOfPhoneInUruguayTest.cs" />
-    <Compile Include="ValidatorsTests\ValidatorOfPhoneTest.cs" />
-    <Compile Include="ValidatorsTests\ValidatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataBaseConnection\DataBaseConnection.csproj">
+      <Project>{8d4f099a-5c34-475c-bbc5-d996f967f42c}</Project>
+      <Name>DataBaseConnection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{861c8698-a477-4a19-a08d-0fe3ca6879e2}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParkingSystem\BusinessLogic.csproj">
       <Project>{e2436269-4282-485a-af76-6cc09fbe2f57}</Project>
       <Name>BusinessLogic</Name>

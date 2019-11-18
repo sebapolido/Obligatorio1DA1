@@ -13,69 +13,69 @@ namespace UnitTestProject1
         {
         }
        
-        Enrollment enrollment;
-        Enrollment enrollmentEmpty;
+        Enrollment Enrollment;
+        Enrollment EnrollmentEmpty;
 
         [TestCleanup]
         public void TestClean()
         {
-            enrollment = null;
-            enrollmentEmpty = null;
+            Enrollment = null;
+            EnrollmentEmpty = null;
         }
 
         [TestInitialize]
         public void TestInit()
         {
-            enrollmentEmpty = new Enrollment();
-            enrollment = new Enrollment("SBN", 4849);
+            EnrollmentEmpty = new Enrollment();
+            Enrollment = new Enrollment("SBN", 4849);
         }
 
         [TestMethod]
         public void CreateEmptyEnrollmentLetters()
         {
-            Assert.AreEqual("", enrollmentEmpty.LettersOfEnrollment);
+            Assert.AreEqual("", EnrollmentEmpty.LettersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEmptyEnrollmentNumbers()
         {
-            Assert.AreEqual(0, enrollmentEmpty.NumbersOfEnrollment);
+            Assert.AreEqual(0, EnrollmentEmpty.NumbersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEnrollmentLetters()
         {
-            Assert.AreEqual("SBN", enrollment.LettersOfEnrollment);
+            Assert.AreEqual("SBN", Enrollment.LettersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEnrollmentNumbers()
         {
-            Assert.AreEqual(4849, enrollment.NumbersOfEnrollment);
+            Assert.AreEqual(4849, Enrollment.NumbersOfEnrollment);
         }
 
         [TestMethod]
         public void ValidateNotEquals()
         {
-            Assert.AreEqual(false, enrollment.Equals(new Enrollment("SDS", 4322)));
+            Assert.AreEqual(false, Enrollment.Equals(new Enrollment("SDS", 4322)));
         }
 
         [TestMethod]
         public void ValidateNotEqualsNumbers()
         {
-            Assert.AreEqual(false, enrollment.Equals(new Enrollment("SBN", 4322)));
+            Assert.AreEqual(false, Enrollment.Equals(new Enrollment("SBN", 4322)));
         }
 
         [TestMethod]
         public void ValidateNotEqualsLetters()
         {
-            Assert.AreEqual(false, enrollment.Equals(new Enrollment("SDS", 4849)));
+            Assert.AreEqual(false, Enrollment.Equals(new Enrollment("SDS", 4849)));
         }
 
         [TestMethod]
         public void ValidateToString()
         {
-            Assert.AreEqual("SBN4849", enrollment.ToString());
+            Assert.AreEqual("SBN4849", Enrollment.ToString());
         }
     }
 }

@@ -14,18 +14,16 @@ namespace UI
     public partial class Settings : UserControl
 
     {
-        private Panel panel;
-        private Validator validator;
-        private IParkingRepository parkingRepository;
-        public CountryHandler country { get; set; }
+        private Panel Panel;
+        private IParkingRepository ParkingRepository;
+        public CountryHandler Country { get; set; }
 
-        public Settings(Panel principalPanel, IParkingRepository parking, CountryHandler actualCountry)
+        public Settings(Panel PrincipalPanel, IParkingRepository Parking, CountryHandler ActualCountry)
         {
             InitializeComponent();
-            panel = principalPanel;
-            parkingRepository = parking;
-            validator = new Validator();
-            country = actualCountry;
+            Panel = PrincipalPanel;
+            ParkingRepository = Parking;
+            Country = ActualCountry;
             AgregateItemsToComboBoxs();
             SetActualData();
         }
@@ -33,14 +31,14 @@ namespace UI
         private void AgregateItemsToComboBoxs()
         {
              if (cboCountry.Items.Count == 0)
-                for (int i = 0; i < parkingRepository.GetCountries().ToArray().Length; i++)
-                    cboCountry.Items.Add(parkingRepository.GetCountries().ElementAt(i).NameOfCountry);
+                for (int i = 0; i < ParkingRepository.GetCountries().ToArray().Length; i++)
+                    cboCountry.Items.Add(ParkingRepository.GetCountries().ElementAt(i).NameOfCountry);
         }
 
         private void SetActualData()
         {
-            lblActualCostForMinutes.Text = "El costo por minuto actual es de: " + country.CostForMinutes;
-            lblActualCountry.Text = "El país actual es: " + country.NameOfCountry;
+            lblActualCostForMinutes.Text = "El costo por minuto actual es de: " + Country.CostForMinutes;
+            lblActualCountry.Text = "El país actual es: " + Country.NameOfCountry;
         }
 
         private void TxtCostForMinutes_KeyPress(object sender, KeyPressEventArgs e)
@@ -63,7 +61,7 @@ namespace UI
 
         private void ValidateEmptyData()
         {
-            if (validator.ValidateIsEmpty(txtCostForMinutes.Text) && cboCountry.Text.Equals(""))
+            if (Country.ValidateIsEmptyByCountry(txtCostForMinutes.Text) && cboCountry.Text.Equals(""))
                 SetMessage("Debe ingresar un país o un costo.");
             else
                 ValidateOnlyCountrySelected();
@@ -71,7 +69,7 @@ namespace UI
 
         private void ValidateOnlyCountrySelected()
         {
-            if (!cboCountry.Text.Equals("") && validator.ValidateIsEmpty(txtCostForMinutes.Text))
+            if (!cboCountry.Text.Equals("") && Country.ValidateIsEmptyByCountry(txtCostForMinutes.Text))
                 ActualizationMessage("El país ha sido actualizado.");
             else
                 ValidateOnlyCostSelected();
@@ -79,7 +77,7 @@ namespace UI
 
         private void ValidateOnlyCostSelected()
         {
-            if (validator.ValidateIsNumeric(txtCostForMinutes.Text) && cboCountry.Text.Equals(""))
+            if (Country.ValidateIsNumericByCountry(txtCostForMinutes.Text) && cboCountry.Text.Equals(""))
                 ActualizationMessage("El costo por minuto ha sido actualizado.");
             else
                 ValidateCorrectCountryAndCost();
@@ -87,7 +85,7 @@ namespace UI
 
         private void ValidateCorrectCountryAndCost()
         {
-            if (validator.ValidateIsNumeric(txtCostForMinutes.Text))
+            if (Country.ValidateIsNumericByCountry(txtCostForMinutes.Text))
                 ActualizationMessage("El costo por minuto ha sido actualizado.");
             else
                 SetMessage("Debe ingresar un número.");
@@ -105,12 +103,12 @@ namespace UI
         private void UpdateData()
         {
             if (!cboCountry.Text.Equals(""))
-                country = parkingRepository.GetACountry(cboCountry.Text);
-            if (validator.ValidateIsNumeric(txtCostForMinutes.Text))
+                Country = ParkingRepository.GetACountry(cboCountry.Text);
+            if (Country.ValidateIsNumericByCountry(txtCostForMinutes.Text))
             {
                 int NewCostOfMinutes = int.Parse(txtCostForMinutes.Text);
-                country.CostForMinutes = NewCostOfMinutes;
-                parkingRepository.UpdateCostForMinutes(country);
+                Country.CostForMinutes = NewCostOfMinutes;
+                ParkingRepository.UpdateCostForMinutes(Country);
             }
         }
 
@@ -119,10 +117,10 @@ namespace UI
             txtCostForMinutes.Clear();
         }
 
-        private void SetMessage(string textToShow)
+        private void SetMessage(string TextToShow)
         {
             lblAnswer.Visible = true;
-            lblAnswer.Text = textToShow;
+            lblAnswer.Text = TextToShow;
             timerOfAnswer.Start();
         }
 
@@ -135,7 +133,7 @@ namespace UI
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            panel.Visible = true;
+            Panel.Visible = true;
         }
     }
 }

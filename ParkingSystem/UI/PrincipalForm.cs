@@ -18,81 +18,81 @@ namespace UI
     public partial class PrincipalForm : Form
     {
 
-        private IParkingRepository repository;
-        private Settings settings;
+        private IParkingRepository Repository;
+        private Settings Settings;
 
         public PrincipalForm()
         {
             InitializeComponent();
             this.SecundaryPanel.Visible = false;
-            this.principalPanel.Visible = true;
+            this.PrincipalPanel.Visible = true;
             lblAnswer.Visible = false;
-            repository = new ParkingRepository();
-            CountryHandler initialCountry = repository.GetACountry("Uruguay");
-            settings = new Settings(principalPanel, repository, initialCountry);
+            Repository = new ParkingRepository();
+            CountryHandler initialCountry = Repository.GetACountry("Uruguay");
+            Settings = new Settings(PrincipalPanel, Repository, initialCountry);
         }
 
         private void BtnAccountRegister_Click(object sender, EventArgs e)
         {
-            AddToPanel(new AccountRegister(principalPanel, repository, settings.country));
+            AddToPanel(new AccountRegister(PrincipalPanel, Repository, Settings.Country));
         }
 
         private void BtnAddBalance_Click(object sender, EventArgs e)
         {
-            AddToPanelCheckingAreAccounts(new AddBalance(principalPanel, repository, settings.country));
+            AddToPanelCheckingAreAccounts(new AddBalance(PrincipalPanel, Repository, Settings.Country));
         }
 
         private void BtnProcessPurchase_Click(object sender, EventArgs e)
         {
             if (DateTime.Now.Hour >= 10 && DateTime.Now.Hour < 18)
-                AddToPanelCheckingAreAccounts(new ProcessPurchase(principalPanel, repository, settings.country));
+                AddToPanelCheckingAreAccounts(new ProcessPurchase(PrincipalPanel, Repository, Settings.Country));
             else
                 SetMessage("Esta función solo está disponible de 10 a 18 horas.");
         }
 
         private void BtnCheckPurchase_Click(object sender, EventArgs e)
         {
-            AddToPanelCheckingAreAccounts(new CheckPurchase(principalPanel, repository));
+            AddToPanelCheckingAreAccounts(new CheckPurchase(PrincipalPanel, Repository));
         }
 
         private void BtnReports_Click(object sender, EventArgs e)
         {
-            AddToPanelCheckingAreAccounts(new Reports(principalPanel, repository, settings.country));
+            AddToPanelCheckingAreAccounts(new Reports(PrincipalPanel, Repository, Settings.Country));
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)
         {
-            Settings newSettings = new Settings(principalPanel, repository, settings.country);
-            AddToPanel(newSettings);
-            settings = newSettings;
+            Settings NewSettings = new Settings(PrincipalPanel, Repository, Settings.Country);
+            AddToPanel(NewSettings);
+            Settings = NewSettings;
         }
 
-        private void AddToPanelCheckingAreAccounts(System.Windows.Forms.Control newControl)
+        private void AddToPanelCheckingAreAccounts(System.Windows.Forms.Control NewControl)
         {
-            if (repository.GetAccounts().ToArray().Length > 0)
-                AddToPanel(newControl);
+            if (Repository.GetAccounts().ToArray().Length > 0)
+                AddToPanel(NewControl);
             else
                 SetMessage("Primero debe haber al menos una cuenta regitrada.");
         }
 
-        private void AddToPanel(System.Windows.Forms.Control newControl)
+        private void AddToPanel(System.Windows.Forms.Control NewControl)
         {
             this.SecundaryPanel.Controls.Clear();
-            this.SecundaryPanel.Controls.Add(newControl);
+            this.SecundaryPanel.Controls.Add(NewControl);
             ChangeStatus();
         }
 
         private void ChangeStatus()
         {
-            principalPanel.Visible = false;
+            PrincipalPanel.Visible = false;
             SecundaryPanel.Visible = true;
             lblAnswer.Visible = false;
         }
 
-        private void SetMessage(string textToShow)
+        private void SetMessage(string TextToShow)
         {
             lblAnswer.Visible = true;
-            lblAnswer.Text = textToShow;
+            lblAnswer.Text = TextToShow;
             timerOfAnswer.Start();
         }
 

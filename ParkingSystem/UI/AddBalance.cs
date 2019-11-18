@@ -13,22 +13,22 @@ namespace UI
 {
     public partial class AddBalance : UserControl
     {
-        private Panel panel;
-        private IParkingRepository repository;
-        private CountryHandler countryHandler;
+        private Panel Panel;
+        private IParkingRepository Repository;
+        private CountryHandler CountryHandler;
 
-        public AddBalance(Panel principalPanel, IParkingRepository parkingRepository, CountryHandler actualCountry)
+        public AddBalance(Panel PrincipalPanel, IParkingRepository ParkingRepository, CountryHandler ActualCountry)
         {
             InitializeComponent();
-            panel = principalPanel;
-            repository = parkingRepository;
-            countryHandler = actualCountry;
+            Panel = PrincipalPanel;
+            Repository = ParkingRepository;
+            CountryHandler = ActualCountry;
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            panel.Visible = true;
+            Panel.Visible = true;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
@@ -39,59 +39,59 @@ namespace UI
 
         private void ValidateEmptyNumber()
         {
-            if (countryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
+            if (CountryHandler.ValidateIsEmptyByCountry(txtNumberPhone.Text))
                 SetMessage("Debe ingresar un número de movil.");
             else
             {
-                string textOfPhone = txtNumberPhone.Text;
-                textOfPhone = textOfPhone.Replace(" ", "");
-                ValidateNumberFormat(textOfPhone);
+                string TextOfPhone = txtNumberPhone.Text;
+                TextOfPhone = TextOfPhone.Replace(" ", "");
+                ValidateNumberFormat(TextOfPhone);
             }
         }
 
-        private void ValidateNumberFormat(string textOfPhone)
+        private void ValidateNumberFormat(string TextOfPhone)
         {
-            if (countryHandler.ValidateFormatNumberByCountry(ref textOfPhone))
-                if (countryHandler.ValidateIsNumericByCountry(textOfPhone))
-                    ValidateRepeatNumber(textOfPhone);
+            if (CountryHandler.ValidateFormatNumberByCountry(ref TextOfPhone))
+                if (CountryHandler.ValidateIsNumericByCountry(TextOfPhone))
+                    ValidateRepeatNumber(TextOfPhone);
                 else
                     SetMessage("El número que ingresó no es númerico.");
             else
                 SetMessage("El número no coincide con el formato.");
         }
 
-        private void ValidateRepeatNumber(string textOfPhone)
+        private void ValidateRepeatNumber(string TextOfPhone)
         {
-            if (repository.IsRepeatedNumber(textOfPhone))
-                ValidateEmptyBalance(textOfPhone);
+            if (Repository.IsRepeatedNumber(TextOfPhone))
+                ValidateEmptyBalance(TextOfPhone);
             else
                 SetMessage("El número que ingresó no está registrado.");
         }
 
-        private void ValidateEmptyBalance(string textOfPhone)
+        private void ValidateEmptyBalance(string TextOfPhone)
         {
-            if (!countryHandler.ValidateIsEmptyByCountry(textOfPhone))
-                ValidateBalance(textOfPhone);
+            if (!CountryHandler.ValidateIsEmptyByCountry(TextOfPhone))
+                ValidateBalance(TextOfPhone);
             else
                 SetMessage("Debe ingresar un saldo.");
         }
 
-        private void ValidateBalance(string textOfPhone)
+        private void ValidateBalance(string TextOfPhone)
         {
             const int MIN_BALANCE_TO_ADD = 1;
             if (Int32.TryParse(txtBalanceToAdd.Text, out int balance))
                 if (balance >= MIN_BALANCE_TO_ADD)
-                   AddBalanceToAccount(textOfPhone, balance);
+                   AddBalanceToAccount(TextOfPhone, balance);
                 else
                    SetMessage("Debe ingresar un saldo válido.");
             else
                 SetMessage("Debe ingresar un saldo númerico.");
         }
 
-        private void AddBalanceToAccount(string textOfPhone, int balanceToAdd)
+        private void AddBalanceToAccount(string TextOfPhone, int BalanceToAdd)
         {
-            Account account = repository.GetAnAccount(textOfPhone);
-            repository.AddBalanceToAccount(account, balanceToAdd);
+            Account Account = Repository.GetAnAccount(TextOfPhone);
+            Repository.AddBalanceToAccount(Account, BalanceToAdd);
             MessageBalanceAdded();
         }
 
@@ -103,10 +103,10 @@ namespace UI
             txtNumberPhone.Clear();
         }
 
-        private void SetMessage(string textToShow)
+        private void SetMessage(string TextToShow)
         {
             lblAnswer.Visible = true;
-            lblAnswer.Text = textToShow;
+            lblAnswer.Text = TextToShow;
             timerOfAnswer.Start();
         }
 

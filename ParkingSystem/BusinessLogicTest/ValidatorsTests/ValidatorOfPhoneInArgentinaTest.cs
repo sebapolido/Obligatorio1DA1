@@ -9,88 +9,88 @@ namespace BusinessLogicTest
     [TestClass]
     public class ValidatorOfPhoneInArgentinaTest
     {
-        ValidatorOfPhoneInArgentina validator;
+        ValidatorOfPhoneInArgentina Validator;
 
         [TestCleanup]
         public void TestClean()
         {
-            validator = null;
+            Validator = null;
         }
 
         [TestInitialize]
         public void TestInit()
         {
-            validator = new ValidatorOfPhoneInArgentina();
+            Validator = new ValidatorOfPhoneInArgentina();
         }
         
         [TestMethod]
         public void ValidateLengthNumberLessThanNecessary()
         {
-            string input = "09934";
-            Assert.AreEqual(false, validator.ValidateFormatNumber(ref input));
+            string Input = "09934";
+            Assert.AreEqual(false, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberGreaterThanNecessary()
         {
-            string input = "09923132234";
-            Assert.AreEqual(false, validator.ValidateFormatNumber(ref input));
+            string Input = "09923132234";
+            Assert.AreEqual(false, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthSixNumbers()
         {
-            string input = "123456";
-            Assert.AreEqual(true, validator.ValidateFormatNumber(ref input));
+            string Input = "123456";
+            Assert.AreEqual(true, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthSevenNumbers()
         {
-            string input = "1234567";
-            Assert.AreEqual(true, validator.ValidateFormatNumber(ref input));
+            string Input = "1234567";
+            Assert.AreEqual(true, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthEigthNumbers()
         {
-            string input = "12345678";
-            Assert.AreEqual(true, validator.ValidateFormatNumber(ref input));
+            string Input = "12345678";
+            Assert.AreEqual(true, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthSixNumbersWhitScripts()
         {
-            string input = "12-34-56";
-            Assert.AreEqual(true, validator.ValidateFormatNumber(ref input));
+            string Input = "12-34-56";
+            Assert.AreEqual(true, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthSevenNumbersWithScripts()
         {
-            string input = "12-3456-7";
-            Assert.AreEqual(true, validator.ValidateFormatNumber(ref input));
+            string Input = "12-3456-7";
+            Assert.AreEqual(true, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthEigthNumbersWhitScripts()
         {
-            string input = "12-345-6-78";
-            Assert.AreEqual(true, validator.ValidateFormatNumber(ref input));
+            string Input = "12-345-6-78";
+            Assert.AreEqual(true, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberWhitScriptInFirstCharacter()
         {
-            string input = "-12345567";
-            Assert.AreEqual(false, validator.ValidateFormatNumber(ref input));
+            string Input = "-12345567";
+            Assert.AreEqual(false, Validator.ValidateFormatNumber(ref Input));
         }
 
         [TestMethod]
         public void ValidateLengthNumberWhitScriptInLastCharacter()
         {
-            string input = "0992-234-";
-            Assert.AreEqual(false, validator.ValidateFormatNumber(ref input));
+            string Input = "0992-234-";
+            Assert.AreEqual(false, Validator.ValidateFormatNumber(ref Input));
         }
     }
 }

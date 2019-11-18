@@ -9,127 +9,127 @@ namespace BusinessLogicTest
     [TestClass]
     public class ValidatorOfMessageInArgentinaTest
     {
-        ValidatorOfMessageInArgentina validator;
+        ValidatorOfMessageInArgentina Validator;
 
         [TestCleanup]
         public void TestClean()
         {
-            validator = null;
+            Validator = null;
         }
 
         [TestInitialize]
         public void TestInit()
         {
-            validator = new ValidatorOfMessageInArgentina();
+            Validator = new ValidatorOfMessageInArgentina();
         }
 
         [TestMethod]
         public void ValidateWroteTimeNotWroteTime()
         {
-            string[] line = new string[] { " ", "60" };
-            Assert.AreEqual(false, validator.WroteHourAndMinutes(line));
+            string[] Line = new string[] { " ", "60" };
+            Assert.AreEqual(false, Validator.WroteHourAndMinutes(Line));
         }
 
         [TestMethod]
         public void ValidateWroteTimeInvalidWroteTime()
         {
-            string[] line = new string[] { " ", "1021:213321", "60"};
-            Assert.AreEqual(false, validator.WroteHourAndMinutes(line));
+            string[] Line = new string[] { " ", "1021:213321", "60"};
+            Assert.AreEqual(false, Validator.WroteHourAndMinutes(Line));
         }
 
         [TestMethod]
         public void ValidateWroteTimeValidWroteTime()
         {
-            string[] line = new string[] { " ", "11:21", "60" };
-            Assert.AreEqual(true, validator.WroteHourAndMinutes(line));
+            string[] Line = new string[] { " ", "11:21", "60" };
+            Assert.AreEqual(true, Validator.WroteHourAndMinutes(Line));
         }
 
         [TestMethod]
         public void ValidateMessageEmpty()
         {
-            string line = " ";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " ";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWhitMoreInput()
         {
-            string line = " 60 50 10:30 43 d";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " 60 50 10:30 43 d";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWhitBadFormatInHour()
         {
-            string line = " 60 2132:30";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " 60 2132:30";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWhitOnlyTime()
         {
-            string line = " 60";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " 60";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWhitValidTimeHourAndMinutes()
         {
-            string line = " 12:30 60";
-            Assert.AreEqual(true, validator.ValidateMessageData(line));
+            string Line = " 12:30 60";
+            Assert.AreEqual(true, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWithBadFormatInMinutes()
         {
-            string line = " 12:3032 60";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " 12:3032 60";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWithStringInTime()
         {
-            string line = " 12:32 TIME";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " 12:32 TIME";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWithBadFormatInHours()
         {
-            string line = " 12:30:32 60";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " 12:30:32 60";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWithStringInHour()
         {
-            string line = " ab:32 60";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " ab:32 60";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateMessageWithStringInMinutes()
         {
-            string line = " 12:sf 60";
-            Assert.AreEqual(false, validator.ValidateMessageData(line));
+            string Line = " 12:sf 60";
+            Assert.AreEqual(false, Validator.ValidateMessageData(Line));
         }
 
         [TestMethod]
         public void ValidateTimeOfPurchaseZero()
         {
-            Assert.AreEqual(false, validator.ValideTimeOfPurchase(0));
+            Assert.AreEqual(false, Validator.ValideTimeOfPurchase(0));
         }
 
         [TestMethod]
         public void ValidateTimeOfPurchaseNegativeNumber()
         {
-            Assert.AreEqual(false, validator.ValideTimeOfPurchase(-23));
+            Assert.AreEqual(false, Validator.ValideTimeOfPurchase(-23));
         }
 
         [TestMethod]
         public void ValidateTimeOfPurchasePositiveNumber()
         {
-            Assert.AreEqual(true, validator.ValideTimeOfPurchase(23));
+            Assert.AreEqual(true, Validator.ValideTimeOfPurchase(23));
         }
     }
 }

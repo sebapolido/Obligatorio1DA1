@@ -1,0 +1,15 @@
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\obj\Debug\DataBaseConnection.csprojAssemblyReference.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\obj\Debug\DataBaseConnection.csproj.CoreCompileInputs.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\DataBaseConnection.dll.config
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\DataBaseConnection.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\DataBaseConnection.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\Entities.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\EntityFramework.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\Entities.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\Entities.dll.config
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\EntityFramework.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\obj\Debug\DataBaseConnection.csproj.CopyComplete
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\obj\Debug\DataBaseConnection.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\DataBaseConnection\obj\Debug\DataBaseConnection.pdb

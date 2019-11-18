@@ -15,20 +15,20 @@ namespace ParkingSystem
             return date.Hour >= MIN_HOUR && date.Hour <= MAX_HOUR && ValidateTimeThatHasPassed(date);
         }
 
-        public bool ValidateTimeThatHasPassed(DateTime date)
+        public bool ValidateTimeThatHasPassed(DateTime Date)
         {
-            if (date.Hour == DateTime.Now.Hour)
-                return date.Minute >= DateTime.Now.Minute;
+            if (Date.Hour == DateTime.Now.Hour)
+                return Date.Minute >= DateTime.Now.Minute;
             else
-                return date.Hour > DateTime.Now.Hour;
+                return Date.Hour > DateTime.Now.Hour;
         }
 
-        public bool CheckDateWithTimeOfPurchase(DateTime date, Purchase purchase)
+        public bool CheckDateWithTimeOfPurchase(DateTime Date, Purchase Purchase)
         {
-            DateTime dateWithTime = purchase.DateOfPurchase;
-            dateWithTime = dateWithTime.AddMinutes(purchase.TimeOfPurchase);
-            if (date >= purchase.DateOfPurchase &&
-                date <= dateWithTime)
+            DateTime DateWithTime = Purchase.DateOfPurchase;
+            DateWithTime = DateWithTime.AddMinutes(Purchase.TimeOfPurchase);
+            if (Date >= Purchase.DateOfPurchase &&
+                Date <= DateWithTime)
                 return true;
             else
                 return false;

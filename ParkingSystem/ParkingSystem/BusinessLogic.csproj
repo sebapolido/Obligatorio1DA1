@@ -53,27 +53,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="CountryHandler.cs" />
-    <Compile Include="Enrollment.cs" />
     <Compile Include="IParkingRepository.cs" />
-    <Compile Include="DataBaseContext\MyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Purchase.cs" />
     <Compile Include="ParkingRepository.cs" />
-    <Compile Include="Validators\Validator.cs" />
     <Compile Include="Validators\ValidatorOfDate.cs" />
     <Compile Include="Validators\ValidatorOfEnrollment.cs" />
-    <Compile Include="Validators\ValidatorOfMessage.cs" />
-    <Compile Include="Validators\ValidatorOfMessageInArgentina.cs" />
-    <Compile Include="Validators\ValidatorOfMessageInUruguay.cs" />
-    <Compile Include="Validators\ValidatorOfPhone.cs" />
-    <Compile Include="Validators\ValidatorOfPhoneInArgentina.cs" />
-    <Compile Include="Validators\ValidatorOfPhoneInUruguay.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataBaseConnection\DataBaseConnection.csproj">
+      <Project>{8d4f099a-5c34-475c-bbc5-d996f967f42c}</Project>
+      <Name>DataBaseConnection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{861c8698-a477-4a19-a08d-0fe3ca6879e2}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
