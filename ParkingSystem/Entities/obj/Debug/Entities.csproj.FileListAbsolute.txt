@@ -1,0 +1,12 @@
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\obj\Debug\Entities.csprojAssemblyReference.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\obj\Debug\Entities.csproj.CoreCompileInputs.cache
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\bin\Debug\Entities.dll.config
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\bin\Debug\Entities.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\bin\Debug\Entities.pdb
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\bin\Debug\EntityFramework.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\bin\Debug\EntityFramework.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\obj\Debug\Entities.csproj.CopyComplete
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\obj\Debug\Entities.dll
+C:\Users\Bettina\Desktop\ORT\Semestre IV\Diseño I\234288-Obligatorio I DA1\Obligatorio1DA1\ParkingSystem\Entities\obj\Debug\Entities.pdb

@@ -9,145 +9,185 @@ namespace BusinessLogicTest
     [TestClass]
     public class CountryHandlerTest
     {
-        Country uruguay;
-        Country argentina;
-        CountryHandler countryHandler;
+        CountryHandler Uruguay;
+        CountryHandler Argentina;
 
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
-            countryHandler = null;
-            uruguay = null;
-            argentina = null;
+            Uruguay = null;
+            Argentina = null;
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
-            uruguay = new Country("Uruguay", 1);
-            argentina = new Country("Argentina", 2);
+            Uruguay = new CountryHandler("Uruguay", 1);
+            Argentina = new CountryHandler("Argentina", 1);
+            Uruguay.SetValidators(new ValidatorOfPhoneInUruguay(), new ValidatorOfMessageInUruguay());
+            Argentina.SetValidators(new ValidatorOfPhoneInArgentina(), new ValidatorOfMessageInArgentina());
+        }
+
+        [TestMethod]
+        public void ValidateEmptyConstructor()
+        {
+            CountryHandler brasil = new CountryHandler();
+            Assert.AreEqual(null, brasil.ValidatorOfPhone);
         }
 
         [TestMethod]
         public void ValidateIsEmptyByCountryArgentina()
-        {
-            countryHandler = new CountryHandler(argentina);
-            Assert.AreEqual(true, countryHandler.ValidateIsEmptyByCountry(""));
+        {            
+            Assert.AreEqual(true, Argentina.ValidateIsEmptyByCountry(""));
         }
 
         [TestMethod]
         public void ValidateIsEmptyByCountryUruguay()
         {
-            countryHandler = new CountryHandler(uruguay);
-            Assert.AreEqual(true, countryHandler.ValidateIsEmptyByCountry(""));
+            Assert.AreEqual(true, Uruguay.ValidateIsEmptyByCountry(""));
         }
 
         [TestMethod]
         public void ValidateIsNumericByCountryArgentina()
         {
-            countryHandler = new CountryHandler(argentina);
-            Assert.AreEqual(true, countryHandler.ValidateIsNumericByCountry("02323223"));
+            Assert.AreEqual(true, Argentina.ValidateIsNumericByCountry("02323223"));
         }
 
         [TestMethod]
         public void ValidateIsNumericByCountryUruguay()
         {
-            countryHandler = new CountryHandler(uruguay);
-            Assert.AreEqual(true, countryHandler.ValidateIsNumericByCountry("099355932"));
+            Assert.AreEqual(true, Uruguay.ValidateIsNumericByCountry("099355932"));
         }
 
         [TestMethod]
         public void ValidateFormatNumberByCountryArgentina()
         {
-            countryHandler = new CountryHandler(argentina);
-            string textOfPhone = "1234567";
-            Assert.AreEqual(true, countryHandler.ValidateFormatNumberByCountry(ref textOfPhone));
+            string TextOfPhone = "1234567";
+            Assert.AreEqual(true, Argentina.ValidateFormatNumberByCountry(ref TextOfPhone));
         }
 
         [TestMethod]
         public void ValidateFormatNumberByCountryUruguay()
         {
-            countryHandler = new CountryHandler(uruguay);
-            string textOfPhone = "099366931";
-            Assert.AreEqual(true, countryHandler.ValidateFormatNumberByCountry(ref textOfPhone));
+            string TextOfPhone = "099366931";
+            Assert.AreEqual(true, Uruguay.ValidateFormatNumberByCountry(ref TextOfPhone));
         }
 
         [TestMethod]
         public void ValidateMessageDataByCountryArgentina()
         {
-            countryHandler = new CountryHandler(argentina);
-            string message = " 60";
-            Assert.AreEqual(true, countryHandler.ValidateMessageDataByCountry(message));
+            string Message = "SBN2323 11:00 60";
+            Assert.AreEqual(true, Argentina.ValidateMessageDataByCountry(Message));
         }
 
         [TestMethod]
         public void ValidateMessageDataByCountryUruguay()
         {
-            countryHandler = new CountryHandler(uruguay);
-            string message = "SBN4949 30";
-            Assert.AreEqual(true, countryHandler.ValidateMessageDataByCountry(message));
+            string Message = "SBN4949 30";
+            Assert.AreEqual(true, Uruguay.ValidateMessageDataByCountry(Message));
         }
 
         [TestMethod]
         public void ValidateWroteHourAndMinutesByCountryArgentina()
         {
-            countryHandler = new CountryHandler(argentina);
-            string[] line = new string[] { " ","11:21", "60" };
-            Assert.AreEqual(true, countryHandler.WroteHourAndMinutesByCountry(line));
+            string[] Line = new string[] { " ","11:21", "60" };
+            Assert.AreEqual(true, Argentina.WroteHourAndMinutesByCountry(Line));
         }
 
         [TestMethod]
         public void ValidateWroteAndMinutesByCountryUruguay()
         {
-            countryHandler = new CountryHandler(uruguay);
-            string[] line = new string[] { " ", "60", "11:21" };
-            Assert.AreEqual(true, countryHandler.WroteHourAndMinutesByCountry(line));
+            string[] Line = new string[] { " ", "60", "11:21" };
+            Assert.AreEqual(true, Uruguay.WroteHourAndMinutesByCountry(Line));
+        }
+
+        [TestMethod]
+        public void ValidateAssignHourByCountryArgentina()
+        {
+            string[] Line = new string[] { " ", "11:21", "60" };
+            Assert.AreEqual(11, Argentina.AssignHourByCountry(Line));
+        }
+
+        [TestMethod]
+        public void ValidateAssignHourByCountryUruguay()
+        {
+            string[] Line = new string[] { " ", "60", "13:21" };
+            Assert.AreEqual(13, Uruguay.AssignHourByCountry(Line));
+        }
+
+        [TestMethod]
+        public void ValidateAssignMinutesByCountryArgentina()
+        {
+            string[] Line = new string[] { " ", "11:21", "60" };
+            Assert.AreEqual(21, Argentina.AssignMinutesByCountry(Line));
+        }
+
+        [TestMethod]
+        public void ValidateAssignMinutesByCountryUruguay()
+        {
+            string[] Line = new string[] { " ", "60", "13:45" };
+            Assert.AreEqual(45, Uruguay.AssignMinutesByCountry(Line));
+        }
+
+        [TestMethod]
+        public void ValidateAssignTimeByCountryArgentina()
+        {
+            string[] Line = new string[] { " ", "11:21", "60" };
+            Assert.AreEqual(60, Argentina.AssignTimeByCountry(Line));
+        }
+
+        [TestMethod]
+        public void ValidateAssignTimeWhitoutHourAndMinutesByCountryArgentina()
+        {
+            string[] Line = new string[] { " ", "34" };
+            Assert.AreEqual(34, Argentina.AssignTimeByCountry(Line));
+        }
+
+        [TestMethod]
+        public void ValidateAssignTimeByCountryUruguay()
+        {
+            string[] Line = new string[] { " ", "30", "13:21" };
+            Assert.AreEqual(30, Uruguay.AssignTimeByCountry(Line));
         }
 
         [TestMethod]
         public void ValidateTimeOfPurchaseByCountryArgentina()
         {
-            countryHandler = new CountryHandler(argentina);
-            Assert.AreEqual(true, countryHandler.ValidateTimeOfPurchaseByCountry(30));
+            Assert.AreEqual(true, Argentina.ValidateTimeOfPurchaseByCountry(30));
         }
 
         [TestMethod]
         public void ValidateTimeOfPurchaseByCountryUruguay()
         {
-            countryHandler = new CountryHandler(uruguay);
-            Assert.AreEqual(true, countryHandler.ValidateTimeOfPurchaseByCountry(30));
+            Assert.AreEqual(true, Uruguay.ValidateTimeOfPurchaseByCountry(30));
         }
 
         [TestMethod]
         public void ValidateLengthOfMessageByCountryArgentina()
         {
-            countryHandler = new CountryHandler(argentina);
-            Assert.AreEqual(true, countryHandler.IsLengthOfMessageCorrectByCountry(10));
+            Assert.AreEqual(true, Argentina.IsLengthOfMessageCorrectByCountry(10));
         }
 
         [TestMethod]
         public void ValidateLengthOfMessageByCountryUruguay()
         {
-            countryHandler = new CountryHandler(uruguay);
-            Assert.AreEqual(true, countryHandler.IsLengthOfMessageCorrectByCountry(10));
+            Assert.AreEqual(true, Uruguay.IsLengthOfMessageCorrectByCountry(10));
         }
 
         [TestMethod]
         public void ValidateCalculateTimeOfPurchaseByCountryArgentina()
         {
-            countryHandler = new CountryHandler(argentina);
-            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+            DateTime DateOfPurchase = new DateTime(DateTime.Now.Year,
                         DateTime.Now.Month, DateTime.Now.Day, 16, 40, 0);
-            Assert.AreEqual(60, countryHandler.CalculateFinalTimeOfPurchaseByCountry(60, dateOfPurchse));
+            Assert.AreEqual(60, Argentina.CalculateFinalTimeOfPurchaseByCountry(60, DateOfPurchase));
         }
 
         [TestMethod]
         public void ValidateCalculateTimeOfPurchaseByCountryUruguay()
         {
-            countryHandler = new CountryHandler(uruguay);
-            DateTime dateOfPurchse = new DateTime(DateTime.Now.Year,
+            DateTime DateOfPurchase = new DateTime(DateTime.Now.Year,
                          DateTime.Now.Month, DateTime.Now.Day, 16, 40, 0);
-            Assert.AreEqual(60, countryHandler.CalculateFinalTimeOfPurchaseByCountry(60, dateOfPurchse));
+            Assert.AreEqual(60, Uruguay.CalculateFinalTimeOfPurchaseByCountry(60, DateOfPurchase));
         }
     }
 }

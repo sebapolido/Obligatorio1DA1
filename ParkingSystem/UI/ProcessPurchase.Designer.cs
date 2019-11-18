@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessPurchase));
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.lblMessage = new System.Windows.Forms.Label();
             this.txtNumberPhone = new System.Windows.Forms.TextBox();
@@ -43,12 +42,11 @@
             // 
             // txtMessage
             // 
-            this.txtMessage.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.txtMessage.ForeColor = System.Drawing.Color.Black;
             this.txtMessage.Location = new System.Drawing.Point(199, 155);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(134, 20);
             this.txtMessage.TabIndex = 15;
-            this.txtMessage.Text = "Ej: ABC 1234 60 11:00";
             // 
             // lblMessage
             // 
@@ -70,7 +68,7 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.Image = global::UI.Properties.Resources.returnBack;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancel.Location = new System.Drawing.Point(34, 227);
             this.btnCancel.Name = "btnCancel";
@@ -83,7 +81,7 @@
             // btnAccept
             // 
             this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAccept.Image = ((System.Drawing.Image)(resources.GetObject("btnAccept.Image")));
+            this.btnAccept.Image = global::UI.Properties.Resources.iconAccept;
             this.btnAccept.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAccept.Location = new System.Drawing.Point(197, 227);
             this.btnAccept.Name = "btnAccept";

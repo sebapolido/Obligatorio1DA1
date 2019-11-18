@@ -8,35 +8,46 @@ namespace ParkingSystem
 {
     public interface IParkingRepository
     {
-        void AddAccount(Account account, Country country);
+        void AddAccount(Account Account);
 
         List<Account> GetAccounts();
 
-        void AddEnrollment(Enrollment enrollment);
+        void AddEnrollment(Enrollment Enrollment);
 
         List<Enrollment> GetEnrollments();
 
-        void AddPurchase(Purchase purchase);
+        void AddPurchase(Purchase Purchase);
 
         List<Purchase> GetPurchases();
 
-        void AddCountry(Country newCountry);
+        void AddCountry(CountryHandler NewCountry);
 
-        List<Country> GetCountries();
+        List<CountryHandler> GetCountries();
        
         bool IsRepeatedNumber(string text);
 
         Account GetAnAccount(string text);
 
-        Enrollment GetAnEnrollment(string lettersToCompare, int numbersToCompare);
+        Enrollment GetAnEnrollment(string LettersToCompare, int NumbersToCompare);
 
-        Country GetACountry(string nameOfCountry);
+        CountryHandler GetACountry(string NameOfCountry);
 
-        bool IsRepeatedEnrollment(string letters, int numbers);
+        bool IsRepeatedEnrollment(string Letters, int Numbers);
 
         bool IsRepeatedCountry(string name);
 
-        bool ArePurchaseOnThatDate(DateTime date, Enrollment enrollment);
-        
+        bool ArePurchaseOnThatDate(DateTime date, Enrollment Enrollment);
+
+        void AddBalanceToAccount(Account Account, int balanceToAdd);
+
+        void SubstractBalanceToAccount(Account Account, int BalanceToSubstract);
+
+        List<Purchase> InsertPurchaseOfEnrollmentToDataGridView(Enrollment EnrollmentOfPurchase);
+
+        List<Purchase> InsertPurchaseOnThatDate(DateTime InitialDateOfPurchase, DateTime FinalDateOfPurchase);
+
+        List<Purchase> EliminatePurchasesFromAnoterCountry(List<Purchase> PurchasesOnThatDate, CountryHandler Country);
+
+        void UpdateCostForMinutes(CountryHandler Country);
     }
 }

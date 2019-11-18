@@ -6,68 +6,67 @@ using ParkingSystem;
 
 namespace UnitTestProject1
 {
-    /// <summary>
-    /// Descripción resumida de PurchaseTest
-    /// </summary>
     [TestClass]
     public class PurchaseTest
     {
-        Purchase purchase;
-        Purchase purchaseEmpty;
-        Enrollment enrollment;
+        Purchase Purchase;
+        Purchase PurchaseEmpty;
+        Enrollment Enrollment;
+        Account Account;
+
         public PurchaseTest()
         {
 
         }
 
-
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
-            purchase = null;
-            purchaseEmpty = null;
-            enrollment = null;
-
+            Purchase = null;
+            PurchaseEmpty = null;
+            Enrollment = null;
+            Account = null;
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
-            enrollment = new Enrollment("sbn", 4848);
-            purchaseEmpty = new Purchase();
-            DateTime date = new DateTime(2019,10,8,15,10,0);
-            purchase = new Purchase(enrollment, 30, date);
+            Enrollment = new Enrollment("sbn", 4848);
+            PurchaseEmpty = new Purchase();
+            DateTime Date = new DateTime(2019,10,8,15,10,0);
+            Account = new Account(25, "099366931", new CountryHandler("Uruguay", 1));
+            Purchase = new Purchase(Enrollment, 30, Date, Account);
         }
 
         [TestMethod]
         public void CreateEmptyPurchaseTimeOfPurchase()
         {
-            Assert.AreEqual(0, purchaseEmpty.timeOfPurchase);
+            Assert.AreEqual(0, PurchaseEmpty.TimeOfPurchase);
         }
 
         [TestMethod]
         public void CreateEmptyPurchaseEnrollment()
         {
-            Assert.AreEqual(null, purchaseEmpty.enrollmentOfPurchase);
+            Assert.AreEqual(null, PurchaseEmpty.EnrollmentOfPurchase);
         }
 
         [TestMethod]
         public void CreatePurchaseEnrollment()
         {
-            Assert.AreEqual(enrollment, purchase.enrollmentOfPurchase);
+            Assert.AreEqual(Enrollment, Purchase.EnrollmentOfPurchase);
         }
 
         [TestMethod]
         public void CreatePurchaseTime()
         {
-            Assert.AreEqual(30, purchase.timeOfPurchase);
+            Assert.AreEqual(30, Purchase.TimeOfPurchase);
         }
 
         [TestMethod]
         public void CreatePurchaseDate()
         {
-            DateTime date = new DateTime(2019, 10, 8, 15, 10, 0);
-            Assert.AreEqual(date, purchase.dateOfPurchase);
+            DateTime Date = new DateTime(2019, 10, 8, 15, 10, 0);
+            Assert.AreEqual(Date, Purchase.DateOfPurchase);
         }
     }
 }

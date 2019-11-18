@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="UI.exe.manifest" size="4098">
+    <dependentAssembly dependencyType="install" codebase="UI.exe.manifest" size="10386">
       <assemblyIdentity name="UI.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NmCm/KZFuhGPzqoeEUbFU7lB/kKJqrP2kG3jh8wRu/g=</dsig:DigestValue>
+        <dsig:DigestValue>PmTwGOlqFM4LQpSBQklmTG9A6AS+KiRo5SzRozeizYk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

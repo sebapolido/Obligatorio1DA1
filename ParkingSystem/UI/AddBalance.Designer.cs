@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddBalance));
             this.txtNumberPhone = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -51,7 +50,7 @@
             // btnBack
             // 
             this.btnBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
+            this.btnBack.Image = global::UI.Properties.Resources.returnBack;
             this.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBack.Location = new System.Drawing.Point(37, 238);
             this.btnBack.Name = "btnBack";
@@ -64,7 +63,7 @@
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
+            this.btnAdd.Image = global::UI.Properties.Resources.iconAccept;
             this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAdd.Location = new System.Drawing.Point(200, 238);
             this.btnAdd.Name = "btnAdd";
@@ -141,6 +140,7 @@
             this.Controls.Add(this.lblNumberPhone);
             this.Name = "AddBalance";
             this.Size = new System.Drawing.Size(383, 473);
+            this.Load += new System.EventHandler(this.AddBalance_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

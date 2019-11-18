@@ -6,83 +6,76 @@ using ParkingSystem;
 
 namespace UnitTestProject1
 {
-    /// <summary>
-    /// Descripción resumida de EnrollmentTest
-    /// </summary>
     [TestClass]
     public class EnrollmentTest
     {
         public EnrollmentTest()
         {
-            //
-            // TODO: Agregar aquí la lógica del constructor
-            //
         }
        
-        Enrollment enrollment;
-        Enrollment enrollmentEmpty;
+        Enrollment Enrollment;
+        Enrollment EnrollmentEmpty;
 
         [TestCleanup]
-        public void testClean()
+        public void TestClean()
         {
-            enrollment = null;
-            enrollmentEmpty = null;
-
+            Enrollment = null;
+            EnrollmentEmpty = null;
         }
 
         [TestInitialize]
-        public void testInit()
+        public void TestInit()
         {
-            enrollmentEmpty = new Enrollment();
-            enrollment = new Enrollment("SBN", 4849);
+            EnrollmentEmpty = new Enrollment();
+            Enrollment = new Enrollment("SBN", 4849);
         }
 
         [TestMethod]
         public void CreateEmptyEnrollmentLetters()
         {
-            Assert.AreEqual("", enrollmentEmpty.lettersOfEnrollment);
+            Assert.AreEqual("", EnrollmentEmpty.LettersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEmptyEnrollmentNumbers()
         {
-            Assert.AreEqual(0, enrollmentEmpty.numbersOfEnrollment);
+            Assert.AreEqual(0, EnrollmentEmpty.NumbersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEnrollmentLetters()
         {
-            Assert.AreEqual("SBN", enrollment.lettersOfEnrollment);
+            Assert.AreEqual("SBN", Enrollment.LettersOfEnrollment);
         }
 
         [TestMethod]
         public void CreateEnrollmentNumbers()
         {
-            Assert.AreEqual(4849, enrollment.numbersOfEnrollment);
+            Assert.AreEqual(4849, Enrollment.NumbersOfEnrollment);
         }
 
         [TestMethod]
         public void ValidateNotEquals()
         {
-            Assert.AreEqual(false, enrollment.Equals(new Enrollment("SDS", 4322)));
+            Assert.AreEqual(false, Enrollment.Equals(new Enrollment("SDS", 4322)));
         }
 
         [TestMethod]
         public void ValidateNotEqualsNumbers()
         {
-            Assert.AreEqual(false, enrollment.Equals(new Enrollment("SBN", 4322)));
+            Assert.AreEqual(false, Enrollment.Equals(new Enrollment("SBN", 4322)));
         }
 
         [TestMethod]
         public void ValidateNotEqualsLetters()
         {
-            Assert.AreEqual(false, enrollment.Equals(new Enrollment("SDS", 4849)));
+            Assert.AreEqual(false, Enrollment.Equals(new Enrollment("SDS", 4849)));
         }
 
         [TestMethod]
-        public void ValidateEquals()
+        public void ValidateToString()
         {
-            Assert.AreEqual(true, enrollment.Equals(new Enrollment("SBN", 4849)));
+            Assert.AreEqual("SBN4849", Enrollment.ToString());
         }
     }
 }

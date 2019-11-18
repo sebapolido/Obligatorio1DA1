@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheckPurchase));
             this.lblDate = new System.Windows.Forms.Label();
             this.txtEnrollment = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -65,7 +64,7 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.Image = global::UI.Properties.Resources.returnBack;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancel.Location = new System.Drawing.Point(40, 245);
             this.btnCancel.Name = "btnCancel";
@@ -78,7 +77,7 @@
             // btnConsult
             // 
             this.btnConsult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsult.Image = ((System.Drawing.Image)(resources.GetObject("btnConsult.Image")));
+            this.btnConsult.Image = global::UI.Properties.Resources.consult;
             this.btnConsult.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnConsult.Location = new System.Drawing.Point(203, 245);
             this.btnConsult.Name = "btnConsult";

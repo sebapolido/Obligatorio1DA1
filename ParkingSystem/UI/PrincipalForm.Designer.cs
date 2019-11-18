@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrincipalForm));
             this.lblWelcome = new System.Windows.Forms.Label();
-            this.principalPanel = new System.Windows.Forms.Panel();
+            this.PrincipalPanel = new System.Windows.Forms.Panel();
+            this.btnReports = new System.Windows.Forms.Button();
             this.lblAnswer = new System.Windows.Forms.Label();
-            this.btnProcessPurchase = new System.Windows.Forms.Button();
-            this.btnCheckPurchase = new System.Windows.Forms.Button();
-            this.btnAddBalance = new System.Windows.Forms.Button();
             this.btnAccountRegister = new System.Windows.Forms.Button();
             this.SecundaryPanel = new System.Windows.Forms.Panel();
             this.timerOfAnswer = new System.Windows.Forms.Timer(this.components);
             this.btnSettings = new System.Windows.Forms.Button();
-            this.principalPanel.SuspendLayout();
+            this.btnProcessPurchase = new System.Windows.Forms.Button();
+            this.btnCheckPurchase = new System.Windows.Forms.Button();
+            this.btnAddBalance = new System.Windows.Forms.Button();
+            this.PrincipalPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblWelcome
@@ -54,78 +54,53 @@
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Bienvenido";
             // 
-            // principalPanel
+            // PrincipalPanel
             // 
-            this.principalPanel.Controls.Add(this.btnSettings);
-            this.principalPanel.Controls.Add(this.lblAnswer);
-            this.principalPanel.Controls.Add(this.btnProcessPurchase);
-            this.principalPanel.Controls.Add(this.btnCheckPurchase);
-            this.principalPanel.Controls.Add(this.btnAddBalance);
-            this.principalPanel.Controls.Add(this.btnAccountRegister);
-            this.principalPanel.Controls.Add(this.lblWelcome);
-            this.principalPanel.Location = new System.Drawing.Point(2, 3);
-            this.principalPanel.Name = "principalPanel";
-            this.principalPanel.Size = new System.Drawing.Size(356, 427);
-            this.principalPanel.TabIndex = 1;
+            this.PrincipalPanel.Controls.Add(this.btnReports);
+            this.PrincipalPanel.Controls.Add(this.btnSettings);
+            this.PrincipalPanel.Controls.Add(this.lblAnswer);
+            this.PrincipalPanel.Controls.Add(this.btnProcessPurchase);
+            this.PrincipalPanel.Controls.Add(this.btnCheckPurchase);
+            this.PrincipalPanel.Controls.Add(this.btnAddBalance);
+            this.PrincipalPanel.Controls.Add(this.btnAccountRegister);
+            this.PrincipalPanel.Controls.Add(this.lblWelcome);
+            this.PrincipalPanel.Location = new System.Drawing.Point(2, 3);
+            this.PrincipalPanel.Name = "PrincipalPanel";
+            this.PrincipalPanel.Size = new System.Drawing.Size(356, 427);
+            this.PrincipalPanel.TabIndex = 1;
+            // 
+            // btnReports
+            // 
+            this.btnReports.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReports.Image = global::UI.Properties.Resources.report;
+            this.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReports.Location = new System.Drawing.Point(68, 291);
+            this.btnReports.Name = "btnReports";
+            this.btnReports.Size = new System.Drawing.Size(224, 36);
+            this.btnReports.TabIndex = 7;
+            this.btnReports.Text = "Reportes";
+            this.btnReports.UseVisualStyleBackColor = true;
+            this.btnReports.Click += new System.EventHandler(this.BtnReports_Click);
             // 
             // lblAnswer
             // 
             this.lblAnswer.AutoSize = true;
             this.lblAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswer.ForeColor = System.Drawing.Color.Red;
-            this.lblAnswer.Location = new System.Drawing.Point(3, 339);
+            this.lblAnswer.Location = new System.Drawing.Point(4, 346);
             this.lblAnswer.Name = "lblAnswer";
             this.lblAnswer.Size = new System.Drawing.Size(352, 18);
             this.lblAnswer.TabIndex = 5;
             this.lblAnswer.Text = "Primero debe haber al menos una cuenta registrada.";
             // 
-            // btnProcessPurchase
-            // 
-            this.btnProcessPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProcessPurchase.Image = ((System.Drawing.Image)(resources.GetObject("btnProcessPurchase.Image")));
-            this.btnProcessPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProcessPurchase.Location = new System.Drawing.Point(68, 216);
-            this.btnProcessPurchase.Name = "btnProcessPurchase";
-            this.btnProcessPurchase.Size = new System.Drawing.Size(224, 42);
-            this.btnProcessPurchase.TabIndex = 4;
-            this.btnProcessPurchase.Text = "  Procesar compra";
-            this.btnProcessPurchase.UseVisualStyleBackColor = true;
-            this.btnProcessPurchase.Click += new System.EventHandler(this.BtnProcessPurchase_Click);
-            // 
-            // btnCheckPurchase
-            // 
-            this.btnCheckPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCheckPurchase.Image = ((System.Drawing.Image)(resources.GetObject("btnCheckPurchase.Image")));
-            this.btnCheckPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCheckPurchase.Location = new System.Drawing.Point(68, 281);
-            this.btnCheckPurchase.Name = "btnCheckPurchase";
-            this.btnCheckPurchase.Size = new System.Drawing.Size(224, 42);
-            this.btnCheckPurchase.TabIndex = 3;
-            this.btnCheckPurchase.Text = "  Consultar compra";
-            this.btnCheckPurchase.UseVisualStyleBackColor = true;
-            this.btnCheckPurchase.Click += new System.EventHandler(this.BtnCheckPurchase_Click);
-            // 
-            // btnAddBalance
-            // 
-            this.btnAddBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddBalance.Image = ((System.Drawing.Image)(resources.GetObject("btnAddBalance.Image")));
-            this.btnAddBalance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddBalance.Location = new System.Drawing.Point(68, 151);
-            this.btnAddBalance.Name = "btnAddBalance";
-            this.btnAddBalance.Size = new System.Drawing.Size(224, 42);
-            this.btnAddBalance.TabIndex = 2;
-            this.btnAddBalance.Text = "Agregar saldo";
-            this.btnAddBalance.UseVisualStyleBackColor = true;
-            this.btnAddBalance.Click += new System.EventHandler(this.BtnAddBalance_Click);
-            // 
             // btnAccountRegister
             // 
             this.btnAccountRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAccountRegister.Image = ((System.Drawing.Image)(resources.GetObject("btnAccountRegister.Image")));
+            this.btnAccountRegister.Image = global::UI.Properties.Resources.accountRegister1;
             this.btnAccountRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAccountRegister.Location = new System.Drawing.Point(68, 86);
             this.btnAccountRegister.Name = "btnAccountRegister";
-            this.btnAccountRegister.Size = new System.Drawing.Size(224, 42);
+            this.btnAccountRegister.Size = new System.Drawing.Size(224, 36);
             this.btnAccountRegister.TabIndex = 1;
             this.btnAccountRegister.Text = " Registrar cuenta";
             this.btnAccountRegister.UseVisualStyleBackColor = true;
@@ -146,7 +121,7 @@
             // btnSettings
             // 
             this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
+            this.btnSettings.Image = global::UI.Properties.Resources.settings;
             this.btnSettings.Location = new System.Drawing.Point(306, 377);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(47, 42);
@@ -154,20 +129,59 @@
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
+            // btnProcessPurchase
+            // 
+            this.btnProcessPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProcessPurchase.Image = global::UI.Properties.Resources.processPurchase;
+            this.btnProcessPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnProcessPurchase.Location = new System.Drawing.Point(68, 189);
+            this.btnProcessPurchase.Name = "btnProcessPurchase";
+            this.btnProcessPurchase.Size = new System.Drawing.Size(224, 36);
+            this.btnProcessPurchase.TabIndex = 4;
+            this.btnProcessPurchase.Text = "  Procesar compra";
+            this.btnProcessPurchase.UseVisualStyleBackColor = true;
+            this.btnProcessPurchase.Click += new System.EventHandler(this.BtnProcessPurchase_Click);
+            // 
+            // btnCheckPurchase
+            // 
+            this.btnCheckPurchase.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckPurchase.Image = global::UI.Properties.Resources.checkPurchase;
+            this.btnCheckPurchase.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCheckPurchase.Location = new System.Drawing.Point(68, 240);
+            this.btnCheckPurchase.Name = "btnCheckPurchase";
+            this.btnCheckPurchase.Size = new System.Drawing.Size(224, 36);
+            this.btnCheckPurchase.TabIndex = 3;
+            this.btnCheckPurchase.Text = "  Consultar compra";
+            this.btnCheckPurchase.UseVisualStyleBackColor = true;
+            this.btnCheckPurchase.Click += new System.EventHandler(this.BtnCheckPurchase_Click);
+            // 
+            // btnAddBalance
+            // 
+            this.btnAddBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddBalance.Image = global::UI.Properties.Resources.addBalance;
+            this.btnAddBalance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddBalance.Location = new System.Drawing.Point(68, 137);
+            this.btnAddBalance.Name = "btnAddBalance";
+            this.btnAddBalance.Size = new System.Drawing.Size(224, 36);
+            this.btnAddBalance.TabIndex = 2;
+            this.btnAddBalance.Text = "Agregar saldo";
+            this.btnAddBalance.UseVisualStyleBackColor = true;
+            this.btnAddBalance.Click += new System.EventHandler(this.BtnAddBalance_Click);
+            // 
             // PrincipalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(367, 434);
-            this.Controls.Add(this.principalPanel);
+            this.ClientSize = new System.Drawing.Size(374, 441);
+            this.Controls.Add(this.PrincipalPanel);
             this.Controls.Add(this.SecundaryPanel);
             this.MaximizeBox = false;
             this.Name = "PrincipalForm";
             this.Text = "Gestión de estacionamiento";
-            this.principalPanel.ResumeLayout(false);
-            this.principalPanel.PerformLayout();
+            this.PrincipalPanel.ResumeLayout(false);
+            this.PrincipalPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -175,7 +189,7 @@
         #endregion
 
         private System.Windows.Forms.Label lblWelcome;
-        private System.Windows.Forms.Panel principalPanel;
+        private System.Windows.Forms.Panel PrincipalPanel;
         private System.Windows.Forms.Button btnAccountRegister;
         private System.Windows.Forms.Button btnProcessPurchase;
         private System.Windows.Forms.Button btnCheckPurchase;
@@ -184,6 +198,7 @@
         private System.Windows.Forms.Label lblAnswer;
         private System.Windows.Forms.Timer timerOfAnswer;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btnReports;
     }
 }
 
